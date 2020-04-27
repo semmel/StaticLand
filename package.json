@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/semmel/StaticLand/issues"
   },
-  "homepage": "https://github.com/semmel/StaticLand#readme"
+  "homepage": "https://github.com/semmel/StaticLand#readme",
+  "dependencies": {
+    "ramda": "file:../WebLibraries/ramda/ramda"
+  }
 }
