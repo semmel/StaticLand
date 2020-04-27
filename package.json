@@ -1,0 +1,27 @@
+{
+  "name": "@visisoft/staticland",
+  "version": "1.0.0",
+  "description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/semmel/StaticLand.git"
+  },
+  "keywords": [
+    "Maybe",
+    "Promise",
+    "Static-Land",
+    "Algebraic",
+    "Data",
+    "Type"
+  ],
+  "author": "Matthias Seemann",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/semmel/StaticLand/issues"
+  },
+  "homepage": "https://github.com/semmel/StaticLand#readme"
+}
