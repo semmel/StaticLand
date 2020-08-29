@@ -1,6 +1,8 @@
-import { identity, o } from 'ramda';
+import { always, curry, find, identity, o } from 'ramda';
 import chai from 'chai';
-import { getOrElse, of, map, nothing, reduce } from '../src/maybe.js';
+import {
+	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust, map, nothing, maybe, lift, reduce
+} from '../src/maybe.js';
 
 const
 	assert = chai.assert,
@@ -28,6 +30,12 @@ const
 	};
 
 describe("Maybe", function() {
+	const
+		justNumber = of(8),
+		justUndefined = of(undefined),
+		justEmptyArray = of([]),
+		aRecordStructure = { foo: "bar", inner: { items: [] } },
+		justRecord = of(Object.assign({}, aRecordStructure));
 	
 	describe("Functor", function () {
 		it("obeys the identity law", () => {
@@ -54,7 +62,58 @@ describe("Maybe", function() {
 		});
 	});
 	
-	describe("API", function () {
+	describe("Chain", function() {
+		it("ignores nothing", () => {
+			assert.isTrue(isNothing(chain(
+				() => { assert.fail("chain function must not be invoked on nothing"); },
+				nothing()
+			)));
+		});
+		
+		it("executes the function on just", () => {
+			assert.deepStrictEqual(chain(always(of("foo")), justUndefined), of("foo"));
+			assert.deepStrictEqual(chain(always(of("bar")), justEmptyArray), of("bar"));
+			assert.isTrue(equals_mb(chain(x => of(x + "-bar"), of("foo")), of("foo-bar")));
+		});
+	});
+	
+	describe("Creation" ,function() {
+		describe("fromNilable", function() {
+			it("creates a nothing from undefined", () => {
+				assert.deepStrictEqual(o(fromNilable, find(x => x === "bar"))(["foo"]), nothing());
+			});
+			
+			it("creates a just from a string", () => {
+				assert.deepStrictEqual(o(fromNilable, find(x => x === "bar"))(["foo", "bar"]), of("bar"));
+			});
+		});
+	});
+	
+	describe("Inspection", function() {
+		it("identifies Nothing", () => {
+			const aNothing = nothing();
+			assert.isTrue(isNothing(aNothing));
+			assert.isFalse(isJust(aNothing));
+		});
+		
+		it("identifies Justs", () => {
+			assert.isTrue(isJust(justNumber));
+			assert.isTrue(isJust(justUndefined));
+			assert.isTrue(isJust(justEmptyArray));
+			
+			assert.isFalse(isNothing(justNumber));
+			assert.isFalse(isNothing(justUndefined));
+			assert.isFalse(isNothing(justEmptyArray));
+		});
+		
+		it("determines the equality", () => {
+			assert.isTrue(equals_mb(nothing(), nothing()));
+			assert.isFalse(equals_mb(nothing(), of(8)));
+			assert.isTrue(equals_mb(justRecord, of(Object.assign({}, aRecordStructure))));
+		});
+	});
+	
+	describe("Consumption", function () {
 		describe("getOrElse", function () {
 			it("returns just the value", () => {
 				assert.deepStrictEqual(getOrElse("unexpected default", mFoo), "foo", "gets just a string");
@@ -64,6 +123,69 @@ describe("Maybe", function() {
 			it("returns the replacement for nothing", () => {
 				assert.strictEqual(getOrElse("unexpected default", mNothing), "unexpected default");
 			});
+		});
+		
+		describe("maybe", function() {
+			it("invokes the first function and returns its result in case of a nothing", function () {
+				assert.strictEqual(
+					maybe(
+						() => "bar anything",
+						() => { assert.fail("2nd function should not be called"); },
+						nothing()
+					),
+					"bar anything"
+				);
+			});
+			
+			it(
+				"calls the second function with the value inside the maybe and returns its result in case of a just",
+				() => {
+					assert.strictEqual(
+						maybe(
+							() => { assert.fail("1st maybe function should not have been called"); },
+							x => x + "bar",
+							of("foo")
+						),
+						"foobar"
+					);
+				}
+			);
+		});
+	});
+	
+	describe("Lifting", function() {
+		function add3(a, b, c){
+			return a + b + c;
+		}
+		
+		const
+			lifted_add3 = lift(add3),
+			get = getOrElse("Nonsense");
+		
+		it("returns a function with the same arity", () => {
+			assert.isFunction(lifted_add3);
+			assert.lengthOf(lifted_add3, 3);
+		});
+		
+		it("returns a nothing if invoked with any nothing argument", () => {
+			assert.isTrue(isNothing(lifted_add3(of(1), of(20), nothing())));
+		});
+		
+		it("lifts ternary un-curried functions", () => {
+			assert.strictEqual(
+				get(lifted_add3(of(1), of(20), of(300))),
+				321
+			);
+		});
+		
+		it("lifts ternary auto-curried functions", () => {
+			assert.isTrue(
+				equals_mb(
+					lift(curry(add3))(of(300), of(20), of(1)),
+					of(321)
+				),
+				"lifted function did not return the expected value 321"
+			);
 		});
 	});
 	

@@ -5,12 +5,31 @@
  * https://funfix.org/api/exec/classes/future.html
  */
 
-import { curry} from 'ramda';
+import { curry, o } from 'ramda';
 
 const
+	// Creation //
+	
 	// Applicative
-	// of :: a -> Promise a
+	// of :: a -> Promise e a
 	of = value => Promise.resolve(value),
+	
+	/**
+	 * Note that `Promise.reject` rejects with any type including any Promise (unsettled, rejected or fulfilled)!
+	 * @see https://stackoverflow.com/questions/39197769/what-happens-if-i-reject-a-promise-with-another-promise-value
+	 * @template T
+	 * @param {T} error it better be always an `Error`
+	 * @return {Promise}
+	 */
+	// reject :: e -> Promise e a
+	reject = error => Promise.reject(error),
+	
+	// Callback a :: a -> undefined
+	// create :: (Callback a -> undefined) -> Promise * a
+	// create :: ((Callback a, Callback e) -> undefined) -> Promise e a
+	create = worker => new Promise(worker),
+	
+	
 
 	ap_ = curry((fnPromise, aPromise) => fnPromise.then(fn => aPromise.then(fn))),
   // this implementation avoids the UnhandledPromiseRejection error
@@ -57,12 +76,22 @@ const
     }
   }),
 
-	// map :: (a -> b) -> Promise a -> Promise b
+	// map :: (a -> b) -> Promise e a -> Promise e b
 	map = curry((fn, aPromise) => aPromise.then(fn)),
+	
+	/**
+	 * shameless copy from Fluture
+	 */
+	// mapRej :: (e -> c) -> Promise e b -> Promise c b
+	mapRej = curry((fn, aPromise) => aPromise.catch(o(reject, fn))),
+	
+	// bimap :: Bifunctor m => (a -> c) -> (b -> d) -> m a b -> m c d
+	bimap = curry((failureMap, successMap, aPromise) =>
+		aPromise.then(successMap, o(reject, failureMap))),
 
 	chain_ = (fn, value) => value.then(fn),
 	// this implementation enforces fn to return a promise
-	// chain :: (a -> Promise<b>) -> Promise a -> Promise b
+	// chain :: (a -> Promise e b) -> Promise g a -> Promise (e|g) b
 	chain = curry((fn, aPromise) =>
 		new Promise((resolve, reject) => {
 			aPromise
@@ -74,7 +103,7 @@ const
 
   // In this implementation an exception in the side-effect rubs off to the Promise
   // tap :: (a -> *) -> Promise a -> Promise a
-  tap_ = curry((fn, p) =>
+  tap = curry((fn, p) =>
     p.then(x => {
       fn(x);
       return x;
@@ -94,13 +123,13 @@ const
    * @param {function(A):*} sideEffect
    * @return {function(Promise<A>): Promise<A>}
    */
-  // tap :: (a -> *) -> Promise a -> Promise a
-  tap = curry((fn, p) => {
+  // tapRegardless :: (a -> *) -> Promise a -> Promise a
+  tapRegardless = curry((fn, p) => {
     p.then(fn).catch(x => x);
 
     return p;
   });
 
 export {
-	of, ap, map, chain, tap
+	of, ap, bimap, chain, create, map, mapRej, reject, tap, tapRegardless
 };

@@ -1,7 +1,7 @@
 import {applyTo, identity, o, pipe} from 'ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
-import {map, of, tap} from '../src/promise.js';
+import {map, of, tap, tapRegardless} from '../src/promise.js';
 
 const
 	assert = chai.assert,
@@ -67,6 +67,14 @@ describe("Promise", function() {
 				err => assert.strictEqual(err, THAT_ERROR)
 			);
 		});
+		
+		it("does not execute the map function on failure", () =>
+			map(() => assert.fail("should not execute this line"))(laterFail(20, "test failure"))
+			.then(
+				() => assert.fail("should not succeed"),
+				err => assert.strictEqual(err, "test failure")
+			)
+		);
 	});
 	
 	describe("tap", function () {
@@ -101,8 +109,23 @@ describe("Promise", function() {
 			);
 		});
 		
+		it("propagates exceptions in the side-effect to the returned promise", () => {
+			const
+				error = new Error("side-effect exception");
+			
+			return tap(_ => {
+				throw error;
+			}, Promise.resolve("foo"))
+			.then(
+				val => assert.fail(`Should not resolve with ${val} after exception in the side-effect function`),
+				e => assert.equal(e, error)
+			);
+		});
+	});
+	
+	describe("tapRegardless", function () {
 		it("should ignore exceptions in the side-effect", () =>
-			tap(_ => {
+			tapRegardless(_ => {
 				throw new Error("side-effect exception");
 			}, Promise.resolve("foo"))
 			.then(
