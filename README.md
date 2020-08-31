@@ -2,7 +2,25 @@
 
 @visisoft/staticland
 ====================
-Operations on Algebraic Data Types (ADT) (Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on *native JavaScript types* as `Array` and `Promise`.  
+Operations on Algebraic Data Types (ADT) (Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on *native JavaScript types* as `Array` and `Promise`.
+
+Hello @visisoft/staticland
+--------------------------
+### Installation
+`npm install @visisoft/staticland`
+
+### Demo
+```javascript
+import {of, chain, tap} from '@visisoft/staticland/promise';
+import {pipe} from 'ramda'; // or any other
+
+pipe(
+   of, 
+   chain(x => new Promise(resolve => setTimeout(resolve, 500, x + 10))), 
+   tap(x => console.log("outcome: ", x))
+)(7)
+// -> outcome: 17
+```   
 
 Objective
 ---------
