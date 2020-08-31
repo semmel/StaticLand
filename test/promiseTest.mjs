@@ -1,4 +1,4 @@
-import {applyTo, identity, o, pipe} from 'ramda';
+import {applyTo, identity, o, pipe} from 'semmel-ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
 import {map, of, tap, tapRegardless} from '../src/promise.js';

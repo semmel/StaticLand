@@ -5,7 +5,7 @@
  * https://funfix.org/api/exec/classes/future.html
  */
 
-import { curry, o } from 'ramda';
+import { curry, o } from 'semmel-ramda';
 
 const
 	// Creation //

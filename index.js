@@ -7,5 +7,5 @@
  * Aggregated export
  */
 
-export * as SLPromise from './src/promise.js';
-export * as SLMaybe from './src/maybe.js';
+export * as P from './src/promise.js';
+export * as M from './src/maybe.js';

@@ -25,9 +25,14 @@ Related Work
 ------------
 [Ramda-Fantasy](ramda-fantasy) is very well documented, but sadly no longer maintained.
 
+Dependencies
+------------
 
+As FP utility library [Ramda][ramda-homepage] is used. Patch-fork [semmel-ramda][semmel-ramda] will be dropped when Ramda is published as proper dual-mode or [hybrid][2-ality-hybrid] module.
 
 [sl-ref]: https://github.com/fantasyland/static-land/
-[ramda-homepage]: https://ramdajs.com#what-s-different-
+[ramda-homepage]: https://ramdajs.com
+[2-ality-hybrid]: https://2ality.com/2019/10/hybrid-npm-packages.html
+[semmel-ramda]: https://github.com/semmel/ramda
 [wikipedia-fcompose]: https://en.wikipedia.org/wiki/Function_composition_(computer_science)
 [ramda-fantasy]: https://github.com/ramda/ramda-fantasy

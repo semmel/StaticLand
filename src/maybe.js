@@ -12,7 +12,7 @@
 import {
 	any, apply, always, compose, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
 	map as map_l, nAry, nth, unary, pathOr, reduce as reduce_l, unapply
-} from '../node_modules/ramda/es/index.js';
+} from 'semmel-ramda';
 
 const
 	singleNothing = [],
