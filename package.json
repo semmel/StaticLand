@@ -4,7 +4,7 @@
 		"url": "https://github.com/semmel/StaticLand/issues"
 	},
 	"dependencies": {
-		"ramda": "file:../WebLibraries/ramda/ramda"
+		"ramda": "npm:semmel-ramda@^0.32.0"
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
 	"devDependencies": {
@@ -15,7 +15,8 @@
 	"exports": {
 		".": "./index.js",
 		"./promise": "./src/promise.js",
-		"./maybe": "./src/maybe.js"
+		"./maybe": "./src/maybe.js",
+		"./package.json": "./package.json"
 	},
 	"homepage": "https://github.com/semmel/StaticLand#readme",
 	"keywords": [

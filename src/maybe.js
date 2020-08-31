@@ -10,9 +10,9 @@
  */
 
 import {
-	any, apply, always, compose, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR, o,
+	any, apply, always, compose, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
 	map as map_l, nAry, nth, unary, pathOr, reduce as reduce_l, unapply
-} from 'ramda';
+} from '../node_modules/ramda/es/index.js';
 
 const
 	singleNothing = [],

@@ -1,7 +1,7 @@
 [![Dependencies](https://img.shields.io/david/semmel/StaticLand.svg?style=flat-square)](https://david-dm.org/semmel/StaticLand)
 
-@visisoft/StaticLand (SL)
-=========================
+@visisoft/staticland
+====================
 Operations on Algebraic Data Types (ADT) (Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on *native JavaScript types* as `Array` and `Promise`.  
 
 Objective
@@ -24,6 +24,8 @@ The functions are designed to support the usual functional programming style in 
 Related Work
 ------------
 [Ramda-Fantasy](ramda-fantasy) is very well documented, but sadly no longer maintained.
+
+
 
 [sl-ref]: https://github.com/fantasyland/static-land/
 [ramda-homepage]: https://ramdajs.com#what-s-different-
