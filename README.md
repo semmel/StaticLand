@@ -2,7 +2,7 @@
 
 @visisoft/staticland
 ====================
-Operations on Algebraic Data Types (ADT) (Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on *native JavaScript types* as `Array` and `Promise`.
+Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on *native JavaScript types* as `Array` and `Promise`.
 
 Hello @visisoft/staticland
 --------------------------
@@ -16,7 +16,7 @@ Greeting with a 0.5 sec 2-way delay.
 ```javascript
 import {map as map_p, mapRej as mapRej_p, chain as chain_p} from '@visisoft/staticland/promise';
 import {fromThrowable} from '@visisoft/staticland/either';
-import {fromNilable, maybe} from '@visisoft/staticland/maybe';
+import {fromNilable, getOrElse} from '@visisoft/staticland/maybe';
 import {curry, pipe} from 'ramda'; // or pipe from 'crocks' or any other composition function
 
 const 
@@ -36,11 +36,11 @@ const
    );
 
 getAnswer("Earth")
-.then(console.log, me => console.warn(SL.M.getOrElse("unknown error", me)));
+.then(console.log, me => console.warn(getOrElse("unknown error", me)));
 // -> "Hello Earth!"
 
 getAnswer(null)
-.then(console.log, me => console.warn(SL.M.getOrElse("unknown error", me)));
+.then(console.log, me => console.warn(getOrElse("unknown error", me)));
 // -> "Cannot read property 'toString' of null"
 ```   
 
