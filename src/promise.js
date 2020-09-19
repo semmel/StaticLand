@@ -5,7 +5,7 @@
  * https://funfix.org/api/exec/classes/future.html
  */
 
-import { curry, o } from 'semmel-ramda';
+import { curry, o, identity } from 'semmel-ramda';
 
 const
 	// Creation //
@@ -133,3 +133,5 @@ const
 export {
 	of, ap, bimap, chain, create, map, mapRej, reject, tap, tapRegardless
 };
+
+export let join = identity;

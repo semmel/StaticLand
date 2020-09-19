@@ -138,3 +138,5 @@ export {
 	map, maybe, chain, ap, reduce, tap, getOrElse,
 	typeString
 };
+
+export let just = of;

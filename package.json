@@ -20,6 +20,8 @@
 		},
 		"./promise": "./src/promise.js",
 		"./maybe": "./src/maybe.js",
+		"./either": "./src/either.js",
+		"./transformations": "./src/transformations.js",
 		"./package.json": "./package.json"
 	},
 	"files": [
@@ -51,5 +53,5 @@
 		"test": "mocha"
 	},
 	"type": "module",
-	"version": "0.1.0"
+	"version": "0.1.1"
 }
