@@ -8,16 +8,21 @@
 import { either } from './either.js';
 import { reject, of as of_p } from './promise.js';
 import { maybe } from './maybe.js';
-import { curry, thunkify } from 'semmel-ramda';
+import { always, curry, objOf, thunkify } from 'semmel-ramda';
 
 const
 	// eitherToPromise :: Promise e Either c a -> Promise (c|e) a
 	eitherToPromise = either(reject, of_p),
 	
 	// maybeToPromise :: e -> Maybe a -> Promise e a
-	maybeToPromise = curry((e, ma) => maybe(thunkify(reject)(e), of_p, ma));
+	maybeToPromise = curry((e, ma) => maybe(thunkify(reject)(e), of_p, ma)),
+	
+	// maybeToObj :: key -> Maybe a -> ({}|{key: a})
+	//    key = String
+	maybeToObj = curry((keyName, ma) => maybe(always({}), objOf(keyName), ma));
 
 export {
 	eitherToPromise,
-	maybeToPromise
+	maybeToPromise,
+	maybeToObj
 };

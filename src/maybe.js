@@ -24,6 +24,7 @@ const
 	//nothing = () => singleNothing, // TODO: alt: []
 	nothing = () => [],
 	
+	// fromNilable :: (a|undefined|null) -> Maybe a
 	fromNilable = ifElse(isNil, nothing, of),
 	
 	// fromContentHolding :: a -> Maybe a

@@ -1,11 +1,13 @@
 Maybe
 =====
 
-Optional data, or `if`-`else` blocks
+Working with optional data, commonly done with `if`-`else` blocks.
 
 
-Generation
+Generators
 ----------
+### fromNilable `:: (a|undefined|null) -> Maybe a`
+Generates a maybe from a value which can be nullish.
 
 Consumption
 -----------
