@@ -1,7 +1,8 @@
 import { always, curry, find, identity, o } from 'semmel-ramda';
 import chai from 'chai';
 import {
-	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust, map, nothing, maybe, lift, reduce
+	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,
+	join, map, nothing, maybe, lift, reduce
 } from '../src/maybe.js';
 
 const
@@ -62,6 +63,13 @@ describe("Maybe", function() {
 		});
 	});
 	
+	describe("map", function() {
+		it("calls f just on the data", () => {
+			assert.deepStrictEqual(map(s => s.toUpperCase(), of("foo")), of("FOO"));
+			assert.deepStrictEqual(map(xs => xs.join(), of([8, 9])), of("8,9"));
+		});
+	});
+	
 	describe("Chain", function() {
 		it("ignores nothing", () => {
 			assert.isTrue(isNothing(chain(
@@ -70,10 +78,46 @@ describe("Maybe", function() {
 			)));
 		});
 		
-		it("executes the function on just", () => {
+		it("executes the function on the data in a just", () => {
 			assert.deepStrictEqual(chain(always(of("foo")), justUndefined), of("foo"));
 			assert.deepStrictEqual(chain(always(of("bar")), justEmptyArray), of("bar"));
 			assert.isTrue(equals_mb(chain(x => of(x + "-bar"), of("foo")), of("foo-bar")));
+			assert.deepStrictEqual(chain(xs => of(xs.map(x => x + 1)), of([8, 9])), of([9,10]));
+		});
+		
+	});
+	
+	describe("join", function() {
+		it("forwards nothing", () => {
+			assert.isTrue(isNothing(join(nothing())));
+		});
+		
+		it("returns the inner maybe or forwards the maybe", () => {
+			const
+				inner = of("bar"),
+				nested = of(inner),
+				flattened = join(nested);
+			
+			assert.isTrue(isJust(flattened), "flattened is a just");
+			assert.deepEqual(flattened, inner);
+			
+			assert.isTrue(isJust(join(inner)), "a just remains a just");
+			assert.deepEqual(join(inner), inner, "forwarding a just");
+		});
+		
+		it("treats two-or-more element array value not as nested maybe", () => {
+			const
+				mxs = of([8, 9]),
+				flattened_mxs = join(mxs);
+			
+			assert.deepStrictEqual(flattened_mxs, mxs);
+		});
+		
+		it("returns nothing from just nothing", () => {
+			const
+				flattened = join(of(nothing()));
+			
+			assert.isTrue(isNothing(flattened));
 		});
 	});
 	

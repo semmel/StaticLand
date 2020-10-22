@@ -3,6 +3,8 @@ Maybe
 
 Working with optional data, commonly done with `if`-`else` blocks.
 
+Native JavaScript arrays which are empty or have a single element are considered a *Maybe* here.
+
 
 Generators
 ----------
@@ -17,12 +19,18 @@ Transformation
 
 Caveats
 -------
-This library does not guard the user from supplying arguments of a wrong type to the provided functions.
+### Argument type checking
+This library functions do not guard the user from supplying arguments of a wrong type. In particular, passing some other type as the maybe subject or passing a function to `chain` which returns a some other type, will cause undefined behaviour later.
 
-Due to using single-element arrays as implementation of the Maybe type, items in these cases cannot be distinguished:
-- justs from single element arrays,
-- nothing from empty arrays.
+### Value limitations
+Choosing empty and single-element arrays as implementation of the Maybe type causes these ambiguities:
+- A just and any single element array,
+- a nothing and any empty array
+cannot be distinguished.
 
-This directly affects `isJust`, `isNothing` and `equals`.  E.g. `equals(of(x), [x])` is `true` as well as `equals(nothing(), [])` is also `true`. 
+This directly affects the inspection functions `isJust`, `isNothing` and `equals`.  E.g. `equals(of(x), [x])` is `true` as well as `equals(nothing(), [])` is also `true`.
 
-However, given the right inputs this ambiguity has no relevance in practise. 
+Also `join()` will treat a just containing an empty array as a just containing nothing which is collapsed to a nothing. 
+
+The library does *not* guard against these cases by inspecting value types at runtime. However, if the source code keeps track of the data type, e.g. `join()` should never been called on a just of an array.
+ 

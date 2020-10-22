@@ -2,7 +2,7 @@
 
 @visisoft/staticland
 ====================
-Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on *native JavaScript types* as `Array` and `Promise`.
+Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on the *native JavaScript types* as `Array` and `Promise`. Using these native types  means that *@visisoft/staticland* practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript.
 
 Hello @visisoft/staticland
 --------------------------

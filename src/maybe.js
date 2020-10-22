@@ -6,7 +6,8 @@
  */
 
 /**
- * @typedef {Array} Maybe
+ * @template T
+ * @typedef {Array<T>} Maybe<T>
  */
 
 import {
@@ -50,14 +51,23 @@ const
 	
 	// Transformation //
 	
-	//join = mx => isJust(mx) ? mx.flat() : singleNothing, // TODO: alt mx.flat()
-	join = mx => mx.flat(),
+	//join = mx => isJust(mx) ? mx.flat() : singleNothing, // alternative: mx.flat()
+	join = mx =>
+		isJust(mx)
+			? (isJust(mx[0])
+				? mx[0]
+				: isNothing(mx[0]) ? nothing() : mx    // this else case makes the implementation different from chain(identity)
+			)
+			: nothing(),
+	
 	//map = curry((f, mx) => isJust(mx) ? mx.map(unary(f)) : singleNothing), // alt mx.map(unary(f))
 	// map :: (a -> b) -> Maybe a -> Maybe b
 	map = curry((f, mx) => mx.map(unary(f))),
 	// chain :: (a -> Maybe b) -> Maybe a -> Maybe b
-	//chain = curry((f, mx) => isJust(mx) ? mx.flatMap(f) : singleNothing), // alt mx.flatMap(unary(f))
-	chain = curry((f, mx) => mx.flatMap(unary(f))),
+	//chain = curry((f, mx) => isJust(mx) ? mx.flatMap(f) : singleNothing),
+	//chain = curry((f, mx) => mx.flatMap(unary(f))),
+	chain = curry((f, mx) => isJust(mx) ? f(mx[0]) : nothing()),
+	
 	ap = curry((mf, mx) => chain(f => map(f, mx), mf)),
 	reduce = reduce_l,//curry((f, initial, mx) => mx.reduce(f, initial)),
 	
