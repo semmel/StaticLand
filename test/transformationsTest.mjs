@@ -1,8 +1,8 @@
 import {equals, identity, o} from 'semmel-ramda';
 import chai from 'chai';
 import { right, left } from '../src/either.js';
-import { just, nothing } from '../src/maybe.js';
-import { eitherToPromise, maybeToPromise } from '../src/transformations.js';
+import { getOrElse, isNothing, isJust, just, nothing, of as of_mb } from '../src/maybe.js';
+import { eitherToPromise, maybeToPromise, maybeOfPromiseToPromiseOfMaybe } from '../src/transformations.js';
 
 const
 	assert = chai.assert;
@@ -33,4 +33,54 @@ describe("maybeToPromise", function() {
 			e => { assert.equal(e, "foo"); }
 		)
 	);
+});
+
+describe("maybeOfPromiseToPromiseOfMaybe", function() {
+	it("unnests nothing to a promise of nothing", () => {
+		const
+			promiseOfNothing = maybeOfPromiseToPromiseOfMaybe(nothing());
+		
+		assert.instanceOf(promiseOfNothing, Promise);
+		
+		return promiseOfNothing
+		.then(
+			value => {
+				assert.ok(isNothing(value));
+			},
+			error => {
+				assert.fail(`Should not fail with ${error}`);
+			}
+		);
+	});
+	
+	it("unnests just a rejection to a rejected promise", () => {
+		const
+			failedPromise = maybeOfPromiseToPromiseOfMaybe(of_mb(Promise.reject("foo")));
+		
+		assert.instanceOf(failedPromise, Promise);
+		
+		return failedPromise
+		.then(
+			value => { assert.fail(`should not succeed with ${value}!`); },
+			error => { assert.equal(error, "foo"); }
+		);
+	});
+	
+	it("unnests just a resolved promise to a promise of a just", () => {
+		const
+			promiseOfJust = maybeOfPromiseToPromiseOfMaybe(of_mb(Promise.resolve("bar")));
+		
+		assert.instanceOf(promiseOfJust, Promise);
+		
+		return promiseOfJust
+		.then(
+			value => {
+				assert.ok(isJust(value));
+				assert.equal(getOrElse("unexpected value", value), "bar");
+			},
+			error => {
+				assert.fail(`Should not fail with ${error}`);
+			}
+		);
+	});
 });

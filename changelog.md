@@ -1,5 +1,9 @@
 Changelog
 =========
+0.1.4
+-----
+- Adds transformation `maybeOfPromiseToPromiseOfMaybe`
+
 0.1.2
 -----
 - Added transformations

@@ -1,5 +1,5 @@
 
-export type Maybe<T> = T[];
+export type Maybe<T> = [T];
 export function just<T>(x: T): Maybe<T>;
 export function of<T>(x: T): Maybe<T>;
 export function nothing<T>(): Maybe<T>;
