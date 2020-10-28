@@ -75,6 +75,8 @@ const
       return ap_(fnPromise, aPromise);
     }
   }),
+	
+	// Transformation //
 
 	// map :: (a -> b) -> Promise e a -> Promise e b
 	map = curry((fn, aPromise) => aPromise.then(fn)),
@@ -100,6 +102,12 @@ const
 			)
 			.catch(reject);
 		})),
+	
+	// It's essentially Promise.then and named coalesce in crocks Async
+	// coalesce :: (e -> b) -> (a -> b) -> Promise e a -> Promise e b
+	coalesce = curry((left, right, p) =>
+		p.then(right, left)
+	),
 
   // In this implementation an exception in the side-effect rubs off to the Promise
   // tap :: (a -> *) -> Promise a -> Promise a
@@ -131,7 +139,7 @@ const
   });
 
 export {
-	of, ap, bimap, chain, create, map, mapRej, reject, tap, tapRegardless
+	of, ap, bimap, chain, coalesce, create, map, mapRej, reject, tap, tapRegardless
 };
 
 export let join = identity;
