@@ -1,7 +1,7 @@
 import {applyTo, identity, o, pipe} from 'semmel-ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
-import {map, of, tap, tapRegardless} from '../src/promise.js';
+import {chainRej, map, of, tap, tapRegardless} from '../src/promise.js';
 
 const
 	assert = chai.assert,
@@ -131,6 +131,42 @@ describe("Promise", function() {
 			.then(
 				val => assert.strictEqual(val, "foo"),
 				e => assert.fail(`Should not reject with ${e}`)
+			)
+		);
+	});
+	
+	describe("chainRej", function() {
+		it("leaves a resolved promise untouched", () => {
+			var isFnCalled = false;
+			
+			return chainRej(
+				x => { isFnCalled = true; return Promise.resolve(`Foo ${x}`); },
+				Promise.resolve("bar")
+			)
+			.then(
+				x => {
+					assert.strictEqual(x, "bar");
+					assert.isFalse(isFnCalled, "fn should've not been called.");
+				}
+			);
+		});
+		
+		it ("resolves with the resolved return value of fn", () =>
+			chainRej(
+				e => Promise.resolve(`foo-${e}`),
+				Promise.reject("bar")
+			)
+			.then(x => { assert.strictEqual(x, "foo-bar"); })
+		);
+		
+		it ("rejects with the rejected return value of fn", () =>
+			chainRej(
+				e => Promise.reject(`FOO-${e}`),
+				Promise.reject("BAR")
+			)
+			.then(
+				x => { assert.fail(`should not succeed with ${x}`); },
+				e => { assert.strictEqual(e, "FOO-BAR"); }
 			)
 		);
 	});

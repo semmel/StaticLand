@@ -87,6 +87,18 @@ const
 	// mapRej :: (e -> c) -> Promise e b -> Promise c b
 	mapRej = curry((fn, aPromise) => aPromise.catch(o(reject, fn))),
 	
+	/**
+	 * shameless copy from Fluture
+	 */
+	chainRej_ = curry((fn, aPromise) => aPromise.then(null, fn)),
+	// this implementation enforces fn to return a promise
+	// chainRej :: (e -> Promise g a) -> Promise e a -> Promise g b
+	chainRej = curry((fn, aPromise) =>
+		new Promise((resolve, reject_) => {
+			aPromise.then(resolve, a => fn(a).then(resolve, reject_));
+		})
+	),
+	
 	// bimap :: Bifunctor m => (a -> c) -> (b -> d) -> m a b -> m c d
 	bimap = curry((failureMap, successMap, aPromise) =>
 		aPromise.then(successMap, o(reject, failureMap))),
@@ -95,12 +107,12 @@ const
 	// this implementation enforces fn to return a promise
 	// chain :: (a -> Promise e b) -> Promise g a -> Promise (e|g) b
 	chain = curry((fn, aPromise) =>
-		new Promise((resolve, reject) => {
+		new Promise((resolve, reject_) => {
 			aPromise
 			.then(a =>
 				fn(a).then(resolve)
 			)
-			.catch(reject);
+			.catch(reject_);
 		})),
 	
 	// It's essentially Promise.then and named coalesce in crocks Async
@@ -139,7 +151,7 @@ const
   });
 
 export {
-	of, ap, bimap, chain, coalesce, create, map, mapRej, reject, tap, tapRegardless
+	of, ap, bimap, chain, chainRej, coalesce, create, map, mapRej, reject, tap, tapRegardless
 };
 
 export let join = identity;
