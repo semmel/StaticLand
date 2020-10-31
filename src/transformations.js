@@ -5,14 +5,17 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import { either } from './either.js';
-import { map as map_p, reject, of as of_p } from './promise.js';
+import { either, left, right } from './either.js';
+import { coalesce, map as map_p, reject, of as of_p } from './promise.js';
 import { maybe, nothing, of as of_mb } from './maybe.js';
 import { __, always, assoc, compose, curry, objOf, thunkify } from 'semmel-ramda';
 
 const
 	// eitherToPromise :: Either e a -> Promise e a
 	eitherToPromise = either(reject, of_p),
+	
+	// :: Promise e a -> Promise * Either e a
+	promiseToPromiseOfEither = coalesce(left, right),
 	
 	// maybeToPromise :: e -> Maybe a -> Promise e a
 	maybeToPromise = curry((e, ma) => maybe(thunkify(reject)(e), of_p, ma)),
@@ -35,5 +38,6 @@ export {
 	maybeToPromise,
 	maybeToObj,
 	maybeOfPromiseToPromiseOfMaybe,
+	promiseToPromiseOfEither,
 	keyPromiseToPromiseCollection
 };

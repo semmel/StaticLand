@@ -52,11 +52,13 @@ const
 	// Transformation //
 	
 	//join = mx => isJust(mx) ? mx.flat() : singleNothing, // alternative: mx.flat()
+	// :: Maybe a -> Maybe a
+	// :: Maybe Maybe a -> Maybe a
 	join = mx =>
 		isJust(mx)
 			? (isJust(mx[0])
 				? mx[0]
-				: isNothing(mx[0]) ? nothing() : mx    // this else case makes the implementation different from chain(identity)
+				: isNothing(mx[0]) ? nothing() : mx    // this else case makes the implementation different from chain(identity) and supports unnested maybes as join arguments
 			)
 			: nothing(),
 	

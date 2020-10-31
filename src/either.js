@@ -5,7 +5,7 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import { compose, curry, nth, o, tryCatch, unary, when } from 'semmel-ramda';
+import { compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'semmel-ramda';
 
 const
 	missingEitherSide = Symbol('missingEitherSide'),
@@ -24,6 +24,8 @@ const
 	
 	isRight = mx => Array.isArray(mx) && (mx.length === 2) && (mx[0] === missingEitherSide),
 	
+	isEither = eitherThisOr(isLeft, isRight),
+	
 	// Transformation //
 	
 	map = curry((f, mx) =>
@@ -34,6 +36,9 @@ const
 		when(isRight, o(unary(f), nth(1)))(mx)
 	),
 	
+	join = mx =>
+		isRight(mx) && isEither(mx[1]) ? mx[1] : mx,
+	
 	// Consumption //
 	
 	either = curry((leftFn, rightFn, ma) =>
@@ -42,7 +47,7 @@ const
 	
 	
 export {
-	chain, either, fromThrowable, isLeft, isRight, left, map, of
+	chain, either, fromThrowable, isLeft, isRight, join, left, map, of
 };
 
 export let right = of;
