@@ -115,6 +115,14 @@ const
 			.catch(reject_);
 		})),
 	
+	// chainIf :: (a -> Boolean) -> (a -> Promise a) -> Promise a -> Promise a
+	chainIf = curry((predicate, fn, aPromise) =>
+		new Promise((resolve, reject_) => {
+			aPromise
+			.then(a => predicate(a) ? fn(a).then(resolve) : resolve(a))
+			.catch(reject_);
+		})),
+	
 	// It's essentially Promise.then and named coalesce in crocks Async
 	// coalesce :: (e -> b) -> (a -> b) -> Promise e a -> Promise e b
 	coalesce = curry((left, right, p) =>
@@ -148,10 +156,29 @@ const
     p.then(fn).catch(x => x);
 
     return p;
-  });
+  }),
+	
+	/**
+	 * Execute an asynchronous (could be a side-effect) function and wait until it is settled.
+	 * Mostly like `tap` except for the wait part
+	 * @template T
+	 * @param {function(T): Promise<any>} fn asynchronous side effect
+	 * @param {Promise<T>} p
+	 * @return {Promise<T>}
+	 */
+	// chainTap :: (a -> Promise *) -> Promise e a -> Promise e a
+	chainTap = curry((fn, p) =>
+		new Promise((resolve, reject_) => {
+			p
+			.then(a =>
+				fn(a)
+				.then(() => resolve(a))
+			)
+			.catch(reject_);
+		}));
 
 export {
-	of, ap, bimap, chain, chainRej, coalesce, create, map, mapRej, reject, tap, tapRegardless
+	of, ap, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej, reject, tap, tapRegardless
 };
 
 export let join = identity;

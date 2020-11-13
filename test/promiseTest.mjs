@@ -1,7 +1,7 @@
 import {applyTo, identity, o, pipe} from 'semmel-ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
-import {chainRej, map, of, tap, tapRegardless} from '../src/promise.js';
+import {chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} from '../src/promise.js';
 
 const
 	assert = chai.assert,
@@ -135,6 +135,40 @@ describe("Promise", function() {
 		);
 	});
 	
+	describe("chain", function() {
+		let
+			gotCalled = null;
+		
+		beforeEach(function() {
+			gotCalled = false;
+		});
+		
+		it("returns the result of f for a resolved promise", () => Promise.all([
+			chain(x => laterSucceed(10, x * x), of(7))
+			.then(
+				x => { assert.strictEqual(x, 49); },
+				e => { assert.fail(`Should not fail with ${e}`); }
+			),
+			
+			chain(x => laterFail(10, x * x), of(8))
+			.then(
+				x => { assert.fail(`should not succeed with ${x}`); },
+				e => { assert.strictEqual(e, 64); }
+			)
+		]));
+		
+		it("does not invoke f for a rejected promise", () =>
+			chain(x => { gotCalled = true; return laterFail(10, x * x); }, Promise.reject(6))
+			.then(
+				x => { assert.fail(`should not succeed with ${x}`); },
+				e => {
+					assert.strictEqual(e, 6);
+					assert.isFalse(gotCalled);
+				}
+			)
+		);
+	});
+	
 	describe("chainRej", function() {
 		it("leaves a resolved promise untouched", () => {
 			var isFnCalled = false;
@@ -167,6 +201,98 @@ describe("Promise", function() {
 			.then(
 				x => { assert.fail(`should not succeed with ${x}`); },
 				e => { assert.strictEqual(e, "FOO-BAR"); }
+			)
+		);
+	});
+	
+	describe("chainTap", function() {
+		const
+			dT = 50;
+		let
+			beginTs;
+		
+		beforeEach(function() {
+			beginTs = now();
+		});
+		
+		it("delays a resolved promise for the duration of the async function", () =>
+			chainTap(() => laterSucceed(dT, "bar"), of("foo"))
+			.then(
+				x => {
+					assert.strictEqual(x, "foo");
+					assert.approximately(now() - beginTs, dT, 15);
+				},
+				e => { assert.fail(`Should not fail with ${e}`); }
+			)
+		);
+		
+		it("does not invoke f for a rejected promise", () => {
+			let isInvoked = false;
+			
+			return chainTap(
+				() => {
+					isInvoked = true;
+					return Promise.resolve("bar");
+				},
+				Promise.reject("foo")
+			)
+			.then(
+				x => { assert.fail(`Should not succeed with ${x}`); },
+				e => {
+					assert.strictEqual(e, "foo");
+					assert.isFalse(isInvoked, "must not call f");
+				}
+			);
+		});
+		
+		it("returns a rejected promise with the rejected value of the async function", () =>
+			chainTap(() => laterFail(dT, "bar"), of("foo"))
+			.then(
+				x => { assert.fail(`Should not succeed with ${x}`); },
+				e => { assert.strictEqual(e, "bar"); }
+			)
+		);
+	});
+	
+	describe("chainIf", function() {
+		let
+			gotCalled = null;
+		
+		beforeEach(function() {
+			gotCalled = false;
+		});
+		
+		it("chains f if the predicate holds", () =>
+			Promise.all([
+				chainIf(x => x === 7, x => laterSucceed(10, x * x), of(7))
+				.then(
+					x => { assert.strictEqual(x, 49); },
+					e => { assert.fail(`Should not fail with ${e}`); }
+				),
+				
+				chainIf(x => x === 7, x => laterFail(10, x * x), of(7))
+				.then(
+					x => { assert.fail(`Should not succeed with ${x}`); },
+					e => { assert.strictEqual(e, 49); }
+				)
+			])
+		);
+		
+		it("does not invoke f if the predicate test fails", () =>
+			chainIf(
+				x => x === 7,
+				x => {
+					gotCalled = true;
+					return laterFail(10, x * x);
+				},
+				of(8)
+			)
+			.then(
+				x => {
+					assert.strictEqual(x, 8);
+					assert.isFalse(gotCalled, "Should not invoke f");
+				},
+				e => { assert.fail(`Should not fail with ${e}`); }
 			)
 		);
 	});
