@@ -91,7 +91,7 @@ describe("keyMaybeToMaybeObj", function() {
 	it("returns a Just of the record with the just value at the given key", () => {
 		assert.deepStrictEqual(
 			keyMaybeToMaybeObj("foo", {foo: just("FOO"), bar: "BAR"}),
-			{foo: "FOO", bar: "BAR"}
+			just({foo: "FOO", bar: "BAR"})
 		);
 	});
 	

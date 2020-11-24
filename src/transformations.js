@@ -7,8 +7,8 @@
 
 import { either, left, right } from './either.js';
 import { coalesce, map as map_p, reject, of as of_p } from './promise.js';
-import { maybe, nothing, of as of_mb } from './maybe.js';
-import { __, always, assoc, compose, curry, objOf, thunkify } from 'semmel-ramda';
+import { maybe, nothing, of as of_mb, just } from './maybe.js';
+import { __, always, assoc, compose, curry, o, objOf, thunkify } from 'semmel-ramda';
 
 const
 	// eitherToPromise :: Either e a -> Promise e a
@@ -24,10 +24,11 @@ const
 	//    key = String
 	maybeToObj = curry((keyName, ma) => maybe(always({}), objOf(keyName), ma)),
 	
+	// kind of inverse of `maybeToObj`
 	// key = String
 	// keyMaybeToMaybeObj :: key -> {key: Maybe a, …} -> Maybe {key: a, …}
 	keyMaybeToMaybeObj = curry((keyName, obj) =>
-		maybe(nothing, assoc(keyName, __, obj), obj[keyName])
+		maybe(nothing, o(just, assoc(keyName, __, obj)), obj[keyName])
 	),
 	
 	// maybeOfPromiseToPromiseOfMaybe :: Maybe Promise e a -> Promise e Maybe a
