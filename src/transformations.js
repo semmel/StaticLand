@@ -24,6 +24,12 @@ const
 	//    key = String
 	maybeToObj = curry((keyName, ma) => maybe(always({}), objOf(keyName), ma)),
 	
+	// key = String
+	// keyMaybeToMaybeObj :: key -> {key: Maybe a, …} -> Maybe {key: a, …}
+	keyMaybeToMaybeObj = curry((keyName, obj) =>
+		maybe(nothing, assoc(keyName, __, obj), obj[keyName])
+	),
+	
 	// maybeOfPromiseToPromiseOfMaybe :: Maybe Promise e a -> Promise e Maybe a
 	maybeOfPromiseToPromiseOfMaybe = maybe(compose(of_p, nothing), map_p(of_mb)),
 	
@@ -39,5 +45,6 @@ export {
 	maybeToObj,
 	maybeOfPromiseToPromiseOfMaybe,
 	promiseToPromiseOfEither,
-	keyPromiseToPromiseCollection
+	keyPromiseToPromiseCollection,
+	keyMaybeToMaybeObj
 };

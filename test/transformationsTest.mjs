@@ -2,7 +2,9 @@ import {equals, identity, o} from 'semmel-ramda';
 import chai from 'chai';
 import { right, left } from '../src/either.js';
 import { getOrElse, isNothing, isJust, just, nothing, of as of_mb } from '../src/maybe.js';
-import { eitherToPromise, maybeToPromise, maybeOfPromiseToPromiseOfMaybe } from '../src/transformations.js';
+import { eitherToPromise, keyMaybeToMaybeObj,
+	maybeToPromise, maybeOfPromiseToPromiseOfMaybe } from
+		'../src/transformations.js';
 
 const
 	assert = chai.assert;
@@ -81,6 +83,22 @@ describe("maybeOfPromiseToPromiseOfMaybe", function() {
 			error => {
 				assert.fail(`Should not fail with ${error}`);
 			}
+		);
+	});
+});
+
+describe("keyMaybeToMaybeObj", function() {
+	it("returns a Just of the record with the just value at the given key", () => {
+		assert.deepStrictEqual(
+			keyMaybeToMaybeObj("foo", {foo: just("FOO"), bar: "BAR"}),
+			{foo: "FOO", bar: "BAR"}
+		);
+	});
+	
+	it("returns a Nothing for a record with a nothing value at the given key", () => {
+		assert.deepStrictEqual(
+			keyMaybeToMaybeObj("foo", {bar: "BAR", foo: nothing()}),
+			nothing()
 		);
 	});
 });

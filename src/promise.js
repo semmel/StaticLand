@@ -14,6 +14,8 @@ const
 	// of :: a -> Promise e a
 	of = value => Promise.resolve(value),
 	
+	empty = () => Promise.resolve(),
+	
 	/**
 	 * Note that `Promise.reject` rejects with any type including any Promise (unsettled, rejected or fulfilled)!
 	 * @see https://stackoverflow.com/questions/39197769/what-happens-if-i-reject-a-promise-with-another-promise-value
@@ -178,7 +180,9 @@ const
 		}));
 
 export {
-	of, ap, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej, reject, tap, tapRegardless
+	of, ap, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej, reject, tap, tapRegardless, empty
 };
 
 export let join = identity;
+/** @deprecated */
+export let unit = empty;
