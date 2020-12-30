@@ -2,7 +2,18 @@
 
 @visisoft/staticland
 ====================
-Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on the *native JavaScript types* as `Array` and `Promise`. Using these native types  means that *@visisoft/staticland* practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript.
+Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on the *native JavaScript types* as `Array`, `Promise` and `Function`. Using these native types  means that 
+
+- *@visisoft/staticland* practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript.
+- The implementation of the static functions is mostly trivial
+
+|           |   `of`        |   `map`       |   `chain`     |   Consumption |
+|-----------|---------------|---------------|---------------|---------------|
+| Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
+| Promise   | `Promise.resolve`|`Promise.then`|`Promise.then`|`Promise.then`|
+| IO        | `x => x`        |`compose`      |`run(compose)` |`call`|
+
+In a way @visisoft/staticland provides functions which operate on and access types you operate with anyway.
 
 Hello @visisoft/staticland
 --------------------------
@@ -12,6 +23,8 @@ Hello @visisoft/staticland
 ### Hello Earth
 
 Greeting with a 0.5 sec 2-way delay.
+
+#### Usage in an ES module
 
 ```javascript
 import {map as map_p, mapRej as mapRej_p, chain as chain_p} from '@visisoft/staticland/promise';
@@ -43,6 +56,16 @@ getAnswer(null)
 .then(console.log, me => console.warn(getOrElse("unknown error", me)));
 // -> "Cannot read property 'toString' of null"
 ```   
+
+#### Usage in a CommonJS module
+
+```javascript
+const 
+   {chain: chain_p} = require('@visisoft/staticland/promise'),
+   delay = t => x => new Promise(resolve => setTimeout(resolve, t, x));
+
+chain(delay(500), Promise.resolve("foo")).then(console.log);
+```
 
 Objective
 ---------

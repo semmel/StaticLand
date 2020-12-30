@@ -31,6 +31,11 @@ const
 	// fromContentHolding :: a -> Maybe a
 	fromContentHolding = ifElse(isEmpty, nothing, of),
 	
+	// :: (a -> Boolean) -> a -> Maybe a
+	fromPredicate = curry((predicate, x) =>
+		predicate(x) ? of(x) : nothing()
+	),
+	
 	// Inspection //
 	
 	// isJust :: Maybe a -> Boolean
@@ -147,7 +152,7 @@ const
 	);
 
 export {
-	equals, fromNilable, fromContentHolding, of, nothing, isJust, isNothing, join, lift,
+	equals, fromNilable, fromContentHolding, fromPredicate, of, nothing, isJust, isNothing, join, lift,
 	map, maybe, chain, ap, reduce, tap, getOrElse,
 	typeString
 };

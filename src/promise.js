@@ -168,7 +168,7 @@ const
 	 * @param {Promise<T>} p
 	 * @return {Promise<T>}
 	 */
-	// chainTap :: (a -> Promise *) -> Promise e a -> Promise e a
+	// chainTap :: (a -> Promise g *) -> Promise e a -> Promise (e|g) a
 	chainTap = curry((fn, p) =>
 		new Promise((resolve, reject_) => {
 			p

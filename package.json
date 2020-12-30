@@ -8,17 +8,21 @@
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
 	"devDependencies": {
+		"@rollup/plugin-node-resolve": "^11.0.1",
 		"chai": "^4.2.0",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.0.1",
-		"rollup": "^2.26.8"
+		"rollup": "^2.35.1"
 	},
 	"exports": {
 		".": {
 			"require": "./dist/cjs/staticland.js",
 			"default": "./index.js"
 		},
-		"./promise": "./src/promise.js",
+		"./promise": {
+			"require": "./dist/cjs/promise.js",
+			"default": "./src/promise.js"
+		},
 		"./maybe": "./src/maybe.js",
 		"./either": "./src/either.js",
 		"./transformations": "./src/transformations.js",
@@ -46,8 +50,8 @@
 		"url": "git+https://github.com/semmel/StaticLand.git"
 	},
 	"scripts": {
-		"build:cjs": "rollup ./index.js --file dist/cjs/staticland.js --format cjs --external semmel-ramda",
-		"prepare": "npm run build:cjs",
+		"build:cjs": "rollup -c",
+		"prepack": "npm run build:cjs",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:test": "npm run setup:chai && npm run setup:hirestime",
