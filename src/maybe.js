@@ -11,8 +11,8 @@
  */
 
 import {
-	any, apply, always, compose, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
-	map as map_l, nAry, nth, unary, pathOr, reduce as reduce_l, unapply
+	any, apply, always, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
+	nAry, unary, pathOr, reduce as reduce_l, unapply
 } from 'semmel-ramda';
 
 const

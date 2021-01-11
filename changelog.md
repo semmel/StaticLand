@@ -1,5 +1,9 @@
 Changelog
 =========
+0.1.11
+------
+- more submodules for Node.js consumption
+
 0.1.4
 -----
 - Adds transformation `maybeOfPromiseToPromiseOfMaybe`

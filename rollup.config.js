@@ -34,6 +34,42 @@ const
 			plugins: [
 				resolve()
 			]
+		},
+		{
+			input: "./src/maybe.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/maybe.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
+		{
+			input: "./src/either.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/either.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
+		{
+			input: "./src/transformations.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/transformations.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
 		}
 	];
 
