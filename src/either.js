@@ -5,7 +5,7 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import { compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'semmel-ramda';
+import { always, compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'semmel-ramda';
 
 const
 	missingEitherSide = Symbol('missingEitherSide'),
@@ -16,7 +16,13 @@ const
 	
 	left = x => [x, missingEitherSide],
 	
+	// :: (…b -> a) -> …b -> Either c a
 	fromThrowable = f => tryCatch(o(of, f), left),
+	
+	// :: (a -> Boolean) -> (a -> b) -> a -> Either b a
+	fromAssertedValue = curry((predicate, createLeftValue, a) =>
+		predicate(a) ? of (a) : left(createLeftValue(a))
+	),
 	
 	// Inspection //
 	
@@ -41,13 +47,25 @@ const
 	
 	// Consumption //
 	
+	// ::  (c -> b) -> (a -> b) -> Either c a -> b
 	either = curry((leftFn, rightFn, ma) =>
 		isLeft(ma) ? leftFn(ma[0]) : rightFn(ma[1])
+	),
+	
+	// Combination //
+	
+	/**
+	 * From crocks.dev: Providing a means for a fallback or alternative value.
+	 * Combines two Either instances and will return the first Right it encounters or the last Left if it does not encounter a Right.
+	 */
+	// :: Either b a -> Either b a -> Either b a
+	alt = curry((ma, mb) =>
+		either(always(mb), of, ma)
 	);
 	
 	
 export {
-	chain, either, fromThrowable, isLeft, isRight, join, left, map, of
+	alt, chain, either, fromAssertedValue, fromThrowable, isLeft, isRight, join, left, map, of
 };
 
 export let right = of;
