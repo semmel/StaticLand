@@ -177,10 +177,37 @@ const
 				.then(() => resolve(a))
 			)
 			.catch(reject_);
-		}));
+		})),
+
+	/// Combinators ///
+	
+	// :: [Promise e a] -> Promise e [a]
+	all = promises => Promise.all(promises),
+
+	// :: [Promise e a] -> Promise e a
+	race = promises => Promise.race(promises),
+	
+	/**
+	 * Providing a means for a fallback or alternative value, alt combines two Promises and will
+	 * resolve with the value of the first resolved promise it encounters or
+	 * reject with the value of the last Rejected instance if it does not encounter a Resolved instance.
+	 */
+	// :: Promise e a -> Promise e a -> Promise e a
+	alt = curry((pa, pb) => new Promise((resolve_, reject_) => {
+		const
+			rejectGenerator = function* () {
+				reject_(yield);
+			},
+			rejectIterator = rejectGenerator(),
+			rejectSecond = e => rejectIterator.next(e);
+		
+		pa.then(resolve_, rejectSecond);
+		pb.then(resolve_, rejectSecond);
+	}));
 
 export {
-	of, ap, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej, reject, tap, tapRegardless, empty
+	of, all, alt, ap, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej,
+	race, reject, tap, tapRegardless, empty
 };
 
 export let join = identity;

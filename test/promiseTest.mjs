@@ -1,7 +1,7 @@
 import {applyTo, identity, o, pipe} from 'semmel-ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
-import {chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} from '../src/promise.js';
+import {alt, chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} from '../src/promise.js';
 
 const
 	assert = chai.assert,
@@ -295,5 +295,44 @@ describe("Promise", function() {
 				e => { assert.fail(`Should not fail with ${e}`); }
 			)
 		);
+	});
+	
+	describe("alt", function() {
+		it("resolves with the value of the first resolved promise", () => Promise.all([
+			alt(laterSucceed(10, "foo"), laterSucceed(50, "bar"))
+			.then(
+				x => { assert.strictEqual(x, "foo"); },
+				e => { assert.fail(`Should not fail with ${e}`); }
+			),
+			alt(laterSucceed(100, "foo"), laterSucceed(50, "bar"))
+			.then(
+				x => { assert.strictEqual(x, "bar"); },
+				e => { assert.fail(`Should not fail with ${e}`); }
+			),
+			alt(laterFail(10, "FOO"), laterSucceed(50, "bar"))
+			.then(
+				x => { assert.strictEqual(x, "bar"); },
+				e => { assert.fail(`Should not fail with ${e}`); }
+			),
+			alt(laterFail(100, "FOO"), laterSucceed(50, "bar"))
+			.then(
+				x => { assert.strictEqual(x, "bar"); },
+				e => { assert.fail(`Should not fail with ${e}`); }
+			)
+		]));
+		
+		it("rejects with the value of the last rejected promise", () => Promise.all([
+			alt(laterFail(10, "FOO"), laterFail(50, "BAR"))
+			.then(
+				x => { assert.fail(`Should not succeed with ${x}!`); },
+				e => { assert.strictEqual(e, "BAR"); }
+			),
+			
+			alt(laterFail(50, "FOO"), laterFail(10, "BAR"))
+			.then(
+				x => { assert.fail(`Should not succeed with ${x}!`); },
+				e => { assert.strictEqual(e, "FOO"); }
+			)
+		]));
 	});
 });
