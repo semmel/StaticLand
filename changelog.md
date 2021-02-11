@@ -1,5 +1,10 @@
 Changelog
 =========
+
+0.1.15
+------
+- fix: Either no longer based on a unique Symbol but rather on a unique string. This should make Either compatible with a differently loaded staticland library.
+
 0.1.11
 ------
 - more submodules for Node.js consumption

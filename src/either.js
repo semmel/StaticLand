@@ -8,7 +8,10 @@
 import { always, compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'semmel-ramda';
 
 const
-	missingEitherSide = Symbol('missingEitherSide'),
+	// Don't attempt to use a Symbol here.
+	// That would make Eithers created by right(of) and left unusable
+	// with any differently (other path, other version) loaded staticland library
+	missingEitherSide = '__de/@visisoft/staticland/either/missingEitherSide__',
 	
 	// Creation //
 	
