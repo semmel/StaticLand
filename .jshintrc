@@ -8,7 +8,7 @@
 	"sub": true,
 	"devel": true,
 	"immed": true,
-	"browser": false,
+	"browser": true,
 	"node":	true,
 	"curly": true,
 	"undef": true,

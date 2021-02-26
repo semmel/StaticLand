@@ -2,14 +2,18 @@
 
 @visisoft/staticland
 ====================
-Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise) realised with *free static functions*. The static functions do not expect custom-made ADTs but work on the *native JavaScript types* as `Array`, `Promise` and `Function`. Using these native types  means that 
+Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with *free static functions*. The static functions do not expect custom-made ADT classes but work on the *native JavaScript types* as `Array`, `Promise` and `Function`. Fairness demands to confess that `Function` carries some data in the closed over variables. 
 
-- *@visisoft/staticland* practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript.
-- The implementation of the static functions is mostly trivial
+Using simple native types means that 
+
+- Conversion between the types is easy, but
+- *@visisoft/staticland* practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript. 
 
 |           |   `of`        |   `map`       |   `chain`     |   Consumption |
 |-----------|---------------|---------------|---------------|---------------|
 | Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
+| Either    | `x => [,x]` |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[1]`|
+|CancelableComputation| `cc = (resolve, reject) => () => ()` | | | `new Promise(cc)` |
 | Promise   | `Promise.resolve`|`Promise.then`|`Promise.then`|`Promise.then`|
 | IO        | `x => x`        |`compose`      |`run(compose)` |`call`|
 

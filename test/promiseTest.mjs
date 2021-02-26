@@ -18,14 +18,12 @@ const
 		}),
 	
 	// F.map(x => x, mx) ≡ mx
-	assertIdentityLaw = (m, desc) => {
-		assertPromiseEquality(map(identity, m), m, desc);
-	},
+	assertIdentityLaw = (m, desc) =>
+		assertPromiseEquality(map(identity, m), m, desc),
 	
 	// F.map(x => f(g(x)), mx) ≡ F.map(f, F.map(g, mx))
-	assertCompositionLaw = (m, f, g, desc) => {
+	assertCompositionLaw = (m, f, g, desc) =>
 		assertPromiseEquality(map(o(f, g), m), o(map(f), map(g))(m), desc);
-	};
 
 describe("Promise", function() {
 	describe("map", function () {
@@ -52,10 +50,12 @@ describe("Promise", function() {
 		
 		it("obeys composition law", function () {
 			const f = s => `${s}-f`, g = s => `${s}-g`, gz = () => undefined, gn = () => [];
-			assertCompositionLaw(mFoo, f, g);
-			assertCompositionLaw(mFoo, g, f);
-			assertCompositionLaw(mFoo, f, gz);
-			assertCompositionLaw(mFoo, f, gn);
+			return Promise.all([
+				assertCompositionLaw(mFoo, f, g),
+				assertCompositionLaw(mFoo, g, f),
+				assertCompositionLaw(mFoo, f, gz),
+				assertCompositionLaw(mFoo, f, gn)
+			]);
 		});
 		
 		it("should fail if the input is a rejected Promise", () => {
@@ -334,5 +334,13 @@ describe("Promise", function() {
 				e => { assert.strictEqual(e, "FOO"); }
 			)
 		]));
+	});
+	
+	describe.skip("ap", function () {
+	
+	});
+	
+	describe.skip("lift", function () {
+	
 	});
 });

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.16
+-------
+- Begun API for CancelableComputation incl. natural transformations to Bacon and Most streams
+
 0.1.15
 ------
 - fix: Either no longer based on a unique Symbol but rather on a unique string. This should make Either compatible with a differently loaded staticland library.

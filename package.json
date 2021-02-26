@@ -8,10 +8,15 @@
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
 	"devDependencies": {
+		"@most/core": "^1.6.1",
+		"@most/scheduler": "^1.3.0",
 		"@rollup/plugin-node-resolve": "^11.0.1",
+		"abort-controller": "^3.0.0",
+		"baconjs": "^3.0.17",
 		"chai": "^4.2.0",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.0.1",
+		"node-fetch": "^2.6.1",
 		"rollup": "^2.35.1"
 	},
 	"exports": {
@@ -67,5 +72,5 @@
 		"test": "mocha"
 	},
 	"type": "module",
-	"version": "0.1.15"
+	"version": "0.1.16"
 }

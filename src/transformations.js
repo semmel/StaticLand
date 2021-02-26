@@ -9,6 +9,10 @@ import { either, left, right } from './either.js';
 import { coalesce, map as map_p, reject, of as of_p } from './promise.js';
 import { maybe, nothing, of as of_mb, just } from './maybe.js';
 import { __, always, assoc, compose, curry, o, objOf, thunkify } from 'semmel-ramda';
+export {default as promiseToCancelable} from './transformations/promiseToCancelable.js';
+export {default as cancelableToPromise} from './transformations/cancelableToPromise.js';
+export {default as observableToCancelable} from './transformations/baconObservableToCancelable.js';
+export {default as cancelableToEventStream} from './transformations/cancelableToBaconStream.js';
 
 const
 	// eitherToPromise :: Either e a -> Promise e a

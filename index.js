@@ -11,3 +11,4 @@ export * as P from './src/promise.js';
 export * as M from './src/maybe.js';
 export * as E from './src/either.js';
 export * as T from './src/transformations.js';
+export * as C from './src/cancelable.js';

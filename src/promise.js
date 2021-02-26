@@ -31,53 +31,6 @@ const
 	// create :: ((Callback a, Callback e) -> undefined) -> Promise e a
 	create = worker => new Promise(worker),
 	
-	
-
-	ap_ = curry((fnPromise, aPromise) => fnPromise.then(fn => aPromise.then(fn))),
-  // this implementation avoids the UnhandledPromiseRejection error
-  // when Promise a fails
-  // ap :: Promise (a -> b) -> Promise a -> Promise b
-  ap = curry((fnPromise, aPromise) => {
-    if (typeof Promise.allSettled === 'function') {
-      return Promise.allSettled([fnPromise, aPromise])
-      .then(([fnOutcome, anOutcome]) => {
-        if ((fnOutcome.status === 'fulfilled') && (anOutcome.status === 'fulfilled')) {
-          return fnOutcome.value(anOutcome.value);
-        }
-        else if (fnOutcome.status === 'fulfilled') {
-          return Promise.reject(anOutcome.reason);
-        }
-        else if (anOutcome.status === 'fulfilled') {
-          return Promise.reject(fnOutcome.reason);
-        }
-        else if (anOutcome.reason === fnOutcome.reason) {
-          return Promise.reject(fnOutcome.reason);
-        }
-        else {
-          const
-            aggregateError = new Error(`${fnOutcome.reason.message},\n${anOutcome.reason.message}`);
-
-          aggregateError.name = "AggregateError";
-
-          if (anOutcome.reason.name === "AggregateError") {
-            aggregateError.errors = anOutcome.reason.errors.concat([fnOutcome.reason]);
-          }
-          else if (fnOutcome.reason.name === "AggregateError") {
-            aggregateError.errors = fnOutcome.reason.errors.concat([anOutcome.reason]);
-          }
-          else {
-            aggregateError.errors = [fnOutcome.reason, anOutcome.reason];
-          }
-
-          return Promise.reject(aggregateError);
-        }
-      });
-    }
-    else {
-      return ap_(fnPromise, aPromise);
-    }
-  }),
-	
 	// Transformation //
 
 	// map :: (a -> b) -> Promise e a -> Promise e b
@@ -180,6 +133,66 @@ const
 		})),
 
 	/// Combinators ///
+	
+	// This implementation prioritises the left promise in way that
+	// if the left promise fails it's rejected value takes precedence over
+	// the rejected value of the right promise regardless of the time sequence.
+	// Thus if the right promise fails that's UnhandledPromiseRejection
+	// Note: ap(mf, ma) = chain(f => map(f, ma))
+	// ap :: Promise (a -> b) -> Promise a -> Promise b
+	ap_ = curry((fnPromise, aPromise) => fnPromise.then(fn => aPromise.then(fn))),
+	
+	// this implementation avoids the UnhandledPromiseRejection error
+	// when Promise a fails.
+	// Note: Is the UnhandledPromiseRejection really an issue?
+	// It occurs only if there is no .catch or .then(, onError)
+	// in a promise which is a result of ap (i.e. which is created on calling .then)
+	// see https://stackoverflow.com/a/52409612/564642
+	// ap :: Promise (a -> b) -> Promise a -> Promise b
+	ap = curry((fnPromise, aPromise) => {
+		if (typeof Promise.allSettled === 'function') {
+			return Promise.allSettled([fnPromise, aPromise])
+			.then(([fnOutcome, anOutcome]) => {
+				if ((fnOutcome.status === 'fulfilled') && (anOutcome.status === 'fulfilled')) {
+					return fnOutcome.value(anOutcome.value);
+				}
+				else if (fnOutcome.status === 'fulfilled') {
+					return Promise.reject(anOutcome.reason);
+				}
+				else if (anOutcome.status === 'fulfilled') {
+					return Promise.reject(fnOutcome.reason);
+				}
+				else if (anOutcome.reason === fnOutcome.reason) {
+					return Promise.reject(fnOutcome.reason);
+				}
+				else {
+					const
+						aggregateError = new Error(`${fnOutcome.reason.message},\n${anOutcome.reason.message}`);
+					
+					aggregateError.name = "AggregateError";
+					
+					if (anOutcome.reason.name === "AggregateError") {
+						aggregateError.errors = anOutcome.reason.errors.concat([fnOutcome.reason]);
+					}
+					else if (fnOutcome.reason.name === "AggregateError") {
+						aggregateError.errors = fnOutcome.reason.errors.concat([anOutcome.reason]);
+					}
+					else {
+						aggregateError.errors = [fnOutcome.reason, anOutcome.reason];
+					}
+					
+					return Promise.reject(aggregateError);
+				}
+			});
+		}
+		else {
+			return ap_(fnPromise, aPromise);
+		}
+	}),
+	
+	liftA2 = curry((fn, pa, pb) =>
+		ap(map(fn, pa), pb)
+	),
 	
 	// :: [Promise e a] -> Promise e [a]
 	all = promises => Promise.all(promises),
