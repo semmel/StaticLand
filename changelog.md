@@ -3,7 +3,7 @@ Changelog
 
 0.1.16
 -------
-- Begun API for CancelableComputation incl. natural transformations to Bacon and Most streams
+- Begun API for CancelableComputation incl. natural transformations to and from Bacon and Most streams
 
 0.1.15
 ------

@@ -13,6 +13,7 @@ export {default as promiseToCancelable} from './transformations/promiseToCancela
 export {default as cancelableToPromise} from './transformations/cancelableToPromise.js';
 export {default as observableToCancelable} from './transformations/baconObservableToCancelable.js';
 export {default as cancelableToEventStream} from './transformations/cancelableToBaconStream.js';
+export {default as eitherToCancelable} from './transformations/eitherToCancelable.js';
 
 const
 	// eitherToPromise :: Either e a -> Promise e a

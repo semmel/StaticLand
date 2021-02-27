@@ -8,11 +8,14 @@ const
 	echoServer = "https://httpbin.org/get",
 	blackholeServer = "https://blackhole.webpagetest.org",
 	// See  https://jsonplaceholder.typicode.com/guide.html
-	publicJsonTestServer = "https://jsonplaceholder.typicode.com/";
+	publicJsonTestServer = "https://jsonplaceholder.typicode.com/",
+	// See https://cdnjs.com/api#stats
+	cdnJSAPI = "https://api.cdnjs.com/";
 
 describe("cancelables fetchResponse", function() {
 	this.slow(5000);
 	this.timeout(6000);
+	
 	describe("fetching from JSON-responding servers", function() {
 		const
 			url = new URL(publicJsonTestServer);

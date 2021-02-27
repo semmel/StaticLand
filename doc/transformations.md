@@ -1,6 +1,9 @@
 Natural Transformations
 =======================
 
+### `eitherToCancelable(either)`
+`:: Either e a → Cancelable e a`
+
 ### `promiseToCancelable(promise)`
 `:: Promise e a → Cancelable e a`
 
@@ -22,3 +25,13 @@ Creates a single-valued [Bacon.js](http://baconjs.github.io) `EventStream` obser
 
 ### `baconObservableToCancelable(observable)`
 `:: Observable e a → Cancelable e a`
+
+### `cancelableToMostStream(cancelable)`
+`:: Cancelable a → Stream a`
+
+Crates a single-valued [@most/core](https://mostcore.readthedocs.io/en/latest/index.html) `Stream`.
+
+### `mostStreamToCancelable(stream)`
+`:: Stream a → Cancelable a`
+
+If not cancelled the resulting Cancelable Computation will continue with the *last* value, or the *first* error in the stream.
