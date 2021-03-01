@@ -6,6 +6,7 @@
  */
 
 import { curry, o, identity } from 'semmel-ramda';
+import map from './promise/map.js';
 
 const
 	// Creation //
@@ -32,9 +33,6 @@ const
 	create = worker => new Promise(worker),
 	
 	// Transformation //
-
-	// map :: (a -> b) -> Promise e a -> Promise e b
-	map = curry((fn, aPromise) => aPromise.then(fn)),
 	
 	/**
 	 * shameless copy from Fluture
@@ -140,7 +138,7 @@ const
 	// Thus if the right promise fails that's UnhandledPromiseRejection
 	// Note: ap(mf, ma) = chain(f => map(f, ma))
 	// ap :: Promise (a -> b) -> Promise a -> Promise b
-	ap_ = curry((fnPromise, aPromise) => fnPromise.then(fn => aPromise.then(fn))),
+	/*ap_ = curry((fnPromise, aPromise) => fnPromise.then(fn => aPromise.then(fn))),*/
 	
 	// this implementation avoids the UnhandledPromiseRejection error
 	// when Promise a fails.
@@ -149,7 +147,7 @@ const
 	// in a promise which is a result of ap (i.e. which is created on calling .then)
 	// see https://stackoverflow.com/a/52409612/564642
 	// ap :: Promise (a -> b) -> Promise a -> Promise b
-	ap = curry((fnPromise, aPromise) => {
+	/*ap = curry((fnPromise, aPromise) => {
 		if (typeof Promise.allSettled === 'function') {
 			return Promise.allSettled([fnPromise, aPromise])
 			.then(([fnOutcome, anOutcome]) => {
@@ -192,7 +190,7 @@ const
 	
 	liftA2 = curry((fn, pa, pb) =>
 		ap(map(fn, pa), pb)
-	),
+	),*/
 	
 	// :: [Promise e a] -> Promise e [a]
 	all = promises => Promise.all(promises),
@@ -219,9 +217,12 @@ const
 	}));
 
 export {
-	of, all, alt, ap, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej,
+	of, all, alt, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej,
 	race, reject, tap, tapRegardless, empty
 };
+
+export {default as ap} from './promise/ap.js';
+export {default as liftA2} from './promise/liftA2.js';
 
 export let join = identity;
 /** @deprecated */

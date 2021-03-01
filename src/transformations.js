@@ -6,7 +6,8 @@
  */
 
 import { either, left, right } from './either.js';
-import { coalesce, map as map_p, reject, of as of_p } from './promise.js';
+import { coalesce, reject, of as of_p } from './promise.js';
+import map_p from './promise/map.js';
 import { maybe, nothing, of as of_mb, just } from './maybe.js';
 import { __, always, assoc, compose, curry, o, objOf, thunkify } from 'semmel-ramda';
 export {default as promiseToCancelable} from './transformations/promiseToCancelable.js';

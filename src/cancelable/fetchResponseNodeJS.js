@@ -2,7 +2,7 @@
  * Node.js version
  */
 
-import {promiseToCancelable} from "../transformations.js";
+import promiseToCancelable from "../transformations/promiseToCancelable.js";
 import fetch from 'node-fetch';
 import AbortController from "abort-controller";
 

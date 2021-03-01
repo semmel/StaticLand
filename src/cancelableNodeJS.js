@@ -10,4 +10,5 @@ export {default as race} from './cancelable/race.js';
 export {default as map} from './cancelable/map.js';
 export {default as chain} from './cancelable/chain.js';
 export {default as ap} from './cancelable/ap.js';
+export {default as liftA2} from './cancelable/liftA2.js';
 export {default as fetchResponse} from './cancelable/fetchResponseNodeJS.js';

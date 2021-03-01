@@ -8,7 +8,7 @@ const
 	(Build date: ${now.toLocaleDateString()} - ${now.toLocaleTimeString()})
 	*/`,
 	
-	externals = ["semmel-ramda"],
+	externals = ["semmel-ramda", "baconjs", "node-fetch", "abort-controller"],
 	
 	config = [
 		{
@@ -29,6 +29,18 @@ const
 			output: {
 				format: "cjs",
 				file: "./dist/cjs/promise.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
+		{
+			input: "./src/cancelableNodeJS.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/cancelable.js",
 				banner: bannerText,
 			},
 			plugins: [

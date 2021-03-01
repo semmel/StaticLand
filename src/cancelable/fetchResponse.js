@@ -2,7 +2,7 @@
  * Browser version
  */
 
-import {promiseToCancelable} from "../transformations.js";
+import promiseToCancelable from "../transformations/promiseToCancelable.js";
 
 const
 	IS_ABORT_CONTROLLER_SUPPORTED = typeof AbortController === 'function',

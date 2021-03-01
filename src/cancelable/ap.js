@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Visisoft OHG. All rights reserved.
  */
 
-const { curry } = require("semmel-ramda");
+import { curry } from "semmel-ramda";
 const
 	// Note: parallel execution
 	// Sequential execution is derived from chain and map: ap(mf, ma) = chain(f => map(f, ma), mf)
