@@ -49,7 +49,8 @@
 	},
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"*.d.ts"
 	],
 	"homepage": "https://github.com/semmel/StaticLand#readme",
 	"keywords": [
@@ -75,12 +76,15 @@
 	},
 	"scripts": {
 		"build:cjs": "rollup -c",
-		"prepack": "npm run test && npm run build:cjs",
+		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
+		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
+		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root",
+		"postpack": "npm run remove_ts_defs_from_root",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:test": "npm run setup:chai && npm run setup:hirestime",
 		"test": "mocha --recursive --extension mjs ./test"
 	},
 	"type": "module",
-	"version": "0.1.17"
+	"version": "0.1.18"
 }
