@@ -63,7 +63,7 @@ const
 		isJust(mx)
 			? (isJust(mx[0])
 				? mx[0]
-				: isNothing(mx[0]) ? nothing() : mx    // this else case makes the implementation different from chain(identity) and supports unnested maybes as join arguments
+				: isNothing(mx[0]) ? nothing() : mx    // this else case makes the implementation different from chain(identity) and supports non-nested maybes as join arguments - why on earth would I want that?
 			)
 			: nothing(),
 	
@@ -158,3 +158,4 @@ export {
 };
 
 export let just = of;
+export {default as liftA2} from './maybe/liftA2.js';

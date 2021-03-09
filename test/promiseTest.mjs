@@ -5,7 +5,18 @@ import {alt, chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} fr
 
 const
 	assert = chai.assert,
+	/**
+	 * @template T
+	 * @param {Number} dt
+	 * @param {T} value
+	 * @return {Promise<T>}
+	 */
 	laterSucceed = (dt, value) => new Promise(resolve => setTimeout(resolve, dt, value)),
+	/**
+	 * @param {Number} dt
+	 * @param {any} value
+	 * @return {Promise<any>}
+	 */
 	laterFail = (dt, value) => new Promise((_, reject) => setTimeout(reject, dt, value)),
 	now = hirestime(),
 	
@@ -33,15 +44,14 @@ describe("Promise", function() {
 				DELTA = DURATION / 5,
 				beginTs = now();
 			
-			return applyTo(Promise.resolve(3))(
-				pipe(
-					map(x => laterSucceed(DURATION, x * 2)),
-					map(x => {
-						assert.strictEqual(x, 6);
-						assert.approximately(now() - beginTs, DURATION, DELTA);
-					})
-				)
-			);
+			return pipe(
+				() => Promise.resolve(3),
+				map(x => laterSucceed(DURATION, x * 2)),
+				map(x => {
+					assert.strictEqual(x, 6);
+					assert.approximately(now() - beginTs, DURATION, DELTA);
+				})
+			)();
 		});
 		
 		it("obeys the identity law", () =>
@@ -340,7 +350,7 @@ describe("Promise", function() {
 	
 	});
 	
-	describe.skip("lift", function () {
+	describe.skip("liftA2", function () {
 	
 	});
 });

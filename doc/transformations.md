@@ -1,6 +1,20 @@
 Natural Transformations
 =======================
 
+Extracting from/Wrapping with Collections
+-----------------------------------------
+
+### `keyMaybeToMaybeObj(key, coll)`
+`:: key -> {key: Maybe a, …} -> Maybe {key: a, …}`
+
+`:: Idx -> [Idx: Maybe a, …] -> Maybe [Idx: a, …]`
+
+Async Stuff
+-----------
+
+### `maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)`
+`:: Maybe Promise e a -> Promise e Maybe a`
+
 ### `eitherToCancelable(either)`
 `:: Either e a → Cancelable e a`
 
@@ -17,6 +31,9 @@ The transformation is with limitations:
 Since promises are eager, this transformation will run the cancelable computation. The ability to cancel the computation will be lost.
 
 Note that in principle, the ability to cancel the computation could be maintained. However, a result of the cancellation would then be that the created Promise never settles. That is considered to be bad practise.
+
+Async into/from Reactive Streams
+--------------------------------
 
 ### `cancelableToBaconStream(cancelable)`
 `:: Cancelable e a → EventStream e a`

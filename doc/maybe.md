@@ -11,6 +11,11 @@ Generators
 ### fromNilable `:: (a|undefined|null) -> Maybe a`
 Generates a maybe from a value which can be nullish.
 
+```javascript
+fromNilable({}.foo) // Nothing
+fromNilable("bar") // Just("bar")
+```
+
 Consumption
 -----------
 
@@ -30,7 +35,9 @@ cannot be distinguished.
 
 This directly affects the inspection functions `isJust`, `isNothing` and `equals`.  E.g. `equals(of(x), [x])` is `true` as well as `equals(nothing(), [])` is also `true`.
 
-Also `join()` will treat a just containing an empty array as a just containing nothing which is collapsed to a nothing. 
+Also `join()` will treat a just containing an empty array as a just containing nothing which is collapsed to a nothing.
 
-The library does *not* guard against these cases by inspecting value types at runtime. However, if the source code keeps track of the data type, e.g. `join()` should never been called on a just of an array.
- 
+The library does *not* guard against these cases by inspecting value types at runtime. However, if the source code keeps track of the data type, e.g. `join()` should never been called with data of the wrong type (e.g. with a just of an array). Thus, such silent errors of `join` would never occur in practise.
+
+
+The other way around, recursively *flattening an Array containing Maybes* will destroy all Maybe elements. This can only be prevented by using Array.flat with the accurate deepness.
