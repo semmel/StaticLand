@@ -15,6 +15,7 @@ export {default as cancelableToPromise} from './transformations/cancelableToProm
 export {default as observableToCancelable} from './transformations/baconObservableToCancelable.js';
 export {default as cancelableToEventStream} from './transformations/cancelableToBaconStream.js';
 export {default as eitherToCancelable} from './transformations/eitherToCancelable.js';
+export {default as maybeOfBaconObservableToBaconObservableOfMaybe} from './transformations/maybeOfBaconObservableToBaconObservableOfMaybe.js';
 
 const
 	// eitherToPromise :: Either e a -> Promise e a

@@ -52,3 +52,9 @@ Crates a single-valued [@most/core](https://mostcore.readthedocs.io/en/latest/in
 `:: Stream a → Cancelable a`
 
 If not cancelled the resulting Cancelable Computation will continue with the *last* value, or the *first* error in the stream.
+
+Maybe/Either into/from Reactive Streams
+---------------------------------------
+
+### maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)
+`:: Maybe Observable a -> Observable Maybe a`

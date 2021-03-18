@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.19
+------
+- added `maybeOfBaconObservableToBaconObservableOfMaybe`
+
 0.1.16
 -------
 - Begun API for CancelableComputation incl. natural transformations to and from Bacon and Most streams
