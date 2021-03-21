@@ -3,9 +3,13 @@ site_dir: html-docs
 docs_dir: doc
 nav:
   - Welcome: index.md
-  - custom-elements.md
-  - media.md
-  - CHANGELOG.md
+  - About Cancelables: cancelable.md
+  - Cancelable: cancelable-api.md
+  - maybe.md
+  - promise.md
+  - transformations.md
+  - io.md
+  - changelog.md
   - license.md
 markdown_extensions:
   - pymdownx.tilde

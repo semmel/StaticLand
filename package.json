@@ -61,7 +61,7 @@
 		"Functional",
 		"Type"
 	],
-	"license": "Apache-2.0",
+	"license": "JSON",
 	"main": "./dist/cjs/staticland.js",
 	"module": "./index.js",
 	"name": "@visisoft/staticland",
@@ -76,9 +76,10 @@
 	},
 	"scripts": {
 		"build:cjs": "rollup -c",
+		"build:docs": "mkdocs build",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
-		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root",
+		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && npm run build:docs",
 		"postpack": "npm run remove_ts_defs_from_root",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",
@@ -86,5 +87,5 @@
 		"test": "mocha --recursive --extension mjs ./test"
 	},
 	"type": "module",
-	"version": "0.1.19"
+	"version": "0.1.20"
 }
