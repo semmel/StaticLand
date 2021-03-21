@@ -1,0 +1,20 @@
+site_name: "@visisoft/staticland"
+site_dir: html-docs
+docs_dir: doc
+nav:
+  - Welcome: index.md
+  - custom-elements.md
+  - media.md
+  - CHANGELOG.md
+  - license.md
+markdown_extensions:
+  - pymdownx.tilde
+  - pymdownx.tasklist
+  - markdown.extensions.footnotes
+  - def_list
+  - pymdownx.emoji
+  - pymdownx.snippets
+  - plantuml_markdown
+plugins:
+  - include-markdown
+theme: material

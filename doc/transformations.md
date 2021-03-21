@@ -15,6 +15,9 @@ Async Stuff
 ### `maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)`
 `:: Maybe Promise e a -> Promise e Maybe a`
 
+### `maybeOfCancelableToCancelableOfMaybe(mma)`
+`:: Maybe Cancelable e a -> Cancelable e Maybe a`
+
 ### `eitherToCancelable(either)`
 `:: Either e a → Cancelable e a`
 
@@ -35,12 +38,12 @@ Note that in principle, the ability to cancel the computation could be maintaine
 Async into/from Reactive Streams
 --------------------------------
 
-### `cancelableToBaconStream(cancelable)`
+### `cancelableToEventStream(cancelable)`
 `:: Cancelable e a → EventStream e a`
 
 Creates a single-valued [Bacon.js](http://baconjs.github.io) `EventStream` observable.
 
-### `baconObservableToCancelable(observable)`
+### `observableToCancelable(observable)`
 `:: Observable e a → Cancelable e a`
 
 ### `cancelableToMostStream(cancelable)`
@@ -56,5 +59,5 @@ If not cancelled the resulting Cancelable Computation will continue with the *la
 Maybe/Either into/from Reactive Streams
 ---------------------------------------
 
-### maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)
+### `maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)`
 `:: Maybe Observable a -> Observable Maybe a`

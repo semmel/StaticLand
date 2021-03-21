@@ -34,7 +34,7 @@ The result is a Cancelable of a Maybe of a Number. The
 
 ```javascript
 import {ap, pair, pipe} from 'ramda';
-import {chain as chain_c, map as map_c} 
+import {chain as chain_c, later, map as map_c, fetchResponse} 
 from '@visisoft/staticland/cancelable';
 import { eitherToCancelable, keyPromiseToPromiseCollection, promiseToCancelable } 
 from '@visisoft/staticland/transformations';
@@ -64,9 +64,9 @@ const
    // :: Cancelable Maybe Number
    numberOfCDNJSLibraries = pipe(
        () => fetchResponse({url: "https://api.cdnjs.com/stats", init: { mode: "cors" }}),  // :: Cancelable Response
-       map_c(ap(pair, response => response.json())),            // :: Cancelable Pair Promise Response {k:v}
-       map_c(keyPromiseToPromiseCollection(1)),                 // :: Cancelable Promise Pair Response {k:v}
-       chain_c(promiseToCancelable),                            // :: Cancelable Pair Response {k:v}
+       map_c(ap(pair, response => response.json())),            // :: Cancelable Pair (Response) (Promise {k:v})
+       map_c(keyPromiseToPromiseCollection(1)),                 // :: Cancelable Promise Pair (Response) ({k:v})
+       chain_c(promiseToCancelable),                            // :: Cancelable Pair (Response) ({k:v})
        map_c(checkFetchResponseWithPayload),                    // :: Cancelable Either {k:v}
        map_c(chain_e(checkStatsResult)),                        // :: Cancelable Either Number
        chain_c(eitherToCancelable),                             // :: Cancelable Number
@@ -104,6 +104,8 @@ Combinations
 
 ### `ap(cancelableFunc, cancelable)`
 `:: Cancelable (a → b) → Cancelable a → Cancelable b`
+
+Parallel running version: It runs both Cancelable arguments in parallel.
 
 Note that when implemented simply `ap(mf, ma) = chain(f => map(f, ma), mf)` will *not* run the Cancelable Computations in *parallel*.
 

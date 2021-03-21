@@ -38,7 +38,7 @@ describe("maybeToPromise", function() {
 });
 
 describe("maybeOfPromiseToPromiseOfMaybe", function() {
-	it("unnests nothing to a promise of nothing", () => {
+	it("un-nests nothing to a promise of nothing", () => {
 		const
 			promiseOfNothing = maybeOfPromiseToPromiseOfMaybe(nothing());
 		
@@ -55,7 +55,7 @@ describe("maybeOfPromiseToPromiseOfMaybe", function() {
 		);
 	});
 	
-	it("unnests just a rejection to a rejected promise", () => {
+	it("un-nests just a rejection to a rejected promise", () => {
 		const
 			failedPromise = maybeOfPromiseToPromiseOfMaybe(of_mb(Promise.reject("foo")));
 		
@@ -68,7 +68,7 @@ describe("maybeOfPromiseToPromiseOfMaybe", function() {
 		);
 	});
 	
-	it("unnests just a resolved promise to a promise of a just", () => {
+	it("un-nests just a resolved promise to a promise of a just", () => {
 		const
 			promiseOfJust = maybeOfPromiseToPromiseOfMaybe(of_mb(Promise.resolve("bar")));
 		
