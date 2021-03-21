@@ -1,0 +1,610 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.8">
+    
+    
+      
+        <title>About Cancelables - @visisoft/staticland</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.01afc2df.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cancelable" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="@visisoft/staticland" class="md-header-nav__button md-logo" aria-label="@visisoft/staticland">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            @visisoft/staticland
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              About Cancelables
+            
+          </span>
+        </div>
+      
+    </div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="@visisoft/staticland" class="md-nav__button md-logo" aria-label="@visisoft/staticland">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    @visisoft/staticland
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        About Cancelables
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="About Cancelables" class="md-nav__link md-nav__link--active">
+      About Cancelables
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cancelable-computation" class="md-nav__link">
+    Cancelable Computation
+  </a>
+  
+    <nav class="md-nav" aria-label="Cancelable Computation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executing-work" class="md-nav__link">
+    Executing Work
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consuming-outcome" class="md-nav__link">
+    Consuming Outcome
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellation" class="md-nav__link">
+    Cancellation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generators-of-cancelable-computations" class="md-nav__link">
+    Generators of Cancelable Computations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rationale" class="md-nav__link">
+    Rationale
+  </a>
+  
+    <nav class="md-nav" aria-label="Rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-synchronicity" class="md-nav__link">
+    No Synchronicity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellation-discontinues" class="md-nav__link">
+    Cancellation Discontinues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copyingsharing" class="md-nav__link">
+    Copying/Sharing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cancelable-api/" title="Cancelable" class="md-nav__link">
+      Cancelable
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../maybe/" title="Maybe" class="md-nav__link">
+      Maybe
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../promise/" title="Promise" class="md-nav__link">
+      Promise
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../transformations/" title="Transformations" class="md-nav__link">
+      Transformations
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../io/" title="Io" class="md-nav__link">
+      Io
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cancelable-computation" class="md-nav__link">
+    Cancelable Computation
+  </a>
+  
+    <nav class="md-nav" aria-label="Cancelable Computation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executing-work" class="md-nav__link">
+    Executing Work
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consuming-outcome" class="md-nav__link">
+    Consuming Outcome
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellation" class="md-nav__link">
+    Cancellation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generators-of-cancelable-computations" class="md-nav__link">
+    Generators of Cancelable Computations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rationale" class="md-nav__link">
+    Rationale
+  </a>
+  
+    <nav class="md-nav" aria-label="Rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-synchronicity" class="md-nav__link">
+    No Synchronicity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellation-discontinues" class="md-nav__link">
+    Cancellation Discontinues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copyingsharing" class="md-nav__link">
+    Copying/Sharing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="cancelable">Cancelable</h1>
+<h2 id="cancelable-computation">Cancelable Computation</h2>
+<p>A Cancelable Computation is a function which performs a cancelable asynchronous computation. </p>
+<p><code>CancelableComputation e a :: ((a -&gt; void), (e -&gt; void)) -&gt; (() -&gt; void)</code></p>
+<p>In general Cancelable Computations serves the same purpose as a Promises. Contrary to Promises, Cancelable Computations are
+- lazily executed,
+- have no internal mutating state - thus are referentially transparent, and
+- cancellation is not propagated to the consumer. </p>
+<h3 id="executing-work">Executing Work</h3>
+<p>The computation is started when the Cancelable Computation function is called - <strong>laziness</strong>.</p>
+<pre><code class="javascript">// Pseudocode
+let cancelableWork = (res, rej) =&gt; {
+    beginSomeLongWork()  
+   whenLongWorkDone with result invoke res(result)
+   whenLongWorkFailed with error invoke rej(error)
+
+    return () =&gt; {
+        // abort the work
+    };
+};
+</code></pre>
+
+<h3 id="consuming-outcome">Consuming Outcome</h3>
+<p>The result or failing of the computation (aka settlement) is communicated via the two callback arguments ("continuations") in the same way as the <em>computation function in a Promise constructor</em>. Differently however, the settlement of the computation should not be communicated synchronously - <strong>enforced asynchronicity</strong></p>
+<pre><code class="javascript">let ccFoo = (res, rej) =&gt; { 
+    res(&quot;foo&quot;);   // BAD CODE! Do not invoke the callbacks synchronously!  
+    return () =&gt; undefined; 
+};
+
+let ccBar = (res, rej) =&gt; { 
+    const timer = setTimeout(res, 0, &quot;bar&quot;);   // Always invoke the callbacks asynchronously!  
+    return () =&gt; { clearTimeout(timer); }; 
+};
+</code></pre>
+
+<p>Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating <a href="https://github.com/fluture-js/Fluture#creating-futures">Fluture Futures</a> or <a href="https://crocks.dev/docs/crocks/Async.html#construction">Async in Crocks</a>. Because those other libraries however provide their (lazy) replacement for native Promises, the <em>order</em> of arguments of <em>their</em> computation function <em>differs</em> from that of the Promise constructor in that the rejection continuation comes <em>before</em> the success continuation.</p>
+<p>By providing the Cancelable Computation in the Promise constructor <code>new Promise(cancelableComputation)</code> it becomes trivial to transform a Cancelable Computation into a Promise.</p>
+<h3 id="cancellation">Cancellation</h3>
+<p>The Cancelable Computation Function returns a function to abort/<em>cancel</em> the computation. </p>
+<p>A Cancelable Computation can be aborted by calling the <code>abort</code> function which is returned when the execution of the Cancelable Computation is started by invoking it with two callbacks.</p>
+<pre><code class="javascript">let abort = cancelableComputation(onSuccess, onFailure);
+abort(); // Abort immediately. onSuccess and onFailure are never called
+</code></pre>
+
+<p>When a Cancelable Computation aborts, the implementation must assert that neither the success, nor the failure callback are called. </p>
+<p>This is another <em>difference</em> to many cancelable computations represented by Promises. For example, aborting a <code>fetch</code> computation is known to reject the resulting promise with <code>AbortError</code>. Thus, a Cancelable <code>fetch</code> Computation should guarantee that the <code>AbortError</code> rejection does not reach the onFailure callback. </p>
+<h2 id="generators-of-cancelable-computations">Generators of Cancelable Computations</h2>
+<p>The parameters of the asynchronous computation are given to a <em>Cancelable Computation Generator Function</em> which returns a Cancelable Computation configured to that parameters.</p>
+<p>This way the configuration of the computation is separated from its execution (<em>laziness</em>).</p>
+<p>The typical example in many similar libraries is that of a timer:</p>
+<pre><code class="javascript">// laterResolve :: (Number, t) -&gt; CancelableComputation * t
+const laterResolve = (dt, value) =&gt; resolve =&gt; {
+    const timer = setTimeout(resolve, dt, value);
+    return () =&gt; { clearTimeout(timer); };
+};
+</code></pre>
+
+<h2 id="rationale">Rationale</h2>
+<h3 id="no-synchronicity">No Synchronicity</h3>
+<p>The reason that a Cancelable Computation cannot synchronously invoke the callbacks with the outcome of the computation, is that otherwise certain combinators were not possible to implement. E.g. mutual cancellation of two simultaneously running computations in <a href="../cancelable-api/#racecancelablea-cancelableb"><code>race</code></a> would be much harder to implement. </p>
+<h3 id="cancellation-discontinues">Cancellation Discontinues</h3>
+<p>The two continuation callbacks are to collect the result of the successful computation and any computational error or exceptional path of execution. Aborting/Cancelling the computation by the consumer is not considered to be any of those two purposes. Since the calling code is (obviously) aware of the cancellation it can perform steps to publish that cancellation.</p>
+<p>The current cancellation behaviour could be extended be supporting asynchronous cancellation - i.e. the cancel function returning a Promise instead of void. However, cancelling the cancellation itself seems to be much of an overkill.</p>
+<h3 id="copyingsharing">Copying/Sharing</h3>
+<p>A benefit of Native Promises is that they can be freely copied and shared in a program. Being eager they rather represent the eventual outcome of a computation than the computation itself. Thus copying makes much sense. However, the <em>internal state</em> of a Promise is time-dependent and thus opaque, i.e. not referentially transparent to the calling code. Depending on when probed by the surrounding code, Promises behave differently; E.g. a <code>Promise.race</code> will take a different route when one of its inputs is already settled.</p>
+<p>Being just referentially transparent functions, such opaque Promise behaviour is not possible with copies of Cancelable Computations. Everytime the same Cancelable get consumed the asynchronous computation is started anew, and the outcome and temporal behaviour will always be the same.</p>
+<p>Nevertheless, sharing/multicasting asynchronous computations being valuable, there are at least two ways making Cancelables shareable while maintaining the asynchronous character:
+- convert to Promise <code>new Promise(cancelableComputation)</code> but thereby loosing cancelability, or
+- caching/making them stateful with <a href="../cancelable-api/#sharecancelable"><code>share</code></a></p>
+<p><code>share</code> picks up many disadvantages of Promise but keeps the benefit of being able to get cancelled when all consumers decide to to so.</p>
+<pre><code class="javascript">let ccs = share(later(10, &quot;X&quot;));
+ccs(console.log, console.log); // ~&gt; &quot;X&quot; (logged after 10)
+// …
+ccs(console.log, console.log); // ~&gt; &quot;X&quot; (logged already on next tick!)
+</code></pre>
+
+<p>Cancelling a shared Cancelable Computation merely means unsubscribing the continuation callbacks. It should be done when the code has lost interest in the outcome of the computation. The shared computation will continue to run if there are still any subscribers which have not cancelled. Otherwise, the internal state is reset, so that the computation will be recommenced on the next call. This way the internal state might toggle between "initial" and "pending" several times. Once allowed completing, the Shared Cancelable will simply yield the internally stored outcome to the caller.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." title="Welcome" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Welcome
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../cancelable-api/" title="Cancelable" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Cancelable
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.df0def68.min.js"></script>
+      <script src="../assets/javascripts/bundle.ba57d267.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

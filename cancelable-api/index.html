@@ -1,0 +1,753 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.8">
+    
+    
+      
+        <title>Cancelable - @visisoft/staticland</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.01afc2df.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cancelable-computation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="@visisoft/staticland" class="md-header-nav__button md-logo" aria-label="@visisoft/staticland">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            @visisoft/staticland
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Cancelable
+            
+          </span>
+        </div>
+      
+    </div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="@visisoft/staticland" class="md-nav__button md-logo" aria-label="@visisoft/staticland">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    @visisoft/staticland
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cancelable/" title="About Cancelables" class="md-nav__link">
+      About Cancelables
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Cancelable
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Cancelable" class="md-nav__link md-nav__link--active">
+      Cancelable
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    Signature
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generator-functions" class="md-nav__link">
+    Generator Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Generator Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ofvalue" class="md-nav__link">
+    of(value)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejecte" class="md-nav__link">
+    reject(e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#laterdt-value" class="md-nav__link">
+    later(dt, value)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#laterrejectdt-e" class="md-nav__link">
+    laterReject(dt, e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetchresponseurl-fetchspec" class="md-nav__link">
+    fetchResponse({url, fetchSpec})
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformation" class="md-nav__link">
+    Transformation
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapf-cancelable" class="md-nav__link">
+    map(f, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chainf-cancelable" class="md-nav__link">
+    chain(f, cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinations" class="md-nav__link">
+    Combinations
+  </a>
+  
+    <nav class="md-nav" aria-label="Combinations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apcancelablefunc-cancelable" class="md-nav__link">
+    ap(cancelableFunc, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifta2f-cca-ccb" class="md-nav__link">
+    liftA2(f, ccA , ccB)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#racecancelablea-cancelableb" class="md-nav__link">
+    race(cancelableA, cancelableB)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility" class="md-nav__link">
+    Utility
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sharecancelable" class="md-nav__link">
+    share(cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../maybe/" title="Maybe" class="md-nav__link">
+      Maybe
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../promise/" title="Promise" class="md-nav__link">
+      Promise
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../transformations/" title="Transformations" class="md-nav__link">
+      Transformations
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../io/" title="Io" class="md-nav__link">
+      Io
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    Signature
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generator-functions" class="md-nav__link">
+    Generator Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Generator Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ofvalue" class="md-nav__link">
+    of(value)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejecte" class="md-nav__link">
+    reject(e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#laterdt-value" class="md-nav__link">
+    later(dt, value)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#laterrejectdt-e" class="md-nav__link">
+    laterReject(dt, e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetchresponseurl-fetchspec" class="md-nav__link">
+    fetchResponse({url, fetchSpec})
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformation" class="md-nav__link">
+    Transformation
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapf-cancelable" class="md-nav__link">
+    map(f, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chainf-cancelable" class="md-nav__link">
+    chain(f, cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinations" class="md-nav__link">
+    Combinations
+  </a>
+  
+    <nav class="md-nav" aria-label="Combinations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apcancelablefunc-cancelable" class="md-nav__link">
+    ap(cancelableFunc, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifta2f-cca-ccb" class="md-nav__link">
+    liftA2(f, ccA , ccB)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#racecancelablea-cancelableb" class="md-nav__link">
+    race(cancelableA, cancelableB)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility" class="md-nav__link">
+    Utility
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sharecancelable" class="md-nav__link">
+    share(cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="cancelable-computation">Cancelable Computation</h1>
+<h3 id="signature">Signature</h3>
+<p><code>CancelableComputation e a :: ((a -&gt; void), (e -&gt; void)) -&gt; (() -&gt; void)</code></p>
+<p>Leaving the failure type to be implicitly an Error the signature can be shortened:
+<code>CancelableComputation a :: ((a -&gt; void), (* -&gt; void)) -&gt; (() -&gt; void)</code></p>
+<h2 id="generator-functions">Generator Functions</h2>
+<h3 id="ofvalue"><code>of(value)</code></h3>
+<p><code>:: a -&gt; Cancelable () a</code></p>
+<h3 id="rejecte"><code>reject(e)</code></h3>
+<p><code>:: e =&gt; Cancelable e ()</code></p>
+<h3 id="laterdt-value"><code>later(dt, value)</code></h3>
+<p><code>:: Number -&gt; a -&gt; Cancelable () a</code></p>
+<h3 id="laterrejectdt-e"><code>laterReject(dt, e)</code></h3>
+<p><code>:: Number -&gt; e -&gt; Cancelable e ()</code></p>
+<h3 id="fetchresponseurl-fetchspec"><code>fetchResponse({url, fetchSpec})</code></h3>
+<p><code>:: {url: (String|URL), init: {}} -&gt; Cancelable Error Response</code></p>
+<p>This example fetches the number of libraries hosted at <a href="https://cdnjs.com/api">cdnjs.com</a>.</p>
+<p>The result is a Cancelable of a Maybe of a Number. The 
+- <em>failure continuation</em> of the cancelable contains network <em>errors</em> and errors in the JSON format of the response, 
+- <em>nothing</em> path of the maybe is taken in case the combined network and parse duration exceeded the <em>timeout</em>,
+- the <em>just</em> path of the Maybe in the <em>success continuation</em> of the Cancelable contains the <em>result</em>.</p>
+<pre><code class="javascript">import {ap, pair, pipe} from 'ramda';
+import {chain as chain_c, later, map as map_c, fetchResponse} 
+from '@visisoft/staticland/cancelable';
+import { eitherToCancelable, keyPromiseToPromiseCollection, promiseToCancelable } 
+from '@visisoft/staticland/transformations';
+import { chain as chain_e, right, left } from '@visisoft/staticland/either';
+import {nothing, just, maybe } from '@visisoft/staticland/maybe';
+
+const 
+   // :: Pair Response {k:v} =&gt; Either {k:v}
+   checkFetchResponseWithPayload = ([response, payload]) =&gt;
+       response.ok ?
+           right(payload) :
+           left({
+               message: response.statusText,
+               code: response.status,
+               payload
+           }),
+
+   // :: {k:v} -&gt; Either Number
+   checkStatsResult = payload =&gt; 
+      typeof payload.libraries === &quot;number&quot; ?
+         right(payload.libaries) :
+         left({
+            message: &quot;Unexpected API response&quot;,
+            payload
+         }),
+
+   // :: Cancelable Maybe Number
+   numberOfCDNJSLibraries = pipe(
+       () =&gt; fetchResponse({url: &quot;https://api.cdnjs.com/stats&quot;, init: { mode: &quot;cors&quot; }}),  // :: Cancelable Response
+       map_c(ap(pair, response =&gt; response.json())),            // :: Cancelable Pair (Response) (Promise {k:v})
+       map_c(keyPromiseToPromiseCollection(1)),                 // :: Cancelable Promise Pair (Response) ({k:v})
+       chain_c(promiseToCancelable),                            // :: Cancelable Pair (Response) ({k:v})
+       map_c(checkFetchResponseWithPayload),                    // :: Cancelable Either {k:v}
+       map_c(chain_e(checkStatsResult)),                        // :: Cancelable Either Number
+       chain_c(eitherToCancelable),                             // :: Cancelable Number
+       map_c(just),                                             // :: Cancelable Maybe Number
+       race(later(1000, nothing())),                            // :: Cancelable Maybe Number
+    )();
+
+
+new Promise(numberOfCDNJSLibraries)       // running
+.then(                                    // consuming
+    maybeCount =&gt; { 
+        console.log(maybe(
+           () =&gt; &quot;Info: API request did not complete in time.&quot;, 
+           n =&gt; `Result: CDNJS hosts ${n} libraries.`, 
+           maybeCount
+        )); 
+    }, 
+   error =&gt; { 
+        console.log(`Error: fetching CNDJSAPI: &quot;${error.message}&quot;.\nData received:&quot;${JSON.stringify(error.payload)}&quot;`); 
+    }
+);
+</code></pre>
+
+<h2 id="transformation">Transformation</h2>
+<h3 id="mapf-cancelable"><code>map(f, cancelable)</code></h3>
+<p><code>:: (a → b) → Cancelable a → Cancelable → b</code></p>
+<h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
+<p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
+<h2 id="combinations">Combinations</h2>
+<h3 id="apcancelablefunc-cancelable"><code>ap(cancelableFunc, cancelable)</code></h3>
+<p><code>:: Cancelable (a → b) → Cancelable a → Cancelable b</code></p>
+<p>Parallel running version: It runs both Cancelable arguments in parallel.</p>
+<p>Note that when implemented simply <code>ap(mf, ma) = chain(f =&gt; map(f, ma), mf)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<h3 id="lifta2f-cca-ccb"><code>liftA2(f, ccA , ccB)</code></h3>
+<p><code>:: (a → b → c) → Cancelable a → Cancelable b → Cancelable c</code></p>
+<p>Equivalent to <code>(f, pa, pb) =&gt; Promise.all([pa, pb]).then(([a, b]) =&gt; f(a, b))</code>. <code>f</code> must be curried.</p>
+<p>Note that when implemented by <strong>sequential</strong> running <strong><code>ap</code></strong>, <code>liftA2(f, ma, mb) = ap(map(f, ma), mb)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<h3 id="racecancelablea-cancelableb"><code>race(cancelableA, cancelableB)</code></h3>
+<p><code>:: Cancelable a → Cancelable a → Cancelable a</code></p>
+<p>Like <code>Promise.race</code> shortcuts (i.e. aborts the other) when any input value is settled with success or failure.</p>
+<h2 id="utility">Utility</h2>
+<h3 id="sharecancelable"><code>share(cancelable)</code></h3>
+<p><code>:: Cancelable e a → Cancelable e a</code></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../cancelable/" title="About Cancelables" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                About Cancelables
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../maybe/" title="Maybe" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Maybe
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.df0def68.min.js"></script>
+      <script src="../assets/javascripts/bundle.ba57d267.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

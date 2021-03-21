@@ -1,0 +1,677 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.8">
+    
+    
+      
+        <title>Transformations - @visisoft/staticland</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.01afc2df.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#natural-transformations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="@visisoft/staticland" class="md-header-nav__button md-logo" aria-label="@visisoft/staticland">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            @visisoft/staticland
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Transformations
+            
+          </span>
+        </div>
+      
+    </div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="@visisoft/staticland" class="md-nav__button md-logo" aria-label="@visisoft/staticland">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    @visisoft/staticland
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cancelable/" title="About Cancelables" class="md-nav__link">
+      About Cancelables
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cancelable-api/" title="Cancelable" class="md-nav__link">
+      Cancelable
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../maybe/" title="Maybe" class="md-nav__link">
+      Maybe
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../promise/" title="Promise" class="md-nav__link">
+      Promise
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Transformations
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Transformations" class="md-nav__link md-nav__link--active">
+      Transformations
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extracting-fromwrapping-with-collections" class="md-nav__link">
+    Extracting from/Wrapping with Collections
+  </a>
+  
+    <nav class="md-nav" aria-label="Extracting from/Wrapping with Collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keymaybetomaybeobjkey-coll" class="md-nav__link">
+    keyMaybeToMaybeObj(key, coll)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-stuff" class="md-nav__link">
+    Async Stuff
+  </a>
+  
+    <nav class="md-nav" aria-label="Async Stuff">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maybeofpromisetopromiseofmaybepromiseofmaybe" class="md-nav__link">
+    maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maybeofcancelabletocancelableofmaybemma" class="md-nav__link">
+    maybeOfCancelableToCancelableOfMaybe(mma)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eithertocancelableeither" class="md-nav__link">
+    eitherToCancelable(either)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promisetocancelablepromise" class="md-nav__link">
+    promiseToCancelable(promise)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelabletopromisecancelable" class="md-nav__link">
+    cancelableToPromise(cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-intofrom-reactive-streams" class="md-nav__link">
+    Async into/from Reactive Streams
+  </a>
+  
+    <nav class="md-nav" aria-label="Async into/from Reactive Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cancelabletoeventstreamcancelable" class="md-nav__link">
+    cancelableToEventStream(cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observabletocancelableobservable" class="md-nav__link">
+    observableToCancelable(observable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelabletomoststreamcancelable" class="md-nav__link">
+    cancelableToMostStream(cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moststreamtocancelablestream" class="md-nav__link">
+    mostStreamToCancelable(stream)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maybeeither-intofrom-reactive-streams" class="md-nav__link">
+    Maybe/Either into/from Reactive Streams
+  </a>
+  
+    <nav class="md-nav" aria-label="Maybe/Either into/from Reactive Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maybeofbaconobservabletobaconobservableofmaybemaybeobservable" class="md-nav__link">
+    maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../io/" title="Io" class="md-nav__link">
+      Io
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extracting-fromwrapping-with-collections" class="md-nav__link">
+    Extracting from/Wrapping with Collections
+  </a>
+  
+    <nav class="md-nav" aria-label="Extracting from/Wrapping with Collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keymaybetomaybeobjkey-coll" class="md-nav__link">
+    keyMaybeToMaybeObj(key, coll)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-stuff" class="md-nav__link">
+    Async Stuff
+  </a>
+  
+    <nav class="md-nav" aria-label="Async Stuff">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maybeofpromisetopromiseofmaybepromiseofmaybe" class="md-nav__link">
+    maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maybeofcancelabletocancelableofmaybemma" class="md-nav__link">
+    maybeOfCancelableToCancelableOfMaybe(mma)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eithertocancelableeither" class="md-nav__link">
+    eitherToCancelable(either)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promisetocancelablepromise" class="md-nav__link">
+    promiseToCancelable(promise)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelabletopromisecancelable" class="md-nav__link">
+    cancelableToPromise(cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-intofrom-reactive-streams" class="md-nav__link">
+    Async into/from Reactive Streams
+  </a>
+  
+    <nav class="md-nav" aria-label="Async into/from Reactive Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cancelabletoeventstreamcancelable" class="md-nav__link">
+    cancelableToEventStream(cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observabletocancelableobservable" class="md-nav__link">
+    observableToCancelable(observable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelabletomoststreamcancelable" class="md-nav__link">
+    cancelableToMostStream(cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moststreamtocancelablestream" class="md-nav__link">
+    mostStreamToCancelable(stream)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maybeeither-intofrom-reactive-streams" class="md-nav__link">
+    Maybe/Either into/from Reactive Streams
+  </a>
+  
+    <nav class="md-nav" aria-label="Maybe/Either into/from Reactive Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maybeofbaconobservabletobaconobservableofmaybemaybeobservable" class="md-nav__link">
+    maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="natural-transformations">Natural Transformations</h1>
+<h2 id="extracting-fromwrapping-with-collections">Extracting from/Wrapping with Collections</h2>
+<h3 id="keymaybetomaybeobjkey-coll"><code>keyMaybeToMaybeObj(key, coll)</code></h3>
+<p><code>:: key -&gt; {key: Maybe a, …} -&gt; Maybe {key: a, …}</code></p>
+<p><code>:: Idx -&gt; [Idx: Maybe a, …] -&gt; Maybe [Idx: a, …]</code></p>
+<h2 id="async-stuff">Async Stuff</h2>
+<h3 id="maybeofpromisetopromiseofmaybepromiseofmaybe"><code>maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)</code></h3>
+<p><code>:: Maybe Promise e a -&gt; Promise e Maybe a</code></p>
+<h3 id="maybeofcancelabletocancelableofmaybemma"><code>maybeOfCancelableToCancelableOfMaybe(mma)</code></h3>
+<p><code>:: Maybe Cancelable e a -&gt; Cancelable e Maybe a</code></p>
+<h3 id="eithertocancelableeither"><code>eitherToCancelable(either)</code></h3>
+<p><code>:: Either e a → Cancelable e a</code></p>
+<h3 id="promisetocancelablepromise"><code>promiseToCancelable(promise)</code></h3>
+<p><code>:: Promise e a → Cancelable e a</code></p>
+<p>The transformation is with limitations:
+- Eagerness cannot be transformed into laziness, i.e. the computation represented by the promise is already executing or even settled.
+- The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.</p>
+<h3 id="cancelabletopromisecancelable"><code>cancelableToPromise(cancelable)</code></h3>
+<p><code>:: Cancelable e a → Promise e a</code></p>
+<p>Since promises are eager, this transformation will run the cancelable computation. The ability to cancel the computation will be lost.</p>
+<p>Note that in principle, the ability to cancel the computation could be maintained. However, a result of the cancellation would then be that the created Promise never settles. That is considered to be bad practise.</p>
+<h2 id="async-intofrom-reactive-streams">Async into/from Reactive Streams</h2>
+<h3 id="cancelabletoeventstreamcancelable"><code>cancelableToEventStream(cancelable)</code></h3>
+<p><code>:: Cancelable e a → EventStream e a</code></p>
+<p>Creates a single-valued <a href="http://baconjs.github.io">Bacon.js</a> <code>EventStream</code> observable.</p>
+<h3 id="observabletocancelableobservable"><code>observableToCancelable(observable)</code></h3>
+<p><code>:: Observable e a → Cancelable e a</code></p>
+<h3 id="cancelabletomoststreamcancelable"><code>cancelableToMostStream(cancelable)</code></h3>
+<p><code>:: Cancelable a → Stream a</code></p>
+<p>Crates a single-valued <a href="https://mostcore.readthedocs.io/en/latest/index.html">@most/core</a> <code>Stream</code>.</p>
+<h3 id="moststreamtocancelablestream"><code>mostStreamToCancelable(stream)</code></h3>
+<p><code>:: Stream a → Cancelable a</code></p>
+<p>If not cancelled the resulting Cancelable Computation will continue with the <em>last</em> value, or the <em>first</em> error in the stream.</p>
+<h2 id="maybeeither-intofrom-reactive-streams">Maybe/Either into/from Reactive Streams</h2>
+<h3 id="maybeofbaconobservabletobaconobservableofmaybemaybeobservable"><code>maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)</code></h3>
+<p><code>:: Maybe Observable a -&gt; Observable Maybe a</code></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../promise/" title="Promise" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Promise
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../io/" title="Io" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Io
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.df0def68.min.js"></script>
+      <script src="../assets/javascripts/bundle.ba57d267.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
