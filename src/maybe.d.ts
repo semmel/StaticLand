@@ -1,8 +1,10 @@
-import {BinaryCurriedFn, TernaryCurriedFn} from './common';
+import {BinaryCurriedFn, PlainObjectOf, TernaryCurriedFn} from './common';
+import {Either} from './either';
 
 export type Just<T> = [T];
 export type Nothing = [];
 export type Maybe<T> = Just<T> | Nothing;
+type Applicative<T> = Array<T>|Either<T>|PlainObjectOf<T>;
 
 /**
  * creates a Just of the value
@@ -38,6 +40,9 @@ export function map<T, U>(fn: (x: T) => U) : (mx: Maybe<T>) => Maybe<U>;
 
 export function chain<T, U>(factory: (x: T) => Maybe<U>, p: Maybe<T>) : Maybe<U>;
 export function chain<T, U>(factory: (x: T) => Maybe<U>): (p: Maybe<T>) => Maybe<U>;
+
+export function sequence<A, B>(ofF: (a: A) => Applicative<A>, mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>, mfa: Maybe<Applicative<A>>): Applicative<Maybe<A>>;
+export function sequence<A,B>(ofF: (a: A) => Applicative<A>, mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>): (mfa: Maybe<Applicative<A>>) => Applicative<Maybe<A>>;
 
 export function tap<T>(fn: (x: T) => any, p: Maybe<T>): Maybe<T>;
 export function tap<T>(fn: (x: T) => any): (p: Maybe<T>) => Maybe<T>;

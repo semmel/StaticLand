@@ -222,6 +222,7 @@ export {
 };
 
 export {default as ap} from './promise/ap.js';
+export {default as later} from './promise/internal/laterSucceed.js';
 export {default as liftA2} from './promise/liftA2.js';
 
 export let join = identity;

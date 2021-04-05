@@ -79,7 +79,7 @@
 		"build:docs": "mkdocs build",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
-		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && npm run build:docs",
+		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
 		"postpack": "npm run remove_ts_defs_from_root",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",

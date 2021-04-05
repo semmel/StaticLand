@@ -22,6 +22,25 @@ Consumption
 Transformation
 ---------------
 
+### `sequence(of_f, map_f)`
+`:: Applicative f => ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)`
+
+Basis for type rearrangements of the kind **Maybe**Of*Functor*To*Functor*Of**Maybe**.
+
+#### Example `Maybe {foo: a} → {foo: Maybe a}`
+
+```javascript
+import {modify, objOf} from 'ramda';
+const
+   ofFooObj = objOf("foo"),               // :: a → {foo: a}
+   mapFooObj = modify("foo"),             // :: (a → b) → {foo: a} → {foo: b}
+   maybeOfFooObjectToObjectFooOfMaybe =   // :: Maybe {foo: a} → {foo: Maybe a}
+      sequence(ofFooObj, mapFooObj),
+   justFooBar = just({foo: "bar"});       // :: Just {foo: "bar"}
+
+maybeOfFooObjectToObjectFooOfMaybe(justFooBar); // {foo: Maybe "bar"}
+```
+
 Caveats
 -------
 ### Argument type checking

@@ -13,6 +13,9 @@ Related Work and Inspiration
 Generation
 ----------
 
+### `later(dt, x)`
+`:: number → a → Promise a`
+
 Consumption
 -----------
 

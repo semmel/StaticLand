@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.20
+------
+- added `maybeOfCancelableToCancelableOfMaybe`
+- moved to JSON license
+- generate HTML doc and publish on GitHub pages
+
 0.1.19
 ------
 - added `maybeOfBaconObservableToBaconObservableOfMaybe`

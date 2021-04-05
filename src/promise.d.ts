@@ -6,6 +6,9 @@ import {BinaryCurriedFn} from './common';
 export function chain<T, U>(factory: (x: T) => Promise<U>, p: Promise<T>) : Promise<U>;
 export function chain<T, U>(factory: (x: T) => Promise<U>): (p: Promise<T>) => Promise<U>;
 
+export function later<A>(dt: number, a: A): Promise<A>;
+export function later<A>(dt: number): (a: A) => Promise<A>;
+
 /**
  * Makes a binary curried function accept and return Promises Types instead of Types
  */

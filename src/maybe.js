@@ -159,3 +159,4 @@ export {
 
 export let just = of;
 export {default as liftA2} from './maybe/liftA2.js';
+export {default as sequence} from './maybe/sequence.js';
