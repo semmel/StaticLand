@@ -15,15 +15,17 @@ import {
 	nAry, unary, pathOr, reduce as reduce_l, unapply
 } from 'semmel-ramda';
 
+import maybe from './maybe/maybe.js';
+import {isJust, isNothing} from './maybe/inspection.js';
+import map from './maybe/map.js';
+import {just, of, nothing} from './maybe/creation.js';
+import chain from './maybe/chain.js';
+import ap from './maybe/ap.js';
+
 const
 	singleNothing = [],
 	
 	// Creation //
-	
-	// :: a -> Maybe a
-	of = x => [x],
-	//nothing = () => singleNothing, // TODO: alt: []
-	nothing = () => [],
 	
 	// fromNilable :: (a|undefined|null) -> Maybe a
 	fromNilable = ifElse(isNil, nothing, of),
@@ -37,10 +39,6 @@ const
 	),
 	
 	// Inspection //
-	
-	// isJust :: Maybe a -> Boolean
-	isJust = mx => Array.isArray(mx) && (mx.length === 1), // alt: mx !== singleNothing
-	isNothing = mx => Array.isArray(mx) && (mx.length === 0),
 	
 	/**
 	 * Note that due to the implementation Maybes and empty or one-element arrays
@@ -67,15 +65,6 @@ const
 			)
 			: nothing(),
 	
-	//map = curry((f, mx) => isJust(mx) ? mx.map(unary(f)) : singleNothing), // alt mx.map(unary(f))
-	// map :: (a -> b) -> Maybe a -> Maybe b
-	map = curry((f, mx) => mx.map(unary(f))),
-	// chain :: (a -> Maybe b) -> Maybe a -> Maybe b
-	//chain = curry((f, mx) => isJust(mx) ? mx.flatMap(f) : singleNothing),
-	//chain = curry((f, mx) => mx.flatMap(unary(f))),
-	chain = curry((f, mx) => isJust(mx) ? f(mx[0]) : nothing()),
-	
-	ap = curry((mf, mx) => chain(f => map(f, mx), mf)),
 	reduce = reduce_l,//curry((f, initial, mx) => mx.reduce(f, initial)),
 	
 	// Side effects //
@@ -88,38 +77,6 @@ const
 		mx.forEach(unary(fn));
 		return mx;
 	}),
-	
-	// Consumption //
-	
-	/**
-	 * Extract the value of a Just or return the provided default.
-	 * @function
-	 * @template T
-	 * @param {T} defaultValue
-	 * @param {Maybe<T>} maybe
-	 * @return {T}
-	 */
-	// getOrElse :: a -> Maybe a -> a
-	getOrElse = reduce((acc, x) => x), // alt: xs => xs[0]
-	
-	// maybe :: b -> (a -> b) -> Maybe a -> b
-	//maybe = curry((defaultValue, justFn, ma) => getOrElse(defaultValue, map(justFn, ma))),
-	
-	/**
-	 * Composition of `getOrElse` and `map`.
-	 * Transforms the value if it exists with the provided function.
-	 * Otherwise return the default value.
-	 * @function
-	 * @template T, U
-	 * @param {U} defaultValue
-	 * @param {function(T): U}
-	 * @return {function(Maybe<T>): U}
-	 */
-	// maybe :: (() -> b) -> (a -> b) -> Maybe a -> b
-	maybe = curry((nothingFn, justFn, ma) =>
-		isJust(ma) ? getOrElse("THIS_VALUE_SHOWING_ANYWHERE_IS_AN_ERROR", map(justFn, ma))
-			: nothingFn()
-	),
 	
 	// Adjuncts //
 	
@@ -152,11 +109,12 @@ const
 	);
 
 export {
-	equals, fromNilable, fromContentHolding, fromPredicate, of, nothing, isJust, isNothing, join, lift,
-	map, maybe, chain, ap, reduce, tap, getOrElse,
+	equals, fromNilable, fromContentHolding, fromPredicate, just, of, nothing, isJust, isNothing, join, lift,
+	map, maybe, chain, ap, reduce, tap,
 	typeString
 };
 
-export let just = of;
+export {default as getOrElse} from './maybe/getOrElse.js';
 export {default as liftA2} from './maybe/liftA2.js';
 export {default as sequence} from './maybe/sequence.js';
+export {default as traverse} from './maybe/traverse.js';

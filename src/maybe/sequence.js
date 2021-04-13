@@ -5,7 +5,8 @@
  * Copyright (c) 2021 Visisoft OHG. All rights reserved.
  */
 import {compose, curry} from "semmel-ramda";
-import {maybe, nothing, just} from "../maybe.js";
+import maybe from './maybe.js';
+import {just, nothing} from './creation.js';
 
 // :: Applicative f => ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)
 const sequence = curry((of_f, map_f, mfa) =>

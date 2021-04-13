@@ -1,5 +1,7 @@
 import {BinaryCurriedFn} from './common';
 
+export function all<T>(promises: Array<Promise<T>>): Promise<Array<T>>;
+
 /**
  * Produce a Promise from the factory function and the resolution value of the promise
  */

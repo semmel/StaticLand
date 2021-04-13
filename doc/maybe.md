@@ -19,20 +19,58 @@ fromNilable("bar") // Just("bar")
 Consumption
 -----------
 
+### `getOrElse(defaultValue)`
+`:: a -> Maybe a -> a`
+
+Extract the value of a Just or return the provided default.
+```javascript
+getOrElse("foo", nothing()); // -> "foo"
+getOrElse("foo", just("bar")); // -> "bar"
+```
+
 Transformation
 ---------------
 
-### `sequence(of_f, map_f)`
+### `sequence(of_f, map_f, MaybeOfF)`
 `:: Applicative f => ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)`
 
-Basis for type rearrangements of the kind **Maybe**Of*Functor*To*Functor*Of**Maybe**.
+Swap the sequence of types: **Maybe** of *Functor* of Value to *Functor* of **Maybe** of Value. Maybe takes the role of a "Traversable" `t`.
 
-#### Example `Maybe {foo: a} → {foo: Maybe a}`
+#### Examples
+##### Change a Maybe of a Promise into a Promise of a Maybe
+```javascript
+const 
+   // :: Maybe Promise e a -> Promise e Maybe a
+   maybeOfPromiseToPromiseOfMaybe = sequence(of_p, map_p);
+
+maybeOfPromiseToPromiseOfMaybe(just(Promise.resolve("foo"))); // -> Promise Just "foo"
+maybeOfPromiseToPromiseOfMaybe(nothing()); // -> Promise Nothing
+
+// getInputValue :: () -> Maybe string
+// fetchServer :: string -> Promise data
+// map_mb :: (a -> b) -> Maybe a -> Maybe b
+// defaultData :: data
+const
+   // :: a -> Promise a
+   of_p = value => Promise.resolve(value),
+   // :: (a -> b) -> Promise a -> Promise b
+   map_p = curry((fn, aPromise) => aPromise.then(fn)),
+   // :: () -> Promise Data
+   getServerData = pipe(
+   	  getInputValue,                   // :: Maybe String
+      map_mb(fetchServer),             // :: Maybe Promise Data
+      maybeOfPromiseToPromiseOfMaybe,  // :: Promise Maybe Data
+      map_p(getOrElse(defaultData))    // :: Promise Data
+   );
+```
+
+##### Change a Maybe of a Key-Value Pair into a Key-Value Pair of a Maybe
+`maybeOfFooObjectToObjectFooOfMaybe :: Maybe {foo: a} → {foo: Maybe a}`
 
 ```javascript
 import {modify, objOf} from 'ramda';
 const
-   ofFooObj = objOf("foo"),               // :: a → {foo: a}
+   ofFooObj = x => ({foo: x}),            // :: a → {foo: a}
    mapFooObj = modify("foo"),             // :: (a → b) → {foo: a} → {foo: b}
    maybeOfFooObjectToObjectFooOfMaybe =   // :: Maybe {foo: a} → {foo: Maybe a}
       sequence(ofFooObj, mapFooObj),
@@ -40,6 +78,39 @@ const
 
 maybeOfFooObjectToObjectFooOfMaybe(justFooBar); // {foo: Maybe "bar"}
 ```
+
+### `traverse(of_f, map_f, effect_to_f)`
+`:: (Applicative f, Traversable t) => (c → f c) → (a → f b) → Maybe a → f (Maybe b)`
+
+Applies an "effect" `effect_to_f` to the value inside the Maybe. Then combines that "effect" with the Maybe by wrapping the "effect's" result in an Applicative of a Maybe. 
+
+If, for instance the "effect" is an asynchronous computation wrapped in a Promise `a → Promise b`, it might make more sense to work with a Promise of a Maybe than a Maybe of a Promise. 
+
+Using `traverse` essentially combines mapping the `effect_to_f` over the Maybe *and* calling `sequence(of_f, map_f)` in a single step.
+
+```javascript
+// see first example for sequence
+const 
+   // :: (a → Promise b) → Maybe a → Promise Maybe b
+   applyToPromiseOfMaybe = traverse(of_p, map_p),
+   // :: a → Promise b
+   delayEffect = x => new Promise(resolve => setTimeout(resolve, 1000, x));
+
+applyToPromiseOfMaybe(delayEffect, just("foo")); // -> Promise Just "foo"
+applyToPromiseOfMaybe(delayEffect, nothing());  // -> Promise Nothing
+
+   // :: () -> Promise Data
+   getServerData = pipe(
+   	  getInputValue,                      // :: Maybe String
+      applyToPromiseOfMaybe(fetchServer), // :: Promise Maybe Data
+      map_p(getOrElse(defaultData))       // :: Promise Data
+   );
+```
+
+#### Relation with `sequence`
+`sequence(of_f, map_f, t) ≡ traverse(of, map, identity, t)`, and `traverse(of_f, map_f, effect_to_f, t) ≡ sequence(of_f, map_f, map(effect_to_f, t))`.
+
+The first two parameters of `sequence` and `traverse` are the same and due to the implementation.
 
 Caveats
 -------
