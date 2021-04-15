@@ -216,12 +216,91 @@
     Consumption
   </a>
   
+    <nav class="md-nav" aria-label="Consumption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getorelsedefaultvalue" class="md-nav__link">
+    getOrElse(defaultValue)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#transformation" class="md-nav__link">
     Transformation
   </a>
+  
+    <nav class="md-nav" aria-label="Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequenceof_f-map_f-maybeoff" class="md-nav__link">
+    sequence(of_f, map_f, MaybeOfF)
+  </a>
+  
+    <nav class="md-nav" aria-label="sequence(of_f, map_f, MaybeOfF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-a-maybe-of-a-promise-into-a-promise-of-a-maybe" class="md-nav__link">
+    Change a Maybe of a Promise into a Promise of a Maybe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-a-maybe-of-a-key-value-pair-into-a-key-value-pair-of-a-maybe" class="md-nav__link">
+    Change a Maybe of a Key-Value Pair into a Key-Value Pair of a Maybe
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverseof_f-map_f-effect_to_f-maybe" class="md-nav__link">
+    traverse(of_f, map_f, effect_to_f, maybe)
+  </a>
+  
+    <nav class="md-nav" aria-label="traverse(of_f, map_f, effect_to_f, maybe)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relation-with-sequence" class="md-nav__link">
+    Relation with sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -267,6 +346,18 @@
   <li class="md-nav__item">
     <a href="../promise/" title="Promise" class="md-nav__link">
       Promise
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../list/" title="List" class="md-nav__link">
+      List
     </a>
   </li>
 
@@ -369,12 +460,91 @@
     Consumption
   </a>
   
+    <nav class="md-nav" aria-label="Consumption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getorelsedefaultvalue" class="md-nav__link">
+    getOrElse(defaultValue)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#transformation" class="md-nav__link">
     Transformation
   </a>
+  
+    <nav class="md-nav" aria-label="Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequenceof_f-map_f-maybeoff" class="md-nav__link">
+    sequence(of_f, map_f, MaybeOfF)
+  </a>
+  
+    <nav class="md-nav" aria-label="sequence(of_f, map_f, MaybeOfF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-a-maybe-of-a-promise-into-a-promise-of-a-maybe" class="md-nav__link">
+    Change a Maybe of a Promise into a Promise of a Maybe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-a-maybe-of-a-key-value-pair-into-a-key-value-pair-of-a-maybe" class="md-nav__link">
+    Change a Maybe of a Key-Value Pair into a Key-Value Pair of a Maybe
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverseof_f-map_f-effect_to_f-maybe" class="md-nav__link">
+    traverse(of_f, map_f, effect_to_f, maybe)
+  </a>
+  
+    <nav class="md-nav" aria-label="traverse(of_f, map_f, effect_to_f, maybe)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relation-with-sequence" class="md-nav__link">
+    Relation with sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -432,7 +602,84 @@ fromNilable(&quot;bar&quot;) // Just(&quot;bar&quot;)
 </code></pre>
 
 <h2 id="consumption">Consumption</h2>
+<h3 id="getorelsedefaultvalue"><code>getOrElse(defaultValue)</code></h3>
+<p><code>:: a -&gt; Maybe a -&gt; a</code></p>
+<p>Extract the value of a Just or return the provided default.</p>
+<pre><code class="javascript">getOrElse(&quot;foo&quot;, nothing()); // -&gt; &quot;foo&quot;
+getOrElse(&quot;foo&quot;, just(&quot;bar&quot;)); // -&gt; &quot;bar&quot;
+</code></pre>
+
 <h2 id="transformation">Transformation</h2>
+<h3 id="sequenceof_f-map_f-maybeoff"><code>sequence(of_f, map_f, MaybeOfF)</code></h3>
+<p><code>:: Applicative f =&gt; ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)</code></p>
+<p>Swap the sequence of types: <strong>Maybe</strong> of <em>Functor</em> of Value to <em>Functor</em> of <strong>Maybe</strong> of Value. Maybe takes the role of a "Traversable" <code>t</code>.</p>
+<h4 id="examples">Examples</h4>
+<h5 id="change-a-maybe-of-a-promise-into-a-promise-of-a-maybe">Change a Maybe of a Promise into a Promise of a Maybe</h5>
+<pre><code class="javascript">const 
+   // :: Maybe Promise e a -&gt; Promise e Maybe a
+   maybeOfPromiseToPromiseOfMaybe = sequence(of_p, map_p);
+
+maybeOfPromiseToPromiseOfMaybe(just(Promise.resolve(&quot;foo&quot;))); // -&gt; Promise Just &quot;foo&quot;
+maybeOfPromiseToPromiseOfMaybe(just(Promise.reject(&quot;bar&quot;))); // -&gt; Promise.reject(&quot;bar&quot;)
+maybeOfPromiseToPromiseOfMaybe(nothing()); // -&gt; Promise Nothing
+
+// getInputValue :: () -&gt; Maybe string
+// fetchServer :: string -&gt; Promise data
+// map_mb :: (a -&gt; b) -&gt; Maybe a -&gt; Maybe b
+// defaultData :: data
+const
+   // :: a -&gt; Promise a
+   of_p = value =&gt; Promise.resolve(value),
+   // :: (a -&gt; b) -&gt; Promise a -&gt; Promise b
+   map_p = curry((fn, aPromise) =&gt; aPromise.then(fn)),
+   // :: () -&gt; Promise Data
+   getServerData = pipe(
+      getInputValue,                   // :: Maybe String
+      map_mb(fetchServer),             // :: Maybe Promise Data
+      maybeOfPromiseToPromiseOfMaybe,  // :: Promise Maybe Data
+      map_p(getOrElse(defaultData))    // :: Promise Data
+   );
+</code></pre>
+
+<h5 id="change-a-maybe-of-a-key-value-pair-into-a-key-value-pair-of-a-maybe">Change a Maybe of a Key-Value Pair into a Key-Value Pair of a Maybe</h5>
+<p><code>maybeOfFooObjectToObjectFooOfMaybe :: Maybe {foo: a} → {foo: Maybe a}</code></p>
+<pre><code class="javascript">import {modify, objOf} from 'ramda';
+const
+   ofFooObj = x =&gt; ({foo: x}),            // :: a → {foo: a}
+   mapFooObj = modify(&quot;foo&quot;),             // :: (a → b) → {foo: a} → {foo: b}
+   maybeOfFooObjectToObjectFooOfMaybe =   // :: Maybe {foo: a} → {foo: Maybe a}
+      sequence(ofFooObj, mapFooObj),
+   justFooBar = just({foo: &quot;bar&quot;});       // :: Just {foo: &quot;bar&quot;}
+
+maybeOfFooObjectToObjectFooOfMaybe(justFooBar); // {foo: Maybe &quot;bar&quot;}
+</code></pre>
+
+<h3 id="traverseof_f-map_f-effect_to_f-maybe"><code>traverse(of_f, map_f, effect_to_f, maybe)</code></h3>
+<p><code>:: (Applicative f, Traversable t) =&gt; (c → f c) → ((a → b) → f a → f b) → (a → f b) → Maybe a → f (Maybe b)</code></p>
+<p>Applies an "effect" <code>effect_to_f</code> to the value inside the Maybe. Then combines that "effect" with the Maybe by wrapping the "effect's" result in an Applicative of a Maybe. </p>
+<p>If, for instance the "effect" is an asynchronous computation wrapped in a Promise <code>a → Promise b</code>, it might make more sense to work with a Promise of a Maybe than a Maybe of a Promise. </p>
+<p>Using <code>traverse</code> essentially combines mapping the <code>effect_to_f</code> over the Maybe <em>and</em> calling <code>sequence(of_f, map_f)</code> in a single step.</p>
+<pre><code class="javascript">// see first example for sequence
+const 
+   // :: (a → Promise b) → Maybe a → Promise Maybe b
+   applyToPromiseOfMaybe = traverse(of_p, map_p),
+   // :: a → Promise b
+   delayEffect = x =&gt; new Promise(resolve =&gt; setTimeout(resolve, 1000, x));
+
+applyToPromiseOfMaybe(delayEffect, just(&quot;foo&quot;)); // -&gt; Promise Just &quot;foo&quot;
+applyToPromiseOfMaybe(delayEffect, nothing());  // -&gt; Promise Nothing
+
+   // :: () -&gt; Promise Data
+   getServerData = pipe(
+      getInputValue,                      // :: Maybe String
+      applyToPromiseOfMaybe(fetchServer), // :: Promise Maybe Data
+      map_p(getOrElse(defaultData))       // :: Promise Data
+   );
+</code></pre>
+
+<h4 id="relation-with-sequence">Relation with <code>sequence</code></h4>
+<p><code>sequence(of_f, map_f, t) ≡ traverse(of, map, identity, t)</code>, and <code>traverse(of_f, map_f, effect_to_f, t) ≡ sequence(of_f, map_f, map(effect_to_f, t))</code>.</p>
+<p>The first two parameters of <code>sequence</code> and <code>traverse</code> are the same and due to the implementation.</p>
 <h2 id="caveats">Caveats</h2>
 <h3 id="argument-type-checking">Argument type checking</h3>
 <p>This library functions do not guard the user from supplying arguments of a wrong type. In particular, passing some other type as the maybe subject or passing a function to <code>chain</code> which returns a some other type, will cause undefined behaviour later.</p>
