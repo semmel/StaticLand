@@ -72,6 +72,18 @@ const
 			]
 		},
 		{
+			input: "./src/list.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/list.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
+		{
 			input: "./src/transformations.js",
 			external: externals,
 			output: {

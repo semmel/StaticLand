@@ -1,5 +1,9 @@
-Changelog
+Changelog v{{ config.meta.version }}
 =========
+0.1.21
+------
+- added `sequence` and `traverse` for Arrays ("Lists")
+- added `sequence` and `traverse` for Maybe
 
 0.1.20
 ------

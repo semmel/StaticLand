@@ -41,6 +41,10 @@
 			"require": "./dist/cjs/either.js",
 			"default": "./src/either.js"
 		},
+		"./list": {
+			"require": "./dist/cjs/list.js",
+			"default": "./src/list.js"
+		},
 		"./transformations": {
 			"require": "./dist/cjs/transformations.js",
 			"default": "./src/transformations.js"
@@ -87,5 +91,5 @@
 		"test": "mocha --recursive --extension mjs ./test"
 	},
 	"type": "module",
-	"version": "0.1.20"
+	"version": "0.1.21"
 }

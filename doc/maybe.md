@@ -44,6 +44,7 @@ const
    maybeOfPromiseToPromiseOfMaybe = sequence(of_p, map_p);
 
 maybeOfPromiseToPromiseOfMaybe(just(Promise.resolve("foo"))); // -> Promise Just "foo"
+maybeOfPromiseToPromiseOfMaybe(just(Promise.reject("bar"))); // -> Promise.reject("bar")
 maybeOfPromiseToPromiseOfMaybe(nothing()); // -> Promise Nothing
 
 // getInputValue :: () -> Maybe string
@@ -79,8 +80,8 @@ const
 maybeOfFooObjectToObjectFooOfMaybe(justFooBar); // {foo: Maybe "bar"}
 ```
 
-### `traverse(of_f, map_f, effect_to_f)`
-`:: (Applicative f, Traversable t) => (c → f c) → (a → f b) → Maybe a → f (Maybe b)`
+### `traverse(of_f, map_f, effect_to_f, maybe)`
+`:: (Applicative f, Traversable t) => (c → f c) → ((a → b) → f a → f b) → (a → f b) → Maybe a → f (Maybe b)`
 
 Applies an "effect" `effect_to_f` to the value inside the Maybe. Then combines that "effect" with the Maybe by wrapping the "effect's" result in an Applicative of a Maybe. 
 

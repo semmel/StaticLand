@@ -1,6 +1,6 @@
 [![Dependencies](https://img.shields.io/david/semmel/StaticLand.svg?style=flat-square)](https://david-dm.org/semmel/StaticLand) [![NPM Version](https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square)](https://www.npmjs.com/package/@visisoft/staticland)
 
-[@visisoft/staticland](https://semmel.github.io/StaticLand/)
+[@visisoft/staticland](https://semmel.github.io/StaticLand/) v{{ config.meta.version }}
 ====================
 Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with *free static functions*. The static functions do not expect custom-made ADT classes but work on the *native JavaScript types* as `Array`, `Promise` and `Function`. Fairness demands to confess that `Function` carries some data in the closed over variables. 
 
