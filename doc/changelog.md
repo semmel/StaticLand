@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+
+0.1.22
+------
+- updated rollup plugin
+
 0.1.21
 ------
 - added `sequence` and `traverse` for Arrays ("Lists")

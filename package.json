@@ -10,7 +10,7 @@
 	"devDependencies": {
 		"@most/core": "^1.6.1",
 		"@most/scheduler": "^1.3.0",
-		"@rollup/plugin-node-resolve": "^11.0.1",
+		"@rollup/plugin-node-resolve": "^13.0.4",
 		"@types/ramda": "^0.27.38",
 		"abort-controller": "^3.0.0",
 		"baconjs": "^3.0.17",
@@ -91,5 +91,5 @@
 		"test": "mocha --recursive --extension mjs ./test"
 	},
 	"type": "module",
-	"version": "0.1.21"
+	"version": "0.1.22"
 }
