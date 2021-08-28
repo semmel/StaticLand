@@ -3,7 +3,8 @@ import {Either} from './either';
 
 export type Just<T> = [T];
 export type Nothing = [];
-export type Maybe<T> = Just<T> | Nothing;
+//export type Maybe<T> = Just<T> | Nothing;
+export interface Maybe<T> extends Array<T>{}
 type Applicative<T> = Promise<T>|Either<T>|PlainObjectOf<T>;
 
 /**

@@ -2,7 +2,7 @@
 
 [@visisoft/staticland](https://semmel.github.io/StaticLand/) v{{ config.meta.version }}
 ====================
-Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with *free static functions*. The static functions do not expect custom-made ADT classes but work on the *native JavaScript types* as `Array`, `Promise` and `Function`. Fairness demands to confess that `Function` carries some data in the closed over variables. 
+Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with *free static functions*. The static functions do not expect custom-made ADT classes but work on the *native JavaScript types* as `Array`, `Promise` and `Function`. Fairness demands to confess that `Function` carries some data in [closed over](#closed-over) variables. 
 
 Using simple native types means that 
 
@@ -101,6 +101,10 @@ Dependencies
 
 As FP utility library [Ramda][ramda-homepage] is used. The patch fork [semmel-ramda][semmel-ramda] will be replaced with Ramda when it gets published as proper dual-mode or [hybrid][2-ality-hybrid] module.
 
+###### closed over
+A [closure] is the combination of a function and the lexical environment within which that function was declared.
+
+[closure]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 [sl-ref]: https://github.com/fantasyland/static-land/
 [ramda-homepage]: https://ramdajs.com
 [2-ality-hybrid]: https://2ality.com/2019/10/hybrid-npm-packages.html
