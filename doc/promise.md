@@ -19,5 +19,29 @@ Generation
 Consumption
 -----------
 
+Side-Effects
+-----------
+
+### `bi_tap(onFailure, onSuccess, p)`
+`:: (* -> *) -> (a -> *) -> Promise a -> Promise a` 
+
+Like [`tap`](#tap-fn-p) but also with a failure side-effect function.
+
+### `tap(fn, p)`
+`:: (a -> *) -> Promise a -> Promise a` 
+
+In this implementation an exception in the side-effect `fn` rubs off to the Promise.
+
+### `tapRegardless(fn, p)`
+`:: (a -> *) -> Promise a -> Promise a` 
+Execute a synchronous side effect. Aka *forEach*.
+
+In this implementation an exception in the side-effect is ignored.
+<pre>
+promise X ---------> X --->
+          \
+           - fn(X) -> Y
+</pre>
+
 Transformation
 ---------------

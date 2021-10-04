@@ -1,7 +1,7 @@
 import {applyTo, identity, o, pipe} from 'semmel-ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
-import {alt, chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} from '../src/promise.js';
+import {alt, bi_tap, chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} from '../src/promise.js';
 
 const
 	assert = chai.assert,
@@ -126,6 +126,64 @@ describe("Promise", function() {
 			return tap(_ => {
 				throw error;
 			}, Promise.resolve("foo"))
+			.then(
+				val => assert.fail(`Should not resolve with ${val} after exception in the side-effect function`),
+				e => assert.equal(e, error)
+			);
+		});
+	});
+	
+	describe("bi_tap", function () {
+		let begin, successValue, failureValue;
+		
+		beforeEach(function() {
+			begin = now();
+			successValue = "initial success";
+			failureValue = "initial failure";
+		});
+		
+		const
+			successSideEffect = x => {
+				successValue = `${x}-bar`;
+			},
+			failureSideEffect = e => {
+				failureValue = `${e}-foo`;
+			};
+		
+		it("should execute the side effect in the success case", () =>
+			bi_tap(failureSideEffect, successSideEffect)(laterSucceed(20, "foo"))
+			.then(result => {
+				assert.strictEqual(result, "foo");
+				assert.strictEqual(successValue, "foo-bar");
+				assert.strictEqual(failureValue, "initial failure");
+				assert.approximately(now() - begin, 20, 8);
+			})
+		);
+		
+		it("should execute the side effect in failure", () =>
+			bi_tap(failureSideEffect, successSideEffect, laterFail(20, "bar"))
+			.then(
+				() => assert.fail("should not succeed"),
+				error => {
+					assert.approximately(now() - begin, 20, 8);
+					assert.strictEqual(error, "bar");
+					assert.strictEqual(failureValue, "bar-foo");
+					assert.strictEqual(successValue, "initial success");
+				}
+			)
+		);
+		
+		it("propagates exceptions in the side-effect to the returned promise", () => {
+			const
+				error = new Error("side-effect exception");
+			
+			return bi_tap(
+				identity,
+				_ => {
+					throw error;
+				},
+				Promise.resolve("foo")
+			)
 			.then(
 				val => assert.fail(`Should not resolve with ${val} after exception in the side-effect function`),
 				e => assert.equal(e, error)

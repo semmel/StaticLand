@@ -1,10 +1,10 @@
 List 
 ====
-By *List* is a synonym for Array-like collections. Although at this stage, the functions are expected to work just with `Array`.
+By *List* is a synonym for Array-like collections. Although at this stage, `@visisoft/staticland/list` supports just `Array` as list type.
 
 If combining just data or functions with a "list", these functions (like `map`, `chain`, `of`, etc.) are provided by [Ramda](https://ramdajs.com) and thus will not be implemented here.
 
-However, when combining "list" with *other* algebraic types, unfortunately Ramda expects them to be [Fantasy-Land objects](https://github.com/fantasyland/fantasy-land) with accordingly named methods. So, because Static-Land is all about static functions instead of member functions, `@visisoft/staticland/list` provides the following functions that work with combinations of "list" with and the other `@visisoft/staticland` data "types".
+However, when combining "list" with *other* algebraic types, unfortunately Ramda expects them to be [Fantasy-Land objects](https://github.com/fantasyland/fantasy-land) with accordingly named methods. So, because Static-Land is all about static functions instead of member functions, `@visisoft/staticland/list` provides the following functions that work with combinations of "list" with the other `@visisoft/staticland` data "types".
 
 Transformation
 -------------

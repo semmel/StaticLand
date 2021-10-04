@@ -7,6 +7,7 @@
 
 import { curry, o, identity } from 'semmel-ramda';
 import map from './promise/map.js';
+import {bi_tap, tap, tapRegardless} from "./promise/tap.js";
 
 const
 	// Creation //
@@ -81,35 +82,6 @@ const
 	coalesce = curry((left, right, p) =>
 		p.then(right, left)
 	),
-
-  // In this implementation an exception in the side-effect rubs off to the Promise
-  // tap :: (a -> *) -> Promise a -> Promise a
-  tap = curry((fn, p) =>
-    p.then(x => {
-      fn(x);
-      return x;
-    })),
-
-  /**
-	* Execute a synchronous side effect.
-	* In this implementation an exception in the side-effect is ignored.
-	* <pre>
-	* promise X ---------> X --->
-	*          \
-	*           - fn(X) -> Y
-	* </pre>
-	*
-	* @aka forEach
-   * @template A
-   * @param {function(A):*} sideEffect
-   * @return {function(Promise<A>): Promise<A>}
-   */
-  // tapRegardless :: (a -> *) -> Promise a -> Promise a
-  tapRegardless = curry((fn, p) => {
-    p.then(fn).catch(x => x);
-
-    return p;
-  }),
 	
 	/**
 	 * Execute an asynchronous (could be a side-effect) function and wait until it is settled.
@@ -217,7 +189,7 @@ const
 	}));
 
 export {
-	of, all, alt, bimap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej,
+	of, all, alt, bimap, bi_tap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej,
 	race, reject, tap, tapRegardless, empty
 };
 

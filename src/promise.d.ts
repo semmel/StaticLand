@@ -2,6 +2,9 @@ import {BinaryCurriedFn} from './common';
 
 export function all<T>(promises: Array<Promise<T>>): Promise<Array<T>>;
 
+export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (x?: T) => any, p: Promise<T>): Promise<T>;
+export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (x?: T) => any): (p: Promise<T>) => Promise<T>;
+
 /**
  * Produce a Promise from the factory function and the resolution value of the promise
  */
@@ -36,3 +39,6 @@ export function map<T, U>(fn: (x?: T) => U): (p: Promise<T>) => Promise<U>;
  */
 export function tap<T>(fn: (x?: T) => any, p: Promise<T>): Promise<T>;
 export function tap<T>(fn: (x?: T) => any): (p: Promise<T>) => Promise<T>;
+
+export function tapRegardless<T>(fn: (x?: T) => any, p: Promise<T>): Promise<T>;
+export function tapRegardless<T>(fn: (x?: T) => any): (p: Promise<T>) => Promise<T>;

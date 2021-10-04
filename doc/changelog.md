@@ -1,5 +1,8 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.23
+------
+- `bi_tap`
 
 0.1.22
 ------
