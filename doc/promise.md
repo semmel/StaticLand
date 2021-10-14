@@ -13,8 +13,11 @@ Related Work and Inspiration
 Generation
 ----------
 
-### `later(dt, x)`
+### `later(dt, a)`
 `:: number → a → Promise a`
+
+### `of(a)`
+`:: a -> Promise e a`
 
 Consumption
 -----------

@@ -40,6 +40,9 @@ const
 		maybe(nothing, o(just, assoc(keyName, __, obj)), obj[keyName])
 	),
 	
+	/** @deprecated
+	 * use maybe/sequence(of_p, map_p)
+	 */
 	// maybeOfPromiseToPromiseOfMaybe :: Maybe Promise e a -> Promise e Maybe a
 	maybeOfPromiseToPromiseOfMaybe = maybe(compose(of_p, nothing), map_p(of_mb)),
 	

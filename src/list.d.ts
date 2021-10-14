@@ -2,6 +2,10 @@ import {Either} from './either';
 import {Maybe} from "./maybe";
 type Applicative<T> = Promise<T>|Either<T>|Maybe<T>;
 
+export function find<A>(predicate:(a: A) => boolean, list: Array<A>): Maybe<A>;
+export function find<A>(predicate:(a: A) => boolean): (list: Array<A>) => Maybe<A>;
+
+
 export function sequence<A, B, C>(
   ofF: (a: A) => Applicative<A>,
   liftA2: (f: (a: A) => (b: B) => C) => (ma: Applicative<A>, mb: Applicative<B>) => Applicative<C>,

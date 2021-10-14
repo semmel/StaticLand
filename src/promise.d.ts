@@ -2,8 +2,8 @@ import {BinaryCurriedFn} from './common';
 
 export function all<T>(promises: Array<Promise<T>>): Promise<Array<T>>;
 
-export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (x?: T) => any, p: Promise<T>): Promise<T>;
-export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (x?: T) => any): (p: Promise<T>) => Promise<T>;
+export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (t?: T) => any, p: Promise<T>): Promise<T>;
+export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (t?: T) => any): (p: Promise<T>) => Promise<T>;
 
 /**
  * Produce a Promise from the factory function and the resolution value of the promise
@@ -32,6 +32,8 @@ export function liftA2<S, T, U>(fn: BinaryCurriedFn<S, T, U>): (ps: Promise<S>) 
  */
 export function map<T, U>(fn: (x?: T) => U, p: Promise<T>): Promise<U>;
 export function map<T, U>(fn: (x?: T) => U): (p: Promise<T>) => Promise<U>;
+
+export function of<T>(x: T): Promise<T>;
 
 /**
  * calls the function with the success value, ignoring the return value.

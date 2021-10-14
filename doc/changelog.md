@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.24
+------
+- `find_l`
+
 0.1.23
 ------
 - `bi_tap`

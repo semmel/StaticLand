@@ -6,6 +6,11 @@ If combining just data or functions with a "list", these functions (like `map`, 
 
 However, when combining "list" with *other* algebraic types, unfortunately Ramda expects them to be [Fantasy-Land objects](https://github.com/fantasyland/fantasy-land) with accordingly named methods. So, because Static-Land is all about static functions instead of member functions, `@visisoft/staticland/list` provides the following functions that work with combinations of "list" with the other `@visisoft/staticland` data "types".
 
+Searching
+-------
+### `find(predicate, list)`
+`:: (a → Boolean) → [a] → Maybe a`
+
 Transformation
 -------------
 ### `sequence(of_f, liftA2_f, arrayOfF)`
