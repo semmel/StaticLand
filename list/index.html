@@ -47,13 +47,17 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -99,6 +103,28 @@
         </div>
       </div>
     </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
     
     
     
@@ -314,6 +340,26 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#searching" class="md-nav__link">
+    Searching
+  </a>
+  
+    <nav class="md-nav" aria-label="Searching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#findpredicate-list" class="md-nav__link">
+    find(predicate, list)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transformation" class="md-nav__link">
     Transformation
   </a>
@@ -447,6 +493,26 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#searching" class="md-nav__link">
+    Searching
+  </a>
+  
+    <nav class="md-nav" aria-label="Searching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#findpredicate-list" class="md-nav__link">
+    find(predicate, list)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transformation" class="md-nav__link">
     Transformation
   </a>
@@ -507,6 +573,9 @@
 <p>By <em>List</em> is a synonym for Array-like collections. Although at this stage, <code>@visisoft/staticland/list</code> supports just <code>Array</code> as list type.</p>
 <p>If combining just data or functions with a "list", these functions (like <code>map</code>, <code>chain</code>, <code>of</code>, etc.) are provided by <a href="https://ramdajs.com">Ramda</a> and thus will not be implemented here.</p>
 <p>However, when combining "list" with <em>other</em> algebraic types, unfortunately Ramda expects them to be <a href="https://github.com/fantasyland/fantasy-land">Fantasy-Land objects</a> with accordingly named methods. So, because Static-Land is all about static functions instead of member functions, <code>@visisoft/staticland/list</code> provides the following functions that work with combinations of "list" with the other <code>@visisoft/staticland</code> data "types".</p>
+<h2 id="searching">Searching</h2>
+<h3 id="findpredicate-list"><code>find(predicate, list)</code></h3>
+<p><code>:: (a → Boolean) → [a] → Maybe a</code></p>
 <h2 id="transformation">Transformation</h2>
 <h3 id="sequenceof_f-lifta2_f-arrayoff"><code>sequence(of_f, liftA2_f, arrayOfF)</code></h3>
 <p><code>:: Applicative f =&gt; ((a → f a), ((a → b → c) → f a → f b → f c) → [f a] → f [a]</code></p>
