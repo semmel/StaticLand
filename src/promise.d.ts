@@ -18,6 +18,9 @@ export function chainRej<T>(onError: (e: any) => Promise<T>): (p: Promise<T>) =>
 export function chainTap<T>(fn: (x?: T) => Promise<any>, p: Promise<T>): Promise<T>;
 export function chainTap<T>(fn: (x?: T) => Promise<any>): (p: Promise<T>) => Promise<T>;
 
+export function duplexRace<T>(a: Promise<T>, b: Promise<T>): Promise<T>;
+export function duplexRace<T>(a: Promise<T>): (b: Promise<T>) => Promise<T>;
+
 export function later<A>(dt: number, a: A): Promise<A>;
 export function later<A>(dt: number): (a: A) => Promise<A>;
 

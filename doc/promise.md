@@ -46,5 +46,10 @@ promise X ---------> X --->
            - fn(X) -> Y
 </pre>
 
-Transformation
+Combination
 ---------------
+
+### `duplexRace(a, b)`
+`:: Promise a → Promise a → Promise a`
+
+It's `Promise.race` but only for two input promises.

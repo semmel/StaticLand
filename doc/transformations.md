@@ -14,6 +14,7 @@ Async Stuff
 
 ### ~~maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)~~ 
 `:: Maybe Promise e a -> Promise e Maybe a`
+
 *deprecated* instead use `maybe/sequence(of_p, map_p)`
 
 ### `maybeOfCancelableToCancelableOfMaybe(mma)`

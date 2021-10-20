@@ -38,6 +38,9 @@ const
 	// keyMaybeToMaybeObj :: key -> {key: Maybe a, …} -> Maybe {key: a, …}
 	keyMaybeToMaybeObj = curry((keyName, obj) =>
 		maybe(nothing, o(just, assoc(keyName, __, obj)), obj[keyName])
+		// TODO: Is that the same as
+		// map_mb(assoc(key, __, obj), obj[key])
+		// TODO: ?
 	),
 	
 	/** @deprecated

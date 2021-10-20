@@ -9,6 +9,7 @@ A Cancelable Computation is a function which performs a cancelable asynchronous 
 `CancelableComputation e a :: ((a -> void), (e -> void)) -> (() -> void)`
 
 In general Cancelable Computations serves the same purpose as a Promises. Contrary to Promises, Cancelable Computations are
+
 - lazily executed,
 - have no internal mutating state - thus are referentially transparent, and
 - cancellation is not propagated to the consumer. 
@@ -46,7 +47,7 @@ let ccBar = (res, rej) => {
 
 Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating [Fluture Futures](https://github.com/fluture-js/Fluture#creating-futures) or [Async in Crocks](https://crocks.dev/docs/crocks/Async.html#construction). Because those other libraries however provide their (lazy) replacement for native Promises, the *order* of arguments of *their* computation function *differs* from that of the Promise constructor in that the rejection continuation comes *before* the success continuation.
 
-By providing the Cancelable Computation in the Promise constructor `new Promise(cancelableComputation)` it becomes trivial to transform a Cancelable Computation into a Promise.
+By providing the Cancelable Computation in the Promise constructor `new Promise(cancelableComputation)` it becomes trivial to transform a Cancelable Computation into a Promise. Note that if the computation is cancelled such a "consumption" Promise will never settle. See the section titled [Cancellation Discontinues](#cancellation-discontinues).
 
 ### Cancellation
 

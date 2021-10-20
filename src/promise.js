@@ -170,6 +170,8 @@ const
 	// :: [Promise e a] -> Promise e a
 	race = promises => Promise.race(promises),
 	
+	duplexRace = curry((pa, pb) => Promise.race([pa, pb])),
+	
 	/**
 	 * Providing a means for a fallback or alternative value, alt combines two Promises and will
 	 * resolve with the value of the first resolved promise it encounters or
@@ -189,7 +191,8 @@ const
 	}));
 
 export {
-	of, all, alt, bimap, bi_tap, chain, chainIf, chainTap, chainRej, coalesce, create, map, mapRej,
+	of, all, alt, bimap, bi_tap, chain, chainIf, chainTap, chainRej, coalesce, create,
+	duplexRace, map, mapRej,
 	race, reject, tap, tapRegardless, empty
 };
 

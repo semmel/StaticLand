@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.25
+------
+- `duplexRace` for Promise
+
 0.1.24
 ------
 - `find_l`
