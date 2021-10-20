@@ -603,10 +603,12 @@
 <h2 id="cancelable-computation">Cancelable Computation</h2>
 <p>A Cancelable Computation is a function which performs a cancelable asynchronous computation. </p>
 <p><code>CancelableComputation e a :: ((a -&gt; void), (e -&gt; void)) -&gt; (() -&gt; void)</code></p>
-<p>In general Cancelable Computations serves the same purpose as a Promises. Contrary to Promises, Cancelable Computations are
-- lazily executed,
-- have no internal mutating state - thus are referentially transparent, and
-- cancellation is not propagated to the consumer. </p>
+<p>In general Cancelable Computations serves the same purpose as a Promises. Contrary to Promises, Cancelable Computations are</p>
+<ul>
+<li>lazily executed,</li>
+<li>have no internal mutating state - thus are referentially transparent, and</li>
+<li>cancellation is not propagated to the consumer. </li>
+</ul>
 <h3 id="executing-work">Executing Work</h3>
 <p>The computation is started when the Cancelable Computation function is called - <strong>laziness</strong>.</p>
 <pre><code class="javascript">// Pseudocode
@@ -635,7 +637,7 @@ let ccBar = (res, rej) =&gt; {
 </code></pre>
 
 <p>Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating <a href="https://github.com/fluture-js/Fluture#creating-futures">Fluture Futures</a> or <a href="https://crocks.dev/docs/crocks/Async.html#construction">Async in Crocks</a>. Because those other libraries however provide their (lazy) replacement for native Promises, the <em>order</em> of arguments of <em>their</em> computation function <em>differs</em> from that of the Promise constructor in that the rejection continuation comes <em>before</em> the success continuation.</p>
-<p>By providing the Cancelable Computation in the Promise constructor <code>new Promise(cancelableComputation)</code> it becomes trivial to transform a Cancelable Computation into a Promise.</p>
+<p>By providing the Cancelable Computation in the Promise constructor <code>new Promise(cancelableComputation)</code> it becomes trivial to transform a Cancelable Computation into a Promise. Note that if the computation is cancelled such a "consumption" Promise will never settle. See the section titled <a href="#cancellation-discontinues">Cancellation Discontinues</a>.</p>
 <h3 id="cancellation">Cancellation</h3>
 <p>The Cancelable Computation Function returns a function to abort/<em>cancel</em> the computation. </p>
 <p>A Cancelable Computation can be aborted by calling the <code>abort</code> function which is returned when the execution of the Cancelable Computation is started by invoking it with two callbacks.</p>
