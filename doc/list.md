@@ -13,6 +13,9 @@ Searching
 
 Transformation
 -------------
+### `map(a2b)`
+`:: (a -> b) -> [a] -> [b]`
+
 ### `sequence(of_f, liftA2_f, arrayOfF)`
 `:: Applicative f => ((a → f a), ((a → b → c) → f a → f b → f c) → [f a] → f [a]`
 

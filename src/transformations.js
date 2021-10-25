@@ -9,7 +9,7 @@ import { either, left, right } from './either.js';
 import { coalesce, reject, of as of_p } from './promise.js';
 import map_p from './promise/map.js';
 import { maybe, nothing, of as of_mb, just } from './maybe.js';
-import { __, always, assoc, compose, curry, o, objOf, thunkify } from 'semmel-ramda';
+import { __, always, assoc, compose, curry, nth, o, objOf, prop, thunkify, update } from 'semmel-ramda';
 export {default as promiseToCancelable} from './transformations/promiseToCancelable.js';
 export {default as cancelableToPromise} from './transformations/cancelableToPromise.js';
 export {default as observableToCancelable} from './transformations/baconObservableToCancelable.js';
@@ -33,6 +33,10 @@ const
 	//    key = String
 	maybeToObj = curry((keyName, ma) => maybe(always({}), objOf(keyName), ma)),
 	
+	/**
+	 * @deprecated
+	 * use lens/view(sequence(maybe/map, indexLens(n)))(obj)
+	 */
 	// kind of inverse of `maybeToObj`
 	// key = String
 	// keyMaybeToMaybeObj :: key -> {key: Maybe a, …} -> Maybe {key: a, …}
@@ -40,7 +44,8 @@ const
 		maybe(nothing, o(just, assoc(keyName, __, obj)), obj[keyName])
 		// TODO: Is that the same as
 		// map_mb(assoc(key, __, obj), obj[key])
-		// TODO: ?
+		// TODO: Is that the same as
+		// propUnlens(map_mb)
 	),
 	
 	/** @deprecated

@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.26
+------
+- unlens, propUnlens, indexUnlens
+
 0.1.25
 ------
 - `duplexRace` for Promise

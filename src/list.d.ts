@@ -5,6 +5,8 @@ type Applicative<T> = Promise<T>|Either<T>|Maybe<T>;
 export function find<A>(predicate:(a: A) => boolean, list: Array<A>): Maybe<A>;
 export function find<A>(predicate:(a: A) => boolean): (list: Array<A>) => Maybe<A>;
 
+export function map<A, B>(a2b: (a: A) => B, ma: [A]): [B];
+export function map<A, B>(a2b: (a: A) => B): (ma: [A]) => [B];
 
 export function sequence<A, B, C>(
   ofF: (a: A) => Applicative<A>,
