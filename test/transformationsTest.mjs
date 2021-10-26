@@ -4,10 +4,9 @@ import { right, left } from '../src/either.js';
 import { getOrElse, isNothing, isJust, just, map as map_mb, nothing, of as of_mb } from '../src/maybe.js';
 import {
 	eitherToPromise, keyMaybeToMaybeObj,
-	maybeToPromise, maybeOfPromiseToPromiseOfMaybe, propUnlens
+	maybeToPromise, maybeOfPromiseToPromiseOfMaybe
 }
 from	'../src/transformations.js';
-import { map as map_p } from '../src/promise.js';
 
 
 const
@@ -107,49 +106,3 @@ describe("keyMaybeToMaybeObj", function() {
 	});
 });
 
-describe("property sequence with unlens and map", function() {
-	const
-		fooPropLens = propUnlens("foo");
-		
-	it ("creates a Just of the target", () => {
-		const
-			swappedTarget = fooPropLens(map_mb)({foo: just("FOO"), bar: "bar"});
-		
-		assert.isTrue(isJust(swappedTarget));
-		assert.deepStrictEqual(getOrElse({}, swappedTarget), {foo: "FOO", bar: "bar"});
-	});
-	
-	it ("creates a Nothing", () => {
-		const
-			swappedTarget = fooPropLens(map_mb)({foo: nothing(), bar: "bar"});
-		
-		assert.isTrue(isNothing(swappedTarget));
-	});
-	
-	it ("creates a resolved Promise of the target", () => {
-		const
-			swappedTarget = fooPropLens(map_p)({foo: Promise.resolve("FOO"), bar: "bar"});
-		
-		assert.instanceOf(swappedTarget, Promise);
-		return swappedTarget
-		.then(value => {
-			assert.deepStrictEqual(value, {foo: "FOO", bar: "bar"});
-		});
-	});
-	
-	it ("creates a rejected Promise of the error value", () => {
-		const
-			swappedTarget = fooPropLens(map_p)({foo: Promise.reject("qux"), bar: "bar"});
-		
-		assert.instanceOf(swappedTarget, Promise);
-		return swappedTarget
-		.then(
-			value => {
-				assert.fail(`Unexpected success with ${value}`);
-			},
-			error => {
-				assert.strictEqual(error, "qux");
-			}
-		);
-	});
-});

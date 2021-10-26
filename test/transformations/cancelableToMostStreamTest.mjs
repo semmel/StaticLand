@@ -4,17 +4,12 @@ import {of, reject} from "../../src/cancelable.js";
 import schedulersPkg from '@most/scheduler';
 import mostCore from '@most/core';
 import cancelableToMostStream from "../../src/transformations/cancelableToMostStream.js";
+import {reduceStreamToPromiseHelper} from '../helpers/most.mjs';
 
 const
 	assert = chai.assert,
 	{ newDefaultScheduler } = schedulersPkg,
-	{ runEffects, tap: tap_s, recoverWith, empty: empty_s, until, at } = mostCore,
-	// :: (b -> a -> b) -> Stream a -> Promise Stream b
-	reduceStreamToPromiseHelper = (f, initial, stream) => {
-		let result = initial;
-		const source = tap_s(x => { result = f(result, x); }, stream);
-		return runEffects(source, newDefaultScheduler()).then(() => result);
-	};
+	{ runEffects, tap: tap_s, recoverWith, empty: empty_s, until, at } = mostCore;
 
 describe("transformation cancelableToMostStream", function () {
 	it("handles successful cancelables", () =>

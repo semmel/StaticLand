@@ -94,7 +94,19 @@ const
 			plugins: [
 				resolve()
 			]
-		}
+		},
+		{
+			input: "./src/lens.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/lens.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
 	];
 
 export default config;

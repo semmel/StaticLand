@@ -1,7 +1,7 @@
 import {compose, equals, identity, o, reverse, toUpper} from 'semmel-ramda';
 import chai from 'chai';
 import {lens, indexLens, view, makeComposableViewLens, over, propertyLens,
-	makeComposableOverLens, set, composeFocus, composeOptics}
+	makeComposableOverLens, sequence, set, composeFocus, composeOptics}
 	from "../../src/lens.js";
 import {later as later_p, map as map_p} from '../../src/promise.js';
 
@@ -36,12 +36,12 @@ const
 	users = [
 		{
 			id: 1, name: 'Ivan', addresses: [{street: '92 Oak St.', zip: '08081'}],
-			paymentConfirmed: Promise.resolve({amount: 99.95}),
+			paymentConfirmed: Promise.resolve({notifiedAmount: 99.95}),
 			nickName: nothing()
 		},
 		{
 			id: 2, name: 'Donielle', addresses: [{street: '393 Post Ave.', zip: '93011'}],
-			paymentConfirmed: later_p(100, {amount: 199.99}),
+			paymentConfirmed: later_p(100, {notifiedAmount: 199.99}),
 			nickName: just("Don")
 		},
 		{
@@ -52,12 +52,13 @@ const
 	],
 	_0 = indexLens(0),
 	_1 = indexLens(1),
+	_2 = indexLens(2),
 	name = propertyLens('name'),
 	addresses = propertyLens('addresses'),
 	street = propertyLens('street'),
 	zip = propertyLens('zip'),
 	payment = propertyLens('paymentConfirmed'),
-	amount = propertyLens('amount'),
+	amount = propertyLens('notifiedAmount'),
 	nick = propertyLens('nickName');
 
 describe("Lenses: view/set/over", function () {
@@ -111,6 +112,7 @@ describe("Lenses: Mapping ADTs", function () {
 	
 	const
 		firstPaymentAmountView = compose(_0(map_c), payment(map_c), map_p, amount(map_c)),
+		firstPaymentChange = compose(_0(map_i), payment(map_i), map_p),
 		firstNickView = compose(_0(map_c), nick(map_c), map_mb),
 		secondNickView = compose(_1(map_c), nick(map_c), map_mb),
 		secondNickChange = compose(_1(map_i), nick(map_i), map_mb);
@@ -123,6 +125,17 @@ describe("Lenses: Mapping ADTs", function () {
 		return firstPaymentAmount
 		.then(value => {
 			assert.strictEqual(99.95, value);
+		});
+	});
+	
+	it("alters the promised value", () => {
+		const
+			alteredUsers = over(firstPaymentChange, ({ notifiedAmount }) => ({notifiedAmount: ++notifiedAmount}), users);
+		
+		assert.instanceOf(alteredUsers[0].paymentConfirmed, Promise);
+		return alteredUsers[0].paymentConfirmed
+		.then(({notifiedAmount}) => {
+			assert.strictEqual(notifiedAmount, 100.95);
 		});
 	});
 	
@@ -144,11 +157,56 @@ describe("Lenses: Mapping ADTs", function () {
 
 describe("Lenses: sequence", function() {
 	const
-		firstPaymentSequence = compose(_0(map_c), payment(map_p));
+		firstPaymentSequence = compose(_0(map_c), payment(map_p)),
+		thirdPaymentSequence = compose(_2(map_c), payment(map_p)),
+		firstNickNameSequence = compose(_0(map_c), nick(map_mb)),
+		secondNickNameSequence = compose(_1(map_c), nick(map_mb));
 	
-	it("resolves with the entire data structure", () => {
+	it("returns the entire data structure in the Maybe", () => {
+		const
+			maybeSecondUser = view(secondNickNameSequence, users);
+		
+		assert.isTrue(isJust(maybeSecondUser));
+		assert.deepStrictEqual(
+			getOrElse("invalid fallback", maybeSecondUser),
+			{...users[1], nickName: "Don"}
+		);
+	});
 	
+	it ("returns nothing when pointed to a nothing", () => {
+		const
+			maybeFirstUser = view(firstNickNameSequence, users);
+		
+		assert.isTrue(isNothing(maybeFirstUser));
+	});
+	
+	it("resolves with the entry structure when pointed to a resolved Promise", () => {
+		const
+			whenPayedFirstUser = sequence(firstPaymentSequence, users);
+		
+		assert.instanceOf(whenPayedFirstUser, Promise);
+		return whenPayedFirstUser
+		.then(user => {
+			assert.deepStrictEqual(user, {...users[0], paymentConfirmed: {notifiedAmount: 99.95}});
+		});
+	});
+	
+	it("rejects with the failure value when pointed to a rejected Promise", () => {
+		const
+			whenPayedThirdUser = sequence(thirdPaymentSequence, users);
+		
+		assert.instanceOf(whenPayedThirdUser, Promise);
+		
+		return whenPayedThirdUser
+		.then(
+			val => {
+				assert.fail(`Unexpected success with ${val}`);
+			},
+			error => {
+				assert.strictEqual(error, "Insufficient funds");
+			}
+		);
 	});
 });
 
-// TODO: More from https://github.com/ramda/ramda-lens/blob/master/test/test.js
+// TODO: Traversing and Iso from https://github.com/ramda/ramda-lens/blob/master/test/test.js

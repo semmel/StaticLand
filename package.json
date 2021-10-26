@@ -10,6 +10,7 @@
 	"devDependencies": {
 		"@most/core": "^1.6.1",
 		"@most/scheduler": "^1.3.0",
+		"@most/types": "^1.1.0",
 		"@rollup/plugin-node-resolve": "^13.0.4",
 		"@types/ramda": "^0.27.38",
 		"abort-controller": "^3.0.0",
@@ -49,6 +50,10 @@
 			"require": "./dist/cjs/transformations.js",
 			"default": "./src/transformations.js"
 		},
+		"./lens": {
+			"require": "./dist/cjs/lens.js",
+			"default": "./src/lens.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [
@@ -60,7 +65,8 @@
 	"keywords": [
 		"Maybe",
 		"Promise",
-		"Static-Land",
+		"StaticLand",
+		"Lens",
 		"Algebraic",
 		"Functional",
 		"Type"

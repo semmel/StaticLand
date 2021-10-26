@@ -1,5 +1,6 @@
 import {makeComposable as makeComposableViewLens, view} from "./lens/view.js";
 import {over, set, makeComposable as makeComposableOverLens} from "./lens/over.js";
+import {sequence, makeComposable as makeComposableSequenceLens} from "./lens/sequence.js";
 import {composeOptics, composeFocus} from "./lens/compose.js";
 
 
@@ -11,7 +12,9 @@ export {
 	composeFocus,
 	makeComposableViewLens,
 	makeComposableOverLens,
+	makeComposableSequenceLens,
 	over,
+	sequence,
 	set,
 	view
 };

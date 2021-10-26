@@ -1,21 +1,8 @@
 Natural Transformations
 =======================
-
-Extracting from/Wrapping with Collections
------------------------------------------
-
-### `keyMaybeToMaybeObj(key, coll)`
-`:: key -> {key: Maybe a, …} -> Maybe {key: a, …}`
-
-`:: Idx -> [Idx: Maybe a, …] -> Maybe [Idx: a, …]`
-
+ 
 Async Stuff
 -----------
-
-### ~~maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)~~ 
-`:: Maybe Promise e a -> Promise e Maybe a`
-
-*deprecated* instead use `maybe/sequence(of_p, map_p)`
 
 ### `maybeOfCancelableToCancelableOfMaybe(mma)`
 `:: Maybe Cancelable e a -> Cancelable e Maybe a`
@@ -36,6 +23,11 @@ The transformation is with limitations:
 Since promises are eager, this transformation will run the cancelable computation. The ability to cancel the computation will be lost.
 
 Note that in principle, the ability to cancel the computation could be maintained. However, a result of the cancellation would then be that the created Promise never settles. That is considered to be bad practise.
+
+### ~~maybeOfPromiseToPromiseOfMaybe(promiseOfMaybe)~~ 
+`:: Maybe Promise e a -> Promise e Maybe a`
+
+*Deprecated:* instead use `maybe/sequence(of_p, map_p)`
 
 Async into/from Reactive Streams
 --------------------------------
@@ -63,3 +55,16 @@ Maybe/Either into/from Reactive Streams
 
 ### `maybeOfBaconObservableToBaconObservableOfMaybe(maybeObservable)`
 `:: Maybe Observable a -> Observable Maybe a`
+
+Extracting from/Wrapping with Collections
+-----------------------------------------
+
+### ~~keyMaybeToMaybeObj(key, coll)~~
+`:: key -> {key: Maybe a, …} -> Maybe {key: a, …}`
+
+`:: Idx -> [Idx: Maybe a, …] -> Maybe [Idx: a, …]`
+
+*Deprecated:* Consider from `lens`
+
+- `sequence(propertyLens(key)(map_mb), coll)` or
+- `sequence(indexLens(idx)(map_mb), coll)`.

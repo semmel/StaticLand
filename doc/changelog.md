@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.27
+-----
+- lenses
+- Breaking: removed `unlens`, `propUnlens`, `indexUnlens`
+
 0.1.26
 ------
 - unlens, propUnlens, indexUnlens

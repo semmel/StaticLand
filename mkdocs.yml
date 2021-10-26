@@ -9,6 +9,7 @@ nav:
   - maybe.md
   - promise.md
   - list.md
+  - lens.md
   - transformations.md
   - io.md
   - changelog.md

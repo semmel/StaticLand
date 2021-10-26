@@ -10,11 +10,15 @@ export function indexLens(index: number): Lens<any, any, ES5Collection<any>, ES5
 
 export function makeComposableOverLens<X, S, FX, FS>(lens: Lens<X, S, FX, FS>): ComposableLens<X, S, FX, FS>;
 export function makeComposableViewLens<X, S, FX, FS>(lens: Lens<X, S, FX, FS>): ComposableLens<X, S, FX, FS>;
+export function makeComposableSequenceLens<X, S, FX, FS>(lens: Lens<X, S, FX, FS>, map_f: Map<X, S, FX, FS>): ComposableLens<X, S, FX, FS>;
+export function makeComposableSequenceLens<X, S, FX, FS>(lens: Lens<X, S, FX, FS>): (map_f: Map<X, S, FX, FS>) => ComposableLens<X, S, FX, FS>;
 
 export function over<A, S>(cL: ComposableLens<A, S, any, any>, x2x: (a:A) => A, target: S): S;
 export function set<A, S>(cL: ComposableLens<A, S, any, any>, a: A, target: S): S;
 export function view<A, S>(cL: ComposableLens<A, S, any, any>, target: S): A;
-export function sequence<A, S>(map_f: Map<any, any, any, A>): (lens: Lens<A, S, A, any>) => (target: S) => A;
+export function view<A, S>(cL: ComposableLens<A, S, any, any>):  (target: S) => A;
+export function sequence<A, S>(lens: ComposableLens<A, S, A, any>, target: S): A;
+export function sequence<A, S>(lens: ComposableLens<A, S, A, any>): (target: S) => A;
 
-export function composeFocus<X, S, FX, FS>(lenses: Array<Lens<X, S, FX, FS>): ComposableLens<X, S, FX, FS>;
-export function composeOptics<X, S, FX, FS>(lenses: Array<Lens<X, S, FX, FS>): ComposableLens<X, S, FX, FS>;
+export function composeFocus<X, S, FX, FS>(lenses: Array<Lens<X, S, FX, FS>>): ComposableLens<X, S, FX, FS>;
+export function composeOptics<X, S, FX, FS>(lenses: Array<Lens<X, S, FX, FS>>): ComposableLens<X, S, FX, FS>;
