@@ -2,6 +2,9 @@ import {BinaryCurriedFn} from './common';
 
 export function all<T>(promises: Array<Promise<T>>): Promise<Array<T>>;
 
+export function ap<A, B>(mfn: Promise<(a: A) => B>, mb: Promise<A>): Promise<B>;
+export function ap<A, B>(mfn: Promise<(a: A) => B>): (mb: Promise<A>) => Promise<B>;
+
 export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (t?: T) => any, p: Promise<T>): Promise<T>;
 export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (t?: T) => any): (p: Promise<T>) => Promise<T>;
 
@@ -27,6 +30,7 @@ export function later<A>(dt: number): (a: A) => Promise<A>;
 /**
  * Makes a binary curried function accept and return Promises Types instead of Types
  */
+export function liftA2<S, T, U>(fn: BinaryCurriedFn<S, T, U>, ps: Promise<S>, pt: Promise<T>): Promise<U>;
 export function liftA2<S, T, U>(fn: BinaryCurriedFn<S, T, U>): (ps: Promise<S>, pt: Promise<T>) => Promise<U>;
 export function liftA2<S, T, U>(fn: BinaryCurriedFn<S, T, U>): (ps: Promise<S>) => (pt: Promise<T>) => Promise<U>;
 

@@ -49,7 +49,12 @@ promise X ---------> X --->
 Combination
 ---------------
 
+### `ap(promisedFunc, promise)`
+`:: Promise (a → b) → Promise a → Promise b`
+
+Parallel running version: Both Promises are treated equally in time, meaning if any fails the *first* failure is propagated to the result.
+
 ### `duplexRace(a, b)`
 `:: Promise a → Promise a → Promise a`
 
-It's `Promise.race` but only for two input promises.
+It's `Promise.race` but only for *two* input promises.

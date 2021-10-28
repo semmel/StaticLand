@@ -54,6 +54,7 @@ const
 	// maybeOfPromiseToPromiseOfMaybe :: Maybe Promise e a -> Promise e Maybe a
 	maybeOfPromiseToPromiseOfMaybe = maybe(compose(of_p, nothing), map_p(of_mb)),
 	
+	/** @deprecated */
 	// keyPromiseToPromiseCollection :: String -> {ki: Promise e vi, k:v …} -> Promise e {ki:vi, k:v …}
 	// keyPromiseToPromiseCollection :: Int -> [v,…, Promise e v, v,…] -> Promise e [v]
 	keyPromiseToPromiseCollection = curry((key, obj) =>

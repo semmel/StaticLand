@@ -9,9 +9,25 @@ export function cancelableToPromise<A>(ca: Cancelable<A>): Promise<A>;
 
 export function eitherToCancelable<A>(ma: Either<A>): Cancelable<A>;
 
+/**
+ * @deprecated
+ * use lens/view(sequence(maybe/map, indexLens(n)))(obj)
+ */
 export function keyMaybeToMaybeObj(key: string, moa: PlainObject): Maybe<PlainObject>;
+/**
+ * @deprecated
+ * use lens/view(sequence(maybe/map, indexLens(n)))(obj)
+ */
 export function keyMaybeToMaybeObj(key: string): (moa: PlainObject) => Maybe<PlainObject>;
+/**
+ * @deprecated
+ * use lens/view(sequence(maybe/map, indexLens(n)))(obj)
+ */
 export function keyMaybeToMaybeObj(index: number, maa: Array<any>): Maybe<Array<any>>;
+/**
+ * @deprecated
+ * use lens/view(sequence(maybe/map, indexLens(n)))(obj)
+ */
 export function keyMaybeToMaybeObj(index: number): (maa: Array<any>) => Maybe<Array<any>>;
 
 export function maybeOfBaconObservableToBaconObservableOfMaybe<A>(mma: Maybe<Observable<A>>): EventStream<Maybe<A>>;

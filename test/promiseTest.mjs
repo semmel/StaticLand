@@ -1,21 +1,14 @@
-import {applyTo, identity, o, pipe} from 'semmel-ramda';
+import {add, identity, o, pipe} from 'semmel-ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
-import {alt, bi_tap, chain, chainRej, chainTap, chainIf, map, of, tap, tapRegardless} from '../src/promise.js';
+import {alt, bi_tap, chain, chainRej, chainTap, chainIf, liftA2, map, of, tap, tapRegardless} from '../src/promise.js';
 
 const
 	assert = chai.assert,
-	/**
-	 * @template T
-	 * @param {Number} dt
-	 * @param {T} value
-	 * @return {Promise<T>}
-	 */
+	/** @type {<T>(delay: number, t:T) => Promise<T>} */
 	laterSucceed = (dt, value) => new Promise(resolve => setTimeout(resolve, dt, value)),
 	/**
-	 * @param {Number} dt
-	 * @param {any} value
-	 * @return {Promise<any>}
+	 * @type {<T>(delay: number, t:T) => Promise<T>}
 	 */
 	laterFail = (dt, value) => new Promise((_, reject) => setTimeout(reject, dt, value)),
 	now = hirestime(),
@@ -408,7 +401,29 @@ describe("Promise", function() {
 	
 	});
 	
-	describe.skip("liftA2", function () {
-	
+	describe("liftA2", function () {
+		it ("succeeds with the result of the function", () => {
+			const
+				beginTs = now();
+			
+			return liftA2(add, laterSucceed(50, 27), laterSucceed(50, 42))
+			.then(value => {
+				assert.strictEqual(value, 69);
+				assert.approximately(now() - beginTs, 50, 10);
+			});
+		});
+		
+		it ("fails with the first rejection", () => {
+			const
+				beginTs = now();
+			
+			return liftA2(add, laterSucceed(50, 27), laterFail(25, 42))
+			.then(
+				value => { assert.fail(`Unexpected success with ${value}`); },
+				error => {
+					assert.strictEqual(error, 42);
+					assert.approximately(now() - beginTs, 25, 10);
+			});
+		});
 	});
 });

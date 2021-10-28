@@ -32,3 +32,9 @@ export function traverse<A, B, C>(
   liftA2: (f: (a: A) => (b: B) => C) => (ma: Applicative<A>, mb: Applicative<B>) => Applicative<C>,
   effect: (a: A) => Applicative<B>)
   : (ma: Array<A>) => Applicative<Array<A>>;
+
+export function traverse<A, B, C>(
+  ofF: (a: A) => Applicative<A>,
+  liftA2: (f: (a: A) => (b: B) => C) => (ma: Applicative<A>, mb: Applicative<B>) => Applicative<C>):
+  (effect: (a: A) => Applicative<B>) =>
+  (ma: Array<A>) => Applicative<Array<A>>;

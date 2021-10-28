@@ -36,4 +36,22 @@ Note that the first two parameters `of_f` and `liftA2_f` are just needed to supp
 ### `traverse(of_f, liftA2_f, effect_to_f, array)`
 `:: Applicative f => ((a → f a), ((a → b → c) → f a → f b → f c) → (a → f b) → [a] → f [b]`
 
+Applies an "effect" `effect_to_f` to the values of the List. Then combines that "effect" with the List by wrapping the "effect's" result in an Applicative of a List. 
+
+If, for instance the "effect" is an asynchronous computation wrapped in a Promise `a → Promise b`, it might make more sense to work with a single Promise of a List of the asynchronous computation results than a List of Promises of that results. 
+
 Note that the first two parameters `of_f` and `liftA2_f` are just needed to support the implementation. Both should be taken from the Applicative `f`'s static functions.
+
+#### Example
+```javascript
+const 
+   // :: (a -> Promise b) -> List a -> Promise List b
+   traversePromiseFactoryInList = traverse_l(of_p, liftA2_p),
+   // :: Number -> Promise Number
+   asyncSquareRoot = x => (x >= 0) ? 
+      later_p(100, Math.sqrt(x)) : 
+      laterFail(25, "complex result");
+
+traversePromiseFactoryInList(asyncSquareRoot, [4, 25, 81])
+// -> Promise [2, 5, 9]
+```
