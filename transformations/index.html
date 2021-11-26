@@ -292,6 +292,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../either/" class="md-nav__link">
+        Either
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../promise/" class="md-nav__link">
         Promise
       </a>
@@ -387,6 +402,13 @@
           <li class="md-nav__item">
   <a href="#eithertocancelableeither" class="md-nav__link">
     eitherToCancelable(either)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eithertopromise" class="md-nav__link">
+    eitherToPromise
   </a>
   
 </li>
@@ -599,6 +621,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#eithertopromise" class="md-nav__link">
+    eitherToPromise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#promisetocancelablepromise" class="md-nav__link">
     promiseToCancelable(promise)
   </a>
@@ -728,6 +757,9 @@
 <p><code>:: Maybe Cancelable e a -&gt; Cancelable e Maybe a</code></p>
 <h3 id="eithertocancelableeither"><code>eitherToCancelable(either)</code></h3>
 <p><code>:: Either e a → Cancelable e a</code></p>
+<h3 id="eithertopromise"><code>eitherToPromise</code></h3>
+<p><code>:: Either c a → Promise a</code>
+Since the Either represents an immediate value, the returned Promise is settled.</p>
 <h3 id="promisetocancelablepromise"><code>promiseToCancelable(promise)</code></h3>
 <p><code>:: Promise e a → Cancelable e a</code></p>
 <p>The transformation is with limitations:

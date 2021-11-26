@@ -461,6 +461,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../either/" class="md-nav__link">
+        Either
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../promise/" class="md-nav__link">
         Promise
       </a>
@@ -823,11 +838,11 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h3 id="apcancelablefunc-cancelable"><code>ap(cancelableFunc, cancelable)</code></h3>
 <p><code>:: Cancelable (a → b) → Cancelable a → Cancelable b</code></p>
 <p>Parallel running version: It runs both Cancelable arguments in parallel.</p>
-<p>Note that when implemented simply <code>ap(mf, ma) = chain(f =&gt; map(f, ma), mf)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<p>Note that <em>if it was</em> implemented simply <code>ap(mf, ma) = chain(f =&gt; map(f, ma), mf)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
 <h3 id="lifta2f-cca-ccb"><code>liftA2(f, ccA , ccB)</code></h3>
 <p><code>:: (a → b → c) → Cancelable a → Cancelable b → Cancelable c</code></p>
 <p>Equivalent to <code>(f, pa, pb) =&gt; Promise.all([pa, pb]).then(([a, b]) =&gt; f(a, b))</code>. <code>f</code> must be curried.</p>
-<p>Note that when implemented by <strong>sequential</strong> running <strong><code>ap</code></strong>, <code>liftA2(f, ma, mb) = ap(map(f, ma), mb)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<p>Note that when implemented by <em>sequentially</em> running <em>ap</em>, <code>liftA2(f, ma, mb) = ap(map(f, ma), mb)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
 <h3 id="racecancelablea-cancelableb"><code>race(cancelableA, cancelableB)</code></h3>
 <p><code>:: Cancelable a → Cancelable a → Cancelable a</code></p>
 <p>Like <code>Promise.race</code> shortcuts (i.e. aborts the other) when any input value is settled with success or failure.</p>

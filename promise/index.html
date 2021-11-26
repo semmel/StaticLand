@@ -290,6 +290,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../either/" class="md-nav__link">
+        Either
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -353,15 +368,35 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rejecte" class="md-nav__link">
+    ' reject(e)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#consumption" class="md-nav__link">
-    Consumption
+  <a href="#transformation" class="md-nav__link">
+    Transformation
   </a>
+  
+    <nav class="md-nav" aria-label="Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chainrejonerror" class="md-nav__link">
+    chainRej(onError)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -406,6 +441,13 @@
   
     <nav class="md-nav" aria-label="Combination">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#appromisedfunc-promise" class="md-nav__link">
+    ap(promisedFunc, promise)
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#duplexracea-b" class="md-nav__link">
@@ -571,15 +613,35 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rejecte" class="md-nav__link">
+    ' reject(e)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#consumption" class="md-nav__link">
-    Consumption
+  <a href="#transformation" class="md-nav__link">
+    Transformation
   </a>
+  
+    <nav class="md-nav" aria-label="Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chainrejonerror" class="md-nav__link">
+    chainRej(onError)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -626,6 +688,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#appromisedfunc-promise" class="md-nav__link">
+    ap(promisedFunc, promise)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#duplexracea-b" class="md-nav__link">
     duplexRace(a, b)
   </a>
@@ -663,7 +732,12 @@
 <p><code>:: number → a → Promise a</code></p>
 <h3 id="ofa"><code>of(a)</code></h3>
 <p><code>:: a -&gt; Promise e a</code></p>
-<h2 id="consumption">Consumption</h2>
+<h3 id="rejecte">' <code>reject(e)</code></h3>
+<p><code>:: * -&gt; Promise *</code>
+Abbreviates <code>Promise.reject</code>. Note that <code>Promise.reject</code> rejects with <em>any type</em> including any Promise (unsettled, rejected or fulfilled)! Read <a href="https://stackoverflow.com/questions/39197769/what-happens-if-i-reject-a-promise-with-another-promise-value">what happens</a>.</p>
+<h2 id="transformation">Transformation</h2>
+<h3 id="chainrejonerror"><code>chainRej(onError)</code></h3>
+<p><code>:: (e -&gt; Promise g b) -&gt; Promise e a -&gt; Promise (e | g) (a | b)</code></p>
 <h2 id="side-effects">Side-Effects</h2>
 <h3 id="bi_taponfailure-onsuccess-p"><code>bi_tap(onFailure, onSuccess, p)</code></h3>
 <p><code>:: (* -&gt; *) -&gt; (a -&gt; *) -&gt; Promise a -&gt; Promise a</code> </p>
@@ -681,9 +755,12 @@ promise X ---------&gt; X ---&gt;
            - fn(X) -&gt; Y
 </pre></p>
 <h2 id="combination">Combination</h2>
+<h3 id="appromisedfunc-promise"><code>ap(promisedFunc, promise)</code></h3>
+<p><code>:: Promise (a → b) → Promise a → Promise b</code></p>
+<p>Parallel running version: Both Promises are treated equally in time, meaning if any fails the <em>first</em> failure is propagated to the result.</p>
 <h3 id="duplexracea-b"><code>duplexRace(a, b)</code></h3>
 <p><code>:: Promise a → Promise a → Promise a</code></p>
-<p>It's <code>Promise.race</code> but only for two input promises.</p>
+<p>It's <code>Promise.race</code> but only for <em>two</em> input promises.</p>
                 
               
               
@@ -703,7 +780,7 @@ promise X ---------&gt; X ---&gt;
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../maybe/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Maybe" rel="prev">
+        <a href="../either/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Either" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -712,7 +789,7 @@ promise X ---------&gt; X ---&gt;
               <span class="md-footer__direction">
                 Previous
               </span>
-              Maybe
+              Either
             </div>
           </div>
         </a>
