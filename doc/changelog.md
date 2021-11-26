@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.28
+-----
+- test: eitherToPromise
+
 0.1.27
 -----
 - lenses

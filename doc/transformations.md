@@ -10,6 +10,10 @@ Async Stuff
 ### `eitherToCancelable(either)`
 `:: Either e a → Cancelable e a`
 
+### `eitherToPromise`
+`:: Either c a → Promise a`
+Since the Either represents an immediate value, the returned Promise is settled.
+
 ### `promiseToCancelable(promise)`
 `:: Promise e a → Cancelable e a`
 

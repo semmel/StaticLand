@@ -51,3 +51,5 @@ export function tap<T>(fn: (x?: T) => any): (p: Promise<T>) => Promise<T>;
 
 export function tapRegardless<T>(fn: (x?: T) => any, p: Promise<T>): Promise<T>;
 export function tapRegardless<T>(fn: (x?: T) => any): (p: Promise<T>) => Promise<T>;
+
+export function reject(payload: any): Promise<any>;

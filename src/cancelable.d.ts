@@ -6,6 +6,9 @@ export function reject(e: any): Cancelable<any>;
 export function later<A>(dt: number, a: A): Cancelable<A>;
 export function later<A>(dt: number): (a: A) => Cancelable<A>;
 
+export function laterReject(dt: number, error: any): Cancelable<any>;
+export function laterReject(dt: number): (error: any) => Cancelable<any>;
+
 export function fetchResponse({url, spec}: {url: URL|string, spec: RequestInit}): Cancelable<Response>;
 
 // Transformations

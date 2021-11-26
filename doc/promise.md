@@ -19,8 +19,15 @@ Generation
 ### `of(a)`
 `:: a -> Promise e a`
 
-Consumption
+###' `reject(e)`
+`:: * -> Promise *`
+Abbreviates `Promise.reject`. Note that `Promise.reject` rejects with *any type* including any Promise (unsettled, rejected or fulfilled)! Read [what happens][rejected-promise].
+
+Transformation
 -----------
+
+### `chainRej(onError)`
+`:: (e -> Promise g b) -> Promise e a -> Promise (e | g) (a | b)`
 
 Side-Effects
 -----------
@@ -58,3 +65,5 @@ Parallel running version: Both Promises are treated equally in time, meaning if 
 `:: Promise a → Promise a → Promise a`
 
 It's `Promise.race` but only for *two* input promises.
+
+[rejected-promise]:https://stackoverflow.com/questions/39197769/what-happens-if-i-reject-a-promise-with-another-promise-value

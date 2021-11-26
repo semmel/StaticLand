@@ -46,7 +46,7 @@ const
 	 */
 	chainRej_ = curry((fn, aPromise) => aPromise.then(null, fn)),
 	// this implementation enforces fn to return a promise
-	// chainRej :: (e -> Promise g a) -> Promise e a -> Promise g b
+	// chainRej :: (e -> Promise g b) -> Promise e a -> Promise (e | g) (a | b)
 	chainRej = curry((fn, aPromise) =>
 		new Promise((resolve, reject_) => {
 			aPromise.then(resolve, a => fn(a).then(resolve, reject_));
