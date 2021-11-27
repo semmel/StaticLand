@@ -338,6 +338,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cancelifyf" class="md-nav__link">
+    cancelify(f)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fetchresponseurl-fetchspec" class="md-nav__link">
     fetchResponse({url, fetchSpec})
   </a>
@@ -642,6 +649,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cancelifyf" class="md-nav__link">
+    cancelify(f)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fetchresponseurl-fetchspec" class="md-nav__link">
     fetchResponse({url, fetchSpec})
   </a>
@@ -765,6 +779,10 @@
 <p><code>:: Number -&gt; a -&gt; Cancelable () a</code></p>
 <h3 id="laterrejectdt-e"><code>laterReject(dt, e)</code></h3>
 <p><code>:: Number -&gt; e -&gt; Cancelable e ()</code></p>
+<h3 id="cancelifyf"><code>cancelify(f)</code></h3>
+<p><code>:: (*... → Promise e a) → *... → Cancelable e a</code></p>
+<p>Takes a function <code>f</code> which generates a non-abort-/non-cancel-able Promise and returns a function with the same arguments but which returns a Cancelable. The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.</p>
+<p>See <a href="../transformations/#promisetocancelablepromise"><code>promiseToCancelable</code></a>.</p>
 <h3 id="fetchresponseurl-fetchspec"><code>fetchResponse({url, fetchSpec})</code></h3>
 <p><code>:: {url: (String|URL), init: {}} -&gt; Cancelable Error Response</code></p>
 <p>This example fetches the number of libraries hosted at <a href="https://cdnjs.com/api">cdnjs.com</a>.</p>

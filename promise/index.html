@@ -395,6 +395,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#coalesceonfailure-onsuccess-p" class="md-nav__link">
+    coalesce(onFailure, onSuccess, p)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -640,6 +647,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#coalesceonfailure-onsuccess-p" class="md-nav__link">
+    coalesce(onFailure, onSuccess, p)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -738,6 +752,9 @@ Abbreviates <code>Promise.reject</code>. Note that <code>Promise.reject</code> r
 <h2 id="transformation">Transformation</h2>
 <h3 id="chainrejonerror"><code>chainRej(onError)</code></h3>
 <p><code>:: (e -&gt; Promise g b) -&gt; Promise e a -&gt; Promise (e | g) (a | b)</code></p>
+<h3 id="coalesceonfailure-onsuccess-p"><code>coalesce(onFailure, onSuccess, p)</code></h3>
+<p><code>:: (e -&gt; b) -&gt; (a -&gt; b) -&gt; Promise e a -&gt; Promise e b</code>
+It's essentially <code>Promise.then</code> and named coalesce in crocks Async.</p>
 <h2 id="side-effects">Side-Effects</h2>
 <h3 id="bi_taponfailure-onsuccess-p"><code>bi_tap(onFailure, onSuccess, p)</code></h3>
 <p><code>:: (* -&gt; *) -&gt; (a -&gt; *) -&gt; Promise a -&gt; Promise a</code> </p>

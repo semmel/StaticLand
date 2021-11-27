@@ -765,6 +765,8 @@ Since the Either represents an immediate value, the returned Promise is settled.
 <p>The transformation is with limitations:
 - Eagerness cannot be transformed into laziness, i.e. the computation represented by the promise is already executing or even settled.
 - The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.</p>
+<p>See <a href="../cancelable/#cancelifyf"><code>cancelable/cancelify</code></a>. </p>
+<p>Note that <code>promiseToCancelable(p) ≡ cancelify(() =&gt; p)</code>.</p>
 <h3 id="cancelabletopromisecancelable"><code>cancelableToPromise(cancelable)</code></h3>
 <p><code>:: Cancelable e a → Promise e a</code></p>
 <p>Since promises are eager, this transformation will run the cancelable computation. The ability to cancel the computation will be lost.</p>

@@ -295,8 +295,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#consuming-outcome" class="md-nav__link">
-    Consuming Outcome
+  <a href="#propagating-the-outcome" class="md-nav__link">
+    Propagating the Outcome
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consuming-and-running-cancelables" class="md-nav__link">
+    Consuming and Running Cancelables
   </a>
   
 </li>
@@ -553,8 +560,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#consuming-outcome" class="md-nav__link">
-    Consuming Outcome
+  <a href="#propagating-the-outcome" class="md-nav__link">
+    Propagating the Outcome
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consuming-and-running-cancelables" class="md-nav__link">
+    Consuming and Running Cancelables
   </a>
   
 </li>
@@ -653,7 +667,7 @@ let cancelableWork = (res, rej) =&gt; {
 };
 </code></pre>
 
-<h3 id="consuming-outcome">Consuming Outcome</h3>
+<h3 id="propagating-the-outcome">Propagating the Outcome</h3>
 <p>The result or failing of the computation (aka settlement) is communicated via the two callback arguments ("continuations") in the same way as the <em>computation function in a Promise constructor</em>. Differently however, the settlement of the computation should not be communicated synchronously - <strong>enforced asynchronicity</strong></p>
 <pre><code class="javascript">let ccFoo = (res, rej) =&gt; { 
     res(&quot;foo&quot;);   // BAD CODE! Do not invoke the callbacks synchronously!  
@@ -666,11 +680,16 @@ let ccBar = (res, rej) =&gt; {
 };
 </code></pre>
 
-<p>Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating <a href="https://github.com/fluture-js/Fluture#creating-futures">Fluture Futures</a> or <a href="https://crocks.dev/docs/crocks/Async.html#construction">Async in Crocks</a>. Because those other libraries however provide their (lazy) replacement for native Promises, the <em>order</em> of arguments of <em>their</em> computation function <em>differs</em> from that of the Promise constructor in that the rejection continuation comes <em>before</em> the success continuation.</p>
-<p>By providing the Cancelable Computation in the Promise constructor <code>new Promise(cancelableComputation)</code> it becomes trivial to transform a Cancelable Computation into a Promise. Note that if the computation is cancelled such a "consumption" Promise will never settle. See the section titled <a href="#cancellation-discontinues">Cancellation Discontinues</a>.</p>
+<p>Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating <a href="https://github.com/fluture-js/Fluture#creating-futures">Fluture Futures</a> or <a href="https://crocks.dev/docs/crocks/Async.html#construction">Async in Crocks</a>. In those other libraries however, the <em>order</em> of arguments <em>differs</em> from that of the Promise constructor; The rejection continuation comes <em>before</em> the success continuation.</p>
+<h3 id="consuming-and-running-cancelables">Consuming and Running Cancelables</h3>
+<ul>
+<li>Simply use the Promise constructor to create a Promise from the Cancelable <code>new Promise(cancelableComputation)</code>.
+  Note that if the computation is cancelled such a "consumption" Promise will never settle. See the section titled <a href="#cancellation-discontinues">Cancellation Discontinues</a>.</li>
+<li>Invoke the Cancelable and provide two callbacks as arguments <code>toCancel = cancelableComputation(onSuccess, onFailure)</code></li>
+</ul>
 <h3 id="cancellation">Cancellation</h3>
 <p>The Cancelable Computation Function returns a function to abort/<em>cancel</em> the computation. </p>
-<p>A Cancelable Computation can be aborted by calling the <code>abort</code> function which is returned when the execution of the Cancelable Computation is started by invoking it with two callbacks.</p>
+<p>A Cancelable Computation can be aborted by calling the <code>abort</code> function which is returned when the execution of the Cancelable Computation is started by invoking it with two callbacks. Thus, the computation cannot be canceled before it is started.</p>
 <pre><code class="javascript">let abort = cancelableComputation(onSuccess, onFailure);
 abort(); // Abort immediately. onSuccess and onFailure are never called
 </code></pre>
