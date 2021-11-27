@@ -18,4 +18,11 @@ describe("transformations eitherToPromise", function () {
 			x => { assert.strictEqual(x, "bar"); }
 		)
 	);
+	
+	it("returns a resolved Promise from a right Promise", () =>
+		// Here is there Promises fail as Monads!
+		// It SHOULD REALLY return a resolved Promise of a Promise
+		eitherToPromise(right(Promise.resolve("foo")))
+		.then(x => assert.strictEqual(x, "foo"))
+	);
 });

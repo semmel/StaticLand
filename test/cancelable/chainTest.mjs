@@ -8,7 +8,7 @@ import laterFail from "../../src/cancelable/internal/laterFail.js";
 const
 	assert = chai.assert;
 
-describe("cancelable map", function () {
+describe("cancelable chain", function () {
 	let
 		gotCalled = null;
 	
@@ -18,7 +18,7 @@ describe("cancelable map", function () {
 	
 	this.slow(200);
 	
-	it("returns the result of f for a resolved computation", () => Promise.all([
+	it("returns the result of f for a succeeding computation", () => Promise.all([
 		new Promise(chain(x => laterSucceed(10, x * x), of(7)))
 		.then(
 			x => { assert.strictEqual(x, 49); },
@@ -32,7 +32,7 @@ describe("cancelable map", function () {
 		)
 	]));
 	
-	it("does not invoke f for a rejected promise", () =>
+	it("does not invoke f for a failing computation", () =>
 		new Promise(chain(
 			x => { gotCalled = true; return laterFail(10, x * x); },
 			reject(6))

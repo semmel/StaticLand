@@ -8,6 +8,10 @@ export function ap<A, B>(mfn: Promise<(a: A) => B>): (mb: Promise<A>) => Promise
 export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (t?: T) => any, p: Promise<T>): Promise<T>;
 export function bi_tap<T>(onFailure: (e: any) => void, onSuccess: (t?: T) => any): (p: Promise<T>) => Promise<T>;
 
+// coalesce :: (e -> b) -> (a -> b) -> Promise e a -> Promise e b
+export function coalesce<A, B>(onFailure: (e: any) => B, onSuccess: (a?: A) => B, p: Promise<A>): Promise<B>;
+export function coalesce<A, B>(onFailure: (e: any) => B, onSuccess: (a?: A) => B): (p: Promise<A>) => Promise<B>;
+
 /**
  * Produce a Promise from the factory function and the resolution value of the promise
  */

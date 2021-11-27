@@ -29,6 +29,10 @@ Transformation
 ### `chainRej(onError)`
 `:: (e -> Promise g b) -> Promise e a -> Promise (e | g) (a | b)`
 
+### `coalesce(onFailure, onSuccess, p)`
+`:: (e -> b) -> (a -> b) -> Promise e a -> Promise e b`
+It's essentially `Promise.then` and named coalesce in crocks Async.
+
 Side-Effects
 -----------
 

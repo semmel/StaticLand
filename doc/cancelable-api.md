@@ -22,6 +22,13 @@ Generator Functions
 ### `laterReject(dt, e)`
 `:: Number -> e -> Cancelable e ()`
 
+### `cancelify(f)`
+`:: (*... → Promise e a) → *... → Cancelable e a`
+
+Takes a function `f` which generates a non-abort-/non-cancel-able Promise and returns a function with the same arguments but which returns a Cancelable. The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.
+
+See [`promiseToCancelable`](transformations.md#promisetocancelablepromise).
+
 ### `fetchResponse({url, fetchSpec})`
 `:: {url: (String|URL), init: {}} -> Cancelable Error Response`
 

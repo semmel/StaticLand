@@ -30,7 +30,7 @@ let cancelableWork = (res, rej) => {
 };
 ```
 
-### Consuming Outcome
+### Propagating the Outcome
 The result or failing of the computation (aka settlement) is communicated via the two callback arguments ("continuations") in the same way as the *computation function in a Promise constructor*. Differently however, the settlement of the computation should not be communicated synchronously - **enforced asynchronicity**
 
 ```javascript
@@ -45,15 +45,20 @@ let ccBar = (res, rej) => {
 };
 ```
 
-Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating [Fluture Futures](https://github.com/fluture-js/Fluture#creating-futures) or [Async in Crocks](https://crocks.dev/docs/crocks/Async.html#construction). Because those other libraries however provide their (lazy) replacement for native Promises, the *order* of arguments of *their* computation function *differs* from that of the Promise constructor in that the rejection continuation comes *before* the success continuation.
+Such computation functions are the standard pattern in other libraries to create asynchronous tasks, e.g. creating [Fluture Futures](https://github.com/fluture-js/Fluture#creating-futures) or [Async in Crocks](https://crocks.dev/docs/crocks/Async.html#construction). In those other libraries however, the *order* of arguments *differs* from that of the Promise constructor; The rejection continuation comes *before* the success continuation.
 
-By providing the Cancelable Computation in the Promise constructor `new Promise(cancelableComputation)` it becomes trivial to transform a Cancelable Computation into a Promise. Note that if the computation is cancelled such a "consumption" Promise will never settle. See the section titled [Cancellation Discontinues](#cancellation-discontinues).
+### Consuming and Running Cancelables
+
+- Simply use the Promise constructor to create a Promise from the Cancelable `new Promise(cancelableComputation)`.
+  Note that if the computation is cancelled such a "consumption" Promise will never settle. See the section titled [Cancellation Discontinues](#cancellation-discontinues).
+- Invoke the Cancelable and provide two callbacks as arguments `toCancel = cancelableComputation(onSuccess, onFailure)`
+
 
 ### Cancellation
 
 The Cancelable Computation Function returns a function to abort/*cancel* the computation. 
 
-A Cancelable Computation can be aborted by calling the `abort` function which is returned when the execution of the Cancelable Computation is started by invoking it with two callbacks.
+A Cancelable Computation can be aborted by calling the `abort` function which is returned when the execution of the Cancelable Computation is started by invoking it with two callbacks. Thus, the computation cannot be canceled before it is started.
 
 ```javascript
 let abort = cancelableComputation(onSuccess, onFailure);

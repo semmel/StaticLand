@@ -11,6 +11,8 @@ export function laterReject(dt: number): (error: any) => Cancelable<any>;
 
 export function fetchResponse({url, spec}: {url: URL|string, spec: RequestInit}): Cancelable<Response>;
 
+export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
+
 // Transformations
 
 export function map<A, B>(fn: (a: A) => B, ma: Cancelable<A>): Cancelable<B>;

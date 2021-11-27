@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.29
+-------
+- adds `cancelable/cancelify`
+
 0.1.28
 -----
 - test: eitherToPromise

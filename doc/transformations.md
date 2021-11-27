@@ -21,6 +21,10 @@ The transformation is with limitations:
 - Eagerness cannot be transformed into laziness, i.e. the computation represented by the promise is already executing or even settled.
 - The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.
 
+See [`cancelable/cancelify`](cancelable.md#cancelifyf). 
+
+Note that `promiseToCancelable(p) ≡ cancelify(() => p)`.
+
 ### `cancelableToPromise(cancelable)`
 `:: Cancelable e a → Promise e a`
 
