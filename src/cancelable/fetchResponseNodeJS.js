@@ -8,6 +8,7 @@ import AbortController from "abort-controller";
 
 const
 	/**
+	 * @deprecated
 	 * @param {Object} options
 	 * @param {String|URL} options.url
 	 * @param {Object} [options.init]

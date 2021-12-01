@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.31
+-----
+- migrate `cancelable/fetchResponse(NodeJS)` to `cancelable/fetchResponseIsoModule(globalThis)`
+
 0.1.30
 -----
 - forgot either/isEither to export

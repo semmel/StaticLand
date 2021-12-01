@@ -9,7 +9,10 @@ export function later<A>(dt: number): (a: A) => Cancelable<A>;
 export function laterReject(dt: number, error: any): Cancelable<any>;
 export function laterReject(dt: number): (error: any) => Cancelable<any>;
 
+/** @deprecated */
 export function fetchResponse({url, spec}: {url: URL|string, spec: RequestInit}): Cancelable<Response>;
+
+export function fetchResponseIsoModule(spec: WindowOrWorkerGlobalScope): ({url, spec}: {url: URL|string, spec: RequestInit}) => Cancelable<Response>;
 
 export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
 

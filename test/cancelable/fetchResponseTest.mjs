@@ -1,6 +1,8 @@
 import {equals, identity, o} from 'semmel-ramda';
 import chai from 'chai';
-import fetchResponse from "../../src/cancelable/fetchResponseNodeJS.js";
+import {fetchResponseIsoModule} from "../../src/cancelable.js";
+import fetch from 'node-fetch';
+import AbortController from "abort-controller";
 
 const
 	assert = chai.assert,
@@ -15,6 +17,7 @@ const
 describe("cancelables fetchResponse", function() {
 	this.slow(5000);
 	this.timeout(6000);
+	const fetchResponse = fetchResponseIsoModule({AbortController, fetch});
 	
 	describe("fetching from JSON-responding servers", function() {
 		const

@@ -97,5 +97,5 @@
 		"test": "mocha --recursive --extension mjs ./test"
 	},
 	"type": "module",
-	"version": "0.1.30"
+	"version": "0.1.31"
 }

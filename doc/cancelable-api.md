@@ -29,7 +29,7 @@ Takes a function `f` which generates a non-abort-/non-cancel-able Promise and re
 
 See [`promiseToCancelable`](transformations.md#promisetocancelablepromise).
 
-### `fetchResponse({url, fetchSpec})`
+### `fetchResponse({url, fetchSpec})` via `fetchResponseIsoModule`
 `:: {url: (String|URL), init: {}} -> Cancelable Error Response`
 
 This example fetches the number of libraries hosted at [cdnjs.com](https://cdnjs.com/api).
@@ -41,15 +41,22 @@ The result is a Cancelable of a Maybe of a Number. The
 
 ```javascript
 import {ap, pair, pipe} from 'ramda';
-import {chain as chain_c, later, map as map_c, fetchResponse} 
+import {chain as chain_c, later, map as map_c, fetchResponseIsoModule} 
 from '@visisoft/staticland/cancelable';
 import { eitherToCancelable, keyPromiseToPromiseCollection, promiseToCancelable } 
 from '@visisoft/staticland/transformations';
 import { chain as chain_e, right, left } from '@visisoft/staticland/either';
 import {nothing, just, maybe } from '@visisoft/staticland/maybe';
+// assume we are running in Node.js
+import fetch from 'node-fetch';
+import AbortController from "abort-controller";
 
 const 
-   // :: Pair Response {k:v} => Either {k:v}
+   // :: {url: (String|URL), init: {}} -> Cancelable Error Response
+   fetchResponse = fetchResponseIsoModule({fetch, AbortController}),
+   // in a Browser this would be
+   fetchResponse = fetchResponseIsoModule(globalThis);
+   // :: Pair Response {k:v} -> Either {k:v}
    checkFetchResponseWithPayload = ([response, payload]) =>
 	   response.ok ?
 		   right(payload) :
