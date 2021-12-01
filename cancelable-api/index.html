@@ -345,8 +345,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fetchresponseurl-fetchspec" class="md-nav__link">
-    fetchResponse({url, fetchSpec})
+  <a href="#fetchresponseurl-fetchspec-via-fetchresponseisomodule" class="md-nav__link">
+    fetchResponse({url, fetchSpec}) via fetchResponseIsoModule
   </a>
   
 </li>
@@ -656,8 +656,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fetchresponseurl-fetchspec" class="md-nav__link">
-    fetchResponse({url, fetchSpec})
+  <a href="#fetchresponseurl-fetchspec-via-fetchresponseisomodule" class="md-nav__link">
+    fetchResponse({url, fetchSpec}) via fetchResponseIsoModule
   </a>
   
 </li>
@@ -783,7 +783,7 @@
 <p><code>:: (*... → Promise e a) → *... → Cancelable e a</code></p>
 <p>Takes a function <code>f</code> which generates a non-abort-/non-cancel-able Promise and returns a function with the same arguments but which returns a Cancelable. The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.</p>
 <p>See <a href="../transformations/#promisetocancelablepromise"><code>promiseToCancelable</code></a>.</p>
-<h3 id="fetchresponseurl-fetchspec"><code>fetchResponse({url, fetchSpec})</code></h3>
+<h3 id="fetchresponseurl-fetchspec-via-fetchresponseisomodule"><code>fetchResponse({url, fetchSpec})</code> via <code>fetchResponseIsoModule</code></h3>
 <p><code>:: {url: (String|URL), init: {}} -&gt; Cancelable Error Response</code></p>
 <p>This example fetches the number of libraries hosted at <a href="https://cdnjs.com/api">cdnjs.com</a>.</p>
 <p>The result is a Cancelable of a Maybe of a Number. The 
@@ -791,15 +791,22 @@
 - <em>nothing</em> path of the maybe is taken in case the combined network and parse duration exceeded the <em>timeout</em>,
 - the <em>just</em> path of the Maybe in the <em>success continuation</em> of the Cancelable contains the <em>result</em>.</p>
 <pre><code class="javascript">import {ap, pair, pipe} from 'ramda';
-import {chain as chain_c, later, map as map_c, fetchResponse} 
+import {chain as chain_c, later, map as map_c, fetchResponseIsoModule} 
 from '@visisoft/staticland/cancelable';
 import { eitherToCancelable, keyPromiseToPromiseCollection, promiseToCancelable } 
 from '@visisoft/staticland/transformations';
 import { chain as chain_e, right, left } from '@visisoft/staticland/either';
 import {nothing, just, maybe } from '@visisoft/staticland/maybe';
+// assume we are running in Node.js
+import fetch from 'node-fetch';
+import AbortController from &quot;abort-controller&quot;;
 
 const 
-   // :: Pair Response {k:v} =&gt; Either {k:v}
+   // :: {url: (String|URL), init: {}} -&gt; Cancelable Error Response
+   fetchResponse = fetchResponseIsoModule({fetch, AbortController}),
+   // in a Browser this would be
+   fetchResponse = fetchResponseIsoModule(globalThis);
+   // :: Pair Response {k:v} -&gt; Either {k:v}
    checkFetchResponseWithPayload = ([response, payload]) =&gt;
        response.ok ?
            right(payload) :
