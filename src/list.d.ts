@@ -1,6 +1,7 @@
 import {Either} from './either';
 import {Maybe} from "./maybe";
-type Applicative<T> = Promise<T>|Either<T>|Maybe<T>;
+import {Cancelable} from "./cancelable";
+type Applicative<T> = Cancelable<T>|Promise<T>|Either<T>|Maybe<T>;
 
 export function find<A>(predicate:(a: A) => boolean, list: Array<A>): Maybe<A>;
 export function find<A>(predicate:(a: A) => boolean): (list: Array<A>) => Maybe<A>;

@@ -19,3 +19,7 @@ export function chain<T, U>(factory: (x: T) => Either<U>): (p: Either<T>) => Eit
 export function either<A, B, C>(onLeft: (c: C) => B, onRight: (a: A) => B, m: Either<A>): B;
 export function either<A, B, C>(onLeft: (c: C) => B, onRight: (a: A) => B): (m: Either<A>) => B;
 export function either<A, B, C>(onLeft: (c: C) => B): (onRight: (a: A) => B) => (m: Either<A>) => B;
+
+export function isEither(me: Either<any>): boolean;
+export function isRight(me: Either<any>): boolean;
+export function isLeft(me: Either<any>): boolean;

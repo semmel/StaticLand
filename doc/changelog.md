@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.30
+-----
+- forgot either/isEither to export
+
 0.1.29
 -------
 - adds `cancelable/cancelify`

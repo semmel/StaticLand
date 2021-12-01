@@ -68,7 +68,7 @@ const
 	
 	
 export {
-	alt, chain, either, fromAssertedValue, fromThrowable, isLeft, isRight, join, left, map, of
+	alt, chain, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of
 };
 
 export let right = of;

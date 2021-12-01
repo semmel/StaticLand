@@ -164,6 +164,7 @@ const
 		ap(map(fn, pa), pb)
 	),*/
 	
+	// Btw. This is List.sequence(Promise.of, Promise.liftA2, [promises])
 	// :: [Promise e a] -> Promise e [a]
 	all = promises => Promise.all(promises),
 
