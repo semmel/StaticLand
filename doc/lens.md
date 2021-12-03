@@ -50,7 +50,7 @@ Create Composable Lenses
 ### `makeOverLens(lens)`
 `F ≡ Identity`
 
-### `sequence(map_f, lens)`
+### `makeComposableSequenceLens(map_f, lens)`
 `F ≡ f`
 
 Employ Lenses
@@ -64,6 +64,9 @@ Employ Lenses
 
 ### `set(overLens)`
 `:: Lens sa -> a -> sa -> sa`
+
+### `sequence(lens, subject)`
+`:: ComposableLens sa -> saf -> fsa`
 
 
 [1]:https://medium.com/@drboolean/lenses-with-immutable-js-9bda85674780

@@ -1,5 +1,5 @@
 {
-	"author": "Matthias Seemann",
+	"author": "Matthias Seemann <seemann@visisoft.de> (https://visisoft.de)",
 	"bugs": {
 		"url": "https://github.com/semmel/StaticLand/issues"
 	},
@@ -13,48 +13,50 @@
 		"@most/types": "^1.1.0",
 		"@rollup/plugin-node-resolve": "^13.0.4",
 		"@types/ramda": "^0.27.38",
-		"abort-controller": "^3.0.0",
 		"baconjs": "^3.0.17",
 		"chai": "^4.2.0",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.0.1",
-		"node-fetch": "^2.6.1",
 		"rollup": "^2.35.1"
+	},
+	"optionalDependencies": {
+		"abort-controller": "^3.0.0",
+		"node-fetch": "^3.1.0"
 	},
 	"exports": {
 		".": {
-			"require": "./dist/cjs/staticland.js",
-			"default": "./index.js"
+			"default": "./index.js",
+			"require": "./dist/cjs/staticland.js"
 		},
 		"./cancelable": {
-			"require": "./dist/cjs/cancelable.js",
-			"default": "./src/cancelable.js"
-		},
-		"./promise": {
-			"require": "./dist/cjs/promise.js",
-			"default": "./src/promise.js"
-		},
-		"./maybe": {
-			"require": "./dist/cjs/maybe.js",
-			"default": "./src/maybe.js"
+			"default": "./src/cancelable.js",
+			"require": "./dist/cjs/cancelable.js"
 		},
 		"./either": {
-			"require": "./dist/cjs/either.js",
-			"default": "./src/either.js"
-		},
-		"./list": {
-			"require": "./dist/cjs/list.js",
-			"default": "./src/list.js"
-		},
-		"./transformations": {
-			"require": "./dist/cjs/transformations.js",
-			"default": "./src/transformations.js"
+			"default": "./src/either.js",
+			"require": "./dist/cjs/either.js"
 		},
 		"./lens": {
-			"require": "./dist/cjs/lens.js",
-			"default": "./src/lens.js"
+			"default": "./src/lens.js",
+			"require": "./dist/cjs/lens.js"
 		},
-		"./package.json": "./package.json"
+		"./list": {
+			"default": "./src/list.js",
+			"require": "./dist/cjs/list.js"
+		},
+		"./maybe": {
+			"default": "./src/maybe.js",
+			"require": "./dist/cjs/maybe.js"
+		},
+		"./package.json": "./package.json",
+		"./promise": {
+			"default": "./src/promise.js",
+			"require": "./dist/cjs/promise.js"
+		},
+		"./transformations": {
+			"default": "./src/transformations.js",
+			"require": "./dist/cjs/transformations.js"
+		}
 	},
 	"files": [
 		"dist",
@@ -88,9 +90,9 @@
 		"build:cjs": "rollup -c",
 		"build:docs": "mkdocs build",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
-		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
-		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
 		"postpack": "npm run remove_ts_defs_from_root",
+		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
+		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:test": "npm run setup:chai && npm run setup:hirestime",

@@ -8,6 +8,8 @@ const
 	IS_ABORT_CONTROLLER_SUPPORTED = typeof AbortController === 'function',
 	
 	/**
+	 * @deprecated
+	 * use fetchResponseIsoModule
 	 * @param {Object} options
 	 * @param {String|URL} options.url
 	 * @param {Object} [options.init]

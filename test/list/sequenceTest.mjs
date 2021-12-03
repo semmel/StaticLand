@@ -80,7 +80,7 @@ describe("List sequence", function () {
 	});
 	
 	// TODO:
-	describe.skip("swaps a List of Promises into a Promise of a List", function() {
+	describe.skip("swaps a List of Cancelables into a Cancelable of a List", function() {
 		this.slow(200);
 		
 	});

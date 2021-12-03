@@ -25,7 +25,15 @@ In a way @visisoft/staticland provides functions which operate on and access typ
 Hello @visisoft/staticland
 --------------------------
 ### Installation
-`npm install @visisoft/staticland`
+When developing for Node.js
+```shell
+npm install @visisoft/staticland
+```
+
+When developing for the browser
+```shell
+npm install --no-optional @visisoft/staticland
+```
 
 ### Hello Earth
 

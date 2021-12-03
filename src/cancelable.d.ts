@@ -10,9 +10,9 @@ export function laterReject(dt: number, error: any): Cancelable<any>;
 export function laterReject(dt: number): (error: any) => Cancelable<any>;
 
 /** @deprecated */
-export function fetchResponse({url, spec}: {url: URL|string, spec: RequestInit}): Cancelable<Response>;
+export function fetchResponse({url, spec}: {url: URL|string, spec: RequestInit|{[key: string]: any}}): Cancelable<Response>;
 
-export function fetchResponseIsoModule(spec: WindowOrWorkerGlobalScope): ({url, spec}: {url: URL|string, spec: RequestInit}) => Cancelable<Response>;
+export function fetchResponseIsoModule(spec: WindowOrWorkerGlobalScope): (params: {url: URL|string, init: RequestInit|{[key: string]: any}}) => Cancelable<Response>;
 
 export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
 
