@@ -1,5 +1,5 @@
-import {equals, identity, o} from 'semmel-ramda';
-import { alt, either, fromAssertedValue, join, right, left } from '../src/either.js';
+import {always, equals, identity, o} from 'semmel-ramda';
+import { alt, chain, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
 import chai from 'chai';
 
 const
@@ -32,6 +32,60 @@ describe("Either join", function () {
 			x => assert.fail(`Should not be a right '${x}'`),
 			join(left("bar"))
 		);
+	});
+});
+
+describe("Either map", function() {
+	it("calls f just on the data", () => {
+		assert.deepStrictEqual(map(s => s.toUpperCase(), of("foo")), of("FOO"));
+		assert.deepStrictEqual(map(xs => xs.join(), of([8, 9])), of("8,9"));
+	});
+});
+
+describe("Either Chain", function() {
+	it("ignores left", () => {
+		assert.isTrue(isLeft(
+			chain(
+				() => { assert.fail("chain function must not be invoked on nothing"); },
+				left("qux")
+			)
+		));
+	});
+	
+	const
+		eitherBazOrRight = either(() => "baz", identity),
+		eitherBazOrLeft = either(identity, () => "baz");
+	
+	it("executes the function on the data in a right", () => {
+		assert.deepStrictEqual(chain(always(of("foo")), right(undefined)), of("foo"));
+		assert.deepStrictEqual(chain(always(of("bar")), right([])), of("bar"));
+		assert.strictEqual(eitherBazOrRight(chain(x => of(x + "-bar"), of("foo"))), eitherBazOrRight(of("foo-bar")));
+		assert.deepStrictEqual(chain(xs => of(xs.map(x => x + 1)), of([8, 9])), of([9,10]));
+	});
+	
+	it("goes from right to left", () => {
+		const
+			chained = chain(() => left("oops"), right("foo"));
+		
+		assert.isOk(isLeft(chained));
+		assert.strictEqual(eitherBazOrLeft(chained), "oops");
+	});
+	
+	it("does not execute on left", () => {
+		let isTouched = false;
+		const
+			touch = () => {
+				isTouched = true;
+				return left("unexpected");
+			},
+			leftChain = chain(touch, left("qux")),
+			leftChainChain = chain(touch, leftChain);
+		
+		assert.isOk(isLeft(leftChain));
+		assert.strictEqual(eitherBazOrLeft(leftChain), "qux");
+		assert.isOk(isLeft(leftChainChain));
+		assert.strictEqual(eitherBazOrLeft(leftChainChain), "qux");
+		assert.isFalse(isTouched);
 	});
 });
 

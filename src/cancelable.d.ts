@@ -24,6 +24,10 @@ export function map<A, B>(fn: (a: A) => B): (ma: Cancelable<A>) => Cancelable<B>
 export function chain<A, B>(fn: (x: A) => Cancelable<B>, ma: Cancelable<A>): Cancelable<B>;
 export function chain<A, B>(fn: (x: A) => Cancelable<B>): (ma: Cancelable<A>) => Cancelable<B>;
 
+// Side-Effects
+export function bi_tap<A>(onFailure: (e: any) => any, onSuccess: (a: A) => any, ma: Cancelable<A>): Cancelable<A>;
+export function bi_tap<A>(onFailure: (e: any) => any, onSuccess: (a: A) => any): (ma: Cancelable<A>) => Cancelable<A>;
+
 // Combinations
 
 export function ap<A, B>(mfn: Cancelable<(a: A) => B>, mb: Cancelable<A>): Cancelable<B>;

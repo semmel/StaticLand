@@ -14,3 +14,4 @@ export {default as liftA2} from './cancelable/liftA2.js';
 export {default as fetchResponse} from './cancelable/fetchResponse.js';
 export {default as fetchResponseIsoModule} from './cancelable/fetchResponseIsoModule.js';
 export {default as cancelify} from './cancelable/cancelify.js';
+export {default as bi_tap} from './cancelable/biTap.js';

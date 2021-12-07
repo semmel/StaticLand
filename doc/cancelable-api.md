@@ -113,6 +113,12 @@ Transformation
 ### `chain(f, cancelable)`
 `:: (a → Cancelable b) → Cancelable a → Cancelable → b`
 
+Side-Effects
+-----------
+
+### `bi_tap(onFailure, onSuccess)`
+`:: (e -> *) -> (a -> *) -> Cancelable e a -> Cancelable e a`
+
 Combinations
 ------------
 
