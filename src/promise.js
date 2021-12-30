@@ -33,6 +33,8 @@ const
 	// create :: ((Callback a, Callback e) -> undefined) -> Promise e a
 	create = worker => new Promise(worker),
 	
+	never = new Promise(() => undefined),
+	
 	// Transformation //
 	
 	/**
@@ -193,7 +195,7 @@ const
 
 export {
 	of, all, alt, bimap, bi_tap, chain, chainIf, chainTap, chainRej, coalesce, create,
-	duplexRace, map, mapRej,
+	duplexRace, map, mapRej, never,
 	race, reject, tap, tapRegardless, empty
 };
 

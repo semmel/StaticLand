@@ -69,6 +69,8 @@ When a Cancelable Computation aborts, the implementation must assert that neithe
 
 This is another *difference* to many cancelable computations represented by Promises. For example, aborting a `fetch` computation is known to reject the resulting promise with `AbortError`. Thus, a Cancelable `fetch` Computation should guarantee that the `AbortError` rejection does not reach the onFailure callback. 
 
+When Cancelables are sequentially chained together by composing Cancelable-returning functions e.g. via [`chain`](cancelable-api.md#chainf-cancelable), the cancellation travels the chain up, cancelling the computation which is active in the moment of calling `abort()`.
+
 
 Generators of Cancelable Computations
 -------------------------
@@ -106,11 +108,12 @@ A benefit of Native Promises is that they can be freely copied and shared in a p
 
 Being just referentially transparent functions, such opaque Promise behaviour is not possible with copies of Cancelable Computations. Everytime the same Cancelable get consumed the asynchronous computation is started anew, and the outcome and temporal behaviour will always be the same.
 
-Nevertheless, sharing/multicasting asynchronous computations being valuable, there are at least two ways making Cancelables shareable while maintaining the asynchronous character:
+Nevertheless — sharing/multicasting asynchronous computations being valuable — there are at least two ways making Cancelables shareable while maintaining the asynchronous character:
+
 - convert to Promise `new Promise(cancelableComputation)` but thereby loosing cancelability, or
 - caching/making them stateful with [`share`](cancelable-api.md#sharecancelable)
 
-`share` picks up many disadvantages of Promise but keeps the benefit of being able to get cancelled when all consumers decide to to so.
+`share` picks up many disadvantages of Promise but keeps the benefit of being able to get cancelled when all consumers decide to do so.
 
 ```javascript
 let ccs = share(later(10, "X"));

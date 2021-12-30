@@ -11,9 +11,9 @@ Using simple native types means that
 
 |           |   `of`        |   `map`       |   `chain`     |   Consumption |
 |-----------|---------------|---------------|---------------|---------------|
-| Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
-| Either    | `x => [,x]` |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[1]`|
 |CancelableComputation| `cc = (resolve, reject) => () => ()` | | | `new Promise(cc)` |
+| Either    | `x => [,x]` |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[1]`|
+| Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
 | Promise   | `Promise.resolve`|`Promise.then`|`Promise.then`|`Promise.then`|
 | IO        | `x => x`        |`compose`      |`run(compose)` |`call`|
 

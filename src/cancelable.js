@@ -4,6 +4,7 @@
 
 export {default as of} from './cancelable/of.js';
 export {default as reject} from './cancelable/reject.js';
+export {default as never} from './cancelable/never.js';
 export {default as later} from './cancelable/internal/laterSucceed.js';
 export {default as laterReject} from './cancelable/internal/laterFail.js';
 export {default as race} from './cancelable/race.js';
@@ -15,3 +16,4 @@ export {default as fetchResponse} from './cancelable/fetchResponse.js';
 export {default as fetchResponseIsoModule} from './cancelable/fetchResponseIsoModule.js';
 export {default as cancelify} from './cancelable/cancelify.js';
 export {default as bi_tap} from './cancelable/biTap.js';
+export {default as share} from './cancelable/share.js';

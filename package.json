@@ -4,6 +4,7 @@
 		"url": "https://github.com/semmel/StaticLand/issues"
 	},
 	"dependencies": {
+		"emittery": "^0.10.0",
 		"semmel-ramda": "^0.33.0"
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
@@ -11,13 +12,14 @@
 		"@most/core": "^1.6.1",
 		"@most/scheduler": "^1.3.0",
 		"@most/types": "^1.1.0",
-		"@rollup/plugin-node-resolve": "^13.0.4",
+		"@rollup/plugin-commonjs": "^21.0.1",
+		"@rollup/plugin-node-resolve": "^13.1.1",
 		"@types/ramda": "^0.27.38",
 		"baconjs": "^3.0.17",
 		"chai": "^4.2.0",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.0.1",
-		"rollup": "^2.35.1"
+		"rollup": "^2.62.0"
 	},
 	"optionalDependencies": {
 		"abort-controller": "^3.0.0",
@@ -61,6 +63,7 @@
 	"files": [
 		"dist",
 		"src",
+		"src-external",
 		"*.d.ts"
 	],
 	"homepage": "https://github.com/semmel/StaticLand#readme",
@@ -91,6 +94,7 @@
 		"build:docs": "mkdocs build",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"postpack": "npm run remove_ts_defs_from_root",
+		"postinstall:emittery": "rollup -p @rollup/plugin-commonjs -f es -o ./src-external/emittery.js -i ./node_modules/emittery/index.js && cp -pvr ./node_modules/emittery/index.d.ts ./src-external/emittery.d.ts",
 		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
@@ -99,5 +103,5 @@
 		"test": "mocha \"./test/**/*Test.mjs\""
 	},
 	"type": "module",
-	"version": "0.1.31"
+	"version": "0.1.32"
 }

@@ -2,6 +2,7 @@ export type Cancelable<A> = (res: (a: A) => void, rej: (e: any) => void) => (() 
 
 export function of<A>(a: A): Cancelable<A>;
 export function reject(e: any): Cancelable<any>;
+export function never(): Cancelable<any>;
 
 export function later<A>(dt: number, a: A): Cancelable<A>;
 export function later<A>(dt: number): (a: A) => Cancelable<A>;
@@ -39,3 +40,5 @@ export function liftA2<A, B, C>(f: (a: A) => (b: B) => C): (ma: Cancelable<A>) =
 
 export function race<A>(ma1: Cancelable<A>, ma2: Cancelable<A>): Cancelable<A>;
 export function race<A>(ma1: Cancelable<A>): (ma2: Cancelable<A>) => Cancelable<A>;
+
+export function share<A>(ma: Cancelable<A>): Cancelable<A>;

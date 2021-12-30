@@ -19,9 +19,13 @@ Generation
 ### `of(a)`
 `:: a -> Promise e a`
 
-###' `reject(e)`
+### `reject(e)`
 `:: * -> Promise *`
 Abbreviates `Promise.reject`. Note that `Promise.reject` rejects with *any type* including any Promise (unsettled, rejected or fulfilled)! Read [what happens][rejected-promise].
+
+### `never()`
+`:: () -> Promise ()`
+Creates a Promise which never settles.
 
 Transformation
 -----------

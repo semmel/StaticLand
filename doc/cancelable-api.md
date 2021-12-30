@@ -10,11 +10,33 @@ Leaving the failure type to be implicitly an Error the signature can be shortene
 Generator Functions
 -------------------
 
+### Custom Cancelable
+Every *function* taking two callbacks as arguments;
+
+- a success callback, and
+- a failure callback
+
+which returns an abort function, and which calls one of the callbacks asynchronously is a *Cancelable*.
+
+```javascript
+let cancelableWork = (res, rej) => {
+	const work = beginSomeLongWork();
+	whenCompletedWithResult(work, result => res(result));
+	whenFailedWorkWithError(work, error => res(error));
+   
+	return () => { abort(work); };
+};
+```
+
 ### `of(value)`
 `:: a -> Cancelable () a`
 
 ### `reject(e)`
 `:: e => Cancelable e ()`
+
+### `never()`
+`:: () -> Cancelable () ()`
+Creates a Cancelable which executes nothing and never settles.
 
 ### `later(dt, value)`
 `:: Number -> a -> Cancelable () a`
@@ -146,3 +168,5 @@ Utility
 
 ### `share(cancelable)`
 `:: Cancelable e a → Cancelable e a`
+
+*Caches* the computational result for *sharing* with many consumers without the need for re-computation. See the [section on Copying/Sharing Cancelables](cancelable.md#copyingsharing) and it's role model [Fluture.cache](https://github.com/fluture-js/Fluture#cache).
