@@ -696,6 +696,7 @@ abort(); // Abort immediately. onSuccess and onFailure are never called
 
 <p>When a Cancelable Computation aborts, the implementation must assert that neither the success, nor the failure callback are called. </p>
 <p>This is another <em>difference</em> to many cancelable computations represented by Promises. For example, aborting a <code>fetch</code> computation is known to reject the resulting promise with <code>AbortError</code>. Thus, a Cancelable <code>fetch</code> Computation should guarantee that the <code>AbortError</code> rejection does not reach the onFailure callback. </p>
+<p>When Cancelables are sequentially chained together by composing Cancelable-returning functions e.g. via <a href="../cancelable-api/#chainf-cancelable"><code>chain</code></a>, the cancellation travels the chain up, cancelling the computation which is active in the moment of calling <code>abort()</code>.</p>
 <h2 id="generators-of-cancelable-computations">Generators of Cancelable Computations</h2>
 <p>The parameters of the asynchronous computation are given to a <em>Cancelable Computation Generator Function</em> which returns a Cancelable Computation configured to that parameters.</p>
 <p>This way the configuration of the computation is separated from its execution (<em>laziness</em>).</p>
@@ -716,10 +717,12 @@ const laterResolve = (dt, value) =&gt; resolve =&gt; {
 <h3 id="copyingsharing">Copying/Sharing</h3>
 <p>A benefit of Native Promises is that they can be freely copied and shared in a program. Being eager they rather represent the eventual outcome of a computation than the computation itself. Thus copying makes much sense. However, the <em>internal state</em> of a Promise is time-dependent and thus opaque, i.e. not referentially transparent to the calling code. Depending on when probed by the surrounding code, Promises behave differently; E.g. a <code>Promise.race</code> will take a different route when one of its inputs is already settled.</p>
 <p>Being just referentially transparent functions, such opaque Promise behaviour is not possible with copies of Cancelable Computations. Everytime the same Cancelable get consumed the asynchronous computation is started anew, and the outcome and temporal behaviour will always be the same.</p>
-<p>Nevertheless, sharing/multicasting asynchronous computations being valuable, there are at least two ways making Cancelables shareable while maintaining the asynchronous character:
-- convert to Promise <code>new Promise(cancelableComputation)</code> but thereby loosing cancelability, or
-- caching/making them stateful with <a href="../cancelable-api/#sharecancelable"><code>share</code></a></p>
-<p><code>share</code> picks up many disadvantages of Promise but keeps the benefit of being able to get cancelled when all consumers decide to to so.</p>
+<p>Nevertheless — sharing/multicasting asynchronous computations being valuable — there are at least two ways making Cancelables shareable while maintaining the asynchronous character:</p>
+<ul>
+<li>convert to Promise <code>new Promise(cancelableComputation)</code> but thereby loosing cancelability, or</li>
+<li>caching/making them stateful with <a href="../cancelable-api/#sharecancelable"><code>share</code></a></li>
+</ul>
+<p><code>share</code> picks up many disadvantages of Promise but keeps the benefit of being able to get cancelled when all consumers decide to do so.</p>
 <pre><code class="javascript">let ccs = share(later(10, &quot;X&quot;));
 ccs(console.log, console.log); // ~&gt; &quot;X&quot; (logged after 10)
 // …

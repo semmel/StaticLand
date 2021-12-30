@@ -440,8 +440,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sequencemap_f-lens" class="md-nav__link">
-    sequence(map_f, lens)
+  <a href="#makecomposablesequencelensmap_f-lens" class="md-nav__link">
+    makeComposableSequenceLens(map_f, lens)
   </a>
   
 </li>
@@ -476,6 +476,13 @@
           <li class="md-nav__item">
   <a href="#setoverlens" class="md-nav__link">
     set(overLens)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequencelens-subject" class="md-nav__link">
+    sequence(lens, subject)
   </a>
   
 </li>
@@ -649,8 +656,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sequencemap_f-lens" class="md-nav__link">
-    sequence(map_f, lens)
+  <a href="#makecomposablesequencelensmap_f-lens" class="md-nav__link">
+    makeComposableSequenceLens(map_f, lens)
   </a>
   
 </li>
@@ -685,6 +692,13 @@
           <li class="md-nav__item">
   <a href="#setoverlens" class="md-nav__link">
     set(overLens)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequencelens-subject" class="md-nav__link">
+    sequence(lens, subject)
   </a>
   
 </li>
@@ -745,7 +759,7 @@ ComposableLens sa = (a -&gt; Fa) -&gt; sa -&gt; Fsa
 <p><code>F ≡ Constant</code></p>
 <h3 id="makeoverlenslens"><code>makeOverLens(lens)</code></h3>
 <p><code>F ≡ Identity</code></p>
-<h3 id="sequencemap_f-lens"><code>sequence(map_f, lens)</code></h3>
+<h3 id="makecomposablesequencelensmap_f-lens"><code>makeComposableSequenceLens(map_f, lens)</code></h3>
 <p><code>F ≡ f</code></p>
 <h2 id="employ-lenses">Employ Lenses</h2>
 <h3 id="viewviewlens"><code>view(viewLens)</code></h3>
@@ -754,6 +768,8 @@ ComposableLens sa = (a -&gt; Fa) -&gt; sa -&gt; Fsa
 <p><code>:: Lens sa -&gt; (a -&gt; a) -&gt; sa -&gt; sa</code></p>
 <h3 id="setoverlens"><code>set(overLens)</code></h3>
 <p><code>:: Lens sa -&gt; a -&gt; sa -&gt; sa</code></p>
+<h3 id="sequencelens-subject"><code>sequence(lens, subject)</code></h3>
+<p><code>:: ComposableLens sa -&gt; saf -&gt; fsa</code></p>
                 
               
               

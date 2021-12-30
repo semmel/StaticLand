@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v0131" class="md-skip">
+        <a href="#visisoftstaticland-v0132" class="md-skip">
           Skip to content
         </a>
       
@@ -670,7 +670,7 @@
                 
                 
                 <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a></p>
-<h1 id="visisoftstaticland-v0131"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.31</h1>
+<h1 id="visisoftstaticland-v0132"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.32</h1>
 <p>Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with <em>free static functions</em>. The static functions do not expect custom-made ADT classes but work on the <em>native JavaScript types</em> as <code>Array</code>, <code>Promise</code> and <code>Function</code>. Fairness demands to confess that <code>Function</code> carries some data in <a href="#closed-over">closed over</a> variables. </p>
 <p>Using simple native types means that </p>
 <ul>
@@ -689,11 +689,11 @@
 </thead>
 <tbody>
 <tr>
-<td>Maybe</td>
-<td><code>x =&gt; [x]</code></td>
-<td><code>Array.prototype.map</code></td>
-<td><code>Array.prototype.flatMap</code></td>
-<td><code>xs =&gt; xs[0]</code></td>
+<td>CancelableComputation</td>
+<td><code>cc = (resolve, reject) =&gt; () =&gt; ()</code></td>
+<td></td>
+<td></td>
+<td><code>new Promise(cc)</code></td>
 </tr>
 <tr>
 <td>Either</td>
@@ -703,11 +703,11 @@
 <td><code>xs =&gt; xs[1]</code></td>
 </tr>
 <tr>
-<td>CancelableComputation</td>
-<td><code>cc = (resolve, reject) =&gt; () =&gt; ()</code></td>
-<td></td>
-<td></td>
-<td><code>new Promise(cc)</code></td>
+<td>Maybe</td>
+<td><code>x =&gt; [x]</code></td>
+<td><code>Array.prototype.map</code></td>
+<td><code>Array.prototype.flatMap</code></td>
+<td><code>xs =&gt; xs[0]</code></td>
 </tr>
 <tr>
 <td>Promise</td>
@@ -729,7 +729,14 @@
 <h2 id="homepage-and-documentation"><a href="https://semmel.github.io/StaticLand/">Homepage and Documentation</a></h2>
 <h2 id="hello-visisoftstaticland">Hello @visisoft/staticland</h2>
 <h3 id="installation">Installation</h3>
-<p><code>npm install @visisoft/staticland</code></p>
+<p>When developing for Node.js</p>
+<pre><code class="shell">npm install @visisoft/staticland
+</code></pre>
+
+<p>When developing for the browser</p>
+<pre><code class="shell">npm install --no-optional @visisoft/staticland
+</code></pre>
+
 <h3 id="hello-earth">Hello Earth</h3>
 <p>Greeting with a 0.5 sec 2-way delay.</p>
 <h4 id="usage-in-an-es-module">Usage in an ES module</h4>

@@ -370,7 +370,14 @@
         
           <li class="md-nav__item">
   <a href="#rejecte" class="md-nav__link">
-    ' reject(e)
+    reject(e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never" class="md-nav__link">
+    never()
   </a>
   
 </li>
@@ -622,7 +629,14 @@
         
           <li class="md-nav__item">
   <a href="#rejecte" class="md-nav__link">
-    ' reject(e)
+    reject(e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never" class="md-nav__link">
+    never()
   </a>
   
 </li>
@@ -746,9 +760,12 @@
 <p><code>:: number → a → Promise a</code></p>
 <h3 id="ofa"><code>of(a)</code></h3>
 <p><code>:: a -&gt; Promise e a</code></p>
-<h3 id="rejecte">' <code>reject(e)</code></h3>
+<h3 id="rejecte"><code>reject(e)</code></h3>
 <p><code>:: * -&gt; Promise *</code>
 Abbreviates <code>Promise.reject</code>. Note that <code>Promise.reject</code> rejects with <em>any type</em> including any Promise (unsettled, rejected or fulfilled)! Read <a href="https://stackoverflow.com/questions/39197769/what-happens-if-i-reject-a-promise-with-another-promise-value">what happens</a>.</p>
+<h3 id="never"><code>never()</code></h3>
+<p><code>:: () -&gt; Promise ()</code>
+Creates a Promise which never settles.</p>
 <h2 id="transformation">Transformation</h2>
 <h3 id="chainrejonerror"><code>chainRej(onError)</code></h3>
 <p><code>:: (e -&gt; Promise g b) -&gt; Promise e a -&gt; Promise (e | g) (a | b)</code></p>

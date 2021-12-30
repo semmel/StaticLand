@@ -310,6 +310,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#custom-cancelable" class="md-nav__link">
+    Custom Cancelable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ofvalue" class="md-nav__link">
     of(value)
   </a>
@@ -319,6 +326,13 @@
           <li class="md-nav__item">
   <a href="#rejecte" class="md-nav__link">
     reject(e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never" class="md-nav__link">
+    never()
   </a>
   
 </li>
@@ -374,6 +388,26 @@
           <li class="md-nav__item">
   <a href="#chainf-cancelable" class="md-nav__link">
     chain(f, cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" class="md-nav__link">
+    Side-Effects
+  </a>
+  
+    <nav class="md-nav" aria-label="Side-Effects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bi_taponfailure-onsuccess" class="md-nav__link">
+    bi_tap(onFailure, onSuccess)
   </a>
   
 </li>
@@ -621,6 +655,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#custom-cancelable" class="md-nav__link">
+    Custom Cancelable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ofvalue" class="md-nav__link">
     of(value)
   </a>
@@ -630,6 +671,13 @@
           <li class="md-nav__item">
   <a href="#rejecte" class="md-nav__link">
     reject(e)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never" class="md-nav__link">
+    never()
   </a>
   
 </li>
@@ -685,6 +733,26 @@
           <li class="md-nav__item">
   <a href="#chainf-cancelable" class="md-nav__link">
     chain(f, cancelable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" class="md-nav__link">
+    Side-Effects
+  </a>
+  
+    <nav class="md-nav" aria-label="Side-Effects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bi_taponfailure-onsuccess" class="md-nav__link">
+    bi_tap(onFailure, onSuccess)
   </a>
   
 </li>
@@ -771,10 +839,29 @@
 <p>Leaving the failure type to be implicitly an Error the signature can be shortened:
 <code>CancelableComputation a :: ((a -&gt; void), (* -&gt; void)) -&gt; (() -&gt; void)</code></p>
 <h2 id="generator-functions">Generator Functions</h2>
+<h3 id="custom-cancelable">Custom Cancelable</h3>
+<p>Every <em>function</em> taking two callbacks as arguments;</p>
+<ul>
+<li>a success callback, and</li>
+<li>a failure callback</li>
+</ul>
+<p>which returns an abort function, and which calls one of the callbacks asynchronously is a <em>Cancelable</em>.</p>
+<pre><code class="javascript">let cancelableWork = (res, rej) =&gt; {
+    const work = beginSomeLongWork();
+    whenCompletedWithResult(work, result =&gt; res(result));
+    whenFailedWorkWithError(work, error =&gt; res(error));
+
+    return () =&gt; { abort(work); };
+};
+</code></pre>
+
 <h3 id="ofvalue"><code>of(value)</code></h3>
 <p><code>:: a -&gt; Cancelable () a</code></p>
 <h3 id="rejecte"><code>reject(e)</code></h3>
 <p><code>:: e =&gt; Cancelable e ()</code></p>
+<h3 id="never"><code>never()</code></h3>
+<p><code>:: () -&gt; Cancelable () ()</code>
+Creates a Cancelable which executes nothing and never settles.</p>
 <h3 id="laterdt-value"><code>later(dt, value)</code></h3>
 <p><code>:: Number -&gt; a -&gt; Cancelable () a</code></p>
 <h3 id="laterrejectdt-e"><code>laterReject(dt, e)</code></h3>
@@ -859,6 +946,9 @@ new Promise(numberOfCDNJSLibraries)       // running
 <p><code>:: (a → b) → Cancelable a → Cancelable → b</code></p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
 <p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
+<h2 id="side-effects">Side-Effects</h2>
+<h3 id="bi_taponfailure-onsuccess"><code>bi_tap(onFailure, onSuccess)</code></h3>
+<p><code>:: (e -&gt; *) -&gt; (a -&gt; *) -&gt; Cancelable e a -&gt; Cancelable e a</code></p>
 <h2 id="combinations">Combinations</h2>
 <h3 id="apcancelablefunc-cancelable"><code>ap(cancelableFunc, cancelable)</code></h3>
 <p><code>:: Cancelable (a → b) → Cancelable a → Cancelable b</code></p>
@@ -874,6 +964,7 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h2 id="utility">Utility</h2>
 <h3 id="sharecancelable"><code>share(cancelable)</code></h3>
 <p><code>:: Cancelable e a → Cancelable e a</code></p>
+<p><em>Caches</em> the computational result for <em>sharing</em> with many consumers without the need for re-computation. See the <a href="../cancelable/#copyingsharing">section on Copying/Sharing Cancelables</a> and it's role model <a href="https://github.com/fluture-js/Fluture#cache">Fluture.cache</a>.</p>
                 
               
               
