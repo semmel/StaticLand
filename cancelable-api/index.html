@@ -949,6 +949,7 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h2 id="side-effects">Side-Effects</h2>
 <h3 id="bi_taponfailure-onsuccess"><code>bi_tap(onFailure, onSuccess)</code></h3>
 <p><code>:: (e -&gt; *) -&gt; (a -&gt; *) -&gt; Cancelable e a -&gt; Cancelable e a</code></p>
+<p>If either function throws an error, the present outcome is replaced by a failure given of that error.</p>
 <h2 id="combinations">Combinations</h2>
 <h3 id="apcancelablefunc-cancelable"><code>ap(cancelableFunc, cancelable)</code></h3>
 <p><code>:: Cancelable (a → b) → Cancelable a → Cancelable b</code></p>
