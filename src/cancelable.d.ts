@@ -28,6 +28,8 @@ export function chain<A, B>(fn: (x: A) => Cancelable<B>): (ma: Cancelable<A>) =>
 // Side-Effects
 export function bi_tap<A>(onFailure: (e: any) => any, onSuccess: (a: A) => any, ma: Cancelable<A>): Cancelable<A>;
 export function bi_tap<A>(onFailure: (e: any) => any, onSuccess: (a: A) => any): (ma: Cancelable<A>) => Cancelable<A>;
+export function bi_tap<A>(onFailure: (e: any) => any): (onSuccess: (a: A) => any, ma: Cancelable<A>) => Cancelable<A>;
+export function bi_tap<A>(onFailure: (e: any) => any): (onSuccess: (a: A) => any) => (ma: Cancelable<A>) => Cancelable<A>;
 
 // Combinations
 

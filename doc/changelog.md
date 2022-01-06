@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.33
+-----
+- exceptions in the `cancelable/bi_tap` functions get picked up
+
 0.1.32
 -----
 - added `cancelable/share`

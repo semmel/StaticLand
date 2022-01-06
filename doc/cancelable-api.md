@@ -141,6 +141,8 @@ Side-Effects
 ### `bi_tap(onFailure, onSuccess)`
 `:: (e -> *) -> (a -> *) -> Cancelable e a -> Cancelable e a`
 
+If either function throws an error, the present outcome is replaced by a failure given of that error.
+
 Combinations
 ------------
 

@@ -1,3 +1,6 @@
-import {curry, o, tap} from "semmel-ramda";
+import {curry, o, tap, tryCatch} from "semmel-ramda";
 
-export default curry((fnf, fns, cc) => (resolve, reject) => cc(o(resolve, tap(fns)), o(reject, tap(fnf))));
+export default curry((fnf, fns, cc) => (resolve, reject) => cc(
+	tryCatch(o(resolve, tap(fns)), (e, ...args) => reject(e)),
+	tryCatch(o(reject, tap(fnf)), (e_fnf, e) => reject(e_fnf))
+));
