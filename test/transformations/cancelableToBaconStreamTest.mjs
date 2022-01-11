@@ -7,6 +7,19 @@ const
 	assert = chai.assert;
 
 describe("transformation cancelableToBaconStream", function () {
+	let gotCancelled = false;
+	const foo50 = (res, rej) => {
+		const timer = setTimeout(res, 50, "foo");
+		return () => {
+			clearTimeout(timer);
+			gotCancelled = true;
+		};
+	};
+	
+	beforeEach(function(){
+		gotCancelled = false;
+	});
+	
 	it("handles successful cancelables", () =>
 		cancelableToBaconStream(of("foo"))
 		.toPromise()
@@ -22,17 +35,8 @@ describe("transformation cancelableToBaconStream", function () {
 		)
 	);
 	
-	it("unsubscribing from the observable cancels the Cancelable", () => {
-		let gotCancelled = false;
-		const foo50 = (res, rej) => {
-			const timer = setTimeout(res, 50, "foo");
-			return () => {
-				clearTimeout(timer);
-				gotCancelled = true;
-			};
-		};
-		
-		return cancelableToBaconStream(foo50)
+	it("unsubscribing from the observable cancels the Cancelable", () =>
+		cancelableToBaconStream(foo50)
 		.takeUntil(B.later(20, undefined))
 		.mapEnd("the end is near")
 		.reduce([], (acc, next) => [...acc, next])
@@ -40,6 +44,17 @@ describe("transformation cancelableToBaconStream", function () {
 		.then(x => {
 			assert.deepStrictEqual(x, ["the end is near"]);
 			assert.isTrue(gotCancelled);
-		});
-	});
+		})
+	);
+	
+	it("does not call the cancel function when the stream ends later than the cancelable", () =>
+		cancelableToBaconStream(foo50)
+		.takeUntil(B.later(70, undefined))
+		.reduce([], (acc, next) => [...acc, next])
+		.toPromise()
+		.then(x => {
+			assert.deepStrictEqual(x, ['foo']);
+			assert.isFalse(gotCancelled, "should not try to cancel the cancelable");
+		})
+	);
 });

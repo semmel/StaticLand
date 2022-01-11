@@ -14,11 +14,11 @@
 		"@most/types": "^1.1.0",
 		"@rollup/plugin-commonjs": "^21.0.1",
 		"@rollup/plugin-node-resolve": "^13.1.1",
-		"@types/ramda": "^0.27.38",
+		"@types/ramda": "^0.27.62",
 		"baconjs": "^3.0.17",
 		"chai": "^4.2.0",
 		"es-module-shims": "^0.4.6",
-		"hirestime": "^6.0.1",
+		"hirestime": "^6.1.0",
 		"rollup": "^2.62.0"
 	},
 	"optionalDependencies": {
@@ -103,5 +103,5 @@
 		"test": "mocha \"./test/**/*Test.mjs\""
 	},
 	"type": "module",
-	"version": "0.1.33"
+	"version": "0.1.35"
 }

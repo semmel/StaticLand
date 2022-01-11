@@ -45,8 +45,12 @@ Async into/from Reactive Streams
 
 Creates a single-valued [Bacon.js](http://baconjs.github.io) `EventStream` observable.
 
+If the stream ends *after* the Cancelable Computation *has settled*, the cancel function of the latter is (of course) *not* called.
+
 ### `observableToCancelable(observable)`
 `:: Observable e a → Cancelable e a`
+
+It evaluates the *last* event (error or value event) of the given observable.
 
 ### `cancelableToMostStream(cancelable)`
 `:: Cancelable a → Stream a`

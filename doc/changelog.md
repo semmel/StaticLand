@@ -1,5 +1,13 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.35
+-----
+- fix: `transformations/cancelableToEventStream` avoid cancellation for synchronous calls (e.g. when the stream ends thus calling `abort` synchronously on behalf of `sink(x)`
+
+0.1.34
+-----
+- fix: `transformations/cancelableToEventStream` no longer invokes the Cancelable's `abort` function if the event stream ends after the Cancelable has settled.
+
 0.1.33
 -----
 - exceptions in the `cancelable/bi_tap` functions get picked up
