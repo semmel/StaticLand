@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#changelog-v0134" class="md-skip">
+        <a href="#changelog-v0135" class="md-skip">
           Skip to content
         </a>
       
@@ -415,6 +415,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0135" class="md-nav__link">
+    0.1.35
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0134" class="md-nav__link">
     0.1.34
   </a>
@@ -617,6 +624,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0135" class="md-nav__link">
+    0.1.35
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0134" class="md-nav__link">
     0.1.34
   </a>
@@ -787,7 +801,11 @@
                   </a>
                 
                 
-                <h1 id="changelog-v0134">Changelog v0.1.34</h1>
+                <h1 id="changelog-v0135">Changelog v0.1.35</h1>
+<h2 id="0135">0.1.35</h2>
+<ul>
+<li>fix: <code>transformations/cancelableToEventStream</code> avoid cancellation for synchronous calls (e.g. when the stream ends thus calling <code>abort</code> synchronously on behalf of <code>sink(x)</code></li>
+</ul>
 <h2 id="0134">0.1.34</h2>
 <ul>
 <li>fix: <code>transformations/cancelableToEventStream</code> no longer invokes the Cancelable's <code>abort</code> function if the event stream ends after the Cancelable has settled.</li>
