@@ -34,6 +34,7 @@ const
 					res(theF(b));
 				}
 				hasB = true;
+				theB = b;
 			},
 			e => {
 				if (!theF) {
