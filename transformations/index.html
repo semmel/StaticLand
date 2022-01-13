@@ -777,8 +777,8 @@ Since the Either represents an immediate value, the returned Promise is settled.
 <h2 id="async-intofrom-reactive-streams">Async into/from Reactive Streams</h2>
 <h3 id="cancelabletoeventstreamcancelable"><code>cancelableToEventStream(cancelable)</code></h3>
 <p><code>:: Cancelable e a → EventStream e a</code></p>
-<p>Creates a single-valued <a href="http://baconjs.github.io">Bacon.js</a> <code>EventStream</code> observable. 
-If the stream ends <em>after</em> the Cancelable Computation <em>has settled</em>, the cancel function of the latter is (of course) <em>not</em> called.</p>
+<p>Creates a single-valued <a href="http://baconjs.github.io">Bacon.js</a> <code>EventStream</code> observable.</p>
+<p>If the stream ends <em>after</em> the Cancelable Computation <em>has settled</em>, the cancel function of the latter is (of course) <em>not</em> called.</p>
 <h3 id="observabletocancelableobservable"><code>observableToCancelable(observable)</code></h3>
 <p><code>:: Observable e a → Cancelable e a</code></p>
 <p>It evaluates the <em>last</em> event (error or value event) of the given observable.</p>
