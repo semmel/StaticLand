@@ -1,4 +1,4 @@
-[![NPM Version](https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square)](https://www.npmjs.com/package/@visisoft/staticland)
+[![NPM Version](https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square)](https://www.npmjs.com/package/@visisoft/staticland) ![Statements](https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square)
 
 [@visisoft/staticland](https://semmel.github.io/StaticLand/) v{{ config.meta.version }}
 ====================

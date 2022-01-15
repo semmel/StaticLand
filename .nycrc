@@ -1,0 +1,7 @@
+{
+	"reporter": ["text", "json-summary"],
+	"exclude": ["src-external/**", "test{,s}/**", "**/*.d.ts", "**/*NodeJS.js"],
+	"all": true,
+	"src": ["src"],
+	"skip-full": true
+}

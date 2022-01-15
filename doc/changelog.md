@@ -2,6 +2,10 @@ Changelog v{{ config.meta.version }}
 =========
 0.1.35
 -----
+- fix: `cancelable/ap` and thus `cancelable/liftA2` did always resolve the right argument with `undefined`.
+
+0.1.35
+-----
 - fix: `transformations/cancelableToEventStream` avoid cancellation for synchronous calls (e.g. when the stream ends thus calling `abort` synchronously on behalf of `sink(x)`
 
 0.1.34
