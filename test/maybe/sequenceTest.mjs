@@ -1,4 +1,4 @@
-import {equals, identity, objOf, map, modify} from 'semmel-ramda';
+import {equals, identity, objOf, map, modify} from 'ramda';
 import chai from 'chai';
 import {isNothing, isJust, just, nothing, sequence, getOrElse} from '../../src/maybe.js';
 import {of as of_p, map as map_p} from '../../src/promise.js';

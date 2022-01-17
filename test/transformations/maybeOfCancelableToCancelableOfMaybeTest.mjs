@@ -1,4 +1,4 @@
-import {equals, identity, o} from 'semmel-ramda';
+import {equals, identity, o} from 'ramda';
 import chai from 'chai';
 import {maybeOfCancelableToCancelableOfMaybe} from "../../src/transformations.js";
 import {getOrElse, isJust, isNothing, nothing, of as of_mb} from "../../src/maybe.js";

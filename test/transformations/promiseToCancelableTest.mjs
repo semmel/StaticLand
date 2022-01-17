@@ -1,4 +1,4 @@
-import {equals, identity, o} from 'semmel-ramda';
+import {equals, identity, o} from 'ramda';
 import chai from 'chai';
 import promiseToCancelable from "../../src/transformations/promiseToCancelable.js";
 import assertCancellationDiscontinues from "../cancelable/helpers/assertCancellationDiscontinues.mjs";

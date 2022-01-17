@@ -5,8 +5,7 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import {always, call, compose, curry, flip, o, partial} from
-		'semmel-ramda';
+import {always, call, compose, curry, flip, o, partial} from 'ramda';
 
 // Construction //
 
@@ -50,4 +49,3 @@ export {
 
 
 
-	

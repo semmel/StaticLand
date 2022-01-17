@@ -1,4 +1,4 @@
-import {curry, identity} from "semmel-ramda";
+import {curry, identity} from 'ramda';
 
 export default curry((fn, cc) => (resolve, reject) => {
 	let cancel = identity;

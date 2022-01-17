@@ -1,4 +1,4 @@
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 
 // :: Number -> e -> Cancelable e *
 const laterFail = curry((dt, value) => (unused, reject) => {

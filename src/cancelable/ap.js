@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Visisoft OHG. All rights reserved.
  */
 
-import { curry } from "semmel-ramda";
+import { curry } from 'ramda';
 const
 	// Note: parallel execution
 	// Sequential execution is derived from chain and map: ap(mf, ma) = chain(f => map(f, ma), mf)

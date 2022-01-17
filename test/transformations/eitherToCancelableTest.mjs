@@ -3,7 +3,7 @@ import { right, left } from '../../src/either.js';
 import eitherToCancelable from "../../src/transformations/eitherToCancelable.js";
 import assertCancellationDiscontinues from "../cancelable/helpers/assertCancellationDiscontinues.mjs";
 import { chain as chain_c, later as later_c, laterReject as later_reject_c } from '../../src/cancelable.js';
-import {identity, pipe} from 'semmel-ramda';
+import {identity, pipe} from 'ramda';
 import { cancelableToPromise } from "../../src/transformations.js";
 import { tap as tap_p } from '../../src/promise.js';
 

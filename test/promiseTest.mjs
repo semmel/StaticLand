@@ -1,4 +1,4 @@
-import {add, identity, o, pipe} from 'semmel-ramda';
+import {add, identity, o, pipe} from 'ramda';
 import chai from 'chai';
 import hirestime from './helpers/hirestime.mjs';
 import {alt, bi_tap, chain, chainRej, chainTap, chainIf, liftA2, map, of, tap, tapRegardless} from '../src/promise.js';

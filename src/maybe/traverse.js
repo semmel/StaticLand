@@ -1,4 +1,4 @@
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 import map from "./map.js";
 import sequence from "./sequence.js";
 

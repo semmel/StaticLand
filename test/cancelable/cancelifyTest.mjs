@@ -1,4 +1,4 @@
-import {pipe, identity, o} from 'semmel-ramda';
+import {pipe, identity, o} from 'ramda';
 import chai from 'chai';
 import cancelify from "../../src/cancelable/cancelify.js";
 import { cancelableToPromise } from "../../src/transformations.js";

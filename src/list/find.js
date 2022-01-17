@@ -6,7 +6,7 @@
  */
 
 import {just, nothing} from "../maybe.js";
-import {curryN} from "semmel-ramda";
+import {curryN} from 'ramda';
 
 const
 	find = curryN(2, (predicate, list) => {

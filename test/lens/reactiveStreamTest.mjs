@@ -1,4 +1,4 @@
-import {append, curry, flip, equals, identity, o, pipe, __} from 'semmel-ramda';
+import {append, curry, flip, equals, identity, o, pipe, __} from 'ramda';
 import chai from 'chai';
 import * as B from 'baconjs';
 import {newDefaultScheduler} from '@most/scheduler';

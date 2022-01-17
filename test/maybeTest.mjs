@@ -1,4 +1,4 @@
-import { always, curry, find, identity, o } from 'semmel-ramda';
+import { always, curry, find, identity, o } from 'ramda';
 import chai from 'chai';
 import {
 	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,

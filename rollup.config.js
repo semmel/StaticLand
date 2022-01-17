@@ -8,7 +8,7 @@ const
 	(Build date: ${now.toLocaleDateString()} - ${now.toLocaleTimeString()})
 	*/`,
 	
-	externals = ["semmel-ramda", "baconjs", "node-fetch", "abort-controller"],
+	externals = ["ramda", "baconjs", "node-fetch", "abort-controller"],
 	
 	config = [
 		{

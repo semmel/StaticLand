@@ -5,7 +5,7 @@
  * https://funfix.org/api/exec/classes/future.html
  */
 
-import { curry, o, identity } from 'semmel-ramda';
+import { curry, o, identity } from 'ramda';
 import map from './promise/map.js';
 import {bi_tap, tap, tapRegardless} from "./promise/tap.js";
 

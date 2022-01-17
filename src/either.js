@@ -5,7 +5,7 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import { always, compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'semmel-ramda';
+import { always, compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'ramda';
 
 const
 	// Don't attempt to use a Symbol here.

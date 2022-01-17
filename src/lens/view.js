@@ -7,7 +7,7 @@
 
 import {of as of_i} from '../identity.js';
 import {map as map_c} from '../constant.js';
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 import {over} from "./over.js";
 
 const

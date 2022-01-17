@@ -1,4 +1,4 @@
-import {compose, equals, identity, o, reverse, toUpper} from 'semmel-ramda';
+import {compose, equals, identity, o, reverse, toUpper} from 'ramda';
 import chai from 'chai';
 import {lens, indexLens, view, makeComposableViewLens, over, propertyLens,
 	makeComposableOverLens, sequence, set, composeFocus, composeOptics}

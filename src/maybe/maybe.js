@@ -1,4 +1,4 @@
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 import {isJust} from './inspection.js';
 import getOrElse from './getOrElse.js';
 import map from './map.js';

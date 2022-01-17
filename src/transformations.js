@@ -9,7 +9,7 @@ import { either, left, right } from './either.js';
 import { coalesce, reject, of as of_p } from './promise.js';
 import map_p from './promise/map.js';
 import { maybe, nothing, of as of_mb, just } from './maybe.js';
-import { __, always, assoc, compose, curry, nth, o, objOf, prop, thunkify, update } from 'semmel-ramda';
+import { __, always, assoc, compose, curry, nth, o, objOf, prop, thunkify, update } from 'ramda';
 export {default as promiseToCancelable} from './transformations/promiseToCancelable.js';
 export {default as cancelableToPromise} from './transformations/cancelableToPromise.js';
 export {default as observableToCancelable} from './transformations/baconObservableToCancelable.js';

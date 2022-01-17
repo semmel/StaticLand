@@ -1,4 +1,4 @@
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 
 const
 	// :: Number -> a -> Cancelable * a

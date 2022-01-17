@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Visisoft OHG. All rights reserved.
  */
 
-import {curry} from 'semmel-ramda';
+import {curry} from 'ramda';
 
 const
 	map = curry((x2y, x) => x2y(x)),

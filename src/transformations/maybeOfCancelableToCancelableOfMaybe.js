@@ -1,4 +1,4 @@
-import {compose} from "semmel-ramda";
+import {compose} from 'ramda';
 import {just, maybe, nothing} from "../maybe.js";
 import map_c from '../cancelable/map.js';
 import of_c from '../cancelable/of.js';

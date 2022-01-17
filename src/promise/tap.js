@@ -6,7 +6,7 @@
  */
 
 
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 
 const
 	// In this implementation an exception in the side-effect rubs off to the Promise

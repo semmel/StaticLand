@@ -1,4 +1,4 @@
-import {equals, identity, o} from 'semmel-ramda';
+import {equals, identity, o} from 'ramda';
 import chai from 'chai';
 import {fetchResponseIsoModule} from "../../src/cancelable.js";
 import fetch from 'node-fetch';

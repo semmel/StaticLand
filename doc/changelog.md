@@ -1,6 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
-0.1.35
+0.1.37
+-----
+- chore: replaced `semmel-ramda` v0.33.0 with `ramda` v0.28.0
+
+0.1.36
 -----
 - fix: `cancelable/ap` and thus `cancelable/liftA2` did always resolve the right argument with `undefined`.
 

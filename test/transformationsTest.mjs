@@ -1,4 +1,4 @@
-import {equals, identity, o} from 'semmel-ramda';
+import {equals, identity, o} from 'ramda';
 import chai from 'chai';
 import { right, left } from '../src/either.js';
 import { getOrElse, isNothing, isJust, just, map as map_mb, nothing, of as of_mb } from '../src/maybe.js';

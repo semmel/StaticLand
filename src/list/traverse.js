@@ -1,4 +1,4 @@
-import {curry, map} from "semmel-ramda";
+import {curry, map} from 'ramda';
 import sequence from "./sequence.js";
 
 export default curry((of_f, liftA2_f, effect_to_f, ma) =>

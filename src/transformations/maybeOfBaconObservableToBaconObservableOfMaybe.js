@@ -1,6 +1,6 @@
 import {maybe, of as of_mb, nothing} from "../maybe.js";
 import * as Bacon from "baconjs";
-import {compose} from "semmel-ramda";
+import {compose} from 'ramda';
 
 // A specialisation of the Maybe sequence:
 // sequence(of_o, map_o)

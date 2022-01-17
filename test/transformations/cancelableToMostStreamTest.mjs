@@ -1,4 +1,4 @@
-import {pipe, equals, identity, o} from 'semmel-ramda';
+import {pipe, equals, identity, o} from 'ramda';
 import chai from 'chai';
 import {of, reject} from "../../src/cancelable.js";
 import schedulersPkg from '@most/scheduler';

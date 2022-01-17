@@ -1,4 +1,4 @@
-import { curryN } from "semmel-ramda";
+import { curryN } from 'ramda';
 
 const
 	cancelify = fn => curryN(fn.length, (...args) =>

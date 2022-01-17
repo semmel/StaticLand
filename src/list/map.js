@@ -1,3 +1,3 @@
-import {curry, unary} from "semmel-ramda";
+import {curry, unary} from 'ramda';
 // map :: (a -> b) -> [a] -> [b]
 export default curry((f, mx) => mx.map(unary(f)));

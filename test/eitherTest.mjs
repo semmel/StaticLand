@@ -1,4 +1,4 @@
-import {always, equals, identity, o} from 'semmel-ramda';
+import {always, equals, identity, o} from 'ramda';
 import { alt, chain, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
 import chai from 'chai';
 

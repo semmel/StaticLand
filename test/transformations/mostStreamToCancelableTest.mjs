@@ -1,6 +1,6 @@
 import chai from 'chai';
 import mostCorePkg from "@most/core";
-import {inc, pipe} from "semmel-ramda";
+import {inc, pipe} from 'ramda';
 import mostStreamToCancelable from "../../src/transformations/mostStreamToCancelable.js";
 import assertCancellationDiscontinues from "../cancelable/helpers/assertCancellationDiscontinues.mjs";
 

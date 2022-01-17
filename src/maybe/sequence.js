@@ -4,7 +4,7 @@
  * Created by Matthias Seemann on 5.04.2021.
  * Copyright (c) 2021 Visisoft OHG. All rights reserved.
  */
-import {compose, curry} from "semmel-ramda";
+import {compose, curry} from 'ramda';
 import maybe from './maybe.js';
 import {just, nothing} from './creation.js';
 

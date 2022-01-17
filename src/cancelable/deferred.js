@@ -4,7 +4,7 @@
  * Created by Matthias Seemann on 6.01.2022.
  * Copyright (c) 2022 Visisoft OHG. All rights reserved.
  */
-import { once } from "semmel-ramda";
+import { once } from 'ramda';
 
 const
 	noop = () => undefined,

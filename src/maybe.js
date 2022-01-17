@@ -13,7 +13,7 @@
 import {
 	any, apply, always, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
 	nAry, unary, pathOr, reduce as reduce_l, unapply
-} from 'semmel-ramda';
+} from 'ramda';
 
 import maybe from './maybe/maybe.js';
 import {isJust, isNothing} from './maybe/inspection.js';

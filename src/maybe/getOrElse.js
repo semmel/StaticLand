@@ -1,4 +1,4 @@
-import {reduce} from "semmel-ramda";
+import {reduce} from 'ramda';
 
 /**
 	 * Extract the value of a Just or return the provided default.

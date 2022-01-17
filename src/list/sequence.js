@@ -6,7 +6,7 @@
  * see http://www.tomharding.me/2017/05/08/fantas-eel-and-specification-12/
  */
 
-import {append, curry, reduce} from 'semmel-ramda';
+import {append, curry, reduce} from 'ramda';
 
 // :: Applicative f => ((a → f a), ((a → b → c) → f a → f b → f c) → [f a] → f [a]
 const sequence = curry((of_f, liftA2_f, lfa) =>

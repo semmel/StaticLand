@@ -5,7 +5,7 @@
 	},
 	"dependencies": {
 		"emittery": "^0.10.0",
-		"semmel-ramda": "^0.33.0"
+		"ramda": "^0.28.0"
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
 	"devDependencies": {
@@ -105,5 +105,5 @@
 		"test": "c8 mocha \"./test/**/*Test.mjs\""
 	},
 	"type": "module",
-	"version": "0.1.36"
+	"version": "0.1.37"
 }

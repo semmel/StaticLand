@@ -1,4 +1,4 @@
-import {equals, identity, o} from 'semmel-ramda';
+import {equals, identity, o} from 'ramda';
 import chai from 'chai';
 import  {later, of, laterReject, race, reject} from "../../src/cancelable.js";
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";

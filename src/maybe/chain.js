@@ -1,4 +1,4 @@
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 import {isJust} from "./inspection.js";
 import {nothing} from "./creation.js";
 

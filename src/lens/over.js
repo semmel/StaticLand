@@ -5,7 +5,7 @@
  * Copyright (c) 2021 Visisoft OHG. All rights reserved.
  */
 
-import {curry} from "semmel-ramda";
+import {curry} from 'ramda';
 import {map as map_i} from '../identity.js';
 
 const

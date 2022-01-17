@@ -2,7 +2,7 @@ import chai from 'chai';
 import * as Bacon from "baconjs";
 import {just, nothing} from "../../src/maybe.js";
 import {maybeOfBaconObservableToBaconObservableOfMaybe} from "../../src/transformations.js";
-import {append, flip, map} from "semmel-ramda";
+import {append, flip, map} from 'ramda';
 
 const
 	assert = chai.assert;
