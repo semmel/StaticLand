@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v0136" class="md-skip">
+        <a href="#visisoftstaticland-v0137" class="md-skip">
           Skip to content
         </a>
       
@@ -670,8 +670,9 @@
                 
                 
                 <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" /></p>
-<h1 id="visisoftstaticland-v0136"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.36</h1>
-<p>Operations on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with <em>free static functions</em>. The static functions do not expect custom-made ADT classes but work on the <em>native JavaScript types</em> as <code>Array</code>, <code>Promise</code> and <code>Function</code>. Fairness demands to confess that <code>Function</code> carries some data in <a href="#closed-over">closed over</a> variables. </p>
+<h1 id="visisoftstaticland-v0137"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.37</h1>
+<p>Operations (Mapping, Lensing, etc.) on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with <em>free static functions</em>. </p>
+<p>The data-holding types are modelled with "simple" <em>native JavaScript constructs</em> as <code>Array</code>, <code>Promise</code> or <code>Function</code>. Thus, the algebraic operations do not expect objects from ADT classes but work on those "simple" <em>JavaScript types</em>.  </p>
 <p>Using simple native types means that </p>
 <ul>
 <li>Conversion between the types is easy, but</li>
@@ -793,7 +794,7 @@ chain(delay(500), Promise.resolve(&quot;foo&quot;)).then(console.log);
 <p><a href="ramda-fantasy">Ramda-Fantasy</a> is very well documented, but sadly no longer maintained.
 <a href="crocks">Crocks</a> is an exemplary implementation of common data types.</p>
 <h2 id="dependencies">Dependencies</h2>
-<p>As FP utility library <a href="https://ramdajs.com">Ramda</a> is used. The patch fork <a href="https://github.com/semmel/ramda">semmel-ramda</a> will be replaced with Ramda when it gets published as proper dual-mode or <a href="https://2ality.com/2019/10/hybrid-npm-packages.html">hybrid</a> module.</p>
+<p>As FP utility library <a href="https://ramdajs.com">Ramda</a> is used.</p>
 <h6 id="closed-over">closed over</h6>
 <p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closure</a> is the combination of a function and the lexical environment within which that function was declared.</p>
                 
