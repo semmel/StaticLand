@@ -1,6 +1,10 @@
 Lens
 ====
-A Lens is a function which focuses on a particular aspect, property, index, ... of a data structure. Their purpose is to make changes in a data structure in a non-mutating functional way. Lenses compose with traversal functions (`Type.traverse(of_f, liftA2_f)`), mapping functions (`Type.map`) and isomorphism functions. Thereby a particular aspect deep in a complex data structure can be modeled by such a composed lens function. Lenses are put into action by a set of helper functions (`view`, `over`) which take the lens and source data as arguments and return the result data.
+A Lens is a function which focuses on a particular aspect, property, index, ... of a data structure. Their purpose is to make changes in a data structure in a non-mutating functional way. 
+
+Lenses compose with themselves, traversal functions (`Type.traverse(of_f, liftA2_f)`), mapping functions (`Type.map`) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. 
+
+Lenses are put into action by a set of helper functions (`view`, `over`, `set`) which take the lens and source data as arguments and return the result data.
 
 For a thorough introduction read ["Lenses with Immutable.js" by Brian Lonsdorf][1], for the details of the implementation for StaticLand data structures read ["Partial Lenses Implementation" by Vesa Karvonen][2]
 
@@ -31,7 +35,7 @@ Thus, in StaticLand composability requires specifying a particular functor's map
 
 Creation
 -------
-In general two procedures are required, one for extracting the item of interest, the other for re-assembling the data structure.
+In general two procedures are required, one for extracting the item of interest, the other for re-assembling the data structure. The returned functions (i.e. lenses) themselves *cannot be composed* together. Instead, they serve as initial building blocks for the entire composition of the data aspect. 
 
 ### `lens(getter, setter)`
 `:: (sa -> a) -> ((a, sa) -> sa) -> Lens sa`
@@ -43,12 +47,33 @@ In general two procedures are required, one for extracting the item of interest,
 
 Create Composable Lenses
 ------------------
+These can be composed with `map`, `traverse` and themselves to define the focus on the data aspect.
 
-### `makeViewLens(lens)`
+### `makeComposableViewLens(lens)`
 `F ≡ Constant`
 
-### `makeOverLens(lens)`
+Creates one `map`-like function for *viewing* / *extracting* a data aspect.
+
+### `makeComposableOverLens(lens)`
 `F ≡ Identity`
+
+Example, the data is 
+1. inside a `bar` property
+2. inside a `Promise`
+```javascript
+//                             data aspect
+//                                    ↓
+const data = { bar: Promise.resolve("BAR") }, 
+   barLens = propertyLens("bar"), 
+// decide to "mutate the data structure, so make an OverLens:
+   composableBarLens = makeComposableOverLens(barLens),
+// define the whole path to the data
+   aspect = compose(composableBarLens, mapPromise);
+// employ in a functional pipeline
+   changeAspect = over(aspect);
+
+changeAspect(reverse)(data); // { bar: Promise.resolve("RAB") }
+```
 
 ### `makeComposableSequenceLens(map_f, lens)`
 `F ≡ f`
