@@ -5,6 +5,7 @@ import {newDefaultScheduler} from '@most/scheduler';
 import {periodic, withItems, map as map_mo, runEffects as runEffects_mo, slice as slice_mo,
 	scan as scan_mo, skip as skip_mo, tap as tap_mo} from "@most/core";
 import {propertyLens, sequence} from "../../src/lens.js";
+import { maybe, nothing, isJust, isNothing, just, map as map_mb, getOrElse } from '../../src/maybe.js';
 
 const
 	assert = chai.assert,
@@ -66,5 +67,18 @@ describe("Lenses: sequence stream out from the 'bar' property", function () {
 			}),
 			s => runEffects_mo(s, newDefaultScheduler())
 		)();
+	});
+	
+	it("creates a Maybe of the record", () => {
+		const
+			recordWithANothingProperty = {foo: "FOO", bar: nothing()},
+			recordWithAJustProperty = { foo: "FOO", bar: just("BAR")},
+			recordWithAMaybeToMaybeOfARecord = sequence(barLens(map_mb)),
+			nothingOfARecord = recordWithAMaybeToMaybeOfARecord(recordWithANothingProperty),
+			justOfARecord = recordWithAMaybeToMaybeOfARecord(recordWithAJustProperty);
+		
+		assert.ok(isNothing(nothingOfARecord), "must be a nothing");
+		assert.ok(isJust(justOfARecord), "must be a just");
+		assert.deepStrictEqual(getOrElse({ foo: "unexpected value" }, justOfARecord), {foo: "FOO", bar: "BAR"});
 	});
 });

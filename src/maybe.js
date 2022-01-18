@@ -12,7 +12,7 @@
 
 import {
 	any, apply, always, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
-	nAry, unary, pathOr, reduce as reduce_l, unapply
+	nAry, unary, pathOr, reduce as reduce_l, tap as tapR, unapply
 } from 'ramda';
 
 import maybe from './maybe/maybe.js';
@@ -78,6 +78,8 @@ const
 		return mx;
 	}),
 	
+	biTap = curry((onNothing, onJust, mb) => tapR(maybe(onNothing, onJust), mb)),
+	
 	// Adjuncts //
 	
 	/**
@@ -109,7 +111,7 @@ const
 	);
 
 export {
-	equals, fromNilable, fromContentHolding, fromPredicate, just, of, nothing, isJust, isNothing, join, lift,
+	biTap, equals, fromNilable, fromContentHolding, fromPredicate, just, of, nothing, isJust, isNothing, join, lift,
 	map, maybe, chain, ap, reduce, tap,
 	typeString
 };

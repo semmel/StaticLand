@@ -52,6 +52,7 @@ In this implementation an exception in the side-effect `fn` rubs off to the Prom
 
 ### `tapRegardless(fn, p)`
 `:: (a -> *) -> Promise a -> Promise a` 
+
 Execute a synchronous side effect. Aka *forEach*.
 
 In this implementation an exception in the side-effect is ignored.
@@ -60,6 +61,12 @@ promise X ---------> X --->
           \
            - fn(X) -> Y
 </pre>
+
+### `chainTap(fn, p)`
+`:: (a -> Promise g *) -> Promise e a -> Promise (e|g) a`
+
+Execute an asynchronous (could be a side-effect) function and wait until it is settled.
+Mostly like [`tap`](#tap-fn-p) except for the wait part.
 
 Combination
 ---------------

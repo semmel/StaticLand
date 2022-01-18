@@ -54,6 +54,9 @@ export function sequence<A,B>(
 export function tap<T>(fn: (x: T) => any, p: Maybe<T>): Maybe<T>;
 export function tap<T>(fn: (x: T) => any): (p: Maybe<T>) => Maybe<T>;
 
+export function biTap<T>(onNothing: () => any, onJust: (x: T) => any, p: Maybe<T>): Maybe<T>;
+export function biTap<T>(onNothing: () => any, onJust: (x: T) => any): (p: Maybe<T>) => Maybe<T>;
+
 export function maybe<S, T, U>(onNothing: () => S, onJust: (x: T) => U, mx: Maybe<T>): S|U;
 export function maybe<S, T, U>(onNothing: () => S): (onJust: (x: T) => U, mx: Maybe<T>) => S|U;
 export function maybe<S, T, U>(onNothing: () => S, onJust: (x: T) => U): (mx: Maybe<T>) => S|U;
