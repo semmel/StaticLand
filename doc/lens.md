@@ -40,6 +40,23 @@ In general two procedures are required, one for extracting the item of interest,
 ### `lens(getter, setter)`
 `:: (sa -> a) -> ((a, sa) -> sa) -> Lens sa`
 
+Compare `lens` to `promap`:
+```javascript
+const charLens = lens(s => s.charCodeAt(0), n => String.fromCharCode(n)), 
+   stringLens = lens(R.split(''), R.join('')),
+   charLensC = makeComposableOverLens(charLens),
+   stringLensC = makeComposableOverLens(stringLens),
+   singleLens = R.compose(stringLensC, R.unary(R.map), charLensC);
+
+over(singleLens, R.add(-8), "ziuli"); // -> 'ramda'
+
+// promap example from the Ramda documentation:
+const decodeChar = R.promap(s => s.charCodeAt(), n => String.fromCharCode(n), R.add(-8)),
+   decodeString = R.promap(R.split(''), R.join(''), R.map(decodeChar));
+
+decodeString("ziuli") //=> "ramda"
+```
+
 ### `indexLens(n)`
 `:: Number -> Lens sa`
 
@@ -74,6 +91,7 @@ const data = { bar: Promise.resolve("BAR") },
 
 changeAspect(reverse)(data); // { bar: Promise.resolve("RAB") }
 ```
+
 
 ### `makeComposableSequenceLens(map_f, lens)`
 `F ≡ f`
