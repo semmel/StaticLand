@@ -111,6 +111,15 @@ Employ Lenses
 ### `sequence(lens, subject)`
 `:: ComposableLens sa -> saf -> fsa`
 
+Turn an array with a `Maybe` element at second place into a `Maybe` of an array.
+```javascript
+const focusL = indexLens(1),
+   subjectA = ["foo", just("bar")],
+   subjectB = ["foo", nothing()];
+sequence(focusL(Maybe.map), subjectA) // -> just(["foo", "bar"])
+sequence(focusL(Maybe.map), subjectB) // -> nothing
+```
+
 
 [1]:https://medium.com/@drboolean/lenses-with-immutable-js-9bda85674780
 [2]:https://calmm-js.github.io/partial.lenses/implementation.html 
