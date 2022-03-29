@@ -34,6 +34,20 @@ Transformation
 ### `map(fn, ma)`
 `:: (a -> b) -> Either c a -> Either c b`
 
+### `sequence(of_f, map_f, EitherOfF)`
+`:: Applicative f => ((a → f a), ((a → b) → f a → f b) → Either c (f a) → f (Either c a)`
+
+Swap the sequence of types: **Maybe** of *Functor* of Value to *Functor* of **Maybe** of Value. Maybe takes the role of a "Traversable" `t`.
+
+### `traverse(of_f, map_f, effect_to_f, either)`
+`:: (Applicative f, Traversable t) => (c → f c) → ((a → b) → f a → f b) → (a → f b) → Either c a → f (Either c b)`
+
+Applies an "effect" `effect_to_f` to the value inside the Maybe. Then combines that "effect" with the Maybe by wrapping the "effect's" result in an Applicative of a Maybe. 
+
+If, for instance the "effect" is an asynchronous computation wrapped in a Promise `a → Promise b`, it might make more sense to work with a Promise of a Maybe than a Maybe of a Promise. 
+
+Using `traverse` essentially combines mapping the `effect_to_f` over the Maybe *and* calling `sequence(of_f, map_f)` in a single step.
+
 Consumption
 -----------
 ### `either(onLeftVal, onRightVal, m)`

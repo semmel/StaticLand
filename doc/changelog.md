@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.38
+----
+- adds: `either/traverse`, `either/sequence`
+
 0.1.37
 -----
 - chore: replaced `semmel-ramda` v0.33.0 with `ramda` v0.28.0

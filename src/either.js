@@ -45,6 +45,7 @@ const
 		when(isRight, o(unary(f), nth(1)))(mx)
 	),
 	
+	// :: Either c (Either c a) -> Either c a
 	join = mx =>
 		isRight(mx) && isEither(mx[1]) ? mx[1] : mx,
 	
@@ -72,3 +73,6 @@ export {
 };
 
 export let right = of;
+
+export {default as sequence} from './either/sequence.js';
+export {default as traverse} from './either/traverse.js';
