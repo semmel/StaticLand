@@ -414,6 +414,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sequenceof_f-map_f-eitheroff" class="md-nav__link">
+    sequence(of_f, map_f, EitherOfF)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverseof_f-map_f-effect_to_f-either" class="md-nav__link">
+    traverse(of_f, map_f, effect_to_f, either)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -667,6 +681,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sequenceof_f-map_f-eitheroff" class="md-nav__link">
+    sequence(of_f, map_f, EitherOfF)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverseof_f-map_f-effect_to_f-either" class="md-nav__link">
+    traverse(of_f, map_f, effect_to_f, either)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -731,6 +759,14 @@
 <h2 id="transformation">Transformation</h2>
 <h3 id="mapfn-ma"><code>map(fn, ma)</code></h3>
 <p><code>:: (a -&gt; b) -&gt; Either c a -&gt; Either c b</code></p>
+<h3 id="sequenceof_f-map_f-eitheroff"><code>sequence(of_f, map_f, EitherOfF)</code></h3>
+<p><code>:: Applicative f =&gt; ((a → f a), ((a → b) → f a → f b) → Either c (f a) → f (Either c a)</code></p>
+<p>Swap the sequence of types: <strong>Maybe</strong> of <em>Functor</em> of Value to <em>Functor</em> of <strong>Maybe</strong> of Value. Maybe takes the role of a "Traversable" <code>t</code>.</p>
+<h3 id="traverseof_f-map_f-effect_to_f-either"><code>traverse(of_f, map_f, effect_to_f, either)</code></h3>
+<p><code>:: (Applicative f, Traversable t) =&gt; (c → f c) → ((a → b) → f a → f b) → (a → f b) → Either c a → f (Either c b)</code></p>
+<p>Applies an "effect" <code>effect_to_f</code> to the value inside the Maybe. Then combines that "effect" with the Maybe by wrapping the "effect's" result in an Applicative of a Maybe. </p>
+<p>If, for instance the "effect" is an asynchronous computation wrapped in a Promise <code>a → Promise b</code>, it might make more sense to work with a Promise of a Maybe than a Maybe of a Promise. </p>
+<p>Using <code>traverse</code> essentially combines mapping the <code>effect_to_f</code> over the Maybe <em>and</em> calling <code>sequence(of_f, map_f)</code> in a single step.</p>
 <h2 id="consumption">Consumption</h2>
 <h3 id="eitheronleftval-onrightval-m"><code>either(onLeftVal, onRightVal, m)</code></h3>
 <p><code>::  (c -&gt; b) -&gt; (a -&gt; b) -&gt; Either c a -&gt; b</code></p>

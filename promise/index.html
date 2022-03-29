@@ -443,6 +443,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#chaintapfn-p" class="md-nav__link">
+    chainTap(fn, p)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -702,6 +709,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#chaintapfn-p" class="md-nav__link">
+    chainTap(fn, p)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -780,14 +794,18 @@ It's essentially <code>Promise.then</code> and named coalesce in crocks Async.</
 <p><code>:: (a -&gt; *) -&gt; Promise a -&gt; Promise a</code> </p>
 <p>In this implementation an exception in the side-effect <code>fn</code> rubs off to the Promise.</p>
 <h3 id="tapregardlessfn-p"><code>tapRegardless(fn, p)</code></h3>
-<p><code>:: (a -&gt; *) -&gt; Promise a -&gt; Promise a</code> 
-Execute a synchronous side effect. Aka <em>forEach</em>.</p>
+<p><code>:: (a -&gt; *) -&gt; Promise a -&gt; Promise a</code> </p>
+<p>Execute a synchronous side effect. Aka <em>forEach</em>.</p>
 <p>In this implementation an exception in the side-effect is ignored.
 <pre>
 promise X ---------&gt; X ---&gt;
           \
            - fn(X) -&gt; Y
 </pre></p>
+<h3 id="chaintapfn-p"><code>chainTap(fn, p)</code></h3>
+<p><code>:: (a -&gt; Promise g *) -&gt; Promise e a -&gt; Promise (e|g) a</code></p>
+<p>Execute an asynchronous (could be a side-effect) function and wait until it is settled.
+Mostly like <a href="#tap-fn-p"><code>tap</code></a> except for the wait part.</p>
 <h2 id="combination">Combination</h2>
 <h3 id="appromisedfunc-promise"><code>ap(promisedFunc, promise)</code></h3>
 <p><code>:: Promise (a → b) → Promise a → Promise b</code></p>
