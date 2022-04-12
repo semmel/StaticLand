@@ -1,6 +1,7 @@
 import {always, equals, identity, o} from 'ramda';
 import { alt, chain, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
 import chai from 'chai';
+import { nothing, just } from "../src/maybe.js";
 
 const
 	assert = chai.assert;
@@ -128,5 +129,25 @@ describe("Either fromAssertedValue", function () {
 			a => assert.fail(`Should not be a right of ${a}`),
 			fromAssertedValue(obj => Boolean(obj.foo), obj => `FOO${obj.bar}`, {bar: "BAR"})
 		);
+	});
+});
+
+describe("Either equals", function() {
+	const
+		unicorn = {};
+	
+	it("compares simple plain and reference values", () => {
+		assert.isTrue(equals(left(unicorn), left(unicorn)));
+		assert.isTrue(equals(right(unicorn), right(unicorn)));
+		assert.isFalse(equals(right(unicorn), left(unicorn)));
+	});
+	
+	it("compares nested Maybes", () => {
+		assert.isTrue(equals(right(nothing()), right(nothing())));
+		assert.isTrue(equals(right(just("foo")), right(just("foo"))));
+		assert.isFalse(equals(right(just("foo")), left(just("foo"))));
+		assert.isFalse(equals(right(just("foo")), right(just("bar"))));
+		assert.isFalse(equals(right(just("foo")), right(nothing())));
+		assert.isTrue(equals(right(just(unicorn)), right(just(unicorn))));
 	});
 });

@@ -65,6 +65,7 @@
 		"dist",
 		"src",
 		"src-external",
+		"index.js",
 		"*.d.ts"
 	],
 	"homepage": "https://github.com/semmel/StaticLand#readme",

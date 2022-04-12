@@ -19,7 +19,7 @@ fromNilable("bar") // Just("bar")
 Consumption
 -----------
 
-### `getOrElse(defaultValue)`
+### `getOrElse(defaultValue, m)`
 `:: a -> Maybe a -> a`
 
 Extract the value of a Just or return the provided default.
@@ -27,6 +27,13 @@ Extract the value of a Just or return the provided default.
 getOrElse("foo", nothing()); // -> "foo"
 getOrElse("foo", just("bar")); // -> "bar"
 ```
+
+### `maybe(onNothing, doWithJust, m)`
+`:: (() -> b) -> (a -> b) -> Maybe a -> b`
+
+Composition of `getOrElse` and `map`.
+Transforms the value if it exists with the provided function.
+Otherwise, returns the default value.
 
 Transformation
 ---------------
