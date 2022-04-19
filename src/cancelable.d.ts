@@ -22,6 +22,11 @@ export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]
 export function map<A, B>(fn: (a: A) => B, ma: Cancelable<A>): Cancelable<B>;
 export function map<A, B>(fn: (a: A) => B): (ma: Cancelable<A>) => Cancelable<B>;
 
+export function pluck<T>(propertyName: string, mKv: Cancelable<Record<string, T>>): Cancelable<T>;
+export function pluck(propertyName: string): <T>(mKv: Cancelable<Record<string, T>>) => Cancelable<T>;
+export function pluck<T>(index: number, mKv: Cancelable<[T]>): Cancelable<T>;
+export function pluck(index: number): <T>(mKv: Cancelable<[T]>) => Cancelable<T>;
+
 export function chain<A, B>(fn: (x: A) => Cancelable<B>, ma: Cancelable<A>): Cancelable<B>;
 export function chain<A, B>(fn: (x: A) => Cancelable<B>): (ma: Cancelable<A>) => Cancelable<B>;
 

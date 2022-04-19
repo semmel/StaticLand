@@ -132,6 +132,13 @@ Transformation
 ### `map(f, cancelable)`
 `:: (a → b) → Cancelable a → Cancelable → b`
 
+### `pluck(key)`
+`:: Cancelable c => k -> c {k: v} -> c v`
+
+`:: Cancelable c => number -> c [v] -> c v`
+
+Simply `k => map(R.prop(k))` for mapping to a key value.
+
 ### `chain(f, cancelable)`
 `:: (a → Cancelable b) → Cancelable a → Cancelable → b`
 

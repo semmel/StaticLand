@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.39
+----
+- `cancelable/pluck`
+
 0.1.38
 ----
 - adds: `either/traverse`, `either/sequence`
