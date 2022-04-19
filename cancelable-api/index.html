@@ -386,6 +386,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pluckkey" class="md-nav__link">
+    pluck(key)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#chainf-cancelable" class="md-nav__link">
     chain(f, cancelable)
   </a>
@@ -731,6 +738,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pluckkey" class="md-nav__link">
+    pluck(key)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#chainf-cancelable" class="md-nav__link">
     chain(f, cancelable)
   </a>
@@ -944,6 +958,10 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h2 id="transformation">Transformation</h2>
 <h3 id="mapf-cancelable"><code>map(f, cancelable)</code></h3>
 <p><code>:: (a → b) → Cancelable a → Cancelable → b</code></p>
+<h3 id="pluckkey"><code>pluck(key)</code></h3>
+<p><code>:: Cancelable c =&gt; k -&gt; c {k: v} -&gt; c v</code>
+<code>:: Cancelable c =&gt; number -&gt; c [v] -&gt; c v</code></p>
+<p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
 <p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
 <h2 id="side-effects">Side-Effects</h2>

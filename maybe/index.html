@@ -338,8 +338,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getorelsedefaultvalue" class="md-nav__link">
-    getOrElse(defaultValue)
+  <a href="#getorelsedefaultvalue-m" class="md-nav__link">
+    getOrElse(defaultValue, m)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maybeonnothing-dowithjust-m" class="md-nav__link">
+    maybe(onNothing, doWithJust, m)
   </a>
   
 </li>
@@ -631,8 +638,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getorelsedefaultvalue" class="md-nav__link">
-    getOrElse(defaultValue)
+  <a href="#getorelsedefaultvalue-m" class="md-nav__link">
+    getOrElse(defaultValue, m)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maybeonnothing-dowithjust-m" class="md-nav__link">
+    maybe(onNothing, doWithJust, m)
   </a>
   
 </li>
@@ -770,13 +784,18 @@ fromNilable(&quot;bar&quot;) // Just(&quot;bar&quot;)
 </code></pre>
 
 <h2 id="consumption">Consumption</h2>
-<h3 id="getorelsedefaultvalue"><code>getOrElse(defaultValue)</code></h3>
+<h3 id="getorelsedefaultvalue-m"><code>getOrElse(defaultValue, m)</code></h3>
 <p><code>:: a -&gt; Maybe a -&gt; a</code></p>
 <p>Extract the value of a Just or return the provided default.</p>
 <pre><code class="javascript">getOrElse(&quot;foo&quot;, nothing()); // -&gt; &quot;foo&quot;
 getOrElse(&quot;foo&quot;, just(&quot;bar&quot;)); // -&gt; &quot;bar&quot;
 </code></pre>
 
+<h3 id="maybeonnothing-dowithjust-m"><code>maybe(onNothing, doWithJust, m)</code></h3>
+<p><code>:: (() -&gt; b) -&gt; (a -&gt; b) -&gt; Maybe a -&gt; b</code></p>
+<p>Composition of <code>getOrElse</code> and <code>map</code>.
+Transforms the value if it exists with the provided function.
+Otherwise, returns the default value.</p>
 <h2 id="transformation">Transformation</h2>
 <h3 id="sequenceof_f-map_f-maybeoff"><code>sequence(of_f, map_f, MaybeOfF)</code></h3>
 <p><code>:: Applicative f =&gt; ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)</code></p>
