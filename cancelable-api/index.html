@@ -447,6 +447,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lifta3f-cca-ccb-ccc" class="md-nav__link">
+    liftA3(f, ccA , ccB, ccC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifta4f-cca-ccb-ccc-ccd" class="md-nav__link">
+    liftA4(f, ccA , ccB, ccC, ccD)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#racecancelablea-cancelableb" class="md-nav__link">
     race(cancelableA, cancelableB)
   </a>
@@ -799,6 +813,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lifta3f-cca-ccb-ccc" class="md-nav__link">
+    liftA3(f, ccA , ccB, ccC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifta4f-cca-ccb-ccc-ccd" class="md-nav__link">
+    liftA4(f, ccA , ccB, ccC, ccD)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#racecancelablea-cancelableb" class="md-nav__link">
     race(cancelableA, cancelableB)
   </a>
@@ -959,8 +987,8 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h3 id="mapf-cancelable"><code>map(f, cancelable)</code></h3>
 <p><code>:: (a → b) → Cancelable a → Cancelable → b</code></p>
 <h3 id="pluckkey"><code>pluck(key)</code></h3>
-<p><code>:: Cancelable c =&gt; k -&gt; c {k: v} -&gt; c v</code>
-<code>:: Cancelable c =&gt; number -&gt; c [v] -&gt; c v</code></p>
+<p><code>:: Cancelable c =&gt; k -&gt; c {k: v} -&gt; c v</code></p>
+<p><code>:: Cancelable c =&gt; number -&gt; c [v] -&gt; c v</code></p>
 <p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
 <p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
@@ -971,12 +999,16 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h2 id="combinations">Combinations</h2>
 <h3 id="apcancelablefunc-cancelable"><code>ap(cancelableFunc, cancelable)</code></h3>
 <p><code>:: Cancelable (a → b) → Cancelable a → Cancelable b</code></p>
-<p>Parallel running version: It runs both Cancelable arguments in parallel.</p>
+<p><em>Parallel</em> running version: It runs both Cancelable arguments in parallel.</p>
 <p>Note that <em>if it was</em> implemented simply <code>ap(mf, ma) = chain(f =&gt; map(f, ma), mf)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
 <h3 id="lifta2f-cca-ccb"><code>liftA2(f, ccA , ccB)</code></h3>
 <p><code>:: (a → b → c) → Cancelable a → Cancelable b → Cancelable c</code></p>
 <p>Equivalent to <code>(f, pa, pb) =&gt; Promise.all([pa, pb]).then(([a, b]) =&gt; f(a, b))</code>. <code>f</code> must be curried.</p>
 <p>Note that when implemented by <em>sequentially</em> running <em>ap</em>, <code>liftA2(f, ma, mb) = ap(map(f, ma), mb)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<h3 id="lifta3f-cca-ccb-ccc"><code>liftA3(f, ccA , ccB, ccC)</code></h3>
+<p><code>:: (a → b → c → d) → Cancelable a → Cancelable b → Cancelable c → Cancelable d</code></p>
+<h3 id="lifta4f-cca-ccb-ccc-ccd"><code>liftA4(f, ccA , ccB, ccC, ccD)</code></h3>
+<p><code>:: (a → b → c → d → e) → Cancelable a → Cancelable b → Cancelable c → Cancelable d → Cancelable e</code></p>
 <h3 id="racecancelablea-cancelableb"><code>race(cancelableA, cancelableB)</code></h3>
 <p><code>:: Cancelable a → Cancelable a → Cancelable a</code></p>
 <p>Like <code>Promise.race</code> shortcuts (i.e. aborts the other) when any input value is settled with success or failure.</p>
