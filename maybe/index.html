@@ -319,7 +319,14 @@
         
           <li class="md-nav__item">
   <a href="#fromnilable-aundefinednull-maybe-a" class="md-nav__link">
-    fromNilable :: (a|undefined|null) -&gt; Maybe a
+    fromNilable :: (a|undefined|null) → Maybe a
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fromcontentholdinga" class="md-nav__link">
+    fromContentHolding(a)
   </a>
   
 </li>
@@ -619,7 +626,14 @@
         
           <li class="md-nav__item">
   <a href="#fromnilable-aundefinednull-maybe-a" class="md-nav__link">
-    fromNilable :: (a|undefined|null) -&gt; Maybe a
+    fromNilable :: (a|undefined|null) → Maybe a
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fromcontentholdinga" class="md-nav__link">
+    fromContentHolding(a)
   </a>
   
 </li>
@@ -777,10 +791,16 @@
 <p>Working with optional data, commonly done with <code>if</code>-<code>else</code> blocks.</p>
 <p>Native JavaScript arrays which are empty or have a single element are considered a <em>Maybe</em> here.</p>
 <h2 id="generators">Generators</h2>
-<h3 id="fromnilable-aundefinednull-maybe-a">fromNilable <code>:: (a|undefined|null) -&gt; Maybe a</code></h3>
+<h3 id="fromnilable-aundefinednull-maybe-a">fromNilable <code>:: (a|undefined|null) → Maybe a</code></h3>
 <p>Generates a maybe from a value which can be nullish.</p>
 <pre><code class="javascript">fromNilable({}.foo) // Nothing
 fromNilable(&quot;bar&quot;) // Just(&quot;bar&quot;)
+</code></pre>
+
+<h3 id="fromcontentholdinga"><code>fromContentHolding(a)</code></h3>
+<p><code>:: a → Maybe a</code></p>
+<pre><code class="javascript">fromContentHolding(&quot;a&quot;)  // Just(&quot;a&quot;)
+fromContentHolding(&quot;&quot;)  // Nothing
 </code></pre>
 
 <h2 id="consumption">Consumption</h2>

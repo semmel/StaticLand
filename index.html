@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v0140" class="md-skip">
+        <a href="#visisoftstaticland-v0141" class="md-skip">
           Skip to content
         </a>
       
@@ -265,6 +265,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sets-of-operations" class="md-nav__link">
+    Sets of Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Sets of Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fantasyland" class="md-nav__link">
+    FantasyLand
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#homepage-and-documentation" class="md-nav__link">
     Homepage and Documentation
   </a>
@@ -319,13 +353,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
-    Objective
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#design" class="md-nav__link">
     Design
   </a>
@@ -344,7 +371,14 @@
     Dependencies
   </a>
   
-    <nav class="md-nav" aria-label="Dependencies">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    Implementation Details
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -558,6 +592,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sets-of-operations" class="md-nav__link">
+    Sets of Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Sets of Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fantasyland" class="md-nav__link">
+    FantasyLand
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#homepage-and-documentation" class="md-nav__link">
     Homepage and Documentation
   </a>
@@ -612,13 +680,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
-    Objective
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#design" class="md-nav__link">
     Design
   </a>
@@ -637,7 +698,14 @@
     Dependencies
   </a>
   
-    <nav class="md-nav" aria-label="Dependencies">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    Implementation Details
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -670,63 +738,30 @@
                 
                 
                 <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" /></p>
-<h1 id="visisoftstaticland-v0140"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.40</h1>
-<p>Operations (Mapping, Lensing, etc.) on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with <em>free static functions</em>. </p>
-<p>The data-holding types are modelled with "simple" <em>native JavaScript constructs</em> as <code>Array</code>, <code>Promise</code> or <code>Function</code>. Thus, the algebraic operations do not expect objects from ADT classes but work on those "simple" <em>JavaScript types</em>.  </p>
-<p>Using simple native types means that </p>
+<h1 id="visisoftstaticland-v0141"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.41</h1>
+<p>Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.</p>
+<p>Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (ADT) (<code>Either</code>, <code>Maybe</code>, <code>Promise</code>, <code>CancelableComputation</code>) provided as sets <em>free static functions</em>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>For the motivation I'd like to refer to <a href="https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land">James Sinclair's post on StaticLand</a>.</p>
+<h2 id="data-types">Data Types</h2>
+<p>Each set of these <em>free static functions</em> expect a particular data-holding type. <code>@visisoft/staticland</code> is very un-opinionated about the data type. E.g. the operations on non-cancelable computations simply expect a <code>Promise</code> as data type. This makes crossing the boundary into and out of <code>@visisoft/staticland</code> especially easy. </p>
+<p>Each <em>data type</em> represents a particular <em>computational feature</em> or <em>aspect of programming</em>. For instance an optional value is a <code>Maybe</code>, and a <code>CancelableComputation</code> represents just that. <code>@visisoft/staticland</code> does not "provide" data types e.g. as classes for these <em>computational features</em>. It is not productive to find the <em>best implementation</em> of a data type. The function sets of <code>@visisoft/staticland</code> choose to operate on just the simplest JavaScript objects – <code>Array</code>, <code>Function</code> or (as already mentioned) <code>Promise</code>. In Functional Programming (FP) <em>factory</em> and <em>consumption functions</em> are provided to interface with external code.</p>
+<h2 id="sets-of-operations">Sets of Operations</h2>
+<p>To its particular data type, each set of operations permit the transforming, the combining, the iterating or the focusing on an item of the data structure. Thus, the sets of operations have a lot in common – e.g. each have the functions <code>map</code>, and <code>chain</code>.</p>
+<p>Admittedly, this brings an inflation to the api surface when working with different data types. Also, since each use of e.g. <code>map</code> or <code>chain</code> is targeted to a particular data type, the operations must be carefully placed, so that with nested data types the sequence of operations reflects the structure of the nested data exactly.</p>
+<p>On the other hand,
+- the current data type can be derived by looking at the code,
+- using the TypeScript signatures, the code inspector can deduce the type correctness, and
+- third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.</p>
+<h3 id="fantasyland">FantasyLand</h3>
+<p>It is worth mentioning the competing concept of <em>FantasyLand</em>. It features a <em>unified set of operations</em> which operate on <em>all</em> compatible data types. It does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods.</p>
+<p>The free static functions of FantasyLand are just a <em>shell</em> which <em>delegates</em> to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit <a href="https://ramdajs.com">Ramda</a>. Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which <a href="https://github.com/ramda/ramda/issues/3264#issuecomment-1101877126">this comment</a> illustrates. </p>
 <ul>
-<li>Conversion between the types is easy, but</li>
-<li><em>@visisoft/staticland</em> practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript. </li>
+<li>Library authors need to be convinced to understand the <a href="https://github.com/fantasyland/fantasy-land">FantasyLand protocol</a> and implement it in their data types.</li>
+<li>Often libraries already provide free static functions like <code>map</code> and <code>chain</code> tailored to their data type. These integrate nicely with the StaticLand concept.</li>
+<li>The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><code>of</code></th>
-<th><code>map</code></th>
-<th><code>chain</code></th>
-<th>Consumption</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CancelableComputation</td>
-<td><code>cc = (resolve, reject) =&gt; () =&gt; ()</code></td>
-<td></td>
-<td></td>
-<td><code>new Promise(cc)</code></td>
-</tr>
-<tr>
-<td>Either</td>
-<td><code>x =&gt; [,x]</code></td>
-<td><code>Array.prototype.map</code></td>
-<td><code>Array.prototype.flatMap</code></td>
-<td><code>xs =&gt; xs[1]</code></td>
-</tr>
-<tr>
-<td>Maybe</td>
-<td><code>x =&gt; [x]</code></td>
-<td><code>Array.prototype.map</code></td>
-<td><code>Array.prototype.flatMap</code></td>
-<td><code>xs =&gt; xs[0]</code></td>
-</tr>
-<tr>
-<td>Promise</td>
-<td><code>Promise.resolve</code></td>
-<td><code>Promise.then</code></td>
-<td><code>Promise.then</code></td>
-<td><code>Promise.then</code></td>
-</tr>
-<tr>
-<td>IO</td>
-<td><code>x =&gt; x</code></td>
-<td><code>compose</code></td>
-<td><code>run(compose)</code></td>
-<td><code>call</code></td>
-</tr>
-</tbody>
-</table>
-<p>In a way @visisoft/staticland provides functions which operate on and access types you operate with anyway.</p>
+<p>In the search to overcome these drawbacks the concept of <em>StaticLand</em> was discovered. Both concepts are compared in an <a href="https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land">article by James Sinclair</a>.</p>
 <h2 id="homepage-and-documentation"><a href="https://semmel.github.io/StaticLand/">Homepage and Documentation</a></h2>
 <h2 id="hello-visisoftstaticland">Hello @visisoft/staticland</h2>
 <h3 id="installation">Installation</h3>
@@ -779,8 +814,6 @@ getAnswer(null)
 chain(delay(500), Promise.resolve(&quot;foo&quot;)).then(console.log);
 </code></pre>
 
-<h2 id="objective">Objective</h2>
-<p>Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.</p>
 <h2 id="design">Design</h2>
 <p>Most functions comply with <a href="https://github.com/fantasyland/static-land/">Static-Land</a>`s algebraic laws. Where this is not possible (e.g. nesting of resolved Promises) a few reasonable paradigms have to be followed when using this library.</p>
 <p>At the expense of complete algebraic lawfulness the data wrapping remains transparent and light-weight.</p>
@@ -795,6 +828,55 @@ chain(delay(500), Promise.resolve(&quot;foo&quot;)).then(console.log);
 <a href="crocks">Crocks</a> is an exemplary implementation of common data types.</p>
 <h2 id="dependencies">Dependencies</h2>
 <p>As FP utility library <a href="https://ramdajs.com">Ramda</a> is used.</p>
+<h2 id="implementation-details">Implementation Details</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>of</code></th>
+<th><code>map</code></th>
+<th><code>chain</code></th>
+<th>Consumption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CancelableComputation</td>
+<td><code>cc = (resolve, reject) =&gt; () =&gt; ()</code></td>
+<td></td>
+<td></td>
+<td><code>new Promise(cc)</code></td>
+</tr>
+<tr>
+<td>Either</td>
+<td><code>x =&gt; [,x]</code></td>
+<td><code>Array.prototype.map</code></td>
+<td><code>Array.prototype.flatMap</code></td>
+<td><code>xs =&gt; xs[1]</code></td>
+</tr>
+<tr>
+<td>Maybe</td>
+<td><code>x =&gt; [x]</code></td>
+<td><code>Array.prototype.map</code></td>
+<td><code>Array.prototype.flatMap</code></td>
+<td><code>xs =&gt; xs[0]</code></td>
+</tr>
+<tr>
+<td>Promise</td>
+<td><code>Promise.resolve</code></td>
+<td><code>Promise.then</code></td>
+<td><code>Promise.then</code></td>
+<td><code>Promise.then</code></td>
+</tr>
+<tr>
+<td>IO</td>
+<td><code>x =&gt; x</code></td>
+<td><code>compose</code></td>
+<td><code>run(compose)</code></td>
+<td><code>call</code></td>
+</tr>
+</tbody>
+</table>
 <h6 id="closed-over">closed over</h6>
 <p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closure</a> is the combination of a function and the lexical environment within which that function was declared.</p>
                 
