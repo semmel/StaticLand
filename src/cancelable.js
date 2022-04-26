@@ -14,6 +14,8 @@ export {default as race} from './cancelable/race.js';
 export {default as chain} from './cancelable/chain.js';
 export {default as ap} from './cancelable/ap.js';
 export {default as liftA2} from './cancelable/liftA2.js';
+export {default as liftA3} from './cancelable/liftA3.js';
+export {default as liftA4} from './cancelable/liftA4.js';
 export {default as fetchResponse} from './cancelable/fetchResponse.js';
 export {default as fetchResponseIsoModule} from './cancelable/fetchResponseIsoModule.js';
 export {default as cancelify} from './cancelable/cancelify.js';

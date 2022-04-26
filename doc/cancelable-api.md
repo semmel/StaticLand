@@ -156,7 +156,7 @@ Combinations
 ### `ap(cancelableFunc, cancelable)`
 `:: Cancelable (a → b) → Cancelable a → Cancelable b`
 
-Parallel running version: It runs both Cancelable arguments in parallel.
+*Parallel* running version: It runs both Cancelable arguments in parallel.
 
 Note that *if it was* implemented simply `ap(mf, ma) = chain(f => map(f, ma), mf)` will *not* run the Cancelable Computations in *parallel*.
 
@@ -166,6 +166,12 @@ Note that *if it was* implemented simply `ap(mf, ma) = chain(f => map(f, ma), mf
 Equivalent to `(f, pa, pb) => Promise.all([pa, pb]).then(([a, b]) => f(a, b))`. `f` must be curried.
 
 Note that when implemented by *sequentially* running *ap*, `liftA2(f, ma, mb) = ap(map(f, ma), mb)` will *not* run the Cancelable Computations in *parallel*.
+
+### `liftA3(f, ccA , ccB, ccC)`
+`:: (a → b → c → d) → Cancelable a → Cancelable b → Cancelable c → Cancelable d`
+
+### `liftA4(f, ccA , ccB, ccC, ccD)`
+`:: (a → b → c → d → e) → Cancelable a → Cancelable b → Cancelable c → Cancelable d → Cancelable e`
 
 ### `race(cancelableA, cancelableB)`
 `:: Cancelable a → Cancelable a → Cancelable a`

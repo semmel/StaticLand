@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.40
+-------
+- `cancelable/liftA3`, `cancelable/liftA4`
+
 0.1.39
 ----
 - `cancelable/pluck`

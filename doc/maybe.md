@@ -8,12 +8,20 @@ Native JavaScript arrays which are empty or have a single element are considered
 
 Generators
 ----------
-### fromNilable `:: (a|undefined|null) -> Maybe a`
+### fromNilable `:: (a|undefined|null) → Maybe a`
 Generates a maybe from a value which can be nullish.
 
 ```javascript
 fromNilable({}.foo) // Nothing
 fromNilable("bar") // Just("bar")
+```
+
+### `fromContentHolding(a)`
+`:: a → Maybe a`
+
+```javascript
+fromContentHolding("a")  // Just("a")
+fromContentHolding("")  // Nothing
 ```
 
 Consumption

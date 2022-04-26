@@ -1,3 +1,10 @@
+// see https://codemix.com/opaque-types-in-javascript/
+// See https://blog.beraliv.dev/2021-05-07-opaque-type-in-typescript
+
+declare const opaque: unique symbol;
+
+export type Opaque<K, T> = K & { readonly [opaque]: T }
+
 export type BinaryCurriedFn<S, T, U> = (s: T) => (t: T) => U;
 export type TernaryCurriedFn<S, T, U, V> = (s: T) => (t: T) => (u: U) => V;
 export type QuaternaryCurriedFn<S, T, U, V, W> = (s: T) => (t: T) => (u: U) => (v: V) => W;

@@ -2,24 +2,42 @@
 
 [@visisoft/staticland](https://semmel.github.io/StaticLand/) v{{ config.meta.version }}
 ====================
-Operations (Mapping, Lensing, etc.) on Algebraic Data Types (ADT) (Either, Maybe, Promise, CancelableComputation) realised with *free static functions*. 
+Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.
 
-The data-holding types are modelled with "simple" *native JavaScript constructs* as `Array`, `Promise` or `Function`. Thus, the algebraic operations do not expect objects from ADT classes but work on those "simple" *JavaScript types*.  
+Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (ADT) (`Either`, `Maybe`, `Promise`, `CancelableComputation`) provided as sets *free static functions*.
 
-Using simple native types means that 
+Motivation
+-----
+For the motivation I'd like to refer to [James Sinclair's post on StaticLand][sinclair-static-land].
 
-- Conversion between the types is easy, but
-- *@visisoft/staticland* practically gives up on type inspection and leaves that to the calling code. This is in line with the characteristics of JavaScript. 
+Data Types
+--------
+Each set of these *free static functions* expect a particular data-holding type. `@visisoft/staticland` is very un-opinionated about the data type. E.g. the operations on non-cancelable computations simply expect a `Promise` as data type. This makes crossing the boundary into and out of `@visisoft/staticland` especially easy. 
 
-|           |   `of`        |   `map`       |   `chain`     |   Consumption |
-|-----------|---------------|---------------|---------------|---------------|
-|CancelableComputation| `cc = (resolve, reject) => () => ()` | | | `new Promise(cc)` |
-| Either    | `x => [,x]` |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[1]`|
-| Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
-| Promise   | `Promise.resolve`|`Promise.then`|`Promise.then`|`Promise.then`|
-| IO        | `x => x`        |`compose`      |`run(compose)` |`call`|
+Each *data type* represents a particular *computational feature* or *aspect of programming*. For instance an optional value is a `Maybe`, and a `CancelableComputation` represents just that. `@visisoft/staticland` does not "provide" data types e.g. as classes for these *computational features*. It is not productive to find the *best implementation* of a data type. The function sets of `@visisoft/staticland` choose to operate on just the simplest JavaScript objects – `Array`, `Function` or (as already mentioned) `Promise`. In Functional Programming (FP) *factory* and *consumption functions* are provided to interface with external code.
 
-In a way @visisoft/staticland provides functions which operate on and access types you operate with anyway.
+Sets of Operations
+------------------
+To its particular data type, each set of operations permit the transforming, the combining, the iterating or the focusing on an item of the data structure. Thus, the sets of operations have a lot in common – e.g. each have the functions `map`, and `chain`.
+
+Admittedly, this brings an inflation to the api surface when working with different data types. Also, since each use of e.g. `map` or `chain` is targeted to a particular data type, the operations must be carefully placed, so that with nested data types the sequence of operations reflects the structure of the nested data exactly.
+
+On the other hand,
+- the current data type can be derived by looking at the code,
+- using the TypeScript signatures, the code inspector can deduce the type correctness, and
+- third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.
+
+### FantasyLand
+It is worth mentioning the competing concept of *FantasyLand*. It features a *unified set of operations* which operate on *all* compatible data types. It does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods.
+
+The free static functions of FantasyLand are just a *shell* which *delegates* to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit [Ramda][ramda-homepage]. Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which [this comment][adispring-comment] illustrates. 
+
+- Library authors need to be convinced to understand the [FantasyLand protocol][fl-ref] and implement it in their data types.
+- Often libraries already provide free static functions like `map` and `chain` tailored to their data type. These integrate nicely with the StaticLand concept.
+- The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library
+
+In the search to overcome these drawbacks the concept of *StaticLand* was discovered. Both concepts are compared in an [article by James Sinclair][sinclair-static-land].
+
 
 [Homepage and Documentation](https://semmel.github.io/StaticLand/)
 ----------------------------------------
@@ -84,10 +102,6 @@ const
 chain(delay(500), Promise.resolve("foo")).then(console.log);
 ```
 
-Objective
----------
-
-Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.
 
 Design
 ------
@@ -111,12 +125,26 @@ Dependencies
 
 As FP utility library [Ramda][ramda-homepage] is used.
 
+Implementation Details
+---------------------
+
+|           |   `of`        |   `map`       |   `chain`     |   Consumption |
+|-----------|---------------|---------------|---------------|---------------|
+|CancelableComputation| `cc = (resolve, reject) => () => ()` | | | `new Promise(cc)` |
+| Either    | `x => [,x]` |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[1]`|
+| Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
+| Promise   | `Promise.resolve`|`Promise.then`|`Promise.then`|`Promise.then`|
+| IO        | `x => x`        |`compose`      |`run(compose)` |`call`|
+
 ###### closed over
 A [closure] is the combination of a function and the lexical environment within which that function was declared.
 
 [closure]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 [sl-ref]: https://github.com/fantasyland/static-land/
+[fl-ref]: https://github.com/fantasyland/fantasy-land
 [ramda-homepage]: https://ramdajs.com
 [wikipedia-fcompose]: https://en.wikipedia.org/wiki/Function_composition_(computer_science)
 [ramda-fantasy]: https://github.com/ramda/ramda-fantasy
 [crocks]: https://crocks.dev/docs/crocks/
+[sinclair-static-land]: https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land
+[adispring-comment]: https://github.com/ramda/ramda/issues/3264#issuecomment-1101877126

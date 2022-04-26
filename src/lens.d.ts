@@ -14,6 +14,10 @@ export function makeComposableSequenceLens<X, S, FX, FS>(lens: Lens<X, S, FX, FS
 export function makeComposableSequenceLens<X, S, FX, FS>(lens: Lens<X, S, FX, FS>): (map_f: Map<X, S, FX, FS>) => ComposableLens<X, S, FX, FS>;
 
 export function over<A, S>(cL: ComposableLens<A, S, any, any>, x2x: (a:A) => A, target: S): S;
+export function over<A, S>(cL: ComposableLens<A, S, any, any>): (x2x: (a:A) => A, target: S) => S;
+export function over<A, S>(cL: ComposableLens<A, S, any, any>, x2x: (a:A) => A): (target: S) => S;
+export function over<A, S>(cL: ComposableLens<A, S, any, any>): (x2x: (a:A) => A) => (target: S) => S;
+
 export function set<A, S>(cL: ComposableLens<A, S, any, any>, a: A, target: S): S;
 export function view<A, S>(cL: ComposableLens<A, S, any, any>, target: S): A;
 export function view<A, S>(cL: ComposableLens<A, S, any, any>):  (target: S) => A;

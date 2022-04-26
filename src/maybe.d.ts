@@ -1,10 +1,10 @@
-import {BinaryCurriedFn, PlainObjectOf, TernaryCurriedFn} from './common';
+import {BinaryCurriedFn, Opaque, PlainObjectOf, TernaryCurriedFn} from './common';
 import {Either} from './either';
 
-export type Just<T> = [T];
-export type Nothing = [];
-//export type Maybe<T> = Just<T> | Nothing;
-export interface Maybe<T> extends Array<T>{}
+export type Just<T> = Opaque<"Just", T>;
+export type Nothing = Opaque<"Nothing", void>;
+export type Maybe<T> = Just<T> | Nothing;
+
 type Applicative<T> = Promise<T>|Either<T>|PlainObjectOf<T>;
 
 /**
@@ -68,6 +68,6 @@ export function liftA2<S, T, U>(fn: BinaryCurriedFn<S, T, U>): (ps: Maybe<S>) =>
 export function liftA3<S, T, U, V>(fn: TernaryCurriedFn<S, T, U, V>): (ps: Maybe<S>, pt: Maybe<T>, pu: Maybe<U>) => Maybe<V>;
 export function liftA3<S, T, U, V>(fn: TernaryCurriedFn<S, T, U, V>): (ps: Maybe<S>) => (pt: Maybe<T>) => (pu: Maybe<U>) => Maybe<V>;
 
-export function lift<T>(fn: (...args: any[]) => T): (...mxs: Maybe<any>) => Maybe<T>;
+export function lift<T>(fn: (...args: any[]) => T): (...mxs: [Maybe<any>]) => Maybe<T>;
 
 export function typeString(mx: Maybe<any>): string;

@@ -45,6 +45,14 @@ export function liftA2<A, B, C>(f: (a: A) => (b: B) => C, ma: Cancelable<A>, mb:
 export function liftA2<A, B, C>(f: (a: A) => (b: B) => C): (ma: Cancelable<A>, mb: Cancelable<B>) => Cancelable<C>;
 export function liftA2<A, B, C>(f: (a: A) => (b: B) => C): (ma: Cancelable<A>) => (mb: Cancelable<B>) => Cancelable<C>;
 
+export function liftA3<A, B, C, D>(f: (a: A) => (b: B) => (c: C) => D, ma: Cancelable<A>, mb: Cancelable<B>, mc: Cancelable<C>): Cancelable<D>;
+export function liftA3<A, B, C, D>(f: (a: A) => (b: B) => (c: C) => D): (ma: Cancelable<A>, mb: Cancelable<B>, mc: Cancelable<C>) => Cancelable<D>;
+export function liftA3<A, B, C, D>(f: (a: A) => (b: B) => (c: C) => D): (ma: Cancelable<A>, mb: Cancelable<B>) => (mc: Cancelable<C>) => Cancelable<D>;
+
+export function liftA4<A, B, C, D, E>(f: (a: A) => (b: B) => (c: C) => (d: D) => E, ma: Cancelable<A>, mb: Cancelable<B>, mc: Cancelable<C>, md: Cancelable<D>): Cancelable<E>;
+export function liftA4<A, B, C, D, E>(f: (a: A) => (b: B) => (c: C) => (d: D) => E): (ma: Cancelable<A>, mb: Cancelable<B>, mc: Cancelable<C>, md: Cancelable<D>) => Cancelable<E>;
+export function liftA4<A, B, C, D, E>(f: (a: A) => (b: B) => (c: C) => (d: D) => E): (ma: Cancelable<A>, mb: Cancelable<B>, mc: Cancelable<C>) => (md: Cancelable<D>) => Cancelable<E>;
+
 export function race<A>(ma1: Cancelable<A>, ma2: Cancelable<A>): Cancelable<A>;
 export function race<A>(ma1: Cancelable<A>): (ma2: Cancelable<A>) => Cancelable<A>;
 

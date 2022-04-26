@@ -1,12 +1,15 @@
-export type Left = [any, any];
-export type Right<T> = [any, T];
-export type Either<T> = Left | Right<T>;
-import {BinaryCurriedFn, PlainObjectOf, TernaryCurriedFn} from './common';
-type Applicative<T> = Promise<T>|Either<T>|PlainObjectOf<T>;
+import {BinaryCurriedFn, Opaque, PlainObjectOf, TernaryCurriedFn} from './common';
+import {Maybe} from "./maybe";
 
-export function right<A>(a: A): Either<A>;
-export function of<A>(a: A): Either<A>;
-export function left(e: any): Either<any>;
+export type Left = Opaque<"Left", void>;
+export type Right<T> = Opaque<"Right", T>;
+export type Either<T> = Left | Right<T>;
+
+type Applicative<T> = Promise<T>|Maybe<T>|PlainObjectOf<T>;
+
+export function right<A>(a: A): Right<A>;
+export function of<A>(a: A): Right<A>;
+export function left(e: any): Left;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean, makeLeftValue: (a:A) => B, a: A): Either<A>;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean): (makeLeftValue: (a:A) => B, a: A) => Either<A>;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean, makeLeftValue: (a:A) => B): (a: A) => Either<A>;
