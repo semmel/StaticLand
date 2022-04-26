@@ -1,7 +1,7 @@
 import {always, equals, identity, o} from 'ramda';
 import { alt, chain, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
 import chai from 'chai';
-import { nothing, just } from "../src/maybe.js";
+import { nothing, just, isNothing, isJust } from "../src/maybe.js";
 
 const
 	assert = chai.assert;
@@ -33,6 +33,20 @@ describe("Either join", function () {
 			x => assert.fail(`Should not be a right '${x}'`),
 			join(left("bar"))
 		);
+	});
+});
+
+describe("Either either", function() {
+	const
+		/**
+		 * @type {<A>(ma: import('../src/either').Either<A>) => import('../src/maybe').Maybe<A>} */
+		eitherToMaybe = either(nothing, just);
+	
+	it("converts to Maybe", () => {
+		assert.ok(isJust(eitherToMaybe(right("foo"))));
+		assert.ok(isJust(either(nothing, just, right("foo"))));
+		assert.ok(isNothing(eitherToMaybe(left("bar"))));
+		assert.ok(isNothing(either(nothing, just, left("bar"))));
 	});
 });
 

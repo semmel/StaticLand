@@ -23,6 +23,7 @@ To its particular data type, each set of operations permit the transforming, the
 Admittedly, this brings an inflation to the api surface when working with different data types. Also, since each use of e.g. `map` or `chain` is targeted to a particular data type, the operations must be carefully placed, so that with nested data types the sequence of operations reflects the structure of the nested data exactly.
 
 On the other hand,
+
 - the current data type can be derived by looking at the code,
 - using the TypeScript signatures, the code inspector can deduce the type correctness, and
 - third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.

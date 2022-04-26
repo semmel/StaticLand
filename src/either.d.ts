@@ -1,15 +1,15 @@
 import {BinaryCurriedFn, Opaque, PlainObjectOf, TernaryCurriedFn} from './common';
 import {Maybe} from "./maybe";
 
-export type Left = Opaque<"Left", void>;
-export type Right<T> = Opaque<"Right", T>;
-export type Either<T> = Left | Right<T>;
+export type Left<T> = Opaque<"Either", T>;
+export type Right<T> = Opaque<"Either", T>;
+export type Either<T> = Opaque<"Either", T>;
 
 type Applicative<T> = Promise<T>|Maybe<T>|PlainObjectOf<T>;
 
-export function right<A>(a: A): Right<A>;
-export function of<A>(a: A): Right<A>;
-export function left(e: any): Left;
+export function right<A>(a: A): Either<A>;
+export function of<A>(a: A): Either<A>;
+export function left(e: any): Either<any>;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean, makeLeftValue: (a:A) => B, a: A): Either<A>;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean): (makeLeftValue: (a:A) => B, a: A) => Either<A>;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean, makeLeftValue: (a:A) => B): (a: A) => Either<A>;
@@ -21,9 +21,10 @@ export function map<T, U>(fn: (x: T) => U) : (mx: Either<T>) => Either<U>;
 export function chain<T, U>(factory: (x: T) => Either<U>, p: Either<T>) : Either<U>;
 export function chain<T, U>(factory: (x: T) => Either<U>): (p: Either<T>) => Either<U>;
 
-export function either<A, B, C>(onLeft: (c: C) => B, onRight: (a: A) => B, m: Either<A>): B;
-export function either<A, B, C>(onLeft: (c: C) => B, onRight: (a: A) => B): (m: Either<A>) => B;
-export function either<A, B, C>(onLeft: (c: C) => B): (onRight: (a: A) => B) => (m: Either<A>) => B;
+export function either<A, B>(onLeft: (c?: any) => B, onRight: (a: A) => B, m: Either<A>): B;
+export function either<A, B>(onLeft: () => B, onRight: (a: A) => B): (m: Either<A>) => B;
+export function either<A, B>(onLeft: (c: any) => B, onRight: (a: A) => B): (m: Either<A>) => B;
+export function either<B>(onLeft: (c: any) => B): <A>(onRight: (a: A) => B) => (m: Either<A>) => B;
 
 export function isEither(me: Either<any>): boolean;
 export function isRight(me: Either<any>): boolean;
