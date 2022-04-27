@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v0141" class="md-skip">
+        <a href="#visisoftstaticland-v0142" class="md-skip">
           Skip to content
         </a>
       
@@ -738,7 +738,7 @@
                 
                 
                 <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" /></p>
-<h1 id="visisoftstaticland-v0141"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.41</h1>
+<h1 id="visisoftstaticland-v0142"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.1.42</h1>
 <p>Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.</p>
 <p>Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (ADT) (<code>Either</code>, <code>Maybe</code>, <code>Promise</code>, <code>CancelableComputation</code>) provided as sets <em>free static functions</em>.</p>
 <h2 id="motivation">Motivation</h2>
@@ -749,10 +749,12 @@
 <h2 id="sets-of-operations">Sets of Operations</h2>
 <p>To its particular data type, each set of operations permit the transforming, the combining, the iterating or the focusing on an item of the data structure. Thus, the sets of operations have a lot in common – e.g. each have the functions <code>map</code>, and <code>chain</code>.</p>
 <p>Admittedly, this brings an inflation to the api surface when working with different data types. Also, since each use of e.g. <code>map</code> or <code>chain</code> is targeted to a particular data type, the operations must be carefully placed, so that with nested data types the sequence of operations reflects the structure of the nested data exactly.</p>
-<p>On the other hand,
-- the current data type can be derived by looking at the code,
-- using the TypeScript signatures, the code inspector can deduce the type correctness, and
-- third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.</p>
+<p>On the other hand,</p>
+<ul>
+<li>the current data type can be derived by looking at the code,</li>
+<li>using the TypeScript signatures, the code inspector can deduce the type correctness, and</li>
+<li>third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.</li>
+</ul>
 <h3 id="fantasyland">FantasyLand</h3>
 <p>It is worth mentioning the competing concept of <em>FantasyLand</em>. It features a <em>unified set of operations</em> which operate on <em>all</em> compatible data types. It does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods.</p>
 <p>The free static functions of FantasyLand are just a <em>shell</em> which <em>delegates</em> to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit <a href="https://ramdajs.com">Ramda</a>. Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which <a href="https://github.com/ramda/ramda/issues/3264#issuecomment-1101877126">this comment</a> illustrates. </p>
