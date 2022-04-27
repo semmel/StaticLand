@@ -204,6 +204,7 @@ describe("Maybe", function() {
 		}
 		
 		const
+			/** @type {(a: import('../src/maybe').Maybe<number>, b: import('../src/maybe').Maybe<number>, c: import('../src/maybe').Maybe<number>) => import('../src/maybe').Maybe<number>} */
 			lifted_add3 = lift(add3);
 		
 		it("returns a function with the same arity", () => {

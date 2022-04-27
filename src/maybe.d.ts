@@ -3,24 +3,24 @@ import {Either} from './either';
 
 export type Just<T> = Opaque<"Just", T>;
 export type Nothing = Opaque<"Nothing", void>;
-export type Maybe<T> = Opaque<"Maybe", T>;
+export type Maybe<T> = Nothing | Just<T>;
 
 type Applicative<T> = Promise<T>|Either<T>|PlainObjectOf<T>;
 
 /**
  * creates a Just of the value
  */
-export function just<T>(x: T): Maybe<T>;
+export function just<T>(x: T): Just<T>;
 
 /**
  * alias for just
  */
-export function of<T>(x: T): Maybe<T>;
+export function of<T>(x: T): Just<T>;
 
 /**
  * Creates a Nothing
  */
-export function nothing(): Maybe<any>;
+export function nothing(): Nothing;
 
 /**
  * returns `true` if the Maybe is a Just
