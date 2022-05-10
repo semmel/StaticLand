@@ -779,9 +779,11 @@ decodeString(&quot;ziuli&quot;) //=&gt; &quot;ramda&quot;
 <p>Creates one <code>map</code>-like function for <em>viewing</em> / <em>extracting</em> a data aspect.</p>
 <h3 id="makecomposableoverlenslens"><code>makeComposableOverLens(lens)</code></h3>
 <p><code>F ≡ Identity</code></p>
-<p>Example, the data is 
-1. inside a <code>bar</code> property
-2. inside a <code>Promise</code></p>
+<p>Example, the data is </p>
+<ol>
+<li>inside a <code>bar</code> property</li>
+<li>inside a <code>Promise</code></li>
+</ol>
 <pre><code class="javascript">//                             data aspect
 //                                    ↓
 const data = { bar: Promise.resolve(&quot;BAR&quot;) }, 
