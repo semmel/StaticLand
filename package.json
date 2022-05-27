@@ -106,5 +106,5 @@
 		"test": "c8 mocha \"./test/**/*Test.mjs\""
 	},
 	"type": "module",
-	"version": "0.1.41"
+	"version": "0.1.43"
 }

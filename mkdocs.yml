@@ -12,6 +12,7 @@ nav:
   - list.md
   - lens.md
   - transformations.md
+  - function.md
   - io.md
   - changelog.md
   - license.md
@@ -23,6 +24,7 @@ markdown_extensions:
   - pymdownx.tasklist
   - markdown.extensions.footnotes
   - def_list
+  - attr_list
   - pymdownx.emoji
   - pymdownx.snippets
   - plantuml_markdown

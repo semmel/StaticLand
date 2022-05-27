@@ -24,6 +24,11 @@ fromContentHolding("a")  // Just("a")
 fromContentHolding("")  // Nothing
 ```
 
+### `fromPredicate(predicate, subject)`
+`:: (a → Boolean) → a → Maybe a`
+
+If the predicate test holds it returns the subject as a `Just`, otherwise a `Nothing`.
+
 Consumption
 -----------
 
@@ -45,6 +50,13 @@ Otherwise, returns the default value.
 
 Transformation
 ---------------
+
+### `pluck(key)`
+`:: Maybe m => k -> m {k: v} -> m v`
+
+`:: Maybe m => number -> m [v] -> m v`
+
+Simply `k => map(R.prop(k))` for mapping to a key value.
 
 ### `sequence(of_f, map_f, MaybeOfF)`
 `:: Applicative f => ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)`

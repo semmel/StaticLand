@@ -1,5 +1,13 @@
 Changelog v{{ config.meta.version }}
 =========
+0.1.43
+------
+- `maybe/pluck`
+
+0.1.42
+------
+- Maybe and Either are now "opaque" TS types. 
+
 0.1.40
 -------
 - `cancelable/liftA3`, `cancelable/liftA4`

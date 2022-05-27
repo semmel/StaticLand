@@ -2,7 +2,7 @@ import { always, curry, find, identity, o } from 'ramda';
 import chai from 'chai';
 import {
 	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,
-	join, map, nothing, maybe, lift, liftA2, reduce
+	just, join, map, nothing, maybe, pluck as pluck_m, lift, liftA2, reduce
 } from '../src/maybe.js';
 
 const
@@ -245,6 +245,23 @@ describe("Maybe", function() {
 		
 		it("returns the Maybe of the return value of the function called with both just values", () => {
 			assert.deepStrictEqual(maybeConcatMaybeStrings(of("foo"), of("bar")), of("foobar"));
+		});
+	});
+	
+	describe("pluck", function() {
+		it("extracts from Records", () => {
+			const
+				justARecord = just({foo: "FOO", bar: "BAR", baz: "BAZ"});
+			
+			assert.strictEqual(getOrElse("Unexpected value", pluck_m("foo", justARecord)), "FOO");
+			assert.ok(isNothing(pluck_m("foo", nothing())));
+		});
+		
+		it("extracts from Arrays", () => {
+			const
+				justAList = just(["foo", "bar", "baz"]);
+			
+			assert.strictEqual(getOrElse("Unexpected value", pluck_m(0, justAList)), "foo");
 		});
 	});
 	

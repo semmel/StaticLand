@@ -118,5 +118,6 @@ export {
 
 export {default as getOrElse} from './maybe/getOrElse.js';
 export {default as liftA2} from './maybe/liftA2.js';
+export {default as pluck} from './maybe/pluck.js';
 export {default as sequence} from './maybe/sequence.js';
 export {default as traverse} from './maybe/traverse.js';

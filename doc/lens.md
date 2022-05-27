@@ -75,8 +75,10 @@ Creates one `map`-like function for *viewing* / *extracting* a data aspect.
 `F ≡ Identity`
 
 Example, the data is 
+
 1. inside a `bar` property
 2. inside a `Promise`
+
 ```javascript
 //                             data aspect
 //                                    ↓

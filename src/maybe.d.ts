@@ -39,6 +39,11 @@ export function getOrElse<T>(acc: T) : (ma: Maybe<T>) => T;
 export function map<T, U>(fn: (x: T) => U, mx: Maybe<T>): Maybe<U>;
 export function map<T, U>(fn: (x: T) => U) : (mx: Maybe<T>) => Maybe<U>;
 
+export function pluck<T>(propertyName: string, mKv: Maybe<Record<string, T>>): Maybe<T>;
+export function pluck(propertyName: string): <T>(mKv: Maybe<Record<string, T>>) => Maybe<T>;
+export function pluck<T>(index: number, mKv: Maybe<[T]>): Maybe<T>;
+export function pluck(index: number): <T>(mKv: Maybe<[T]>) => Maybe<T>;
+
 export function chain<T, U>(factory: (x: T) => Maybe<U>, p: Maybe<T>) : Maybe<U>;
 export function chain<T, U>(factory: (x: T) => Maybe<U>): (p: Maybe<T>) => Maybe<U>;
 
