@@ -331,6 +331,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#frompredicatepredicate-subject" class="md-nav__link">
+    fromPredicate(predicate, subject)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -561,6 +568,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../function/" class="md-nav__link">
+        Function
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../io/" class="md-nav__link">
         Io
       </a>
@@ -641,6 +663,13 @@
           <li class="md-nav__item">
   <a href="#fromcontentholdinga" class="md-nav__link">
     fromContentHolding(a)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frompredicatepredicate-subject" class="md-nav__link">
+    fromPredicate(predicate, subject)
   </a>
   
 </li>
@@ -817,6 +846,9 @@ fromNilable(&quot;bar&quot;) // Just(&quot;bar&quot;)
 fromContentHolding(&quot;&quot;)  // Nothing
 </code></pre>
 
+<h3 id="frompredicatepredicate-subject"><code>fromPredicate(predicate, subject)</code></h3>
+<p><code>:: (a → Boolean) → a → Maybe a</code></p>
+<p>If the predicate test holds it returns the subject as a <code>Just</code>, otherwise a <code>Nothing</code>.</p>
 <h2 id="consumption">Consumption</h2>
 <h3 id="getorelsedefaultvalue-m"><code>getOrElse(defaultValue, m)</code></h3>
 <p><code>:: a -&gt; Maybe a -&gt; a</code></p>
