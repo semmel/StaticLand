@@ -379,6 +379,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#coalesceonfailure-onsuccess-cancelable" class="md-nav__link">
+    coalesce(onFailure, onSuccess, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mapf-cancelable" class="md-nav__link">
     map(f, cancelable)
   </a>
@@ -760,6 +767,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#coalesceonfailure-onsuccess-cancelable" class="md-nav__link">
+    coalesce(onFailure, onSuccess, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mapf-cancelable" class="md-nav__link">
     map(f, cancelable)
   </a>
@@ -999,11 +1013,14 @@ new Promise(numberOfCDNJSLibraries)       // running
 </code></pre>
 
 <h2 id="transformation">Transformation</h2>
+<h3 id="coalesceonfailure-onsuccess-cancelable"><code>coalesce(onFailure, onSuccess, cancelable)</code></h3>
+<p><code>:: Cancelable c ⇒ (* → b) → (a → b) → c a → c b</code></p>
+<p>Maps failure via <code>onFailure</code> and success via <code>onSuccess</code> to new success value.</p>
 <h3 id="mapf-cancelable"><code>map(f, cancelable)</code></h3>
-<p><code>:: (a → b) → Cancelable a → Cancelable → b</code></p>
+<p><code>:: Cancelable c ⇒ (a → b) → c a → c b</code></p>
 <h3 id="pluckkey"><code>pluck(key)</code></h3>
-<p><code>:: Cancelable c =&gt; k -&gt; c {k: v} -&gt; c v</code></p>
-<p><code>:: Cancelable c =&gt; number -&gt; c [v] -&gt; c v</code></p>
+<p><code>:: Cancelable c ⇒ k → c {k: v} → c v</code></p>
+<p><code>:: Cancelable c ⇒ number → c [v] → c v</code></p>
 <p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
 <p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
