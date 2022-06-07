@@ -129,13 +129,18 @@ new Promise(numberOfCDNJSLibraries)       // running
 Transformation
 --------------
 
+### `coalesce(onFailure, onSuccess, cancelable)`
+`:: Cancelable c ⇒ (* → b) → (a → b) → c a → c b`
+
+Maps failure via `onFailure` and success via `onSuccess` to new success value.
+
 ### `map(f, cancelable)`
-`:: (a → b) → Cancelable a → Cancelable → b`
+`:: Cancelable c ⇒ (a → b) → c a → c b`
 
 ### `pluck(key)`
-`:: Cancelable c => k -> c {k: v} -> c v`
+`:: Cancelable c ⇒ k → c {k: v} → c v`
 
-`:: Cancelable c => number -> c [v] -> c v`
+`:: Cancelable c ⇒ number → c [v] → c v`
 
 Simply `k => map(R.prop(k))` for mapping to a key value.
 

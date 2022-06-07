@@ -19,6 +19,9 @@ export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]
 
 // Transformations
 
+export function coalesce<A, B>(onFailure: (e: any) => B, onSuccess: (a?: A) => B, cc: Cancelable<A>): Cancelable<B>;
+export function coalesce<A, B>(onFailure: (e: any) => B, onSuccess: (a?: A) => B): (cc: Cancelable<A>) => Cancelable<B>;
+
 export function map<A, B>(fn: (a: A) => B, ma: Cancelable<A>): Cancelable<B>;
 export function map<A, B>(fn: (a: A) => B): (ma: Cancelable<A>) => Cancelable<B>;
 

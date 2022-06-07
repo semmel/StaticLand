@@ -21,6 +21,7 @@ export {default as fetchResponseIsoModule} from './cancelable/fetchResponseIsoMo
 export {default as cancelify} from './cancelable/cancelify.js';
 export {default as bi_tap} from './cancelable/biTap.js';
 export {default as share} from './cancelable/share.js';
+export {default as coalesce} from './cancelable/coalesce.js';
 
 const
 	// :: Cancelable c => k -> c {k: v} -> c v
