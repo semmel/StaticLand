@@ -45,6 +45,10 @@ const
 		when(isRight, o(unary(f), nth(1)))(mx)
 	),
 	
+	chainLeft = curry(
+		(f, mx) => when(isLeft, o(unary(f), nth(0)))(mx)
+	),
+	
 	// :: Either c (Either c a) -> Either c a
 	join = mx =>
 		isRight(mx) && isEither(mx[1]) ? mx[1] : mx,
@@ -69,7 +73,7 @@ const
 	
 	
 export {
-	alt, chain, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of
+	alt, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of
 };
 
 export let right = of;

@@ -17,9 +17,11 @@ map :: (b → c) → (a → b) → (a → c)
 
 simply compose, really.
 
+not implemented – use `Ramda.map`
+
 Using [Ramda]
 ----
-The Ramda version of the ADT functions `ap`, `map` and `chain` support not only StaticLand (i.e. native JavaScript) List functors (that is: `Array`) but also function functors.
+The Ramda version of the ADT functions `ap`, `map` and `chain` support *not only* StaticLand (i.e. native JavaScript) List functors (that is: `Array`) but *also* function functors.
 
 Some function combinators – which are useful for programming in point-free style – can be implemented with help of the ADT functions:
 

@@ -31,6 +31,17 @@ Inspection
 
 Transformation
 -------------
+
+### `chain(fn, ma)`
+`:: Either m ⇒ (a → m e b) → m c a → m e b`
+
+Useful for converting a right to a left.
+
+### `chainLeft(fn, ma)`
+`:: Either m ⇒ (c → m e b) → m c a → m e b`
+
+Useful for converting a left to a right.
+
 ### `map(fn, ma)`
 `:: (a -> b) -> Either c a -> Either c b`
 

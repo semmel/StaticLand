@@ -21,6 +21,9 @@ export function map<T, U>(fn: (x: T) => U) : (mx: Either<T>) => Either<U>;
 export function chain<T, U>(factory: (x: T) => Either<U>, p: Either<T>) : Either<U>;
 export function chain<T, U>(factory: (x: T) => Either<U>): (p: Either<T>) => Either<U>;
 
+export function chainLeft<U>(factory: (e: any) => Either<U>, p: Either<any>) : Either<U>;
+export function chainLeft<U>(factory: (e: any) => Either<U>): (p: Either<any>) => Either<U>;
+
 export function either<A, B>(onLeft: (c?: any) => B, onRight: (a: A) => B, m: Either<A>): B;
 export function either<A, B>(onLeft: () => B, onRight: (a: A) => B): (m: Either<A>) => B;
 export function either<A, B>(onLeft: (c: any) => B, onRight: (a: A) => B): (m: Either<A>) => B;

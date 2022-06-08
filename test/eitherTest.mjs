@@ -1,5 +1,5 @@
 import {always, equals, identity, o} from 'ramda';
-import { alt, chain, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
+import { alt, chain, chainLeft, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
 import chai from 'chai';
 import { nothing, just, isNothing, isJust } from "../src/maybe.js";
 
@@ -57,7 +57,7 @@ describe("Either map", function() {
 	});
 });
 
-describe("Either Chain", function() {
+describe("Either Chain/ChainLeft", function() {
 	it("ignores left", () => {
 		assert.isTrue(isLeft(
 			chain(
@@ -71,14 +71,21 @@ describe("Either Chain", function() {
 		eitherBazOrRight = either(() => "baz", identity),
 		eitherBazOrLeft = either(identity, () => "baz");
 	
-	it("executes the function on the data in a right", () => {
+	it("chain executes the function on the data in a right", () => {
 		assert.deepStrictEqual(chain(always(of("foo")), right(undefined)), of("foo"));
 		assert.deepStrictEqual(chain(always(of("bar")), right([])), of("bar"));
 		assert.strictEqual(eitherBazOrRight(chain(x => of(x + "-bar"), of("foo"))), eitherBazOrRight(of("foo-bar")));
 		assert.deepStrictEqual(chain(xs => of(xs.map(x => x + 1)), of([8, 9])), of([9,10]));
 	});
 	
-	it("goes from right to left", () => {
+	it("chainLeft executes the function on the data in a left", () => {
+		assert.deepStrictEqual(chainLeft(always(left("foo")), left(undefined)), left("foo"));
+		assert.deepStrictEqual(chainLeft(always(left("bar")), left([])), left("bar"));
+		assert.strictEqual(eitherBazOrLeft(chainLeft(x => left(x + "-bar"), left("foo"))), eitherBazOrLeft(left("foo-bar")));
+		assert.deepStrictEqual(chainLeft(xs => left(xs.map(x => x + 1)), left([8, 9])), left([9,10]));
+	});
+	
+	it("chain goes from right to left", () => {
 		const
 			chained = chain(() => left("oops"), right("foo"));
 		
@@ -86,7 +93,15 @@ describe("Either Chain", function() {
 		assert.strictEqual(eitherBazOrLeft(chained), "oops");
 	});
 	
-	it("does not execute on left", () => {
+	it("chainLeft goes from left to right", () => {
+		const
+			chained = chainLeft(() => right("oops"), left("foo"));
+		
+		assert.isOk(isRight(chained));
+		assert.strictEqual(eitherBazOrRight(chained), "oops");
+	});
+	
+	it("chain does not execute on left", () => {
 		let isTouched = false;
 		const
 			touch = () => {
@@ -100,6 +115,23 @@ describe("Either Chain", function() {
 		assert.strictEqual(eitherBazOrLeft(leftChain), "qux");
 		assert.isOk(isLeft(leftChainChain));
 		assert.strictEqual(eitherBazOrLeft(leftChainChain), "qux");
+		assert.isFalse(isTouched);
+	});
+	
+	it("chainLeft does not execute on right", () => {
+		let isTouched = false;
+		const
+			touch = () => {
+				isTouched = true;
+				return left("unexpected");
+			},
+			rightChain = chainLeft(touch, right("qux")),
+			rightChainChain = chainLeft(touch, rightChain);
+		
+		assert.isOk(isRight(rightChain));
+		assert.strictEqual(eitherBazOrRight(rightChain), "qux");
+		assert.isOk(isRight(rightChainChain));
+		assert.strictEqual(eitherBazOrRight(rightChainChain), "qux");
 		assert.isFalse(isTouched);
 	});
 });
