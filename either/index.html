@@ -408,6 +408,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#chainfn-ma" class="md-nav__link">
+    chain(fn, ma)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chainleftfn-ma" class="md-nav__link">
+    chainLeft(fn, ma)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mapfn-ma" class="md-nav__link">
     map(fn, ma)
   </a>
@@ -690,6 +704,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#chainfn-ma" class="md-nav__link">
+    chain(fn, ma)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chainleftfn-ma" class="md-nav__link">
+    chainLeft(fn, ma)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mapfn-ma" class="md-nav__link">
     map(fn, ma)
   </a>
@@ -772,6 +800,12 @@
 <h3 id="iseitherm"><code>isEither(m)</code></h3>
 <p><code>:: Either c a -&gt; Boolean</code></p>
 <h2 id="transformation">Transformation</h2>
+<h3 id="chainfn-ma"><code>chain(fn, ma)</code></h3>
+<p><code>:: Either m ⇒ (a → m e b) → m c a → m e b</code></p>
+<p>Useful for converting a right to a left.</p>
+<h3 id="chainleftfn-ma"><code>chainLeft(fn, ma)</code></h3>
+<p><code>:: Either m ⇒ (c → m e b) → m c a → m e b</code></p>
+<p>Useful for converting a left to a right.</p>
 <h3 id="mapfn-ma"><code>map(fn, ma)</code></h3>
 <p><code>:: (a -&gt; b) -&gt; Either c a -&gt; Either c b</code></p>
 <h3 id="sequenceof_f-map_f-eitheroff"><code>sequence(of_f, map_f, EitherOfF)</code></h3>
