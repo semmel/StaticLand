@@ -137,12 +137,14 @@ Maps failure via `onFailure` and success via `onSuccess` to new success value.
 ### `map(f, cancelable)`
 `:: Cancelable c ⇒ (a → b) → c a → c b`
 
-### `pluck(key)`
+### ~~`pluck(key)`~~ 
 `:: Cancelable c ⇒ k → c {k: v} → c v`
 
 `:: Cancelable c ⇒ number → c [v] → c v`
 
 Simply `k => map(R.prop(k))` for mapping to a key value.
+
+*Deprecated* use `pluck` from Ramda via fantasy-land api.
 
 ### `chain(f, cancelable)`
 `:: (a → Cancelable b) → Cancelable a → Cancelable → b`

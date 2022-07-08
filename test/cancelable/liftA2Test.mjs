@@ -1,4 +1,4 @@
-import { curryN, equals, identity, o, pair, pipe, unapply } from 'ramda';
+import { curryN, equals, identity, lift, o, pair, pipe, unapply } from 'ramda';
 import chai from 'chai';
 import {bi_tap as bi_tap_c, liftA2, liftA3} from '../../src/cancelable.js';
 import createDeferred from "../helpers/createDeferred.js";

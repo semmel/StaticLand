@@ -6,10 +6,16 @@
  */
 
 import { curry } from 'ramda';
+import fantasticCancelable from "./internal/fantasyfy.js";
+import of from './of.js';
+import map from './map.js';
+import chain from './chain.js';
+import never from './never.js';
+
 const
 	// Note: parallel execution
 	// Sequential execution is derived from chain and map: ap(mf, ma) = chain(f => map(f, ma), mf)
-	ap = curry((ccF, ccB) => (res, rej) => {
+	ap = curry((ccF, ccB) => fantasticCancelable({ap, chain, map, never, of})( (res, rej) => {
 		let theF, theB, cancelB, hasB;
 		const cancelF = ccF(
 			f => {
@@ -52,6 +58,6 @@ const
 				cancelB();
 			}
 		};
-	});
+	} ));
 
 export default ap;

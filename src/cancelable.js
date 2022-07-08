@@ -4,14 +4,16 @@
 
 import { curry, prop } from 'ramda';
 import map from './cancelable/map.js';
+import ap from './cancelable/ap.js';
+import chain from './cancelable/chain.js';
+import of from './cancelable/of.js';
+import never from './cancelable/never.js';
+import _laterSucceed from "./cancelable/internal/laterSucceed.js";
+import _laterReject from './cancelable/internal/laterFail.js';
+import fantasticCancelable from "./cancelable/internal/fantasyfy.js";
 
-export {default as of} from './cancelable/of.js';
 export {default as reject} from './cancelable/reject.js';
-export {default as never} from './cancelable/never.js';
-export {default as later} from './cancelable/internal/laterSucceed.js';
-export {default as laterReject} from './cancelable/internal/laterFail.js';
 export {default as race} from './cancelable/race.js';
-export {default as chain} from './cancelable/chain.js';
 export {default as ap} from './cancelable/ap.js';
 export {default as liftA2} from './cancelable/liftA2.js';
 export {default as liftA3} from './cancelable/liftA3.js';
@@ -25,9 +27,22 @@ export {default as coalesce} from './cancelable/coalesce.js';
 
 const
 	// :: Cancelable c => k -> c {k: v} -> c v
-	pluck = curry((key, mc) => map(prop(key), mc));
+	pluck = curry((key, mc) => map(prop(key), mc)),
+
+	later = curry((dt, value) =>
+		fantasticCancelable({ap, chain, map, never, of})(_laterSucceed(dt, value))
+	),
+
+	laterReject = curry((dt, value) =>
+		fantasticCancelable({ap, chain, map, never, of})(_laterReject(dt, value))
+	);
 
 export {
+	chain,
+	later,
+	laterReject,
 	map,
+	never,
+	of,
 	pluck
 };

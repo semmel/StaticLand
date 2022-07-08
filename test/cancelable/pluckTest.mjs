@@ -1,6 +1,6 @@
-import { equals, identity, o, pipe } from 'ramda';
+import { equals, identity, o, pipe, pluck } from 'ramda';
 import chai from 'chai';
-import { of, pluck } from "../../src/cancelable.js";
+import { of } from "../../src/cancelable.js";
 
 const
 	assert = chai.assert;

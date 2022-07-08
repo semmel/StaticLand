@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chain from '../../src/cancelable/chain.js';
+import { chain  as chain_fl } from 'ramda';
 import of from '../../src/cancelable/of.js';
 import reject from '../../src/cancelable/reject.js';
 import laterSucceed from "../../src/cancelable/internal/laterSucceed.js";
@@ -23,6 +24,12 @@ describe("cancelable chain", function () {
 		.then(
 			x => { assert.strictEqual(x, 49); },
 			e => { assert.fail(`Should not fail with ${e}`); }
+		),
+		
+		new Promise(chain_fl(x => laterSucceed(10, x * x), of(7)))
+		.then(
+			x => { assert.strictEqual(x, 49, "fantasy-land chain"); },
+			e => { assert.fail(`fantasy-land chain should not fail with ${e}`); }
 		),
 		
 		new Promise(chain(x => laterFail(10, x * x), of(8)))

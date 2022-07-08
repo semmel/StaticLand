@@ -1,4 +1,4 @@
-import {equals, identity, o} from 'ramda';
+import {equals, identity, map as map_fl, o} from 'ramda';
 import chai from 'chai';
 import map from '../../src/cancelable/map.js';
 import of from '../../src/cancelable/of.js';
@@ -21,6 +21,9 @@ const
 	// F.map(x => f(g(x)), mx) ≡ F.map(f, F.map(g, mx))
 	assertCompositionLaw = (m, f, g, desc) =>
 		assertCancelableComputationEquality(map(o(f, g), m), o(map(f), map(g))(m), desc),
+	
+	assertCompositionLawInFL = (m, f, g, desc) =>
+		assertCancelableComputationEquality(map_fl(o(f, g), m), o(map_fl(f), map_fl(g))(m), desc),
 
 	mFoo = of('foo');
 
@@ -28,11 +31,19 @@ describe("cancelable map", function () {
 	this.slow(200);
 	
 	it("invokes the fn and forwards the result in the success case", () =>
-		new Promise(
-			map(x => `${x}-bar`, mFoo)
-		)
+		Promise.all([
+			new Promise(
+				map(x => `${x}-bar`, mFoo)
+			),
+			new Promise(
+				map_fl(x => `${x}-bar`, mFoo)
+			)
+		])
 		.then(
-			x => { assert.strictEqual(x, "foo-bar"); },
+			([x1, x2]) => {
+				assert.strictEqual(x1, "foo-bar");
+				assert.strictEqual(x2, "foo-bar", "fantasy-land map");
+			},
 			e => { assert.fail(`Unexpected failure with ${e}`); }
 		)
 	);
@@ -47,7 +58,11 @@ describe("cancelable map", function () {
 			assertCompositionLaw(mFoo, f, g),
 			assertCompositionLaw(mFoo, g, f),
 			assertCompositionLaw(mFoo, f, gz),
-			assertCompositionLaw(mFoo, f, gn)
+			assertCompositionLaw(mFoo, f, gn),
+			assertCompositionLawInFL(mFoo, f, g, "fantasy-land map composition"),
+			assertCompositionLawInFL(mFoo, g, f, "fantasy-land map composition"),
+			assertCompositionLawInFL(mFoo, f, gz, "fantasy-land map composition"),
+			assertCompositionLawInFL(mFoo, f, gn, "fantasy-land map composition")
 		]);
 	});
 	
