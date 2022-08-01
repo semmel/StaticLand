@@ -1018,10 +1018,11 @@ new Promise(numberOfCDNJSLibraries)       // running
 <p>Maps failure via <code>onFailure</code> and success via <code>onSuccess</code> to new success value.</p>
 <h3 id="mapf-cancelable"><code>map(f, cancelable)</code></h3>
 <p><code>:: Cancelable c ⇒ (a → b) → c a → c b</code></p>
-<h3 id="pluckkey"><code>pluck(key)</code></h3>
+<h3 id="pluckkey"><del><code>pluck(key)</code></del></h3>
 <p><code>:: Cancelable c ⇒ k → c {k: v} → c v</code></p>
 <p><code>:: Cancelable c ⇒ number → c [v] → c v</code></p>
 <p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
+<p><em>Deprecated</em> use <code>pluck</code> from Ramda via fantasy-land api.</p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
 <p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
 <h2 id="side-effects">Side-Effects</h2>
