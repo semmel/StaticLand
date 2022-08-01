@@ -1,9 +1,10 @@
 import { curryN, equals, identity, lift, o, pair, pipe, unapply } from 'ramda';
 import chai from 'chai';
-import {bi_tap as bi_tap_c, liftA2, liftA3} from '../../src/cancelable.js';
+import { ap, bi_tap as bi_tap_c, chain, map, never, of } from '../../src/cancelable.js';
 import createDeferred from "../helpers/createDeferred.js";
 import {later as later_p} from '../../src/promise.js';
 import hirestime from "../helpers/hirestime.mjs";
+import fantasticCancelable from "../../src/cancelable/internal/fantasyfy.js";
 
 const
 	assert = chai.assert,
@@ -22,20 +23,24 @@ describe("cancelable liftAN", function () {
 		incrementLeftCancellationCount = () => { leftCancellationCount++; },
 		incrementRightCancellationCount = () => { rightCancellationCount++; },
 		incrementMiddleCancellationCount = () => { middleCancellationCount++; },
-		leftRightLater = incrementCancellationCount => (dt, value) => (res, rej) => {
-			const timer = setTimeout(res, dt, value);
-			return () => {
-				clearTimeout(timer);
-				incrementCancellationCount();
-			};
-		},
-		leftRightLaterReject = incrementCancellationCount => (dt, value) => (res, rej) => {
-			const timer = setTimeout(rej, dt, value);
-			return () => {
-				clearTimeout(timer);
-				incrementCancellationCount();
-			};
-		},
+		leftRightLater = incrementCancellationCount => (dt, value) => fantasticCancelable({ap, chain, map, never, of})(
+			(res, rej) => {
+				const timer = setTimeout(res, dt, value);
+				return () => {
+					clearTimeout(timer);
+					incrementCancellationCount();
+				};
+			}
+		),
+		leftRightLaterReject = incrementCancellationCount => (dt, value) => fantasticCancelable({ap, chain, map, never, of})(
+			(res, rej) => {
+				const timer = setTimeout(rej, dt, value);
+				return () => {
+					clearTimeout(timer);
+					incrementCancellationCount();
+				};
+			}
+		),
 		/** @type {(dt: number, value: any) => import('@visisoft/staticland/cancelable').Cancelable} */
 		leftLater = leftRightLater(incrementLeftCancellationCount),
 		/** @type {(dt: number, value: any) => import('@visisoft/staticland/cancelable').Cancelable} */
@@ -55,12 +60,12 @@ describe("cancelable liftAN", function () {
 	});
 	
 	it("returns the combination of two resolved Cancelables", () => Promise.all([
-		new Promise(liftA2(pair, leftLater(20, "foo"), rightLater(0, "bar")))
+		new Promise(lift(pair)(leftLater(20, "foo"), rightLater(0, "bar")))
 		.then(x => {
 			assert.deepStrictEqual(x, ["foo", "bar"]);
 			assert.equal(leftCancellationCount + rightCancellationCount, 0);
 		}),
-		new Promise(liftA2(pair, leftLater(10, "foo"), rightLater(20, "bar")))
+		new Promise(lift(pair)(leftLater(10, "foo"), rightLater(20, "bar")))
 		.then(x => {
 			assert.deepStrictEqual(x, ["foo", "bar"]);
 			assert.equal(leftCancellationCount + rightCancellationCount, 0);
@@ -68,7 +73,7 @@ describe("cancelable liftAN", function () {
 	]));
 	
 	it ("runs computations in parallel", () =>
-		new Promise(liftA3(triple)(leftLater(50, "foo"), middleLater(50, "bar"), rightLater(50, "baz")))
+		new Promise(lift(triple)(leftLater(50, "foo"), middleLater(50, "bar"), rightLater(50, "baz")))
 		.then(xs => {
 			assert.deepStrictEqual(xs, ["foo", "bar", "baz"]);
 			assert.approximately(now() - beginTs, 50, 10);
@@ -79,7 +84,7 @@ describe("cancelable liftAN", function () {
 	it("cancels the still pending computation on the left", () => {
 		const
 			dfd = createDeferred(),
-			toCancel = liftA2(pair, leftLater(100, "foo"), rightLater(0, "bar"))(dfd.resolve, dfd.reject);
+			toCancel = lift(pair)(leftLater(100, "foo"), rightLater(0, "bar"))(dfd.resolve, dfd.reject);
 		
 		return later_p(20, undefined)
 		.then(() => {
@@ -96,7 +101,7 @@ describe("cancelable liftAN", function () {
 	it("cancels the still pending computation on the right", () => {
 		const
 			dfd = createDeferred(),
-			toCancel = liftA2(pair, leftLater(0, "foo"), rightLater(100, "bar"))(dfd.resolve, dfd.reject);
+			toCancel = lift(pair)(leftLater(0, "foo"), rightLater(100, "bar"))(dfd.resolve, dfd.reject);
 		
 		return later_p(20, undefined)
 		.then(() => {
@@ -113,7 +118,7 @@ describe("cancelable liftAN", function () {
 	it("cancels the still pending computations on both sides", () => {
 		const
 			dfd = createDeferred(),
-			toCancel = liftA2(pair, leftLater(100, "foo"), rightLaterReject(80, "bar"))(dfd.resolve, dfd.reject);
+			toCancel = lift(pair)(leftLater(100, "foo"), rightLaterReject(80, "bar"))(dfd.resolve, dfd.reject);
 		
 		return later_p(20, undefined)
 		.then(() => {
@@ -128,7 +133,7 @@ describe("cancelable liftAN", function () {
 	});
 	
 	it("shortcuts to the first failure", () =>
-		new Promise(liftA2(pair, leftLaterReject(0, "baz"), rightLaterReject(50, "qux")))
+		new Promise(lift(pair)(leftLaterReject(0, "baz"), rightLaterReject(50, "qux")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
@@ -141,7 +146,7 @@ describe("cancelable liftAN", function () {
 	);
 	
 	it("shortcuts to the first failure of three", () =>
-		new Promise(liftA3(triple, leftLaterReject(100, "baz"), middleLaterReject(0, "wut"), rightLaterReject(50, "qux")))
+		new Promise(lift(triple)(leftLaterReject(100, "baz"), middleLaterReject(0, "wut"), rightLaterReject(50, "qux")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
@@ -155,7 +160,7 @@ describe("cancelable liftAN", function () {
 	);
 	
 	it("settles with the trailing left failure", () =>
-		new Promise(liftA2(pair, leftLaterReject(50, "baz"), rightLater(10, "bar")))
+		new Promise(lift(pair)(leftLaterReject(50, "baz"), rightLater(10, "bar")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
@@ -168,7 +173,7 @@ describe("cancelable liftAN", function () {
 	);
 	
 	it("settles with the leading left failure", () =>
-		new Promise(liftA2(pair, leftLaterReject(0, "baz"), rightLater(50, "bar")))
+		new Promise(lift(pair)(leftLaterReject(0, "baz"), rightLater(50, "bar")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
@@ -181,7 +186,7 @@ describe("cancelable liftAN", function () {
 	);
 	
 	it("settles with the leading left failure of three", () =>
-		new Promise(liftA3(triple, leftLaterReject(0, "baz"), middleLater(100, "foo"), rightLater(50, "bar")))
+		new Promise(lift(triple)(leftLaterReject(0, "baz"), middleLater(100, "foo"), rightLater(50, "bar")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
@@ -195,7 +200,7 @@ describe("cancelable liftAN", function () {
 	);
 	
 	it("settles with the trailing right failure", () =>
-		new Promise(liftA2(pair, leftLater(10, "baz"), rightLaterReject(50, "qux")))
+		new Promise(lift(pair)(leftLater(10, "baz"), rightLaterReject(50, "qux")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
@@ -208,7 +213,7 @@ describe("cancelable liftAN", function () {
 	);
 	
 	it("settles with the leading right failure", () =>
-		new Promise(liftA2(pair, leftLater(100, "bar"), rightLaterReject(20, "qux")))
+		new Promise(lift(pair)(leftLater(100, "bar"), rightLaterReject(20, "qux")))
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {

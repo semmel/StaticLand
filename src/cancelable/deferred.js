@@ -5,6 +5,12 @@
  * Copyright (c) 2022 Visisoft OHG. All rights reserved.
  */
 import { once } from 'ramda';
+import fantasticCancelable from "./internal/fantasyfy.js";
+import ap from "./ap.js";
+import chain from "./chain.js";
+import map from "./map.js";
+import never from "./never.js";
+import of from './of.js';
 
 const
 	noop = () => undefined,
@@ -45,7 +51,7 @@ const
 			};
 		
 		return {
-			cancelable,
+			cancelable: fantasticCancelable({ap, chain, map, never, of})(cancelable),
 			resolve,
 			reject,
 			cancel
