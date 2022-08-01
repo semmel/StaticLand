@@ -1,27 +1,27 @@
-import { pluck } from 'ramda';
+import pluck from '../../src/point-free/pluck.js';
 import chai from 'chai';
-import { of } from "../../src/cancelable.js";
+import { of } from "../../src/promise.js";
 
 const
 	assert = chai.assert;
 
-describe("Cancelable pluck", function () {
+describe("Promise pluck", function () {
 	it("maps to the value if the property is present", () =>{
 		const
 			ca = of({foo: "FOO", isFoo: true}),
 			cFoo = pluck("foo", ca),
 			cIsFoo = pluck("isFoo", ca);
 		
-		return Promise.all([new Promise(cFoo), new Promise(cIsFoo)])
+		return Promise.all([cFoo, cIsFoo])
 		.then(xs => {
 			assert.deepStrictEqual(xs, ["FOO", true]);
 		});
 	});
 	
-	it("works for Cancelable Arrays", () =>
-		new Promise(pluck(1, of([10, 11, 12])))
+	it("works for Promise Arrays", () =>
+		pluck(1, of([10, 11, 12]))
 		.then(x => {
-			assert.equal(x, 11)
+			assert.equal(x, 11);
 		})
 	);
 	
@@ -30,7 +30,7 @@ describe("Cancelable pluck", function () {
 			ca = of({foo: "FOO", isFoo: true}),
 			cFoo = pluck("bar", ca);
 		
-		return new Promise(cFoo)
+		return cFoo
 		.then(x => {
 			assert.isUndefined(x);
 		});

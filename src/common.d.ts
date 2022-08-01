@@ -1,3 +1,7 @@
+import { Maybe } from "./maybe";
+import { Either } from "./either";
+import { Cancelable } from "./cancelable";
+
 // see https://codemix.com/opaque-types-in-javascript/
 // See https://blog.beraliv.dev/2021-05-07-opaque-type-in-typescript
 
@@ -19,3 +23,9 @@ export type Function6<T1, T2, T3, T4, T5, T6, R> = (t1: T1, t2: T2, t3: T3, t4: 
 
 export type PlainObject = { [name: string]: any }
 export type PlainObjectOf<T> = { [name: string]: T }
+
+// see ts branch of Ramda
+
+export type Functor<A> =
+    | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
+    | Cancelable<A> | Either<A> | Maybe<A>;

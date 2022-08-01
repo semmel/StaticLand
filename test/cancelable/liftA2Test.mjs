@@ -12,7 +12,7 @@ const
 	now = hirestime(),
 	triple = curryN(3, unapply(identity));
 
-describe("cancelable liftAN", function () {
+describe("cancelable liftAN via Ramda.lift", function () {
 	this.slow(500);
 	this.timeout(2000);
 	
@@ -205,7 +205,7 @@ describe("cancelable liftAN", function () {
 			x => { assert.fail(`Unexpected success with ${x}.`); },
 			e => {
 				assert.strictEqual(e, "qux");
-				assert.approximately(now() - beginTs, 50, 5);
+				assert.approximately(now() - beginTs, 50, 10);
 				assert.equal(leftCancellationCount, 0);
 				assert.equal(rightCancellationCount, 0);
 			}

@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+0.2.0
+-----
+- `point-free` functions `chain`, `map`, `ap`, `liftA2` to support FantasyLand types *and* native Promise
+- Fantasy-Land support for Cancelables
+
 0.1.43
 ------
 - `maybe/pluck`

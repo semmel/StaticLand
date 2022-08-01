@@ -107,6 +107,18 @@ const
 				resolve()
 			]
 		},
+		{
+			input: "./src/point-free.js",
+			external: externals,
+			output: {
+				format: "cjs",
+				file: "./dist/cjs/point-free.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
 	];
 
 export default config;

@@ -12,10 +12,6 @@ import {bi_tap, tap, tapRegardless} from "./promise/tap.js";
 const
 	// Creation //
 	
-	// Applicative
-	// of :: a -> Promise e a
-	of = value => Promise.resolve(value),
-	
 	empty = () => Promise.resolve(),
 	
 	/**
@@ -58,18 +54,6 @@ const
 	// bimap :: Bifunctor m => (a -> c) -> (b -> d) -> m a b -> m c d
 	bimap = curry((failureMap, successMap, aPromise) =>
 		aPromise.then(successMap, o(reject, failureMap))),
-
-	chain_ = (fn, value) => value.then(fn),
-	// this implementation enforces fn to return a promise
-	// chain :: (a -> Promise e b) -> Promise g a -> Promise (e|g) b
-	chain = curry((fn, aPromise) =>
-		new Promise((resolve, reject_) => {
-			aPromise
-			.then(a =>
-				fn(a).then(resolve)
-			)
-			.catch(reject_);
-		})),
 	
 	// chainIf :: (a -> Boolean) -> (a -> Promise a) -> Promise a -> Promise a
 	chainIf = curry((predicate, fn, aPromise) =>
@@ -194,14 +178,17 @@ const
 	}));
 
 export {
-	of, all, alt, bimap, bi_tap, chain, chainIf, chainTap, chainRej, coalesce, create,
+	all, alt, bimap, bi_tap, chainIf, chainTap, chainRej, coalesce, create,
 	duplexRace, map, mapRej, never,
 	race, reject, tap, tapRegardless, empty
 };
 
 export {default as ap} from './promise/ap.js';
+export { default as chain } from './promise/chain.js';
 export {default as later} from './promise/internal/laterSucceed.js';
 export {default as liftA2} from './promise/liftA2.js';
+export {default as of} from './promise/of.js';
+export {default as TypeRepresentative} from './promise/TypeRepresentative.js';
 
 export let join = identity;
 /** @deprecated */

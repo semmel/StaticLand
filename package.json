@@ -52,6 +52,10 @@
 			"require": "./dist/cjs/maybe.js"
 		},
 		"./package.json": "./package.json",
+		"./point-free": {
+			"default": "./src/point-free.js",
+			"require": "./dist/cjs/point-free.js"
+		},
 		"./promise": {
 			"default": "./src/promise.js",
 			"require": "./dist/cjs/promise.js"
@@ -106,5 +110,5 @@
 		"test": "c8 mocha \"./test/**/*Test.mjs\""
 	},
 	"type": "module",
-	"version": "0.1.45"
+	"version": "0.2.0"
 }

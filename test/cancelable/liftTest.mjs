@@ -1,6 +1,7 @@
-import { curryN, equals, identity, lift, o, pair, pipe, unapply } from 'ramda';
+import { curryN, equals, identity, o, pair, pipe, unapply } from 'ramda';
+import liftA2 from "../../src/point-free/liftA2.js";
 import chai from 'chai';
-import {bi_tap as bi_tap_c, laterReject, later, of} from '../../src/cancelable.js';
+import {laterReject, later} from '../../src/cancelable.js';
 import hirestime from "../helpers/hirestime.mjs";
 
 const
@@ -8,7 +9,7 @@ const
 	now = hirestime(),
 	triple = curryN(3, unapply(identity));
 
-describe("cancelable lift via fantasy-land", function () {
+describe("cancelable liftA2 via point-free/liftA2", function () {
 	this.slow(500);
 	this.timeout(2000);
 	
@@ -20,15 +21,15 @@ describe("cancelable lift via fantasy-land", function () {
 	
 	it("returns the combination of two resolved Cancelables", () =>
 		new Promise(
-			lift(pair)(later(20, "foo"), later(0, "bar"))
+			liftA2(pair)(later(20, "foo"), later(0, "bar"))
 		)
 		.then(x => {
 			assert.deepStrictEqual(x, ["foo", "bar"]);
 		})
 	);
 	
-	it ("runs computations in parallel", () =>
-		new Promise(lift(triple)(later(50, "foo"), later(50, "bar"), later(50, "baz")))
+	it.skip ("runs three computations in parallel", () =>
+		new Promise(liftA2(triple)(later(50, "foo"), later(50, "bar"), later(50, "baz")))
 		.then(xs => {
 			assert.deepStrictEqual(xs, ["foo", "bar", "baz"]);
 			assert.approximately(now() - beginTs, 50, 10);

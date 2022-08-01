@@ -35,7 +35,12 @@ const
 
 	laterReject = curry((dt, value) =>
 		fantasticCancelable({ap, chain, map, never, of})(_laterReject(dt, value))
-	);
+	),
+
+	TypeRepresentative = {
+		'fantasy-land/of': of,
+		"fantasy-land/zero": never
+	};
 
 export {
 	chain,
@@ -44,5 +49,6 @@ export {
 	map,
 	never,
 	of,
-	pluck
+	pluck,
+	TypeRepresentative
 };
