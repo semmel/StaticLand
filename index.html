@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v020" class="md-skip">
+        <a href="#visisoftstaticland-v021" class="md-skip">
           Skip to content
         </a>
       
@@ -559,6 +559,21 @@
   
   
     <li class="md-nav__item">
+      <a href="fantasyland/" class="md-nav__link">
+        Fantasyland
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="changelog/" class="md-nav__link">
         Changelog
       </a>
@@ -753,7 +768,7 @@
                 
                 
                 <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" /></p>
-<h1 id="visisoftstaticland-v020"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.2.0</h1>
+<h1 id="visisoftstaticland-v021"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.2.1</h1>
 <p>Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.</p>
 <p>Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (ADT) (<code>Either</code>, <code>Maybe</code>, <code>Promise</code>, <code>CancelableComputation</code>) provided as sets <em>free static functions</em>.</p>
 <h2 id="motivation">Motivation</h2>
@@ -771,12 +786,17 @@
 <li>third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.</li>
 </ul>
 <h3 id="fantasyland">FantasyLand</h3>
-<p>It is worth mentioning the competing concept of <em>FantasyLand</em>. It features a <em>unified set of operations</em> which operate on <em>all</em> compatible data types. It does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods.</p>
-<p>The free static functions of FantasyLand are just a <em>shell</em> which <em>delegates</em> to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit <a href="https://ramdajs.com">Ramda</a>. Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which <a href="https://github.com/ramda/ramda/issues/3264#issuecomment-1101877126">this comment</a> illustrates. </p>
+<p>It is worth mentioning the competing concept of <em>FantasyLand</em>. It features a <em>unified set of operations</em> which operate on <em>all</em> compatible data types. Technically, it does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods. The benefits are clear:</p>
+<ul>
+<li>Each common function (e.g. <code>map</code>) has to be imported <em>only</em> in it's FantasyLand version to work with all applicable data types (e.g. <code>Functor</code>).</li>
+<li>Calling a free static common function with a wrong data type is no longer possible.</li>
+</ul>
+<p>The free static functions of FantasyLand are just a <em>shell</em> which <em>delegates</em> to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit <a href="https://ramdajs.com">Ramda</a>. Like Ramda <a href="fantasyland/"><code>@visisoft/staticland/fantasyland</code></a> also provides these common functions, with the exception that they also support <code>Promise</code>.</p>
+<p>Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which <a href="https://github.com/ramda/ramda/issues/3264#issuecomment-1101877126">this comment</a> illustrates. </p>
 <ul>
 <li>Library authors need to be convinced to understand the <a href="https://github.com/fantasyland/fantasy-land">FantasyLand protocol</a> and implement it in their data types.</li>
 <li>Often libraries already provide free static functions like <code>map</code> and <code>chain</code> tailored to their data type. These integrate nicely with the StaticLand concept.</li>
-<li>The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library</li>
+<li>The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library.</li>
 </ul>
 <p>In the search to overcome these drawbacks the concept of <em>StaticLand</em> was discovered. Both concepts are compared in an <a href="https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land">article by James Sinclair</a>.</p>
 <h2 id="homepage-and-documentation"><a href="https://semmel.github.io/StaticLand/">Homepage and Documentation</a></h2>
@@ -793,24 +813,26 @@
 <h3 id="hello-earth">Hello Earth</h3>
 <p>Greeting with a 0.5 sec 2-way delay.</p>
 <h4 id="usage-in-an-es-module">Usage in an ES module</h4>
-<pre><code class="javascript">import {map as map_p, mapRej as mapRej_p, chain as chain_p} from '@visisoft/staticland/promise';
+<pre><code class="javascript">import {chain, map} from '@visisoft/staticland/fantasyland';
+import {mapRej as mapRej_p} from '@visisoft/staticland/promise';
 import {fromThrowable} from '@visisoft/staticland/either';
 import {fromNilable, getOrElse} from '@visisoft/staticland/maybe';
+import {eitherToPromise } from &quot;@visisoft/staticland/transformations&quot;;
 import {curry, pipe} from 'ramda'; // or pipe from 'crocks' or any other composition function
 
 const 
    // :: String -&gt; {k: String} -&gt; Maybe String
-   getProperty = R.curry((property, object) =&gt; fromNilable(object[property])),
+   getProperty = curry((property, object) =&gt; fromNilable(object[property])),
    // :: a -&gt; Promise any a
    delay = x =&gt; new Promise(resolve =&gt; setTimeout(resolve, 500, x)),
    // :: any -&gt; Either Error String
    safeGreet = fromThrowable(x =&gt; &quot;Hello &quot; + x.toString() + &quot;!&quot;),
    // :: any -&gt; Promise (Maybe String) String
-   getAnswer = R.pipe(
+   getAnswer = pipe(
       delay,                            // Promise any             any
-      map_p(safeGreet),                 // Promise any             (Either Error String)
-      chain_p(delay),                   // Promise any             (Either Error String)
-      chain_p(eitherToPromise),         // Promise (any|Error)     String
+      map(safeGreet),                 // Promise any             (Either Error String)
+      chain(delay),                   // Promise any             (Either Error String)
+      chain(eitherToPromise),         // Promise (any|Error)     String
       mapRej_p(getProperty('message'))  // Promise (Maybe String)  String
    );
 

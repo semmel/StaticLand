@@ -302,6 +302,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fantasyland" class="md-nav__link">
+    FantasyLand
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generator-functions" class="md-nav__link">
     Generator Functions
   </a>
@@ -635,6 +642,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../fantasyland/" class="md-nav__link">
+        Fantasyland
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changelog/" class="md-nav__link">
         Changelog
       </a>
@@ -685,6 +707,13 @@
         <li class="md-nav__item">
   <a href="#signature" class="md-nav__link">
     Signature
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fantasyland" class="md-nav__link">
+    FantasyLand
   </a>
   
 </li>
@@ -909,6 +938,8 @@
 <p><code>CancelableComputation e a :: ((a -&gt; void), (e -&gt; void)) -&gt; (() -&gt; void)</code></p>
 <p>Leaving the failure type to be implicitly an Error the signature can be shortened:
 <code>CancelableComputation a :: ((a -&gt; void), (* -&gt; void)) -&gt; (() -&gt; void)</code></p>
+<h3 id="fantasyland">FantasyLand</h3>
+<p>provides <a href="https://github.com/fantasyland/fantasy-land/tree/v4.0.1#monad">FantasyLand 4.0 Monad</a> interface.</p>
 <h2 id="generator-functions">Generator Functions</h2>
 <h3 id="custom-cancelable">Custom Cancelable</h3>
 <p>Every <em>function</em> taking two callbacks as arguments;</p>
@@ -1024,7 +1055,7 @@ new Promise(numberOfCDNJSLibraries)       // running
 <p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
 <p><em>Deprecated</em> use <code>pluck</code> from Ramda via fantasy-land api.</p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
-<p><code>:: (a → Cancelable b) → Cancelable a → Cancelable → b</code></p>
+<p><code>:: (a → Cancelable b) → Cancelable a → Cancelable b</code></p>
 <h2 id="side-effects">Side-Effects</h2>
 <h3 id="bi_taponfailure-onsuccess"><code>bi_tap(onFailure, onSuccess)</code></h3>
 <p><code>:: (e -&gt; *) -&gt; (a -&gt; *) -&gt; Cancelable e a -&gt; Cancelable e a</code></p>
