@@ -12,15 +12,16 @@
 		"@most/core": "^1.6.1",
 		"@most/scheduler": "^1.3.0",
 		"@most/types": "^1.1.0",
-		"@rollup/plugin-commonjs": "^21.0.1",
-		"@rollup/plugin-node-resolve": "^13.1.1",
+		"@rollup/plugin-commonjs": "^21.1.0",
+		"@rollup/plugin-node-resolve": "^13.3.0",
 		"@types/ramda": "^0.27.62",
 		"baconjs": "^3.0.17",
-		"chai": "^4.2.0",
+		"chai": "^4.3.6",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.1.0",
-		"istanbul-badges-readme": "^1.8.1",
-		"rollup": "^2.62.0"
+		"istanbul-badges-readme": "^1.8.2",
+		"mocha": "^10.0.0",
+		"rollup": "^2.77.2"
 	},
 	"optionalDependencies": {
 		"abort-controller": "^3.0.0",
@@ -52,9 +53,9 @@
 			"require": "./dist/cjs/maybe.js"
 		},
 		"./package.json": "./package.json",
-		"./point-free": {
-			"default": "./src/point-free.js",
-			"require": "./dist/cjs/point-free.js"
+		"./fantasyland": {
+			"default": "./src/fantasyland.js",
+			"require": "./dist/cjs/fantasyland.js"
 		},
 		"./promise": {
 			"default": "./src/promise.js",
@@ -102,13 +103,15 @@
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"postpack": "npm run remove_ts_defs_from_root",
 		"postinstall:emittery": "rollup -p @rollup/plugin-commonjs -f es -o ./src-external/emittery.js -i ./node_modules/emittery/index.js && cp -pvr ./node_modules/emittery/index.d.ts ./src-external/emittery.d.ts",
-		"prepack": "npm run test && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
+		"prepack": "npm run test:coverage && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:test": "npm run setup:chai && npm run setup:hirestime",
-		"test": "c8 mocha \"./test/**/*Test.mjs\""
+		"test": "mocha",
+		"test:coverage": "c8 mocha",
+		"test:individual": "mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "0.2.0"
+	"version": "0.2.1"
 }

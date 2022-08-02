@@ -1,5 +1,5 @@
 import { curryN, equals, identity, o, pair, pipe, unapply } from 'ramda';
-import liftA2 from "../../src/point-free/liftA2.js";
+import liftA2 from "../../src/fantasyland/liftA2.js";
 import chai from 'chai';
 import {laterReject, later} from '../../src/cancelable.js';
 import hirestime from "../helpers/hirestime.mjs";
@@ -9,7 +9,7 @@ const
 	now = hirestime(),
 	triple = curryN(3, unapply(identity));
 
-describe("cancelable liftA2 via point-free/liftA2", function () {
+describe("cancelable liftA2 via fantasyland/liftA2", function () {
 	this.slow(500);
 	this.timeout(2000);
 	

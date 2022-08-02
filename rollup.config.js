@@ -108,11 +108,11 @@ const
 			]
 		},
 		{
-			input: "./src/point-free.js",
+			input: "./src/fantasyland.js",
 			external: externals,
 			output: {
 				format: "cjs",
-				file: "./dist/cjs/point-free.js",
+				file: "./dist/cjs/fantasyland.js",
 				banner: bannerText,
 			},
 			plugins: [

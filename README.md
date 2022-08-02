@@ -29,13 +29,18 @@ On the other hand,
 - third-party data types can be integrated in this concept without altering or augmenting their provided data type, but by simply writing another set of operations.
 
 ### FantasyLand
-It is worth mentioning the competing concept of *FantasyLand*. It features a *unified set of operations* which operate on *all* compatible data types. It does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods.
+It is worth mentioning the competing concept of *FantasyLand*. It features a *unified set of operations* which operate on *all* compatible data types. Technically, it does so be enforcing compatible data types to implement a particular protocol – i.e. carefully named object methods. The benefits are clear:
 
-The free static functions of FantasyLand are just a *shell* which *delegates* to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit [Ramda][ramda-homepage]. Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which [this comment][adispring-comment] illustrates. 
+- Each common function (e.g. `map`) has to be imported *only* in it's FantasyLand version to work with all applicable data types (e.g. `Functor`).
+- Calling a free static common function with a wrong data type is no longer possible.
+
+The free static functions of FantasyLand are just a *shell* which *delegates* to the operation implemented in the particular method of the data object. One prominent provider of such shell functions is the FP toolkit [Ramda][ramda-homepage]. Like Ramda [`@visisoft/staticland/fantasyland`](fantasyland.md) also provides these common functions, with the exception that they also support `Promise`.
+
+Behind the promising advantage of having a unified set of operations, FantasyLand has drawbacks. Even among Ramda users its adoption is not 100% which [this comment][adispring-comment] illustrates. 
 
 - Library authors need to be convinced to understand the [FantasyLand protocol][fl-ref] and implement it in their data types.
 - Often libraries already provide free static functions like `map` and `chain` tailored to their data type. These integrate nicely with the StaticLand concept.
-- The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library
+- The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library.
 
 In the search to overcome these drawbacks the concept of *StaticLand* was discovered. Both concepts are compared in an [article by James Sinclair][sinclair-static-land].
 
@@ -63,24 +68,26 @@ Greeting with a 0.5 sec 2-way delay.
 #### Usage in an ES module
 
 ```javascript
-import {map as map_p, mapRej as mapRej_p, chain as chain_p} from '@visisoft/staticland/promise';
+import {chain, map} from '@visisoft/staticland/fantasyland';
+import {mapRej as mapRej_p} from '@visisoft/staticland/promise';
 import {fromThrowable} from '@visisoft/staticland/either';
 import {fromNilable, getOrElse} from '@visisoft/staticland/maybe';
+import {eitherToPromise } from "@visisoft/staticland/transformations";
 import {curry, pipe} from 'ramda'; // or pipe from 'crocks' or any other composition function
 
 const 
    // :: String -> {k: String} -> Maybe String
-   getProperty = R.curry((property, object) => fromNilable(object[property])),
+   getProperty = curry((property, object) => fromNilable(object[property])),
    // :: a -> Promise any a
    delay = x => new Promise(resolve => setTimeout(resolve, 500, x)),
    // :: any -> Either Error String
    safeGreet = fromThrowable(x => "Hello " + x.toString() + "!"),
    // :: any -> Promise (Maybe String) String
-   getAnswer = R.pipe(
+   getAnswer = pipe(
       delay,                            // Promise any             any
-      map_p(safeGreet),                 // Promise any             (Either Error String)
-      chain_p(delay),                   // Promise any             (Either Error String)
-      chain_p(eitherToPromise),         // Promise (any|Error)     String
+      map(safeGreet),                 // Promise any             (Either Error String)
+      chain(delay),                   // Promise any             (Either Error String)
+      chain(eitherToPromise),         // Promise (any|Error)     String
       mapRej_p(getProperty('message'))  // Promise (Maybe String)  String
    );
 

@@ -3,6 +3,12 @@
  */
 
 import promiseToCancelable from "../transformations/promiseToCancelable.js";
+import fantasticCancelable from "./internal/fantasyfy.js";
+import of from './of.js';
+import ap from "./ap.js";
+import chain from "./chain.js";
+import map from "./map.js";
+import never from "./never.js";
 
 const
 	
@@ -12,7 +18,7 @@ const
 	// fetchResponse :: {url: (String|URL), init: {}} -> Cancelable Error Response
 	
 	fetchResponseIsoModule = ({fetch, AbortController}) =>
-		({url, init = {}}) => (resolve, reject) => {
+		({url, init = {}}) => fantasticCancelable({ap, chain, map, never, of})((resolve, reject) => {
 		const
 			abortController = new AbortController(),
 			
@@ -28,6 +34,6 @@ const
 			cancelPromiseContinuation();
 			abortController.abort();
 		};
-	};
+	});
 	
 export default fetchResponseIsoModule;

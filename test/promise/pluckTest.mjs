@@ -1,4 +1,4 @@
-import pluck from '../../src/point-free/pluck.js';
+import pluck from '../../src/fantasyland/pluck.js';
 import chai from 'chai';
 import { of } from "../../src/promise.js";
 

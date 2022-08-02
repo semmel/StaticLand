@@ -1,7 +1,7 @@
 import { add, equals, identity, o } from 'ramda';
 import chai from 'chai';
 import hirestime from '../helpers/hirestime.mjs';
-import liftA2 from "../../src/point-free/liftA2.js";
+import liftA2 from "../../src/fantasyland/liftA2.js";
 
 const
 	assert = chai.assert,

@@ -7,6 +7,9 @@ Cancelable Computation
 Leaving the failure type to be implicitly an Error the signature can be shortened:
 `CancelableComputation a :: ((a -> void), (* -> void)) -> (() -> void)`
 
+### FantasyLand
+provides [FantasyLand 4.0 Monad][FL-4-Monad] interface.
+
 Generator Functions
 -------------------
 
@@ -147,7 +150,7 @@ Simply `k => map(R.prop(k))` for mapping to a key value.
 *Deprecated* use `pluck` from Ramda via fantasy-land api.
 
 ### `chain(f, cancelable)`
-`:: (a → Cancelable b) → Cancelable a → Cancelable → b`
+`:: (a → Cancelable b) → Cancelable a → Cancelable b`
 
 Side-Effects
 -----------
@@ -192,3 +195,6 @@ Utility
 `:: Cancelable e a → Cancelable e a`
 
 *Caches* the computational result for *sharing* with many consumers without the need for re-computation. See the [section on Copying/Sharing Cancelables](cancelable.md#copyingsharing) and it's role model [Fluture.cache](https://github.com/fluture-js/Fluture#cache).
+
+
+[FL-4-Monad]: https://github.com/fantasyland/fantasy-land/tree/v4.0.1#monad

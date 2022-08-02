@@ -1,0 +1,5 @@
+{
+	"allow-uncaught": true,
+	"node-option": ["unhandled-rejections=warn"],
+	"spec": ["test/**/*Test.mjs"]
+}

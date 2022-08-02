@@ -1,6 +1,7 @@
-import {equals, identity, map as map_fl, o} from 'ramda';
+import {equals, identity, o, pipe} from 'ramda';
 import chai from 'chai';
 import map from '../../src/cancelable/map.js';
+import map_fl from '../../src/fantasyland/map.js';
 import of from '../../src/cancelable/of.js';
 import reject from '../../src/cancelable/reject.js';
 import laterSucceed from "../../src/cancelable/internal/laterSucceed.js";
@@ -32,17 +33,21 @@ describe("cancelable map", function () {
 	
 	it("invokes the fn and forwards the result in the success case", () =>
 		Promise.all([
-			new Promise(
-				map(x => `${x}-bar`, mFoo)
-			),
-			new Promise(
-				map_fl(x => `${x}-bar`, mFoo)
-			)
+			new Promise(pipe(
+				() => mFoo,
+				map(x => `${x}-bar`),
+				map(x => `${x}-baz`)
+			)()),
+			new Promise(pipe(
+				() => mFoo,
+				map_fl(x => `${x}-bar`),
+				map_fl(x => `${x}-baz`),
+			)())
 		])
 		.then(
 			([x1, x2]) => {
-				assert.strictEqual(x1, "foo-bar");
-				assert.strictEqual(x2, "foo-bar", "fantasy-land map");
+				assert.strictEqual(x1, "foo-bar-baz");
+				assert.strictEqual(x2, "foo-bar-baz", "fantasy-land map");
 			},
 			e => { assert.fail(`Unexpected failure with ${e}`); }
 		)
