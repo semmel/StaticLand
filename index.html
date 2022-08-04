@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v021" class="md-skip">
+        <a href="#visisoftstaticland-v022" class="md-skip">
           Skip to content
         </a>
       
@@ -371,14 +371,7 @@
     Dependencies
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
-    Implementation Details
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
+    <nav class="md-nav" aria-label="Dependencies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -728,14 +721,7 @@
     Dependencies
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
-    Implementation Details
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
+    <nav class="md-nav" aria-label="Dependencies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -768,7 +754,7 @@
                 
                 
                 <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" /></p>
-<h1 id="visisoftstaticland-v021"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.2.1</h1>
+<h1 id="visisoftstaticland-v022"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v0.2.2</h1>
 <p>Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.</p>
 <p>Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (ADT) (<code>Either</code>, <code>Maybe</code>, <code>Promise</code>, <code>CancelableComputation</code>) provided as sets <em>free static functions</em>.</p>
 <h2 id="motivation">Motivation</h2>
@@ -867,55 +853,6 @@ chain(delay(500), Promise.resolve(&quot;foo&quot;)).then(console.log);
 <a href="crocks">Crocks</a> is an exemplary implementation of common data types.</p>
 <h2 id="dependencies">Dependencies</h2>
 <p>As FP utility library <a href="https://ramdajs.com">Ramda</a> is used.</p>
-<h2 id="implementation-details">Implementation Details</h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><code>of</code></th>
-<th><code>map</code></th>
-<th><code>chain</code></th>
-<th>Consumption</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CancelableComputation</td>
-<td><code>cc = (resolve, reject) =&gt; () =&gt; ()</code></td>
-<td></td>
-<td></td>
-<td><code>new Promise(cc)</code></td>
-</tr>
-<tr>
-<td>Either</td>
-<td><code>x =&gt; [,x]</code></td>
-<td><code>Array.prototype.map</code></td>
-<td><code>Array.prototype.flatMap</code></td>
-<td><code>xs =&gt; xs[1]</code></td>
-</tr>
-<tr>
-<td>Maybe</td>
-<td><code>x =&gt; [x]</code></td>
-<td><code>Array.prototype.map</code></td>
-<td><code>Array.prototype.flatMap</code></td>
-<td><code>xs =&gt; xs[0]</code></td>
-</tr>
-<tr>
-<td>Promise</td>
-<td><code>Promise.resolve</code></td>
-<td><code>Promise.then</code></td>
-<td><code>Promise.then</code></td>
-<td><code>Promise.then</code></td>
-</tr>
-<tr>
-<td>IO</td>
-<td><code>x =&gt; x</code></td>
-<td><code>compose</code></td>
-<td><code>run(compose)</code></td>
-<td><code>call</code></td>
-</tr>
-</tbody>
-</table>
 <h6 id="closed-over">closed over</h6>
 <p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closure</a> is the combination of a function and the lexical environment within which that function was declared.</p>
                 
