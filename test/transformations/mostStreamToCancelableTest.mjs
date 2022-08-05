@@ -3,9 +3,10 @@ import mostCorePkg from "@most/core";
 import {inc, pipe} from 'ramda';
 import mostStreamToCancelable from "../../src/transformations/mostStreamToCancelable.js";
 import assertCancellationDiscontinues from "../cancelable/helpers/assertCancellationDiscontinues.mjs";
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
-	{at, periodic, take, scan, continueWith, throwError} = mostCorePkg,
+	{at, now, periodic, take, scan, continueWith, throwError} = mostCorePkg,
 	assert = chai.assert,
 	nrs0to10 = take(11, scan(inc, 0, periodic(10))),
 	laterAThenAXErrorThenBThenYError = pipe(
@@ -39,4 +40,8 @@ describe("transformation mostStreamToCancelable", function () {
 			delay: 60
 		})
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(mostStreamToCancelable(now("foo")));
+	});
 });

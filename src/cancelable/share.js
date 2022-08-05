@@ -2,6 +2,7 @@
 // we need to convert the CJS module using command npm run postinstall:emittery
 // and import our converted version
 import Emittery from "../../src-external/emittery.js";
+import addFantasyLandInterface from "./addFantasyLandInterface.js";
 
 const
 	share = cc => (function() {
@@ -53,26 +54,31 @@ const
 			};
 		}()));
 		
-		return (resolve, reject) => {
-			if (isFinallyResolved) {
-				setTimeout(resolve, 0, finalOutcome);
-				return doNothing;
-			}
-			
-			if (isFinallyRejected) {
-				setTimeout(reject, 0, finalOutcome);
-				return doNothing;
-			}
-			
-			const
-				unConsume =
-					emitter.on("settle", ({isSuccess, outcome}) => {
-						(isSuccess ? resolve : reject)(outcome);
-						unConsume();
-					});
-			
-			return unConsume;
-		};
+		const
+			cancelable = (resolve, reject) => {
+				if (isFinallyResolved) {
+					setTimeout(resolve, 0, finalOutcome);
+					return doNothing;
+				}
+				
+				if (isFinallyRejected) {
+					setTimeout(reject, 0, finalOutcome);
+					return doNothing;
+				}
+				
+				const
+					unConsume =
+						emitter.on("settle", ({isSuccess, outcome}) => {
+							(isSuccess ? resolve : reject)(outcome);
+							unConsume();
+						});
+				
+				return unConsume;
+			};
+		
+		addFantasyLandInterface(cancelable);
+		
+		return cancelable;
 	}());
 
 export default share;

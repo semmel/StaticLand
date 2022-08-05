@@ -2,6 +2,7 @@ import { equals, identity, o } from 'ramda';
 import chai from 'chai';
 import { bi_tap, later, laterReject, of } from "../../src/cancelable.js";
 import hirestime from '../helpers/hirestime.mjs';
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert,
@@ -62,5 +63,9 @@ describe("bi_tap", function () {
 			val => assert.fail(`Should not resolve with ${val} after exception in the side-effect function`),
 			e => assert.equal(e, error)
 		);
+	});
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(bi_tap(identity, identity, of("foo")));
 	});
 });

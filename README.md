@@ -133,16 +133,6 @@ Dependencies
 
 As FP utility library [Ramda][ramda-homepage] is used.
 
-Implementation Details
----------------------
-
-|           |   `of`        |   `map`       |   `chain`     |   Consumption |
-|-----------|---------------|---------------|---------------|---------------|
-|CancelableComputation| `cc = (resolve, reject) => () => ()` | | | `new Promise(cc)` |
-| Either    | `x => [,x]` |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[1]`|
-| Maybe     | `x => [x]`    |`Array.prototype.map`|`Array.prototype.flatMap`|`xs => xs[0]`|
-| Promise   | `Promise.resolve`|`Promise.then`|`Promise.then`|`Promise.then`|
-| IO        | `x => x`        |`compose`      |`run(compose)` |`call`|
 
 ###### closed over
 A [closure] is the combination of a function and the lexical environment within which that function was declared.

@@ -1,7 +1,7 @@
 FantasyLand
 ===========
 
-Trivial set of wrapper functions which delegate to the free static functions for Promise – [`@visisoft/staticland/promise`](promise.md) – if the data type is Promise, otherwise to their implementations in [Ramda][ramda-homepage].
+Trivial set of wrapper functions which delegate to the free static functions for Promise ([`@visisoft/staticland/promise`](promise.md)) – if the data type is Promise, otherwise to their implementations in [Ramda][ramda-homepage].
 
 ### `ap(mfn, ma)`
 `:: Apply m ⇒ m (a → b) → m a → m b`

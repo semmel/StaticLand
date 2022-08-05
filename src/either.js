@@ -5,19 +5,16 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import { always, compose, curry, either as eitherThisOr, nth, o, tryCatch, unary, when } from 'ramda';
+import { always, curry, either as thisOrThat, o, tryCatch } from 'ramda';
+import { Either, Left } from "./either/MostlyAdequateEither.js";
 
 const
-	// Don't attempt to use a Symbol here.
-	// That would make Eithers created by right(of) and left unusable
-	// with any differently (other path, other version) loaded staticland library
-	missingEitherSide = '__de/@visisoft/staticland/either/missingEitherSide__',
-	
 	// Creation //
 	
-	of = x => [missingEitherSide, x],
+	of = Either.of,
 	
-	left = x => [x, missingEitherSide],
+	left = x => new Left(x),
+	right = of,
 	
 	// :: (…b -> a) -> …b -> Either c a
 	fromThrowable = f => tryCatch(o(of, f), left),
@@ -29,35 +26,32 @@ const
 	
 	// Inspection //
 	
-	isLeft = mx => Array.isArray(mx) && (mx.length === 2) && (mx[1] === missingEitherSide),
+	isLeft = mx => mx instanceof Either && mx.isLeft,
 	
-	isRight = mx => Array.isArray(mx) && (mx.length === 2) && (mx[0] === missingEitherSide),
+	isRight = mx => mx instanceof Either && mx.isRight,
 	
-	isEither = eitherThisOr(isLeft, isRight),
+	isEither = thisOrThat(isLeft, isRight),
 	
 	// Transformation //
 	
-	map = curry((f, mx) =>
-		when(isRight, compose(of, unary(f), nth(1)))(mx)
-	),
+	map = curry((fn, mx) => mx.map(fn)),
 	
-	chain = curry((f, mx) =>
-		when(isRight, o(unary(f), nth(1)))(mx)
-	),
+	chain = curry((fn, mx) => mx.chain(fn)),
 	
 	chainLeft = curry(
-		(f, mx) => when(isLeft, o(unary(f), nth(0)))(mx)
+		(fn, mx) => isLeft(mx)
+			? fn(mx.$value)
+			: mx
 	),
 	
 	// :: Either c (Either c a) -> Either c a
-	join = mx =>
-		isRight(mx) && isEither(mx[1]) ? mx[1] : mx,
+	join = mx => mx.join(),
 	
 	// Consumption //
 	
 	// ::  (c -> b) -> (a -> b) -> Either c a -> b
 	either = curry((leftFn, rightFn, ma) =>
-		isLeft(ma) ? leftFn(ma[0]) : rightFn(ma[1])
+		isLeft(ma) ? leftFn(ma.$value) : rightFn(ma.$value)
 	),
 	
 	// Combination //
@@ -73,10 +67,9 @@ const
 	
 	
 export {
-	alt, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of
+	alt, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of, right
 };
 
-export let right = of;
 
 export {default as sequence} from './either/sequence.js';
 export {default as traverse} from './either/traverse.js';

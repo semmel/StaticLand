@@ -2,6 +2,7 @@ import {equals, identity, o} from 'ramda';
 import chai from 'chai';
 import promiseToCancelable from "../../src/transformations/promiseToCancelable.js";
 import assertCancellationDiscontinues from "../cancelable/helpers/assertCancellationDiscontinues.mjs";
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert;
@@ -45,4 +46,8 @@ describe("transformation promiseToCancelable", function () {
 			delay: 20
 		})
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(promiseToCancelable(Promise.resolve("foo")));
+	});
 });

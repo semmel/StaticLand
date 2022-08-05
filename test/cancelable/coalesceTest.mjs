@@ -1,6 +1,7 @@
 import { add, equals, identity, o, subtract as subtractFrom} from 'ramda';
 import chai from 'chai';
 import { coalesce, later, laterReject } from "../../src/cancelable.js";
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert;
@@ -19,4 +20,8 @@ describe("cancelable coalesce", function () {
 		)
 		.then(x => assert.strictEqual(x, 60))
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(coalesce(add(10), subtractFrom(90), later(10, 50)));
+	});
 });

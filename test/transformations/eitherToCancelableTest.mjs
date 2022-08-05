@@ -6,6 +6,7 @@ import { chain as chain_c, later as later_c, laterReject as later_reject_c } fro
 import {identity, pipe} from 'ramda';
 import { cancelableToPromise } from "../../src/transformations.js";
 import { tap as tap_p } from '../../src/promise.js';
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert,
@@ -43,4 +44,9 @@ describe("transformations eitherToCancelable", function () {
 			isSynchronous: true
 		})
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(eitherToCancelable(right("foo")));
+	});
+
 });

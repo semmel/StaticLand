@@ -1,9 +1,8 @@
 import chai from 'chai';
-import laterSucceed from "../../src/cancelable/internal/laterSucceed.js";
-import laterFail from "../../src/cancelable/internal/laterFail.js";
-import {share} from "../../src/cancelable.js";
+import { later, laterReject, share } from "../../src/cancelable.js";
 import hirestime from "../helpers/hirestime.mjs";
 import { later as later_p } from '../../src/promise.js';
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert,
@@ -18,7 +17,7 @@ describe("cancelable share", function () {
 
 	it("delivers the outcome to the only consumer as usual", () => {
 		const
-			sharableFoo = share(laterSucceed(dT, "foo"));
+			sharableFoo = share(later(dT, "foo"));
 
 		let begin = 0;
 
@@ -32,10 +31,14 @@ describe("cancelable share", function () {
 			assert.strictEqual(x, "foo");
 		});
 	});
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(share(later(10, 50)));
+	});
 
 	it("delivers the cached result ASAP", () => {
 		const
-			sharableFoo = share(laterSucceed(dT, "foo"));
+			sharableFoo = share(later(dT, "foo"));
 
 		let begin = now();
 
@@ -55,7 +58,7 @@ describe("cancelable share", function () {
 
 	it("delivers the cached rejection ASAP", () => {
 		const
-			sharableFoo = share(laterFail(dT, "bar"));
+			sharableFoo = share(laterReject(dT, "bar"));
 
 		let begin = now();
 
@@ -81,7 +84,7 @@ describe("cancelable share", function () {
 
 	it("delivers the result at the same instance of time to all parallel consumers", () => {
 		const
-			sharableFoo = share(laterSucceed(dT, "foo")),
+			sharableFoo = share(later(dT, "foo")),
 			begin = now();
 
 		return Promise.all([

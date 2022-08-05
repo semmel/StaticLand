@@ -1,10 +1,11 @@
-import {pipe, identity, o} from 'ramda';
+import { pipe, identity, o, reverse } from 'ramda';
 import chai from 'chai';
 import cancelify from "../../src/cancelable/cancelify.js";
 import { cancelableToPromise } from "../../src/transformations.js";
 import { coalesce as coalesce_p, tap as tap_p } from '../../src/promise.js';
 import hirestime from "../helpers/hirestime.mjs";
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert,
@@ -82,4 +83,8 @@ describe("cancelable/cancelify", function () {
 			delay: 20
 		})
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(createLateCancelable("foo"));
+	});
 });

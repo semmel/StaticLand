@@ -1,7 +1,8 @@
-import {always, equals, identity, o} from 'ramda';
+import {always, equals, identity, reverse} from 'ramda';
 import { alt, chain, chainLeft, either, fromAssertedValue, join, map, of, right, left, isLeft, isRight } from '../src/either.js';
 import chai from 'chai';
 import { nothing, just, isNothing, isJust } from "../src/maybe.js";
+import { map as map_fl } from '../src/fantasyland.js';
 
 const
 	assert = chai.assert;
@@ -52,8 +53,13 @@ describe("Either either", function() {
 
 describe("Either map", function() {
 	it("calls f just on the data", () => {
-		assert.deepStrictEqual(map(s => s.toUpperCase(), of("foo")), of("FOO"));
+		assert.deepStrictEqual(map(reverse, map(s => s.toUpperCase(), of("oof"))), of("FOO"));
 		assert.deepStrictEqual(map(xs => xs.join(), of([8, 9])), of("8,9"));
+	});
+	
+	it("calls f just on the data in FL interface", () => {
+		assert.deepStrictEqual(map_fl(reverse, map_fl(s => s.toUpperCase(), of("foo"))), of("OOF"));
+		assert.deepStrictEqual(map_fl(xs => xs.join(), of([8, 9])), of("8,9"));
 	});
 });
 

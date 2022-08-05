@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+0.2.2
+-----
+- *breaking:* Either type is now implemented as ES6 class (taken from the Mostly Adequate Guide) instead of an array of length 2
+- feat: Either now a FantasyLand Monad and Setoid type
+
 0.2.0
 -----
 - renamed `point-free` submodule to `fantasyland`,

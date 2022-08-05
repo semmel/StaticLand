@@ -1,8 +1,9 @@
-import {equals, identity, o} from 'ramda';
+import { add, equals, identity, o, subtract as subtractFrom } from 'ramda';
 import chai from 'chai';
-import {fetchResponseIsoModule} from "../../src/cancelable.js";
+import { coalesce, fetchResponseIsoModule, later } from "../../src/cancelable.js";
 import fetch from 'node-fetch';
 import AbortController from "abort-controller";
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert,
@@ -52,5 +53,9 @@ describe("cancelables fetchResponse", function() {
 				new Promise(resolve => { setTimeout(resolve, 4000); })
 			]);
 		});
+	});
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(fetchResponse({url: `${publicJsonTestServer}todos/1`, init: { mode: "cors" }}));
 	});
 });

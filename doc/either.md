@@ -4,6 +4,9 @@ represents two mutually exclusive values, e.g. instead of throwing, a computatio
 
 As by convention the generally anticipated outcome is stored as a `right`, while the exceptional value is a `left`.
 
+### FantasyLand
+provides [FantasyLand 4.0][FL-4] Monad and Setoid interface.
+
 Generators
 -----------
 ### `right(a)`
@@ -63,3 +66,6 @@ Consumption
 -----------
 ### `either(onLeftVal, onRightVal, m)`
 `::  (c -> b) -> (a -> b) -> Either c a -> b`
+
+
+[FL-4]: https://github.com/fantasyland/fantasy-land/tree/v4.0.1#fantasy-land-specification

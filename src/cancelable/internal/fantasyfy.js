@@ -6,10 +6,10 @@
  */
 
 const
-	fantasticCancelable = C => ca => {
-		const
-			// copy
-			cac = (resolve, reject) => ca(resolve, reject);
+	fantasticCancelable = C => cac => {
+		// const
+		// 	// copy
+		// 	cac = (resolve, reject) => ca(resolve, reject);
 		
 		cac['fantasy-land/map'] = fn => C.map(fn, cac);
 		cac['fantasy-land/ap'] = mfn => C.ap(mfn, cac);

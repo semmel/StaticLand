@@ -1,7 +1,8 @@
 import {equals, identity, o} from 'ramda';
 import chai from 'chai';
-import  {later, of, laterReject, race, reject} from "../../src/cancelable.js";
+import { later, of, laterReject, race, reject, bi_tap } from "../../src/cancelable.js";
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert;
@@ -66,4 +67,8 @@ describe("cancelable race", function () {
 			assert.isTrue(isCancelledFoo, "foo's cancel function must have been called");
 		})
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(race(of("foo"), of("foo")));
+	});
 });

@@ -2,6 +2,7 @@ import baconObservableToCancelable from "../../src/transformations/baconObservab
 import chai from 'chai';
 import assertCancellationDiscontinues from "../cancelable/helpers/assertCancellationDiscontinues.mjs";
 import * as Bacon from 'baconjs';
+import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const
 	assert = chai.assert;
@@ -30,4 +31,8 @@ describe("transformation baconObservableToCancelable", function () {
 			delay: 60
 		})
 	);
+	
+	it("returns a FL monad", () => {
+		assertCorrectInterface("monad")(baconObservableToCancelable(Bacon.once("foo")));
+	});
 });
