@@ -11,9 +11,9 @@ const
 		// 	// copy
 		// 	cac = (resolve, reject) => ca(resolve, reject);
 		
-		cac['fantasy-land/map'] = fn => C.map(fn, cac);
-		cac['fantasy-land/ap'] = mfn => C.ap(mfn, cac);
-		cac['fantasy-land/chain'] = fn => C.chain(fn, cac);
+		cac.map = cac['fantasy-land/map'] = fn => C.map(fn, cac);
+		cac.ap = cac['fantasy-land/ap'] = mfn => C.ap(mfn, cac);
+		cac.chain = cac['fantasy-land/chain'] = fn => C.chain(fn, cac);
 		
 		/*
 		Reassigning the .constructor property apparently does not do much harm.
