@@ -413,6 +413,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#bichainfnleft-fnright-cancelable" class="md-nav__link">
+    biChain(fnLeft, fnRight, cancelable)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -823,6 +830,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#bichainfnleft-fnright-cancelable" class="md-nav__link">
+    biChain(fnLeft, fnRight, cancelable)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -948,7 +962,7 @@
 <li>a failure callback</li>
 </ul>
 <p>which returns an abort function, and which calls one of the callbacks asynchronously can be treated as a <em>Cancelable</em>.</p>
-<pre><code class="javascript">import { fantasyfy } from '@visisoft/staticland/cancelable';
+<pre><code class="javascript">import { addFantasyLandInterface } from '@visisoft/staticland/cancelable';
 let cancelableWork = (res, rej) =&gt; {
     const work = beginSomeLongWork();
     whenCompletedWithResult(work, result =&gt; res(result));
@@ -956,7 +970,7 @@ let cancelableWork = (res, rej) =&gt; {
 
     return () =&gt; { abort(work); };
 };
-let work = fantasyfy(cancelableWork);
+let work = addFantasyLandInterface(cancelableWork);
 </code></pre>
 
 <p>In order to provide <em>FantasyLand</em> methods such a function needs to be wrapped with <code>fantasyfy</code>.</p>
@@ -1059,6 +1073,8 @@ new Promise(numberOfCDNJSLibraries)       // running
 <p><em>Deprecated</em> use <code>pluck</code> from Ramda via fantasy-land api.</p>
 <h3 id="chainf-cancelable"><code>chain(f, cancelable)</code></h3>
 <p><code>:: (a → Cancelable b) → Cancelable a → Cancelable b</code></p>
+<h3 id="bichainfnleft-fnright-cancelable"><code>biChain(fnLeft, fnRight, cancelable)</code></h3>
+<p><code>:: Cancelable c ⇒ (* → c b) → (a → c b) → c a → c b</code></p>
 <h2 id="side-effects">Side-Effects</h2>
 <h3 id="bi_taponfailure-onsuccess"><code>bi_tap(onFailure, onSuccess)</code></h3>
 <p><code>:: (e -&gt; *) -&gt; (a -&gt; *) -&gt; Cancelable e a -&gt; Cancelable e a</code></p>

@@ -807,11 +807,26 @@ Since the Either represents an immediate value, the returned Promise is settled.
 <h2 id="async-intofrom-reactive-streams">Async into/from Reactive Streams</h2>
 <h3 id="cancelabletoeventstreamcancelable"><code>cancelableToEventStream(cancelable)</code></h3>
 <p><code>:: Cancelable e a → EventStream e a</code></p>
-<p>Creates a single-valued <a href="http://baconjs.github.io">Bacon.js</a> <code>EventStream</code> observable.</p>
+<p>Creates a single-valued <a href="http://baconjs.github.io">baconjs</a> <code>EventStream</code> observable.</p>
 <p>If the stream ends <em>after</em> the Cancelable Computation <em>has settled</em>, the cancel function of the latter is (of course) <em>not</em> called.</p>
 <h3 id="observabletocancelableobservable"><code>observableToCancelable(observable)</code></h3>
 <p><code>:: Observable e a → Cancelable e a</code></p>
 <p>It evaluates the <em>last</em> event (error or value event) of the given observable.</p>
+<p>Since <em>baconjs</em> streams are implicitly <em>shared</em> and <em>not lazy</em>, converting them to lazy Cancelables can run to racing problems. </p>
+<pre><code class="javascript">const 
+   s = B.once(&quot;foo&quot;),
+   sc = observableToCancelable(s),
+   spc = observableToCancelable(s.toProperty());
+s.onValue(console.log); // -&gt; &quot;foo&quot;
+new Promise(sc).then(console.log);  // never settles!
+new Promise(spc).then(console.log); // never settles!
+const 
+   p = B.once(&quot;bar&quot;).toProperty(),
+   pc = observableToCancelable(p);
+p.onValue(console.log); // -&gt; &quot;bar&quot;
+new Promise(pc).then(console.log) // -&gt; &quot;bar&quot;
+</code></pre>
+
 <h3 id="cancelabletomoststreamcancelable"><code>cancelableToMostStream(cancelable)</code></h3>
 <p><code>:: Cancelable a → Stream a</code></p>
 <p>Crates a single-valued <a href="https://mostcore.readthedocs.io/en/latest/index.html">@most/core</a> <code>Stream</code>.</p>
