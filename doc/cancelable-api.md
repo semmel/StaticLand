@@ -13,15 +13,16 @@ provides [FantasyLand 4.0 Monad][FL-4-Monad] interface.
 Generator Functions
 -------------------
 
-### Custom Cancelable
+### Custom Cancelable `fantasyfy`
 Every *function* taking two callbacks as arguments;
 
 - a success callback, and
 - a failure callback
 
-which returns an abort function, and which calls one of the callbacks asynchronously is a *Cancelable*.
+which returns an abort function, and which calls one of the callbacks asynchronously can be treated as a *Cancelable*.
 
 ```javascript
+import { addFantasyLandInterface } from '@visisoft/staticland/cancelable';
 let cancelableWork = (res, rej) => {
 	const work = beginSomeLongWork();
 	whenCompletedWithResult(work, result => res(result));
@@ -29,7 +30,10 @@ let cancelableWork = (res, rej) => {
    
 	return () => { abort(work); };
 };
+let work = addFantasyLandInterface(cancelableWork);
 ```
+
+In order to provide *FantasyLand* methods such a function needs to be wrapped with `fantasyfy`.
 
 ### `of(value)`
 `:: a -> Cancelable () a`
@@ -151,6 +155,9 @@ Simply `k => map(R.prop(k))` for mapping to a key value.
 
 ### `chain(f, cancelable)`
 `:: (a → Cancelable b) → Cancelable a → Cancelable b`
+
+### `biChain(fnLeft, fnRight, cancelable)`
+`:: Cancelable c ⇒ (* → c b) → (a → c b) → c a → c b`
 
 Side-Effects
 -----------

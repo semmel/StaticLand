@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.3.0
+----
+- `cancelable/biChain`
+
 0.2.2
 -----
 - *breaking:* Either type is now implemented as ES6 class (taken from the Mostly Adequate Guide) instead of an array of length 2

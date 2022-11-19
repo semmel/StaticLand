@@ -15,6 +15,10 @@ export function fromAssertedValue<A, B>(predicate: (a:A) => boolean): (makeLeftV
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean, makeLeftValue: (a:A) => B): (a: A) => Either<A>;
 export function fromAssertedValue<A, B>(predicate: (a:A) => boolean): (makeLeftValue: (a:A) => B) => (a: A) => Either<A>;
 
+export function fromThrowable<A, B>(generate: (a: A) => B): (a: A) => Either<B>;
+export function fromThrowable<A, B>(generate: (a: A) => B, a: A): Either<B>;
+export function fromThrowable<A1, A2, B>(generate: (a1: A1, a2: A2) => B): (a1: A1, a2: A2) => Either<B>;
+
 export function map<T, U>(fn: (x: T) => U, mx: Either<T>): Either<U>;
 export function map<T, U>(fn: (x: T) => U) : (mx: Either<T>) => Either<U>;
 

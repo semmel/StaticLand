@@ -56,6 +56,27 @@ export function sequence<A,B>(
   mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>):
   (mfa: Maybe<Applicative<A>>) => Applicative<Maybe<A>>;
 
+export function traverse<A, B>(
+  ofF: (a: A) => Applicative<A>,
+  mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>,
+  effect: (a: A) => Applicative<B>,
+  ma: Maybe<A>): Applicative<Maybe<B>>;
+export function traverse<A, B>(
+  ofF: (a: A) => Applicative<A>,
+  mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>,
+  effect: (a: A) => Applicative<B>):
+  (ma: Maybe<A>) => Applicative<Maybe<B>>;
+export function traverse<A, B>(
+  ofF: (a: A) => Applicative<A>,
+  mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>):
+  (effect: (a: A) => Applicative<B>,
+  ma: Maybe<A>) => Applicative<Maybe<B>>;
+export function traverse<A, B>(
+  ofF: (a: A) => Applicative<A>,
+  mapF: (f: (a: A) => B, ma: Applicative<A>) => Applicative<B>):
+  (effect: (a: A) => Applicative<B>) =>
+    (ma: Maybe<A>) => Applicative<Maybe<B>>;
+
 export function tap<T>(fn: (x: T) => any, p: Maybe<T>): Maybe<T>;
 export function tap<T>(fn: (x: T) => any): (p: Maybe<T>) => Maybe<T>;
 

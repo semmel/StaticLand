@@ -12,6 +12,7 @@ import _laterSucceed from "./cancelable/internal/laterSucceed.js";
 import _laterReject from './cancelable/internal/laterFail.js';
 import fantasticCancelable from "./cancelable/internal/fantasyfy.js";
 
+export {default as addFantasyLandInterface} from './cancelable/addFantasyLandInterface.js';
 export {default as reject} from './cancelable/reject.js';
 export {default as race} from './cancelable/race.js';
 export {default as ap} from './cancelable/ap.js';
