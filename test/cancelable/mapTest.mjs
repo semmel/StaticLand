@@ -1,6 +1,7 @@
-import {equals, identity, o, pipe} from 'ramda';
+import {always, equals, identity, o, pipe} from 'ramda';
 import chai from 'chai';
 import map from '../../src/cancelable/map.js';
+import { biMap } from "../../src/cancelable.js";
 import map_fl from '../../src/fantasyland/map.js';
 import of from '../../src/cancelable/of.js';
 import reject from '../../src/cancelable/reject.js';
@@ -26,7 +27,8 @@ const
 	assertCompositionLawInFL = (m, f, g, desc) =>
 		assertCancelableComputationEquality(map_fl(o(f, g), m), o(map_fl(f), map_fl(g))(m), desc),
 
-	mFoo = of('foo');
+	mFoo = of('foo'),
+	mQux = reject("qux");
 
 describe("cancelable map", function () {
 	this.slow(200);
@@ -104,6 +106,34 @@ describe("cancelable map", function () {
 		.then(
 			() => assert.fail("should not succeed"),
 			err => assert.strictEqual(err, "test failure")
+		)
+	);
+});
+
+describe("cancelable biMap", function () {
+	this.slow(200);
+	
+	it("invokes either the fn or the leftFn and forwards the results", () =>
+		Promise.all([
+			new Promise(pipe(
+				() => mFoo,
+				biMap(always("unexpected value"), x => `${x}-bar`),
+				biMap(always("unexpected value"), x => `${x}-baz`)
+			)())
+			.then(
+				x => { assert.strictEqual(x, "foo-bar-baz"); }
+			),
+			new Promise(pipe(
+				() => mQux,
+				biMap(x => `${x}-bar`, always("unexpected value")),
+				biMap(x => `${x}-baz`, always("unexpected value"))
+			)())
+			.catch(
+				x => { assert.strictEqual(x, "qux-bar-baz"); }
+			)
+		])
+		.catch(
+			e => { assert.fail(`Unexpected failure with ${e}`); }
 		)
 	);
 });

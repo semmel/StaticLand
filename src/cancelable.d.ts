@@ -26,6 +26,9 @@ export function coalesce<A, B>(onFailure: (e: any) => B, onSuccess: (a?: A) => B
 export function map<A, B>(fn: (a: A) => B, ma: Cancelable<A>): Cancelable<B>;
 export function map<A, B>(fn: (a: A) => B): (ma: Cancelable<A>) => Cancelable<B>;
 
+export function biMap<A, B>(fnLeft: (x: any) => any, fn: (a: A) => B, ma: Cancelable<A>): Cancelable<B>;
+export function biMap<A, B>(fnLeft: (x: any) => any, fn: (a: A) => B): (ma: Cancelable<A>) => Cancelable<B>;
+
 export function pluck<T>(propertyName: string, mKv: Cancelable<Record<string, T>>): Cancelable<T>;
 export function pluck(propertyName: string): <T>(mKv: Cancelable<Record<string, T>>) => Cancelable<T>;
 export function pluck<T>(index: number, mKv: Cancelable<[T]>): Cancelable<T>;

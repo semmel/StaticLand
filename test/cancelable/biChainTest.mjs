@@ -2,8 +2,7 @@ import { chain as chain_fl, equals, identity, o } from 'ramda';
 import chai from 'chai';
 import laterSucceed from "../../src/cancelable/internal/laterSucceed.js";
 import laterFail from "../../src/cancelable/internal/laterFail.js";
-import biChain from "../../src/cancelable/biChain.js";
-import { of, reject } from "../../src/cancelable.js";
+import { biChain, of, reject } from "../../src/cancelable.js";
 
 const
 	assert = chai.assert;

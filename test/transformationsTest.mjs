@@ -1,16 +1,19 @@
-import {equals, identity, o} from 'ramda';
+import {construct, equals, identity, o, pipe} from 'ramda';
 import chai from 'chai';
 import { right, left } from '../src/either.js';
 import { getOrElse, isNothing, isJust, just, map as map_mb, nothing, of as of_mb } from '../src/maybe.js';
 import {
-	eitherToPromise, keyMaybeToMaybeObj,
+	cancelableToEventStream, eitherToPromise, keyMaybeToMaybeObj,
 	maybeToPromise, maybeOfPromiseToPromiseOfMaybe
 }
 from	'../src/transformations.js';
-
+import { later as later_c, laterReject as later_reject_c } from "../src/cancelable.js";
+import hirestime from "./helpers/hirestime.mjs";
+import * as Bacon from 'baconjs';
 
 const
-	assert = chai.assert;
+	assert = chai.assert,
+	now = hirestime();
 
 describe("eitherToPromise", function () {
 	it("returns a succeeding promise from a right", () =>
@@ -103,6 +106,67 @@ describe("keyMaybeToMaybeObj", function() {
 			keyMaybeToMaybeObj("foo", {bar: "BAR", foo: nothing()}),
 			nothing()
 		);
+	});
+});
+
+describe("cancelableToEventStream", function() {
+	this.slow(1000);
+	
+	let begin = 0, isCanceled = false;
+	
+	beforeEach(function() {
+		begin = now();
+		isCanceled = false;
+	});
+	
+	it("propagates the success value", pipe(
+		() => later_c(100, "OK"),
+		cancelableToEventStream,
+		s => s.toPromise(),
+		p => p.then(outcome => {
+			assert.strictEqual(outcome, "OK");
+			assert.approximately(now() - begin, 100, 25);
+		})
+	));
+	
+	it("propagates the failure", () => {
+		const sampleError = new Error("sample error");
+		return pipe(
+			() => later_reject_c(50, sampleError),
+			cancelableToEventStream,
+			s => s.toPromise(),
+			p => p.then(
+				outcome => { assert.fail(`Should not succeed with ${outcome}`); },
+				error => {
+					assert.equal(error, sampleError);
+					assert.approximately(now() - begin, 100, 25);
+				})
+		);
+	});
+	
+	it("aborts when stream unsubscribes", () => {
+		const
+			c = (res, rej) => {
+				const timer = setTimeout(res, 200, "OK");
+				return () => {
+					clearTimeout(timer);
+					isCanceled = true;
+				};
+			},
+			
+			s = cancelableToEventStream(c).takeUntil(Bacon.later(50, undefined));
+		
+		return Promise.race([
+			s.toPromise()
+			.finally(() => {
+				assert.fail("cancelable should not settle");
+			}),
+			new Promise(resolve => { setTimeout(resolve, 300, "race B"); })
+		])
+		.then(raceOutcome => {
+			assert.strictEqual(raceOutcome, "race B");
+			assert.isTrue(isCanceled, "cancelable should be canceled");
+		});
 	});
 });
 

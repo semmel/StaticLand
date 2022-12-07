@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.4.0
+---
+- `cancelable/biMap`
+
 0.3.0
 ----
 - `cancelable/biChain`

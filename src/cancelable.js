@@ -23,6 +23,8 @@ export {default as fetchResponse} from './cancelable/fetchResponse.js';
 export {default as fetchResponseIsoModule} from './cancelable/fetchResponseIsoModule.js';
 export {default as cancelify} from './cancelable/cancelify.js';
 export {default as bi_tap} from './cancelable/biTap.js';
+export {default as biChain} from './cancelable/biChain.js';
+export {default as biMap} from './cancelable/biMap.js';
 export {default as share} from './cancelable/share.js';
 export {default as coalesce} from './cancelable/coalesce.js';
 
