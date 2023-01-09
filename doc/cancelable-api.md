@@ -30,7 +30,7 @@ let cancelableWork = (res, rej) => {
    
 	return () => { abort(work); };
 };
-let work = addFantasyLandInterface(cancelableWork);
+addFantasyLandInterface(cancelableWork);
 ```
 
 In order to provide *FantasyLand* methods such a function needs to be wrapped with `fantasyfy`.
@@ -137,12 +137,15 @@ Transformation
 --------------
 
 ### `coalesce(onFailure, onSuccess, cancelable)`
-`:: Cancelable c ⇒ (* → b) → (a → b) → c a → c b`
+`:: Cancelable c ⇒ (x → b) → (a → b) → c x a → c x b`
 
 Maps failure via `onFailure` and success via `onSuccess` to new success value.
 
 ### `map(f, cancelable)`
-`:: Cancelable c ⇒ (a → b) → c a → c b`
+`:: (Cancelable x) c ⇒ (a → b) → c a → c b`
+
+### `biMap(f, cancelable)`
+`:: Cancelable c ⇒ (x → y) → (a → b) → c x a → c y b`
 
 ### ~~`pluck(key)`~~ 
 `:: Cancelable c ⇒ k → c {k: v} → c v`

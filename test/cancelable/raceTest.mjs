@@ -11,10 +11,28 @@ describe("cancelable race", function () {
 	it("propagates the first outcome from any of the two computations", () => Promise.all([
 		new Promise(race(of("foo"), later(10, "bar"))).then(x => {assert.strictEqual(x, "foo");}),
 		new Promise(race(later(10, "foo"), of("bar"))).then(x => {assert.strictEqual(x, "bar");}),
-		new Promise(race(reject("foo"), later(10, "bar")))
+		new Promise(race(reject("foo"), later(10, "bar"))).catch(x => { assert.strictEqual(x, "foo"); }),
+		new Promise(race(reject("foo"), laterReject(20, "bar"))).catch(x => { assert.strictEqual(x, "foo"); }),
+	]));
+	
+	it("propagates the first outcome from any of two time-taking computations", () => Promise.all([
+		new Promise(race(later(50, "late foo"), later(10, "early bar"))).then(x => {assert.strictEqual(x, "early bar");}),
+		new Promise(race(later(10, "early foo"), later(50, "late bar"))).then(x => {assert.strictEqual(x, "early foo");}),
+		new Promise(race(later(10, "early foo"), laterReject(50, "late qux"))).then(x => {assert.strictEqual(x, "early foo");}),
+		new Promise(race(later(50, "late foo"), laterReject(10, "early qux")))
 		.then(
-			x => { assert.fail(`Unexpected success ${x}`); },
-			e => { assert.strictEqual(e, "foo"); }
+			res => { assert.fail(`Should not succeed with ${res}`); },
+			x => { assert.strictEqual(x, "early qux"); }
+		),
+		new Promise(race(laterReject(50, "late tux"), laterReject(10, "early tux")))
+		.then(
+			res => { assert.fail(`Should not succeed with ${res}`); },
+			x => { assert.strictEqual(x, "early tux"); }
+		),
+		new Promise(race(laterReject(10, "early baz"), laterReject(50, "late baz")))
+		.then(
+			res => { assert.fail(`Should not succeed with ${res}`); },
+			x => { assert.strictEqual(x, "early baz"); }
 		)
 	]));
 	
