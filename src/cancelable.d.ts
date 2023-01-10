@@ -1,6 +1,14 @@
 export type Cancelable<A> = (res: (a: A) => void, rej: (e: any) => void) => (() => void);
 
+export type DeferredCancelable<A> = {
+  cancelable: Cancelable<A>,
+  cancel: () => void,
+  resolve: (a: A) => void,
+  reject: (e: any) => void
+}
+
 export function addFantasyLandInterface<A>(ca: Cancelable<A>): Cancelable<A>;
+export function createDeferred<A>(): DeferredCancelable<A>;
 export function of<A>(a: A): Cancelable<A>;
 export function reject(e: any): Cancelable<any>;
 export function never(): Cancelable<any>;

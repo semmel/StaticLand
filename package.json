@@ -112,5 +112,5 @@
 		"test:individual": "mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "0.4.1"
+	"version": "0.5.0"
 }

@@ -16,6 +16,7 @@ export {default as addFantasyLandInterface} from './cancelable/addFantasyLandInt
 export {default as reject} from './cancelable/reject.js';
 export {default as race} from './cancelable/race.js';
 export {default as ap} from './cancelable/ap.js';
+export {default as createDeferred} from './cancelable/deferred.js';
 export {default as liftA2} from './cancelable/liftA2.js';
 export {default as liftA3} from './cancelable/liftA3.js';
 export {default as liftA4} from './cancelable/liftA4.js';

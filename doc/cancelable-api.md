@@ -58,12 +58,30 @@ Takes a function `f` which generates a non-abort-/non-cancel-able Promise and re
 
 See [`promiseToCancelable`](transformations.md#promisetocancelablepromise).
 
+### `createDeferred()`
+`DeferredCancelable e a = {cancelable: Cancelable e a, resolve: a → (), reject: e → (), cancel: () → ()}`
+
+`:: () → DeferredCancelable e a`
+
+Creates a [cached/shared Cancelable](cancelable.md#copyingsharing) along with "finalize" functions `cancel`, `reject` and `resolve`. This can act as an entry point to a cancelable pipeline. 
+
+This inverts, who is in control. 
+
+- The computation needs to be carried out elsewhere, no longer in the [Cancelable's function body](cancelable.md#executing-work).
+- The outcome of the computation needs to be imperatively delivered via `reject` or `resolve`.
+- Cancellation too is not in the hands of the consumer, but can be achieved by 
+  - never calling `reject` or `resolve`, or 
+  - explicitly invoking `cancel()` which just performs some internal cleanup
+
+Note: After calling any function of the set `cancel`, `reject`, `resolve` again after any other, results in undefined behaviour.
+
 ### `fetchResponse({url, fetchSpec})` via `fetchResponseIsoModule`
 `:: {url: (String|URL), init: {}} -> Cancelable Error Response`
 
 This example fetches the number of libraries hosted at [cdnjs.com](https://cdnjs.com/api).
 
 The result is a Cancelable of a Maybe of a Number. The 
+
 - *failure continuation* of the cancelable contains network *errors* and errors in the JSON format of the response, 
 - *nothing* path of the maybe is taken in case the combined network and parse duration exceeded the *timeout*,
 - the *just* path of the Maybe in the *success continuation* of the Cancelable contains the *result*.

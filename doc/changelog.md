@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+0.5.0
+----
+- `cancelable/createDeferred`
+
 0.4.0
 ---
 - `cancelable/biMap`
