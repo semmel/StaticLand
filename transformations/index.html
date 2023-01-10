@@ -787,6 +787,7 @@
 <p><code>:: Maybe Cancelable e a -&gt; Cancelable e Maybe a</code></p>
 <h3 id="eithertocancelableeither"><code>eitherToCancelable(either)</code></h3>
 <p><code>:: Either e a → Cancelable e a</code></p>
+<p>"Alias" for <code>either(reject_cancelable, of_cancelable);</code></p>
 <h3 id="eithertopromise"><code>eitherToPromise</code></h3>
 <p><code>:: Either c a → Promise a</code>
 Since the Either represents an immediate value, the returned Promise is settled.</p>

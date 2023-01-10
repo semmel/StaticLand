@@ -366,6 +366,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#createdeferred" class="md-nav__link">
+    createDeferred()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fetchresponseurl-fetchspec-via-fetchresponseisomodule" class="md-nav__link">
     fetchResponse({url, fetchSpec}) via fetchResponseIsoModule
   </a>
@@ -395,6 +402,13 @@
           <li class="md-nav__item">
   <a href="#mapf-cancelable" class="md-nav__link">
     map(f, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bimapf-cancelable" class="md-nav__link">
+    biMap(f, cancelable)
   </a>
   
 </li>
@@ -783,6 +797,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#createdeferred" class="md-nav__link">
+    createDeferred()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fetchresponseurl-fetchspec-via-fetchresponseisomodule" class="md-nav__link">
     fetchResponse({url, fetchSpec}) via fetchResponseIsoModule
   </a>
@@ -812,6 +833,13 @@
           <li class="md-nav__item">
   <a href="#mapf-cancelable" class="md-nav__link">
     map(f, cancelable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bimapf-cancelable" class="md-nav__link">
+    biMap(f, cancelable)
   </a>
   
 </li>
@@ -970,7 +998,7 @@ let cancelableWork = (res, rej) =&gt; {
 
     return () =&gt; { abort(work); };
 };
-let work = addFantasyLandInterface(cancelableWork);
+addFantasyLandInterface(cancelableWork);
 </code></pre>
 
 <p>In order to provide <em>FantasyLand</em> methods such a function needs to be wrapped with <code>fantasyfy</code>.</p>
@@ -989,13 +1017,28 @@ Creates a Cancelable which executes nothing and never settles.</p>
 <p><code>:: (*... → Promise e a) → *... → Cancelable e a</code></p>
 <p>Takes a function <code>f</code> which generates a non-abort-/non-cancel-able Promise and returns a function with the same arguments but which returns a Cancelable. The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.</p>
 <p>See <a href="../transformations/#promisetocancelablepromise"><code>promiseToCancelable</code></a>.</p>
+<h3 id="createdeferred"><code>createDeferred()</code></h3>
+<p><code>DeferredCancelable e a = {cancelable: Cancelable e a, resolve: a → (), reject: e → (), cancel: () → ()}</code></p>
+<p><code>:: () → DeferredCancelable e a</code></p>
+<p>Creates a <a href="../cancelable/#copyingsharing">cached/shared Cancelable</a> along with "finalize" functions <code>cancel</code>, <code>reject</code> and <code>resolve</code>. This can act as an entry point to a cancelable pipeline. </p>
+<p>This inverts, who is in control. </p>
+<ul>
+<li>The computation needs to be carried out elsewhere, no longer in the <a href="../cancelable/#executing-work">Cancelable's function body</a>.</li>
+<li>The outcome of the computation needs to be imperatively delivered via <code>reject</code> or <code>resolve</code>.</li>
+<li>Cancellation too is not in the hands of the consumer, but can be achieved by </li>
+<li>never calling <code>reject</code> or <code>resolve</code>, or </li>
+<li>explicitly invoking <code>cancel()</code> which just performs some internal cleanup</li>
+</ul>
+<p>Note: After calling any function of the set <code>cancel</code>, <code>reject</code>, <code>resolve</code> again after any other, results in undefined behaviour.</p>
 <h3 id="fetchresponseurl-fetchspec-via-fetchresponseisomodule"><code>fetchResponse({url, fetchSpec})</code> via <code>fetchResponseIsoModule</code></h3>
 <p><code>:: {url: (String|URL), init: {}} -&gt; Cancelable Error Response</code></p>
 <p>This example fetches the number of libraries hosted at <a href="https://cdnjs.com/api">cdnjs.com</a>.</p>
-<p>The result is a Cancelable of a Maybe of a Number. The 
-- <em>failure continuation</em> of the cancelable contains network <em>errors</em> and errors in the JSON format of the response, 
-- <em>nothing</em> path of the maybe is taken in case the combined network and parse duration exceeded the <em>timeout</em>,
-- the <em>just</em> path of the Maybe in the <em>success continuation</em> of the Cancelable contains the <em>result</em>.</p>
+<p>The result is a Cancelable of a Maybe of a Number. The </p>
+<ul>
+<li><em>failure continuation</em> of the cancelable contains network <em>errors</em> and errors in the JSON format of the response, </li>
+<li><em>nothing</em> path of the maybe is taken in case the combined network and parse duration exceeded the <em>timeout</em>,</li>
+<li>the <em>just</em> path of the Maybe in the <em>success continuation</em> of the Cancelable contains the <em>result</em>.</li>
+</ul>
 <pre><code class="javascript">import {ap, pair, pipe} from 'ramda';
 import {chain as chain_c, later, map as map_c, fetchResponseIsoModule} 
 from '@visisoft/staticland/cancelable';
@@ -1062,10 +1105,12 @@ new Promise(numberOfCDNJSLibraries)       // running
 
 <h2 id="transformation">Transformation</h2>
 <h3 id="coalesceonfailure-onsuccess-cancelable"><code>coalesce(onFailure, onSuccess, cancelable)</code></h3>
-<p><code>:: Cancelable c ⇒ (* → b) → (a → b) → c a → c b</code></p>
+<p><code>:: Cancelable c ⇒ (x → b) → (a → b) → c x a → c x b</code></p>
 <p>Maps failure via <code>onFailure</code> and success via <code>onSuccess</code> to new success value.</p>
 <h3 id="mapf-cancelable"><code>map(f, cancelable)</code></h3>
-<p><code>:: Cancelable c ⇒ (a → b) → c a → c b</code></p>
+<p><code>:: (Cancelable x) c ⇒ (a → b) → c a → c b</code></p>
+<h3 id="bimapf-cancelable"><code>biMap(f, cancelable)</code></h3>
+<p><code>:: Cancelable c ⇒ (x → y) → (a → b) → c x a → c y b</code></p>
 <h3 id="pluckkey"><del><code>pluck(key)</code></del></h3>
 <p><code>:: Cancelable c ⇒ k → c {k: v} → c v</code></p>
 <p><code>:: Cancelable c ⇒ number → c [v] → c v</code></p>
