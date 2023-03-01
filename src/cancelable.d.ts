@@ -26,6 +26,8 @@ export function fetchResponseIsoModule(spec: WindowOrWorkerGlobalScope): (params
 
 export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
 
+export function cancelifyWithArityAbortable<A>(arity: number, f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
+
 // Transformations
 
 export function coalesce<A, B>(onFailure: (e: any) => B, onSuccess: (a?: A) => B, cc: Cancelable<A>): Cancelable<B>;

@@ -58,6 +58,24 @@ Takes a function `f` which generates a non-abort-/non-cancel-able Promise and re
 
 See [`promiseToCancelable`](transformations.md#promisetocancelablepromise).
 
+### `cancelifyWithArityAbortable(arity, f)`
+`:: (Number, *... → Promise e a) → *... → Cancelable e a`
+
+Like `cancelify` but for functions `f` which accept an `AbortSignal` under the key `signal` in their *last* argument. Thus, for functions `f` which return abortable Promises.
+
+Like with `cancelify`, cancelling the resulting Cancelable will prevent the continuation callbacks from getting called, *but* the computation will actually be aborted.
+
+```javascript
+import cp from 'node:child_process';
+import { promisify } from 'node:util';
+import fsp from 'node:fs/promises';
+const 
+   exec = cancelifyWithArityAbortable(2, promisify(cp.exec)),
+   readFile = cancelifyWithArityAbortable(2, fsp.readFile),
+   directoryList = exec("ls -l", {}),
+   packageContents = readFile('./package.json', { encoding: 'utf8' });
+```
+
 ### `createDeferred()`
 `DeferredCancelable e a = {cancelable: Cancelable e a, resolve: a → (), reject: e → (), cancel: () → ()}`
 

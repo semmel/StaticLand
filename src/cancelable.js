@@ -23,6 +23,7 @@ export {default as liftA4} from './cancelable/liftA4.js';
 export {default as fetchResponse} from './cancelable/fetchResponse.js';
 export {default as fetchResponseIsoModule} from './cancelable/fetchResponseIsoModule.js';
 export {default as cancelify} from './cancelable/cancelify.js';
+export {default as cancelifyWithArityAbortable} from './cancelable/cancelifyAbortable.js';
 export {default as bi_tap} from './cancelable/biTap.js';
 export {default as biChain} from './cancelable/biChain.js';
 export {default as biMap} from './cancelable/biMap.js';
