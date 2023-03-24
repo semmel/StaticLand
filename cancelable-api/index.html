@@ -366,6 +366,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cancelifywitharityabortablearity-f" class="md-nav__link">
+    cancelifyWithArityAbortable(arity, f)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createdeferred" class="md-nav__link">
     createDeferred()
   </a>
@@ -797,6 +804,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cancelifywitharityabortablearity-f" class="md-nav__link">
+    cancelifyWithArityAbortable(arity, f)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createdeferred" class="md-nav__link">
     createDeferred()
   </a>
@@ -1017,6 +1031,20 @@ Creates a Cancelable which executes nothing and never settles.</p>
 <p><code>:: (*... → Promise e a) → *... → Cancelable e a</code></p>
 <p>Takes a function <code>f</code> which generates a non-abort-/non-cancel-able Promise and returns a function with the same arguments but which returns a Cancelable. The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the promise settles.</p>
 <p>See <a href="../transformations/#promisetocancelablepromise"><code>promiseToCancelable</code></a>.</p>
+<h3 id="cancelifywitharityabortablearity-f"><code>cancelifyWithArityAbortable(arity, f)</code></h3>
+<p><code>:: (Number, *... → Promise e a) → *... → Cancelable e a</code></p>
+<p>Like <code>cancelify</code> but for functions <code>f</code> which accept an <code>AbortSignal</code> under the key <code>signal</code> in their <em>last</em> argument. Thus, for functions <code>f</code> which return abortable Promises.</p>
+<p>Like with <code>cancelify</code>, cancelling the resulting Cancelable will prevent the continuation callbacks from getting called, <em>but</em> the computation will actually be aborted.</p>
+<pre><code class="javascript">import cp from 'node:child_process';
+import { promisify } from 'node:util';
+import fsp from 'node:fs/promises';
+const 
+   exec = cancelifyWithArityAbortable(2, promisify(cp.exec)),
+   readFile = cancelifyWithArityAbortable(2, fsp.readFile),
+   directoryList = exec(&quot;ls -l&quot;, {}),
+   packageContents = readFile('./package.json', { encoding: 'utf8' });
+</code></pre>
+
 <h3 id="createdeferred"><code>createDeferred()</code></h3>
 <p><code>DeferredCancelable e a = {cancelable: Cancelable e a, resolve: a → (), reject: e → (), cancel: () → ()}</code></p>
 <p><code>:: () → DeferredCancelable e a</code></p>
