@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+0.5.1
+----
+- `cancelable/cancelifyWithArityAbortable`
+- fixes [conditional exports](https://nodejs.org/dist/latest-v18.x/docs/api/packages.html#conditional-exports). (`default` should have come last)
+
 0.5.0
 ----
 - `cancelable/createDeferred`

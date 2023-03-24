@@ -29,40 +29,40 @@
 	},
 	"exports": {
 		".": {
-			"default": "./index.js",
+			"import": "./index.js",
 			"require": "./dist/cjs/staticland.js"
 		},
 		"./cancelable": {
-			"default": "./src/cancelable.js",
+			"import": "./src/cancelable.js",
 			"require": "./dist/cjs/cancelable.js"
 		},
 		"./either": {
-			"default": "./src/either.js",
+			"import": "./src/either.js",
 			"require": "./dist/cjs/either.js"
 		},
 		"./lens": {
-			"default": "./src/lens.js",
+			"import": "./src/lens.js",
 			"require": "./dist/cjs/lens.js"
 		},
 		"./list": {
-			"default": "./src/list.js",
+			"import": "./src/list.js",
 			"require": "./dist/cjs/list.js"
 		},
 		"./maybe": {
-			"default": "./src/maybe.js",
+			"import": "./src/maybe.js",
 			"require": "./dist/cjs/maybe.js"
 		},
 		"./package.json": "./package.json",
 		"./fantasyland": {
-			"default": "./src/fantasyland.js",
+			"import": "./src/fantasyland.js",
 			"require": "./dist/cjs/fantasyland.js"
 		},
 		"./promise": {
-			"default": "./src/promise.js",
+			"import": "./src/promise.js",
 			"require": "./dist/cjs/promise.js"
 		},
 		"./transformations": {
-			"default": "./src/transformations.js",
+			"import": "./src/transformations.js",
 			"require": "./dist/cjs/transformations.js"
 		}
 	},
@@ -112,5 +112,5 @@
 		"test:individual": "mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "0.5.0"
+	"version": "0.5.1"
 }
