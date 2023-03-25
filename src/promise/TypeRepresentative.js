@@ -3,7 +3,8 @@ import of from './of.js';
 
 const
 	TypeRepresentative = {
-		"fantasy-land/of": of
+		"fantasy-land/of": of,
+		of
 	};
 
 export default TypeRepresentative;
