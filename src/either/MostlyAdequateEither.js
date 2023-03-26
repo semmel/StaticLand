@@ -1,4 +1,5 @@
 import { equals as deepEquals, identity } from "ramda";
+import { map } from '../fantasyland/map.js';
 
 class Either {
 	constructor(x) {
@@ -71,9 +72,13 @@ class Left extends Either {
 	sequence(of) {
 		return of(this);
 	}
-	
-	traverse(of, fn) {
+
+	// :: Left a ~> F -> (a -> f b) -> f Left a
+	traverse({of}, fn) {
 		return of(this);
+	}
+	["fantasy-land/traverse"](F, fn) {
+		return this.traverse(F, fn);
 	}
 }
 
@@ -132,12 +137,15 @@ class Right extends Either {
 	}
 	
 	// ----- Traversable (Either a)
-	sequence(of) {
+	sequence({of}) {
 		return this.traverse(of, identity);
 	}
-	
-	traverse(of, fn) {
-		return fn(this.$value).map(Either.of);
+	// :: Right a ~> F -> (a -> f b) -> f Right b
+	traverse({of}, fn) {
+		return map(Either.of)(fn(this.$value));
+	}
+	["fantasy-land/traverse"](F, fn) {
+		return this.traverse(F, fn);
 	}
 }
 
