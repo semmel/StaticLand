@@ -40,6 +40,18 @@ const
 			external: externals,
 			output: {
 				format: "cjs",
+				file: "./dist/cjs/cancelable-pre-node-v18.js",
+				banner: bannerText,
+			},
+			plugins: [
+				resolve()
+			]
+		},
+		{
+			input: "./src/cancelable.js",
+			external: externals,
+			output: {
+				format: "cjs",
 				file: "./dist/cjs/cancelable.js",
 				banner: bannerText,
 			},

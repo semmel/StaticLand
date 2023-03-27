@@ -36,6 +36,10 @@
 			"import": "./src/cancelable.js",
 			"require": "./dist/cjs/cancelable.js"
 		},
+		"./cancelable-pre-node-v18": {
+			"import": "./src/cancelable.js",
+			"require": "./dist/cjs/cancelable-pre-node-v18.js"
+		},
 		"./either": {
 			"import": "./src/either.js",
 			"require": "./dist/cjs/either.js"

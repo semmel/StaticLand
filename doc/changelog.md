@@ -1,5 +1,13 @@
 Changelog v{{ config.meta.version }}
 =========
+0.6
+---
+### **Breaking**
+
+- moved deprecated NodeJs version of `fetchResponseNodeJS` into own CJS module `/cancelable/cancelable-pre-node-v18`
+- changed `Either` method `"fantasy-land/traverse"` to comply with Fantasy Land,
+- changed `Either` methods `sequence` and `traverse` to match those of [Crocks](https://crocks.dev/docs/crocks/Either.html#traverse) (and others)
+
 0.5.1
 ----
 - `cancelable/cancelifyWithArityAbortable`
