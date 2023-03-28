@@ -1,4 +1,5 @@
 import { equals as deepEquals, identity } from "ramda";
+import { traversableMonadHandler } from "../internal/fantasyland-proxy.js";
 import map from '../fantasyland/map.js';
 
 class Either {
@@ -16,7 +17,7 @@ class Either {
 	}
 }
 
-class Left extends Either {
+class _Left extends Either {
 	get isLeft() {
 		return true;
 	}
@@ -34,26 +35,18 @@ class Left extends Either {
 	}
 	
 	// ----- Functor (Either a)
-	map() {
+	map(fn) {
 		return this;
 	}
 	
-	['fantasy-land/map'](fn) {
-		return this.map(fn);
-	}
-	
 	// ----- Applicative (Either a)
-	ap() {
+	ap(ffn) {
 		return this;
 	}
 	
 	// ----- Monad (Either a)
-	chain() {
+	chain(fn) {
 		return this;
-	}
-	
-	['fantasy-land/chain'](fn) {
-		return this.chain(fn);
 	}
 	
 	join() {
@@ -62,10 +55,6 @@ class Left extends Either {
 	
 	equals(other) {
 		return other instanceof Either && other.isLeft && deepEquals(this.$value, other.$value);
-	}
-	
-	['fantasy-land/equals'](other) {
-		return this.equals(other);
 	}
 	
 	// ----- Traversable (Either a)
@@ -77,13 +66,9 @@ class Left extends Either {
 	traverse({'fantasy-land/of': of}, fn) {
 		return of(this);
 	}
-	
-	["fantasy-land/traverse"](F, fn) {
-		return this.traverse(F, fn);
-	}
 }
 
-class Right extends Either {
+class _Right extends Either {
 	get isLeft() {
 		return false;
 	}
@@ -105,22 +90,14 @@ class Right extends Either {
 		return Either.of(fn(this.$value));
 	}
 	
-	['fantasy-land/map'](fn) {
-		return this.map(fn);
-	}
-	
 	// ----- Applicative (Either a)
-	ap(f) {
-		return f.map(this.$value);
+	ap(ffn) {
+		return ffn.map(this.$value);
 	}
 	
 	// ----- Monad (Either a)
 	chain(fn) {
 		return fn(this.$value);
-	}
-	
-	['fantasy-land/chain'](fn) {
-		return this.chain(fn);
 	}
 	
 	join() {
@@ -133,10 +110,6 @@ class Right extends Either {
 		return other instanceof Either && other.isRight && deepEquals(this.$value, other.$value);
 	}
 	
-	['fantasy-land/equals'](other) {
-		return this.equals(other);
-	}
-	
 	// ----- Traversable (Either a)
 	sequence({of}) {
 		return this.traverse(of, identity);
@@ -145,10 +118,11 @@ class Right extends Either {
 	traverse({'fantasy-land/of': of}, fn) {
 		return map(Either.of)(fn(this.$value));
 	}
-	["fantasy-land/traverse"](F, fn) {
-		return this.traverse(F, fn);
-	}
 }
+
+const
+	Left = new Proxy(_Left, traversableMonadHandler),
+	Right = new Proxy(_Right, traversableMonadHandler);
 
 export {
 	Either, Left, Right

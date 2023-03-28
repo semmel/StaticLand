@@ -6,7 +6,7 @@
  */
 
 import { always, curry, either as thisOrThat, o, tryCatch } from 'ramda';
-import { Either, Left } from "./either/MostlyAdequateEither.js";
+import { Either, Left } from "./either/mostly-adequate.js";
 
 const
 	// Creation //
