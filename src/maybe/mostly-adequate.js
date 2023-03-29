@@ -1,5 +1,4 @@
 import { equals, identity } from "ramda";
-import { traversableMonadHandler } from "../internal/fantasyland-proxy.js";
 import map from '../fantasyland/map.js';
 
 class Maybe {
@@ -19,9 +18,33 @@ class Maybe {
 	static ['fantasy-land/empty']() {
 		return new Nothing();
 	}
+	
+	["fantasy-land/map"](fn) {
+		return this.map(fn);
+	}
+	
+	["fantasy-land/chain"](fn) {
+		return this.chain(fn);
+	}
+	
+	["fantasy-land/ap"](f_fn) {
+		return this.ap(f_fn);
+	}
+	
+	['fantasy-land/equals'](other) {
+		return this.equals(other);
+	}
+	
+	["fantasy-land/traverse"](F, fn) {
+		return this.traverse(F, fn);
+	}
+	
+	['fantasy-land/reduce'](fn, a) {
+		return this.reduce(fn, a);
+	}
 }
 
-class _Nothing extends Maybe {
+class Nothing extends Maybe {
 	get isNothing() {
 		return true;
 	}
@@ -44,7 +67,7 @@ class _Nothing extends Maybe {
 	}
 	
 	// ----- Applicative Maybe
-	ap(f) {
+	ap(maybeWithFunction) {
 		return this;
 	}
 	
@@ -72,7 +95,7 @@ class _Nothing extends Maybe {
 	}
 }
 
-class _Just extends Maybe {
+class Just extends Maybe {
 	get isNothing() {
 		return false;
 	}
@@ -94,9 +117,10 @@ class _Just extends Maybe {
 		return Maybe.of(fn(this.$value));
 	}
 	
-	// ----- Applicative Maybe
-	ap(ffn) {
-		return ffn.map(this.$value);
+	// same as the FL signature - so the FL wrapper can delegate to .ap
+	// ap :: Apply f => f a ~> f (a->b) -> f b
+	ap(maybeWithFunction) {
+		return maybeWithFunction.map(fn => fn(this.$value));
 	}
 	
 	// ----- Monad Maybe
@@ -109,11 +133,11 @@ class _Just extends Maybe {
 	}
 	
 	// ----- Traversable Maybe
-	sequence(of) {
+	sequence({'fantasy-land/of': of}) {
 		return this.traverse(of, identity);
 	}
 	
-	traverse(of, fn) {
+	traverse({'fantasy-land/of': of}, fn) {
 		return map(Maybe.of)(fn(this.$value));
 	}
 
@@ -121,10 +145,6 @@ class _Just extends Maybe {
 		return f(x, this.$value);
 	}
 }
-
-const
-	Nothing = new Proxy(_Nothing, traversableMonadHandler),
-	Just = new Proxy(_Just, traversableMonadHandler);
 
 export {
 	Maybe, Just, Nothing

@@ -44,6 +44,12 @@ This set of *utility functions* is typically provided by many FP libraries. The 
 
 Simply `k => map(R.prop(k))` for mapping to a key value.
 
+### `sequence(F, tfa)`
+`:: (Applicative f, Traversable t) => TypeRep f -> t f a -> f t a`
+
+### `traverse(F, a2fb, ta)`
+`:: (Applicative f, Traversable t) => TypeRep f -> (a -> f b) -> t a -> f t b`
+
 [ramda-homepage]: https://ramdajs.com
 [tom-function-functors]: http://www.tomharding.me/2017/04/15/functions-as-functors/
 [traverse-fl-signature]: https://github.com/fantasyland/fantasy-land#fantasy-landtraverse-method

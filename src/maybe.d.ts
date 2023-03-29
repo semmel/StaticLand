@@ -28,7 +28,9 @@ export function nothing(): Nothing;
 export function isJust<T>(mx: Maybe<T>): boolean;
 export function isNothing<T>(mx: Maybe<T>): boolean;
 export function join<T>(mx: Maybe<Maybe<T>>): Maybe<T>;
+/** @deprecated Use FL compliant utility function e.g. R.equals */
 export function equals<T, S>(ma: Maybe<T>, mb: Maybe<S>): boolean;
+/** @deprecated Use FL compliant utility function e.g. R.equals */
 export function equals<T, S>(ma: Maybe<T>) : (mb: Maybe<S>) => boolean;
 export function fromNilable<T>(x: (T|undefined|null)): Maybe<T>;
 export function fromPredicate<T>(pred: (x: T) => boolean, x: T): Maybe<T>;
@@ -36,14 +38,18 @@ export function fromPredicate<T>(pred: (x: T) => boolean): (x: T) => Maybe<T>;
 export function fromContentHolding<T extends {length: Number}>(x: T): Maybe<T>;
 export function getOrElse<T>(acc: T, ma: Maybe<T>) : T;
 export function getOrElse<T>(acc: T) : (ma: Maybe<T>) => T;
+/** @deprecated Use FL compliant utility function e.g. R.map */
 export function map<T, U>(fn: (x: T) => U, mx: Maybe<T>): Maybe<U>;
+/** @deprecated Use FL compliant utility function e.g. R.map */
 export function map<T, U>(fn: (x: T) => U) : (mx: Maybe<T>) => Maybe<U>;
 
+/** @deprecated Use FL compliant utility function e.g. R.pluck */
 export function pluck<T>(propertyName: string, mKv: Maybe<Record<string, T>>): Maybe<T>;
 export function pluck(propertyName: string): <T>(mKv: Maybe<Record<string, T>>) => Maybe<T>;
 export function pluck<T>(index: number, mKv: Maybe<[T]>): Maybe<T>;
 export function pluck(index: number): <T>(mKv: Maybe<[T]>) => Maybe<T>;
 
+/** @deprecated Use FL compliant utility function e.g. R.chain */
 export function chain<T, U>(factory: (x: T) => Maybe<U>, p: Maybe<T>) : Maybe<U>;
 export function chain<T, U>(factory: (x: T) => Maybe<U>): (p: Maybe<T>) => Maybe<U>;
 

@@ -1,8 +1,8 @@
-import { always, curry, equals, find, identity, o, lift as liftR } from 'ramda';
+import { always, chain, curry, equals, find, identity, map, o, lift as liftR, reduce } from 'ramda';
 import chai from 'chai';
 import {
-	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,
-	just, join, map, nothing, maybe, pluck as pluck_m, lift, liftA2, reduce
+	equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,
+	just, join, nothing, maybe, pluck as pluck_m, lift, liftA2
 } from '../src/maybe.js';
 
 const

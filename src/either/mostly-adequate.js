@@ -1,10 +1,33 @@
 import { equals as deepEquals, identity } from "ramda";
-import { traversableMonadHandler } from "../internal/fantasyland-proxy.js";
 import map from '../fantasyland/map.js';
 
 class Either {
 	constructor(x) {
 		this.$value = x;
+	}
+	
+	["fantasy-land/map"](fn) {
+		return this.map(fn);
+	}
+	
+	["fantasy-land/chain"](fn) {
+		return this.chain(fn);
+	}
+	
+	["fantasy-land/ap"](f_fn) {
+		return this.ap(f_fn);
+	}
+	
+	['fantasy-land/equals'](other) {
+		return this.equals(other);
+	}
+	
+	["fantasy-land/traverse"](F, fn) {
+		return this.traverse(F, fn);
+	}
+	
+	['fantasy-land/reduce'](fn, a) {
+		return this.reduce(fn, a);
 	}
 	
 	// ----- Pointed (Either a)
@@ -17,7 +40,7 @@ class Either {
 	}
 }
 
-class _Left extends Either {
+class Left extends Either {
 	get isLeft() {
 		return true;
 	}
@@ -73,7 +96,7 @@ class _Left extends Either {
 	}
 }
 
-class _Right extends Either {
+class Right extends Either {
 	get isLeft() {
 		return false;
 	}
@@ -97,9 +120,8 @@ class _Right extends Either {
 	
 	// ----- Applicative (Either a)
 	// ap :: Apply f => f a ~> f (a -> b) -> f b
-	ap(ffn) {
-		//ap(mf, ma) = chain(f => map(f, ma), mf)
-		return ffn.map(fn => fn(this.$value));
+	ap(eitherWithFunction) {
+		return eitherWithFunction.map(fn => fn(this.$value));
 	}
 	
 	// ----- Monad (Either a)
@@ -130,10 +152,6 @@ class _Right extends Either {
 		return f (x, this.$value);
 	}
 }
-
-const
-	Left = new Proxy(_Left, traversableMonadHandler),
-	Right = new Proxy(_Right, traversableMonadHandler);
 
 export {
 	Either, Left, Right

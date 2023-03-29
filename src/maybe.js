@@ -17,10 +17,7 @@ import {
 
 import maybe from './maybe/maybe.js';
 import {isJust, isNothing} from './maybe/inspection.js';
-import map from './maybe/map.js';
 import {just, of, nothing} from './maybe/creation.js';
-import chain from './maybe/chain.js';
-import ap from './maybe/ap.js';
 
 const
 	noop = () => undefined,
@@ -55,7 +52,7 @@ const
 	/**
 	 * @deprecated Use FL compliant utility function e.g. R.reduce
 	 */
-	reduce = reduce_l,//curry((f, initial, mx) => mx.reduce(f, initial)),
+	reduce = reduce_l,
 	
 	// Side effects //
 	
@@ -102,12 +99,17 @@ const
 
 export {
 	biTap, equals, fromNilable, fromContentHolding, fromPredicate, just, of, nothing, isJust, isNothing, join, lift,
-	map, maybe, chain, ap, reduce, tap,
+	maybe, reduce, tap,
 	typeString
 };
 
+
+export {Maybe as Maybe, Nothing as Nothing, Just as Just} from './maybe/mostly-adequate.js';
+export {default as ap} from './maybe/ap.js';
+export {default as chain} from './maybe/chain.js';
 export {default as getOrElse} from './maybe/getOrElse.js';
 export {default as liftA2} from './maybe/liftA2.js';
 export {default as pluck} from './maybe/pluck.js';
+export {default as map} from './maybe/map.js';
 export {default as sequence} from './maybe/sequence.js';
 export {default as traverse} from './maybe/traverse.js';

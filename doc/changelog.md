@@ -5,8 +5,18 @@ Changelog v{{ config.meta.version }}
 ### **Breaking**
 
 - moved deprecated NodeJs version of `fetchResponseNodeJS` into own CJS module `/cancelable/cancelable-pre-node-v18`
-- changed `Either` method `"fantasy-land/traverse"` to comply with Fantasy Land,
-- changed `Either` methods `sequence` and `traverse` to match those of [Crocks](https://crocks.dev/docs/crocks/Either.html#traverse) (and others)
+- changed the `Either` method `"fantasy-land/traverse"` to comply with Fantasy Land,
+- changed the `Either` methods `sequence` and `traverse` to match those of [Crocks](https://crocks.dev/docs/crocks/Either.html#traverse) (and others)
+
+### Features
+
+- replaced the `Array` based implementation of `Maybe` with a "mostly adequate", Fantasy Land compliant one,
+- introduced `Either.ap` and thus make `lift` possible for `Either` data
+- `Maybe.ap` and `Either.ap` 
+   - share the signatures with their Fantasy Land versions,
+   - thus they're the same as in monet.js, purify and Tom Harding's blog but differ from Prof. Frisby's Guide and Crocks,
+   - are just provided for convenience,
+- added pointfree-style `fantasyland/sequence` and `fantasyland/traverse` with signatures like in `crocks/pointfree` and will be in Ramda `v0.29`
 
 0.5.1
 ----

@@ -18,11 +18,14 @@ export function fromAssertedValue<A, B>(predicate: (a:A) => boolean): (makeLeftV
 export function fromThrowable<A, B>(generate: (a: A) => B): (a: A) => Either<B>;
 export function fromThrowable<A, B>(generate: (a: A) => B, a: A): Either<B>;
 export function fromThrowable<A1, A2, B>(generate: (a1: A1, a2: A2) => B): (a1: A1, a2: A2) => Either<B>;
-
+/** @deprecated Use FL compliant utility function e.g. R.map */
 export function map<T, U>(fn: (x: T) => U, mx: Either<T>): Either<U>;
+/** @deprecated Use FL compliant utility function e.g. R.map */
 export function map<T, U>(fn: (x: T) => U) : (mx: Either<T>) => Either<U>;
 
+/** @deprecated Use FL compliant utility function e.g. R.chain */
 export function chain<T, U>(factory: (x: T) => Either<U>, p: Either<T>) : Either<U>;
+/** @deprecated Use FL compliant utility function e.g. R.chain */
 export function chain<T, U>(factory: (x: T) => Either<U>): (p: Either<T>) => Either<U>;
 
 export function chainLeft<U>(factory: (e: any) => Either<U>, p: Either<any>) : Either<U>;

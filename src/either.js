@@ -6,7 +6,7 @@
  */
 
 import { always, curry, either as thisOrThat, o, tryCatch } from 'ramda';
-import { Either, Left } from "./either/mostly-adequate.js";
+import { Either, Left, Right } from "./either/mostly-adequate.js";
 
 const
 	// Creation //
@@ -34,8 +34,10 @@ const
 	
 	// Transformation //
 	
+	/** @deprecated Use FL compliant utility function e.g. R.map */
 	map = curry((fn, mx) => mx.map(fn)),
 	
+	/** @deprecated Use FL compliant utility function e.g. R.chain */
 	chain = curry((fn, mx) => mx.chain(fn)),
 	
 	chainLeft = curry(
@@ -67,9 +69,10 @@ const
 	
 	
 export {
+	Either, Left, Right,
 	alt, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of, right
 };
 
-
+// TODO: mark as deprecated
 export {default as sequence} from './either/sequence.js';
 export {default as traverse} from './either/traverse.js';

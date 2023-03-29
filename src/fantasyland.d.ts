@@ -24,3 +24,26 @@ export function pluck<T>(propertyName: string, mKv: Functor<Record<string, T>>):
 export function pluck(propertyName: string): <T>(mKv: Functor<Record<string, T>>) => Functor<T>;
 export function pluck<T>(index: number, mKv: Functor<[T]>): Functor<T>;
 export function pluck(index: number): <T>(mKv: Functor<[T]>) => Functor<T>;
+
+interface Applicative<T> {}
+interface Traversable<T> {}
+interface TypeRep<X> {
+  "fantasy-land/of": (x: X) => Applicative<X>
+  of: (x: X) => Applicative<X>
+}
+// (Applicative f, Traversable t) => TypeRep f -> (a -> f b) -> t a -> f (t b)
+export function traverse<A, B, FB extends Applicative<B>, FTB extends Applicative<Traversable<B>>>(
+  typeRep: TypeRep<Traversable<any>>, fn: (a: A) => FB, traversable: Traversable<A>): FTB;
+export function traverse<A, B>(typeRep: TypeRep<B[]>, fn: (t: A) => B[], list: readonly A[]): B[][];
+export function traverse<A, B, FB extends Applicative<B>, FTB extends Applicative<Traversable<B>>>(
+  typeRep: TypeRep<Traversable<any>>, fn: (a: A) => FB): (traversable: Traversable<A>) => FTB;
+export function traverse<A, B>(typeRep: TypeRep<B[]>, fn: (t: A) => B[]): (list: readonly A[]) => B[][];
+export function traverse<A, B, FB extends Applicative<B>, FTB extends Applicative<Traversable<B>>>(
+  typeRep: TypeRep<Traversable<any>>): (fn: (a: A) => FB) => (traversable: Traversable<A>) => FTB;
+export function traverse<A, B>(typeRep: TypeRep<B[]>): (fn: (t: A) => B[], list: readonly A[]) => B[][];
+
+// (Applicative f, Traversable t) => TypeRep f -> t (f a) -> f (t a)
+export function sequence<A, B, TFA extends Traversable<Applicative<A>>, FTB extends Applicative<Traversable<B>>>(
+  typeRep: TypeRep<Traversable<any>>, traversable: TFA): FTB;
+export function sequence<A, B, TFA extends Traversable<Applicative<A>>, FTB extends Applicative<Traversable<B>>>(
+  typeRep: TypeRep<Traversable<any>>): (traversable: TFA) => FTB;
