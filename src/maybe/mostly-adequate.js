@@ -65,6 +65,11 @@ class _Nothing extends Maybe {
 	traverse({'fantasy-land/of': of}, fn) {
 		return of(this);
 	}
+
+	// Maybe#fantasy-land/reduce :: Maybe a ~> ((b, a) -> b, b) -> b
+	reduce(f, x){
+		return x;
+	}
 }
 
 class _Just extends Maybe {
@@ -110,6 +115,10 @@ class _Just extends Maybe {
 	
 	traverse(of, fn) {
 		return map(Maybe.of)(fn(this.$value));
+	}
+
+	reduce(f, x) {
+		return f(x, this.$value);
 	}
 }
 

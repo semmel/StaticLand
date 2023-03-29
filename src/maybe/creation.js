@@ -1,8 +1,10 @@
+import {Maybe, Nothing} from "./mostly-adequate.js";
+
 const
 	// :: a -> Maybe a
-	of = x => [x],
-	//nothing = () => singleNothing, // TODO: alt: []
-	nothing = () => [];
+	of = Maybe.of,
+
+	nothing = () => new Nothing();
 
 export {
 	of, nothing

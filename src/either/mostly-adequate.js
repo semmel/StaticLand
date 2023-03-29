@@ -66,6 +66,11 @@ class _Left extends Either {
 	traverse({'fantasy-land/of': of}, fn) {
 		return of(this);
 	}
+
+	//# Either#fantasy-land/reduce :: Either a b ~> ((c, b) -> c, c) -> c
+	reduce(f, x) {
+		return x;
+	}
 }
 
 class _Right extends Either {
@@ -91,8 +96,10 @@ class _Right extends Either {
 	}
 	
 	// ----- Applicative (Either a)
+	// ap :: Apply f => f a ~> f (a -> b) -> f b
 	ap(ffn) {
-		return ffn.map(this.$value);
+		//ap(mf, ma) = chain(f => map(f, ma), mf)
+		return ffn.map(fn => fn(this.$value));
 	}
 	
 	// ----- Monad (Either a)
@@ -117,6 +124,10 @@ class _Right extends Either {
 	// :: Right a ~> F -> (a -> f b) -> f Right b
 	traverse({'fantasy-land/of': of}, fn) {
 		return map(Either.of)(fn(this.$value));
+	}
+
+	reduce(f, x) {
+		return f (x, this.$value);
 	}
 }
 

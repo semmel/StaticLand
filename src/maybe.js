@@ -11,8 +11,8 @@
  */
 
 import {
-	any, apply, always, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
-	nAry, unary, pathOr, reduce as reduce_l, tap as tapR, unapply
+	any, apply, always, chain as chainR, curry, equals as equalsR, ifElse, isEmpty, isNil, lift as liftR,
+	nAry, unary, pathOr, reduce as reduce_l, tap as tapR, unapply, identity
 } from 'ramda';
 
 import maybe from './maybe/maybe.js';
@@ -23,8 +23,7 @@ import chain from './maybe/chain.js';
 import ap from './maybe/ap.js';
 
 const
-	singleNothing = [],
-	
+	noop = () => undefined,
 	// Creation //
 	
 	// fromNilable :: (a|undefined|null) -> Maybe a
@@ -41,30 +40,21 @@ const
 	// Inspection //
 	
 	/**
-	 * Note that due to the implementation Maybes and empty or one-element arrays
-	 * cannot be separated from each other. Therefore
-	 * `equals(of(x), [x])` is `true` as well as `equals(nothing(), [])` is also `true`.
+	 * @deprecated Use FL compliant utility function e.g. R.equals
 	 */
 	// equals :: Maybe a -> Maybe b -> Boolean
-	equals = curry((ma, mb) =>
-		isJust(ma) ?
-			isJust(mb) && equalsR(ma[0], mb[0]) :
-			isNothing(mb)
-	),
+	equals = equalsR,
 	
 	// Transformation //
 	
 	//join = mx => isJust(mx) ? mx.flat() : singleNothing, // alternative: mx.flat()
 	// :: Maybe a -> Maybe a
 	// :: Maybe Maybe a -> Maybe a
-	join = mx =>
-		isJust(mx)
-			? (isJust(mx[0])
-				? mx[0]
-				: isNothing(mx[0]) ? nothing() : mx    // this else case makes the implementation different from chain(identity) and supports non-nested maybes as join arguments - why on earth would I want that?
-			)
-			: nothing(),
-	
+	join = chainR(identity),
+
+	/**
+	 * @deprecated Use FL compliant utility function e.g. R.reduce
+	 */
 	reduce = reduce_l,//curry((f, initial, mx) => mx.reduce(f, initial)),
 	
 	// Side effects //
@@ -74,7 +64,7 @@ const
 	 */
 	// tap :: (a -> *) -> Maybe a -> Maybe a
 	tap = curry((fn, mx) => {
-		mx.forEach(unary(fn));
+		maybe(noop, fn, mx);
 		return mx;
 	}),
 	

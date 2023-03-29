@@ -12,6 +12,8 @@ const
 					return other => target.equals(other);
 				case "fantasy-land/traverse":
 					return (F, fn) => target.traverse(F, fn);
+				case 'fantasy-land/reduce':
+					return (fn, a) => target.reduce(fn, a);
 				default:
 					return target[key];
 			}

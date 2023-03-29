@@ -1,4 +1,4 @@
-import { always, curry, find, identity, o } from 'ramda';
+import { always, curry, equals, find, identity, o, lift as liftR } from 'ramda';
 import chai from 'chai';
 import {
 	chain, equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,
@@ -225,8 +225,8 @@ describe("Maybe", function() {
 		
 		it("lifts ternary auto-curried functions", () => {
 			assert.isTrue(
-				equals_mb(
-					lift(curry(add3))(of(300), of(20), of(1)),
+				equals(
+					liftR(curry(add3))(of(300), of(20), of(1)),
 					of(321)
 				),
 				"lifted function did not return the expected value 321"
