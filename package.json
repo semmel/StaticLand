@@ -12,20 +12,20 @@
 		"@most/core": "^1.6.1",
 		"@most/scheduler": "^1.3.0",
 		"@most/types": "^1.1.0",
-		"@rollup/plugin-commonjs": "^23.0.3",
-		"@rollup/plugin-node-resolve": "^13.3.0",
+		"@rollup/plugin-commonjs": "^24.0.1",
+		"@rollup/plugin-node-resolve": "^15.0.1",
 		"@types/ramda": "^0.28.23",
 		"baconjs": "^3.0.17",
 		"chai": "^4.3.7",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.1.0",
 		"istanbul-badges-readme": "^1.8.2",
-		"mocha": "^10.1.0",
-		"rollup": "^2.77.2"
+		"mocha": "^10.2.0",
+		"rollup": "^3.20.2"
 	},
 	"optionalDependencies": {
 		"abort-controller": "^3.0.0",
-		"node-fetch": "^3.2.10"
+		"node-fetch": "^3.3.1"
 	},
 	"exports": {
 		".": {
@@ -38,7 +38,7 @@
 		},
 		"./cancelable-pre-node-v18": {
 			"import": "./src/cancelable.js",
-			"require": "./dist/cjs/cancelable-pre-node-v18.js"
+			"require": "./dist/cjs/cancelableNodeJS.js"
 		},
 		"./either": {
 			"import": "./src/either.js",

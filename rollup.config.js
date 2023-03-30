@@ -1,35 +1,44 @@
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+
+import packageConfig from './package.json' assert { type: 'json' };
 
 const
 	now = new Date(),
-	packageConfig = require('./package.json'),
 	bannerText = `/* @license Apache-2.0
 	${packageConfig.name} v.${packageConfig.version} visisoft.de
 	(Build date: ${now.toLocaleDateString()} - ${now.toLocaleTimeString()})
 	*/`,
 	
-	externals = ["ramda", "baconjs", "node-fetch", "abort-controller"],
+	// Note, that since "node-fetch" is an ESM-only module we need to
+	// include it in our CJS builds.
+	externals = ["ramda", "baconjs", "abort-controller"],
+	
+	commonOutputConfig = {
+		format: "cjs",
+		banner: bannerText,
+		dynamicImportInCjs: false  // for NodeJS v12 and lower – remove for NodeJS v14
+	},
 	
 	config = [
 		{
 			input: "index.js",
 			external: externals,
 			output: {
-				format: "cjs",
-				file: "./dist/cjs/staticland.js",
-				banner: bannerText,
+				file: "dist/cjs/staticland.js",
+				...commonOutputConfig
 			},
 			plugins: [
-				resolve()
+				resolve(),
+				commonjs()
 			]
 		},
 		{
 			input: "./src/promise.js",
 			external: externals,
 			output: {
-				format: "cjs",
-				file: "./dist/cjs/promise.js",
-				banner: bannerText,
+				file: "dist/cjs/promise.js",
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -39,21 +48,21 @@ const
 			input: "./src/cancelableNodeJS.js",
 			external: externals,
 			output: {
-				format: "cjs",
-				file: "./dist/cjs/cancelable-pre-node-v18.js",
-				banner: bannerText,
+				dir: "dist/cjs",
+				//file: "cancelable-pre-node-v18.js",
+				...commonOutputConfig
 			},
 			plugins: [
-				resolve()
+				resolve(),
+				commonjs()
 			]
 		},
 		{
 			input: "./src/cancelable.js",
 			external: externals,
 			output: {
-				format: "cjs",
-				file: "./dist/cjs/cancelable.js",
-				banner: bannerText,
+				file: "dist/cjs/cancelable.js",
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -63,9 +72,8 @@ const
 			input: "./src/maybe.js",
 			external: externals,
 			output: {
-				format: "cjs",
-				file: "./dist/cjs/maybe.js",
-				banner: bannerText,
+				file: "dist/cjs/maybe.js",
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -75,9 +83,8 @@ const
 			input: "./src/either.js",
 			external: externals,
 			output: {
-				format: "cjs",
 				file: "./dist/cjs/either.js",
-				banner: bannerText,
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -87,9 +94,8 @@ const
 			input: "./src/list.js",
 			external: externals,
 			output: {
-				format: "cjs",
 				file: "./dist/cjs/list.js",
-				banner: bannerText,
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -99,9 +105,8 @@ const
 			input: "./src/transformations.js",
 			external: externals,
 			output: {
-				format: "cjs",
 				file: "./dist/cjs/transformations.js",
-				banner: bannerText,
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -111,9 +116,8 @@ const
 			input: "./src/lens.js",
 			external: externals,
 			output: {
-				format: "cjs",
 				file: "./dist/cjs/lens.js",
-				banner: bannerText,
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
@@ -123,9 +127,8 @@ const
 			input: "./src/fantasyland.js",
 			external: externals,
 			output: {
-				format: "cjs",
 				file: "./dist/cjs/fantasyland.js",
-				banner: bannerText,
+				...commonOutputConfig
 			},
 			plugins: [
 				resolve()
