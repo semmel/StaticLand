@@ -464,6 +464,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sequencef-tfa" class="md-nav__link">
+    sequence(F, tfa)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traversef-a2fb-ta" class="md-nav__link">
+    traverse(F, a2fb, ta)
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -562,6 +576,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sequencef-tfa" class="md-nav__link">
+    sequence(F, tfa)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traversef-a2fb-ta" class="md-nav__link">
+    traverse(F, a2fb, ta)
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -580,7 +608,17 @@
                 
                 
                 <h1 id="fantasyland">FantasyLand</h1>
-<p>Trivial set of wrapper functions which delegate to the free static functions for Promise (<a href="../promise/"><code>@visisoft/staticland/promise</code></a>) – if the data type is Promise, otherwise to their implementations in <a href="https://ramdajs.com">Ramda</a>.</p>
+<p>Trivial set of wrapper functions <code>f</code> which 
+- delegate to the free static functions for Promise (<a href="../promise/"><code>@visisoft/staticland/promise</code></a>) – if the data type is Promise, otherwise
+- – except for <code>sequence</code> and <code>traverse</code> – delegate to their implementations in <a href="https://ramdajs.com">Ramda</a>. </p>
+<p>In turn Ramda<br />
+- dispatches to <code>Type.f</code>, or 
+- dispatches to <code>Type["fantasy-land/f"]</code>, or
+- implements for Lists if <code>Type</code> is <code>Array</code>, or
+- implements for <a href="http://www.tomharding.me/2017/04/15/functions-as-functors/">Function Functors</a> if <code>Type</code> is <code>Function</code>.</p>
+<p>This set of <em>utility functions</em> is typically provided by many FP libraries. The distinction is that this set
+- supports <code>Promise</code> as type, and
+- improving on Ramda <code>v0.28</code> expects <code>Type.traverse</code>, i.e. <code>Type['fantasy-land/traverse]</code> to comply with the <a href="https://github.com/fantasyland/fantasy-land#fantasy-landtraverse-method">FL signature</a></p>
 <h3 id="apmfn-ma"><code>ap(mfn, ma)</code></h3>
 <p><code>:: Apply m ⇒ m (a → b) → m a → m b</code></p>
 <ul>
@@ -603,6 +641,10 @@
 <p><code>:: Functor f ⇒ k → f {k: v} → f v</code></p>
 <p><code>:: Functor f ⇒ number → f [v] → f v</code></p>
 <p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
+<h3 id="sequencef-tfa"><code>sequence(F, tfa)</code></h3>
+<p><code>:: (Applicative f, Traversable t) =&gt; TypeRep f -&gt; t f a -&gt; f t a</code></p>
+<h3 id="traversef-a2fb-ta"><code>traverse(F, a2fb, ta)</code></h3>
+<p><code>:: (Applicative f, Traversable t) =&gt; TypeRep f -&gt; (a -&gt; f b) -&gt; t a -&gt; f t b</code></p>
                 
               
               

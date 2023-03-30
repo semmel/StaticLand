@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#changelog-v051" class="md-skip">
+        <a href="#changelog-v060" class="md-skip">
           Skip to content
         </a>
       
@@ -445,6 +445,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#06" class="md-nav__link">
+    0.6
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking" class="md-nav__link">
+    Breaking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#051" class="md-nav__link">
     0.5.1
   </a>
@@ -752,6 +779,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#06" class="md-nav__link">
+    0.6
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking" class="md-nav__link">
+    Breaking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#051" class="md-nav__link">
     0.5.1
   </a>
@@ -1027,7 +1081,24 @@
                   </a>
                 
                 
-                <h1 id="changelog-v051">Changelog v0.5.1</h1>
+                <h1 id="changelog-v060">Changelog v0.6.0</h1>
+<h2 id="06">0.6</h2>
+<h3 id="breaking"><strong>Breaking</strong></h3>
+<ul>
+<li>moved deprecated NodeJs version of <code>fetchResponseNodeJS</code> into own CJS module <code>/cancelable/cancelable-pre-node-v18</code></li>
+<li>changed the <code>Either</code> method <code>"fantasy-land/traverse"</code> to comply with Fantasy Land,</li>
+<li>changed the <code>Either</code> methods <code>sequence</code> and <code>traverse</code> to match those of <a href="https://crocks.dev/docs/crocks/Either.html#traverse">Crocks</a> (and others)</li>
+</ul>
+<h3 id="features">Features</h3>
+<ul>
+<li>replaced the <code>Array</code> based implementation of <code>Maybe</code> with a "mostly adequate", Fantasy Land compliant one,</li>
+<li>introduced <code>Either.ap</code> and thus make <code>lift</code> possible for <code>Either</code> data</li>
+<li><code>Maybe.ap</code> and <code>Either.ap</code> </li>
+<li>share the signatures with their Fantasy Land versions,</li>
+<li>thus they're the same as in monet.js, purify and Tom Harding's blog but differ from Prof. Frisby's Guide and Crocks,</li>
+<li>are just provided for convenience,</li>
+<li>added pointfree-style <code>fantasyland/sequence</code> and <code>fantasyland/traverse</code> with signatures like in <code>crocks/pointfree</code> and will be in Ramda <code>v0.29</code></li>
+</ul>
 <h2 id="051">0.5.1</h2>
 <ul>
 <li><code>cancelable/cancelifyWithArityAbortable</code></li>
