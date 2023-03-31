@@ -1,8 +1,5 @@
-import { add, equals, identity, o, subtract as subtractFrom } from 'ramda';
 import chai from 'chai';
 import { coalesce, fetchResponseIsoModule, later } from "../../src/cancelable.js";
-import fetch from 'node-fetch';
-import AbortController from "abort-controller";
 import { assertCorrectInterface } from "../helpers/types.mjs";
 
 const

@@ -10,9 +10,7 @@ const
 	(Build date: ${now.toLocaleDateString()} - ${now.toLocaleTimeString()})
 	*/`,
 	
-	// Note, that since "node-fetch" is an ESM-only module we need to
-	// include it in our CJS builds.
-	externals = ["ramda", "baconjs", "abort-controller"],
+	externals = ["ramda", "baconjs"],
 	
 	commonOutputConfig = {
 		format: "cjs",
@@ -42,19 +40,6 @@ const
 			},
 			plugins: [
 				resolve()
-			]
-		},
-		{
-			input: "./src/cancelableNodeJS.js",
-			external: externals,
-			output: {
-				dir: "dist/cjs",
-				//file: "cancelable-pre-node-v18.js",
-				...commonOutputConfig
-			},
-			plugins: [
-				resolve(),
-				commonjs()
 			]
 		},
 		{

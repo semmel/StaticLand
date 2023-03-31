@@ -15,17 +15,12 @@
 		"@rollup/plugin-commonjs": "^24.0.1",
 		"@rollup/plugin-node-resolve": "^15.0.1",
 		"@types/ramda": "^0.28.23",
-		"baconjs": "^3.0.17",
 		"chai": "^4.3.7",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.1.0",
 		"istanbul-badges-readme": "^1.8.2",
 		"mocha": "^10.2.0",
 		"rollup": "^3.20.2"
-	},
-	"optionalDependencies": {
-		"abort-controller": "^3.0.0",
-		"node-fetch": "^3.3.1"
 	},
 	"exports": {
 		".": {
@@ -35,10 +30,6 @@
 		"./cancelable": {
 			"import": "./src/cancelable.js",
 			"require": "./dist/cjs/cancelable.js"
-		},
-		"./cancelable-pre-node-v18": {
-			"import": "./src/cancelable.js",
-			"require": "./dist/cjs/cancelableNodeJS.js"
 		},
 		"./either": {
 			"import": "./src/either.js",
@@ -92,15 +83,14 @@
 	"module": "./index.js",
 	"name": "@visisoft/staticland",
 	"peerDependencies": {
-		"abort-controller": ">= 3.0.0",
-		"baconjs": ">= 3.0.17"
+		"baconjs": "^3.0.17"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/semmel/StaticLand.git"
 	},
 	"scripts": {
-		"build:cjs": "rollup -c",
+		"build:cjs": "rm --force ./dist/cjs/*.js && rollup -c && cp --force ./scripts/cjs-package.json ./dist/cjs/package.json",
 		"build:docs": "npm run build:badges && mkdocs build",
 		"build:badges": "istanbul-badges-readme --style=\"flat-square\"",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
@@ -113,8 +103,8 @@
 		"setup:test": "npm run setup:chai && npm run setup:hirestime",
 		"test": "mocha",
 		"test:coverage": "c8 mocha",
-		"test:individual": "mocha --no-config test/readmeExampleTest.mjs"
+		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "0.6.0"
+	"version": "0.6.1"
 }

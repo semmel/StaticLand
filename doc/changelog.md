@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+0.6.1
+---
+- removed `dist/cjs/cancelable/cancelable-pre-node-v18` because it never worked
+- `baconjs` is now a "peer dependency"
+
 0.6
 ---
 ### **Breaking**
