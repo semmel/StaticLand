@@ -15,7 +15,7 @@ MapF = Functor F => (a -> b) -> Fa -> Fb
 Lens sa = MapF => MapF -> (a -> Fa) -> sa -> Fsa
 ComposableLens sa = (a -> Fa) -> sa -> Fsa
 ```
-Note that `ComposableLens` bears the same signature as `traverse(of_f, map_f)` and `map`.
+Note that `ComposableLens` bears the same signature as `map`.
 
 
 Static-Land vs. Fantasy-Land (Ramda) Lenses
@@ -40,21 +40,12 @@ In general two procedures are required, one for extracting the item of interest,
 ### `lens(getter, setter)`
 `:: (sa -> a) -> ((a, sa) -> sa) -> Lens sa`
 
-Compare `lens` to `promap`:
 ```javascript
-const charLens = lens(s => s.charCodeAt(0), n => String.fromCharCode(n)), 
-   stringLens = lens(R.split(''), R.join('')),
-   charLensC = makeComposableOverLens(charLens),
-   stringLensC = makeComposableOverLens(stringLens),
-   singleLens = R.compose(stringLensC, R.unary(R.map), charLensC);
-
-over(singleLens, R.add(-8), "ziuli"); // -> 'ramda'
-
-// promap example from the Ramda documentation:
-const decodeChar = R.promap(s => s.charCodeAt(), n => String.fromCharCode(n), R.add(-8)),
-   decodeString = R.promap(R.split(''), R.join(''), R.map(decodeChar));
-
-decodeString("ziuli") //=> "ramda"
+var fooLens = R.lens(R.prop("foo"), R.assoc("foo"));
+var oneLens = R.lens(R.nth(1), R.update(1));
+var firstFooLens = R.compose(oneLens, fooLens);
+R.over(firstFooLens, R.toUpper, [{foo: "foo"}, {foo: "bar"}, {foo: "baz"}]);
+// =>[ { foo: 'foo' }, { foo: 'BAR' }, { foo: 'baz' } ]
 ```
 
 ### `indexLens(n)`
@@ -84,7 +75,7 @@ Example, the data is
 //                                    ↓
 const data = { bar: Promise.resolve("BAR") }, 
    barLens = propertyLens("bar"), 
-// decide to "mutate the data structure, so make an OverLens:
+// decide to "mutate" the data structure, so make an OverLens:
    composableBarLens = makeComposableOverLens(barLens),
 // define the whole path to the data
    aspect = compose(composableBarLens, mapPromise);

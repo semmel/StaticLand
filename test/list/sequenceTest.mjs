@@ -3,9 +3,11 @@ import {of as of_mb, liftA2 as liftA2_mb, isNothing, isJust, just, getOrElse, no
 import {of as of_p, later as later_p, liftA2 as liftA2_p} from '../../src/promise.js';
 import {sequence} from '../../src/list.js';
 import {map, range} from 'ramda';
-import hirestime from "../helpers/hirestime.mjs";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime();
 

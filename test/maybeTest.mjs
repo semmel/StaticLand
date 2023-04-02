@@ -1,8 +1,8 @@
-import { always, chain, curry, equals, find, identity, map, o, lift as liftR, reduce } from 'ramda';
+import { always, chain, curry, equals, find, identity, map, o, pluck, lift as liftR, reduce } from 'ramda';
 import chai from 'chai';
 import {
 	equals as equals_mb, fromNilable, getOrElse, of, isNothing, isJust,
-	just, join, nothing, maybe, pluck as pluck_m, lift, liftA2
+	just, join, nothing, maybe, lift, liftA2
 } from '../src/maybe.js';
 
 const
@@ -253,15 +253,15 @@ describe("Maybe", function() {
 			const
 				justARecord = just({foo: "FOO", bar: "BAR", baz: "BAZ"});
 			
-			assert.strictEqual(getOrElse("Unexpected value", pluck_m("foo", justARecord)), "FOO");
-			assert.ok(isNothing(pluck_m("foo", nothing())));
+			assert.strictEqual(getOrElse("Unexpected value", pluck("foo", justARecord)), "FOO");
+			assert.ok(isNothing(pluck("foo", nothing())));
 		});
 		
 		it("extracts from Arrays", () => {
 			const
 				justAList = just(["foo", "bar", "baz"]);
 			
-			assert.strictEqual(getOrElse("Unexpected value", pluck_m(0, justAList)), "foo");
+			assert.strictEqual(getOrElse("Unexpected value", pluck(0, justAList)), "foo");
 		});
 	});
 	

@@ -1,10 +1,12 @@
 import {compose, curry, equals, identity, o} from 'ramda';
 import {traverse as traverse_l} from '../../src/list.js';
 import {of as of_p, later as later_p, map as map_p, liftA2 as liftA2_p} from '../../src/promise.js';
-import hirestime from "../helpers/hirestime.mjs";
 import chai from 'chai';
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime();
 

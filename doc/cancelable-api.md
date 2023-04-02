@@ -190,7 +190,7 @@ Maps failure via `onFailure` and success via `onSuccess` to new success value.
 
 Simply `k => map(R.prop(k))` for mapping to a key value.
 
-*Deprecated* use `pluck` from Ramda via fantasy-land api.
+*Deprecated* use `pluck` from Ramda or `fantasyland/pluck`.
 
 ### `chain(f, cancelable)`
 `:: (a → Cancelable b) → Cancelable a → Cancelable b`

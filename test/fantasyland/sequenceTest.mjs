@@ -1,12 +1,13 @@
-import { always, equals, identity, map, o, range } from 'ramda';
+import {always, equals, identity, map, modify, o, objOf, range} from 'ramda';
 import chai from 'chai';
 import { sequence } from "../../src/fantasyland.js";
 import { getOrElse, just, isJust, Maybe, nothing, isNothing, Nothing, Just } from "../../src/maybe.js";
 import { Either, Right, Left, right, isRight, either, left, isLeft } from "../../src/either.js";
 import { later as later_p, TypeRepresentative as PromiseType } from "../../src/promise.js";
-import hirestime from "../helpers/hirestime.mjs";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
 	assert = chai.assert,
 	now = hirestime(),
 	
@@ -165,6 +166,66 @@ describe("fantasyland/sequence", function () {
 				assert.isTrue(isLeft(x));
 				assert.strictEqual(either(identity, always(new Error("UNEXPECTED_FILL_IN")), x), theError);
 			});
+		});
+
+		it ("swaps a Just of a resolved Promise", () => {
+			const
+				rja = sequence(PromiseType, just(Promise.resolve("foo")));
+
+			assert.instanceOf(rja, Promise);
+
+			return rja
+				.then(ja => {
+					assert.isTrue(isJust(ja));
+					assert.strictEqual(getOrElse("UNEXPECTED_FILL_IN", ja), "foo");
+				});
+		});
+
+		it ("swaps into a Just of a failing Promise into a failing Promise", () => {
+			const
+				fja = sequence(PromiseType, just(Promise.reject("bar")));
+
+			assert.instanceOf(fja, Promise);
+
+			return fja
+				.then(
+					val => {
+						assert.fail(`Unexpected success (${val})`);
+					},
+					e => {
+						//assert.isTrue(isJust(e));
+						assert.strictEqual(e, "bar");
+					}
+				);
+		});
+
+		it ("turns a Nothing into a Promise of a Nothing", () => {
+			const
+				fn = sequence(PromiseType, nothing());
+
+			assert.instanceOf(fn, Promise);
+
+			return fn
+				.then(x => {
+					assert.isTrue(isNothing(x));
+				});
+		});
+
+		it("works with Object Applicative", () => {
+			const
+				maybeOfObjectToObjectOfMaybe = sequence({of: objOf("foo")}),
+				objOfNothing = maybeOfObjectToObjectOfMaybe(nothing()),
+				objOfJust = maybeOfObjectToObjectOfMaybe(just({foo: "bar"}));
+
+			assert.isObject(objOfNothing);
+			assert.property(objOfNothing, "foo");
+			assert.isTrue(isNothing(objOfNothing.foo));
+			assert.deepPropertyVal(objOfNothing, "foo", nothing());
+
+			assert.isObject(objOfJust);
+			assert.property(objOfJust, "foo");
+			assert.isTrue(isJust(objOfJust.foo));
+			assert.deepPropertyVal(objOfJust, "foo", just("bar"));
 		});
 	});
 	

@@ -1,10 +1,12 @@
 import { createDeferred } from '../../src/cancelable.js';
 import chai from 'chai';
-import hirestime from "../helpers/hirestime.mjs";
 import { assertCorrectInterface } from "../helpers/types.mjs";
 import { map, reverse } from "ramda";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime();
 

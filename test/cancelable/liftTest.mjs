@@ -2,9 +2,11 @@ import { curryN, equals, identity, o, pair, pipe, unapply } from 'ramda';
 import liftA2 from "../../src/fantasyland/liftA2.js";
 import chai from 'chai';
 import {laterReject, later} from '../../src/cancelable.js';
-import hirestime from "../helpers/hirestime.mjs";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime(),
 	triple = curryN(3, unapply(identity));

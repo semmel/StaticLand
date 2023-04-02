@@ -1,10 +1,12 @@
 import { equals, identity, o } from 'ramda';
 import chai from 'chai';
 import { bi_tap, later, laterReject, of } from "../../src/cancelable.js";
-import hirestime from '../helpers/hirestime.mjs';
 import { assertCorrectInterface } from "../helpers/types.mjs";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime();
 

@@ -5,7 +5,7 @@
  * Copyright (c) 2022 Visisoft OHG. All rights reserved.
  */
 
-import Emittery from "../../src-external/emittery.js";
+import Emittery from "emittery";
 import addFantasyLandInterface from "./addFantasyLandInterface.js";
 
 const

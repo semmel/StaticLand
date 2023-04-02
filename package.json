@@ -4,7 +4,7 @@
 		"url": "https://github.com/semmel/StaticLand/issues"
 	},
 	"dependencies": {
-		"emittery": "^0.11.0",
+		"emittery": "^1.0.1",
 		"ramda": "^0.28.0"
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
@@ -95,12 +95,10 @@
 		"build:badges": "istanbul-badges-readme --style=\"flat-square\"",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"postpack": "npm run remove_ts_defs_from_root",
-		"postinstall:emittery": "rollup -p @rollup/plugin-commonjs -f es -o ./src-external/emittery.js -i ./node_modules/emittery/index.js && cp -pvr ./node_modules/emittery/index.d.ts ./src-external/emittery.d.ts",
 		"prepack": "npm run test:coverage && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
-		"setup:hirestime": "rollup --input node_modules/hirestime/dist/index.js --file test/helpers/hirestime.mjs -c scripts/rollup.cjs-dependencies.config.js",
-		"setup:test": "npm run setup:chai && npm run setup:hirestime",
+		"setup:test": "npm run setup:chai",
 		"test": "mocha",
 		"test:coverage": "c8 mocha",
 		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"

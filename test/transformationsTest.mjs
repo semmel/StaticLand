@@ -8,10 +8,12 @@ import {
 }
 from	'../src/transformations.js';
 import { later as later_c, laterReject as later_reject_c } from "../src/cancelable.js";
-import hirestime from "./helpers/hirestime.mjs";
 import * as Bacon from 'baconjs';
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime();
 

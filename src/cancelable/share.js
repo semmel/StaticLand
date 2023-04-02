@@ -1,7 +1,7 @@
 // Until sindresorhus/emittery is published as ESM (https://github.com/sindresorhus/emittery/issues/92),
 // we need to convert the CJS module using command npm run postinstall:emittery
 // and import our converted version
-import Emittery from "../../src-external/emittery.js";
+import Emittery from "emittery";
 import addFantasyLandInterface from "./addFantasyLandInterface.js";
 
 const

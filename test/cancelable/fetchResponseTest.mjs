@@ -44,7 +44,7 @@ describe("cancelables fetchResponse", function() {
 			return Promise.race([
 				new Promise((resolve, reject) => {
 					const abort = fetchResponse({url, init: { mode: "cors" }})(resolve, reject);
-					setTimeout(abort, 20);
+					setTimeout(abort, 10);
 				})
 				.finally(() => { assert.fail("cancelable should not continue"); }),
 				new Promise(resolve => { setTimeout(resolve, 4000); })

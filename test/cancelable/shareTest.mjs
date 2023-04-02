@@ -1,10 +1,12 @@
 import chai from 'chai';
 import { later, laterReject, share } from "../../src/cancelable.js";
-import hirestime from "../helpers/hirestime.mjs";
 import { later as later_p } from '../../src/promise.js';
 import { assertCorrectInterface } from "../helpers/types.mjs";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime();
 

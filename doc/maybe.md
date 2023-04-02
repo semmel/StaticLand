@@ -51,16 +51,18 @@ Otherwise, returns the default value.
 Transformation
 ---------------
 
-### `pluck(key)`
+### ~~`pluck(key)`~~
 `:: Maybe m => k -> m {k: v} -> m v`
 
 `:: Maybe m => number -> m [v] -> m v`
 
+*Deprecated* use `pluck` from Ramda or `fantasyland/pluck`.
 Simply `k => map(R.prop(k))` for mapping to a key value.
 
-### `sequence(of_f, map_f, MaybeOfF)`
+### ~~`sequence(of_f, map_f, MaybeOfF)`~~
 `:: Applicative f => ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)`
 
+*Deprecated* Use `fantasyland/sequence`.
 Swap the sequence of types: **Maybe** of *Functor* of Value to *Functor* of **Maybe** of Value. Maybe takes the role of a "Traversable" `t`.
 
 #### Examples

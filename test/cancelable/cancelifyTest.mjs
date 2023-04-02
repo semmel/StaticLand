@@ -3,11 +3,13 @@ import chai from 'chai';
 import cancelify from "../../src/cancelable/cancelify.js";
 import { cancelableToPromise } from "../../src/transformations.js";
 import { coalesce as coalesce_p, tap as tap_p } from '../../src/promise.js';
-import hirestime from "../helpers/hirestime.mjs";
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
 import { assertCorrectInterface } from "../helpers/types.mjs";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	now = hirestime(),
 	createLatePromise = a => new Promise(resolve => {

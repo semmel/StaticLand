@@ -3,10 +3,12 @@ import chai from 'chai';
 import { ap, bi_tap as bi_tap_c, chain, map, never, of } from '../../src/cancelable.js';
 import createDeferred from "../helpers/createDeferred.js";
 import {later as later_p} from '../../src/promise.js';
-import hirestime from "../helpers/hirestime.mjs";
 import fantasticCancelable from "../../src/cancelable/internal/fantasyfy.js";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	tap_c = bi_tap_c(identity),
 	now = hirestime(),

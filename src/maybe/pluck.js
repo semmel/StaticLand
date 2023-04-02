@@ -7,4 +7,5 @@
 import map from "./map.js";
 import { curry, prop } from "ramda";
 
+/** @deprecated use R.pluck or fantasyland/pluck */
 export default curry((key, ca) => map(prop(key), ca));

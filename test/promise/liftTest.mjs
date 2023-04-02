@@ -1,9 +1,11 @@
 import { add, equals, identity, o } from 'ramda';
 import chai from 'chai';
-import hirestime from '../helpers/hirestime.mjs';
 import liftA2 from "../../src/fantasyland/liftA2.js";
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	/** @type {<T>(delay: number, t:T) => Promise<T>} */
 	laterSucceed = (dt, value) => new Promise(resolve => setTimeout(resolve, dt, value)),

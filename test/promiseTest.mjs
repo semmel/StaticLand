@@ -1,9 +1,11 @@
 import {add, identity, o, pipe, pluck} from 'ramda';
 import chai from 'chai';
-import hirestime from './helpers/hirestime.mjs';
 import {alt, bi_tap, chain, chainRej, chainTap, chainIf, liftA2, map, of, tap, tapRegardless} from '../src/promise.js';
-
+import { createRequire } from 'node:module';
 const
+	require = createRequire(import.meta.url),
+	hirestime = require('hirestime').default,
+
 	assert = chai.assert,
 	/** @type {<T>(delay: number, t:T) => Promise<T>} */
 	laterSucceed = (dt, value) => new Promise(resolve => setTimeout(resolve, dt, value)),
