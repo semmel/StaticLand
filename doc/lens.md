@@ -2,7 +2,7 @@ Lens
 ====
 A Lens is a function which focuses on a particular aspect, property, index, ... of a data structure. Their purpose is to make changes in a data structure in a non-mutating functional way. 
 
-Lenses compose with themselves, traversal functions (`Type.traverse(of_f, liftA2_f)`), mapping functions (`Type.map`) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. 
+Lenses compose with themselves, traversal functions (`Type.traverse(of_f)`), mapping functions (`Type.map`) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. 
 
 Lenses are put into action by a set of helper functions (`view`, `over`, `set`) which take the lens and source data as arguments and return the result data.
 
