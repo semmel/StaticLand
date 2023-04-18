@@ -64,7 +64,6 @@
 	"files": [
 		"dist",
 		"src",
-		"src-external",
 		"index.js",
 		"*.d.ts"
 	],
