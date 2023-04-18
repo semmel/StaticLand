@@ -757,7 +757,7 @@
                 
                 <h1 id="lens">Lens</h1>
 <p>A Lens is a function which focuses on a particular aspect, property, index, ... of a data structure. Their purpose is to make changes in a data structure in a non-mutating functional way. </p>
-<p>Lenses compose with themselves, traversal functions (<code>Type.traverse(of_f, liftA2_f)</code>), mapping functions (<code>Type.map</code>) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. </p>
+<p>Lenses compose with themselves, traversal functions (<code>Type.traverse(of_f)</code>), mapping functions (<code>Type.map</code>) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. </p>
 <p>Lenses are put into action by a set of helper functions (<code>view</code>, <code>over</code>, <code>set</code>) which take the lens and source data as arguments and return the result data.</p>
 <p>For a thorough introduction read <a href="https://medium.com/@drboolean/lenses-with-immutable-js-9bda85674780">"Lenses with Immutable.js" by Brian Lonsdorf</a>, for the details of the implementation for StaticLand data structures read <a href="https://calmm-js.github.io/partial.lenses/implementation.html">"Partial Lenses Implementation" by Vesa Karvonen</a></p>
 <h2 id="types">Types</h2>
@@ -766,7 +766,7 @@ Lens sa = MapF =&gt; MapF -&gt; (a -&gt; Fa) -&gt; sa -&gt; Fsa
 ComposableLens sa = (a -&gt; Fa) -&gt; sa -&gt; Fsa
 </code></pre>
 
-<p>Note that <code>ComposableLens</code> bears the same signature as <code>traverse(of_f, map_f)</code> and <code>map</code>.</p>
+<p>Note that <code>ComposableLens</code> bears the same signature as <code>map</code>.</p>
 <h2 id="static-land-vs-fantasy-land-ramda-lenses">Static-Land vs. Fantasy-Land (Ramda) Lenses</h2>
 <p>A lens is primary implemented as</p>
 <pre><code class="js">lens = getter, setter =&gt; Fmap =&gt; x2Fy =&gt; xs =&gt; 
@@ -783,20 +783,11 @@ ComposableLens sa = (a -&gt; Fa) -&gt; sa -&gt; Fsa
 <p>In general two procedures are required, one for extracting the item of interest, the other for re-assembling the data structure. The returned functions (i.e. lenses) themselves <em>cannot be composed</em> together. Instead, they serve as initial building blocks for the entire composition of the data aspect. </p>
 <h3 id="lensgetter-setter"><code>lens(getter, setter)</code></h3>
 <p><code>:: (sa -&gt; a) -&gt; ((a, sa) -&gt; sa) -&gt; Lens sa</code></p>
-<p>Compare <code>lens</code> to <code>promap</code>:</p>
-<pre><code class="javascript">const charLens = lens(s =&gt; s.charCodeAt(0), n =&gt; String.fromCharCode(n)), 
-   stringLens = lens(R.split(''), R.join('')),
-   charLensC = makeComposableOverLens(charLens),
-   stringLensC = makeComposableOverLens(stringLens),
-   singleLens = R.compose(stringLensC, R.unary(R.map), charLensC);
-
-over(singleLens, R.add(-8), &quot;ziuli&quot;); // -&gt; 'ramda'
-
-// promap example from the Ramda documentation:
-const decodeChar = R.promap(s =&gt; s.charCodeAt(), n =&gt; String.fromCharCode(n), R.add(-8)),
-   decodeString = R.promap(R.split(''), R.join(''), R.map(decodeChar));
-
-decodeString(&quot;ziuli&quot;) //=&gt; &quot;ramda&quot;
+<pre><code class="javascript">var fooLens = R.lens(R.prop(&quot;foo&quot;), R.assoc(&quot;foo&quot;));
+var oneLens = R.lens(R.nth(1), R.update(1));
+var firstFooLens = R.compose(oneLens, fooLens);
+R.over(firstFooLens, R.toUpper, [{foo: &quot;foo&quot;}, {foo: &quot;bar&quot;}, {foo: &quot;baz&quot;}]);
+// =&gt;[ { foo: 'foo' }, { foo: 'BAR' }, { foo: 'baz' } ]
 </code></pre>
 
 <h3 id="indexlensn"><code>indexLens(n)</code></h3>
@@ -818,7 +809,7 @@ decodeString(&quot;ziuli&quot;) //=&gt; &quot;ramda&quot;
 //                                    ↓
 const data = { bar: Promise.resolve(&quot;BAR&quot;) }, 
    barLens = propertyLens(&quot;bar&quot;), 
-// decide to &quot;mutate the data structure, so make an OverLens:
+// decide to &quot;mutate&quot; the data structure, so make an OverLens:
    composableBarLens = makeComposableOverLens(barLens),
 // define the whole path to the data
    aspect = compose(composableBarLens, mapPromise);

@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#changelog-v061" class="md-skip">
+        <a href="#changelog-v070" class="md-skip">
           Skip to content
         </a>
       
@@ -445,6 +445,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#070" class="md-nav__link">
+    0.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#061" class="md-nav__link">
     0.6.1
   </a>
@@ -786,6 +793,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#070" class="md-nav__link">
+    0.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#061" class="md-nav__link">
     0.6.1
   </a>
@@ -1095,7 +1109,12 @@
                   </a>
                 
                 
-                <h1 id="changelog-v061">Changelog v0.6.1</h1>
+                <h1 id="changelog-v070">Changelog v0.7.0</h1>
+<h2 id="070">0.7.0</h2>
+<ul>
+<li>detect <code>Maybe</code> and <code>Either</code> instances no longer when both instances have the <em>same</em> <code>Maybe</code> or <code>Either</code> <em>prototype class</em>, but when they have the <em>same <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol#well-known_symbols">well-known symbol</a></em> <code>"@@type"</code>. This will permit an app to use <code>Maybe</code>s and <code>Either</code>s from different module versions of <code>@visisoft/staticland</code>. <code>"@@type"</code> is also used by <em>monet</em> and <em>sanctuary</em>. </li>
+<li>overloaded <code>instanceof</code> for <code>Maybe</code> and <code>Either</code> to operate just on <code>other['@@type']</code>. Choosing this approach instead of comparing everywhere <code>['@@type']</code>s, preserves the ability to use Ramda's <code>R.is</code> utility function. </li>
+</ul>
 <h2 id="061">0.6.1</h2>
 <ul>
 <li>removed <code>dist/cjs/cancelable/cancelable-pre-node-v18</code> because it never worked</li>

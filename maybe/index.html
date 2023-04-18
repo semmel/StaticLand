@@ -878,13 +878,15 @@ getOrElse(&quot;foo&quot;, just(&quot;bar&quot;)); // -&gt; &quot;bar&quot;
 Transforms the value if it exists with the provided function.
 Otherwise, returns the default value.</p>
 <h2 id="transformation">Transformation</h2>
-<h3 id="pluckkey"><code>pluck(key)</code></h3>
+<h3 id="pluckkey"><del><code>pluck(key)</code></del></h3>
 <p><code>:: Maybe m =&gt; k -&gt; m {k: v} -&gt; m v</code></p>
 <p><code>:: Maybe m =&gt; number -&gt; m [v] -&gt; m v</code></p>
-<p>Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
-<h3 id="sequenceof_f-map_f-maybeoff"><code>sequence(of_f, map_f, MaybeOfF)</code></h3>
+<p><em>Deprecated</em> use <code>pluck</code> from Ramda or <code>fantasyland/pluck</code>.
+Simply <code>k =&gt; map(R.prop(k))</code> for mapping to a key value.</p>
+<h3 id="sequenceof_f-map_f-maybeoff"><del><code>sequence(of_f, map_f, MaybeOfF)</code></del></h3>
 <p><code>:: Applicative f =&gt; ((a → f a), ((a → b) → f a → f b) → Maybe (f a) → f (Maybe a)</code></p>
-<p>Swap the sequence of types: <strong>Maybe</strong> of <em>Functor</em> of Value to <em>Functor</em> of <strong>Maybe</strong> of Value. Maybe takes the role of a "Traversable" <code>t</code>.</p>
+<p><em>Deprecated</em> Use <code>fantasyland/sequence</code>.
+Swap the sequence of types: <strong>Maybe</strong> of <em>Functor</em> of Value to <em>Functor</em> of <strong>Maybe</strong> of Value. Maybe takes the role of a "Traversable" <code>t</code>.</p>
 <h4 id="examples">Examples</h4>
 <h5 id="change-a-maybe-of-a-promise-into-a-promise-of-a-maybe">Change a Maybe of a Promise into a Promise of a Maybe</h5>
 <pre><code class="javascript">const 
