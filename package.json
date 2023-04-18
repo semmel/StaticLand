@@ -12,15 +12,15 @@
 		"@most/core": "^1.6.1",
 		"@most/scheduler": "^1.3.0",
 		"@most/types": "^1.1.0",
-		"@rollup/plugin-commonjs": "^24.0.1",
-		"@rollup/plugin-node-resolve": "^15.0.1",
+		"@rollup/plugin-commonjs": "^24.1.0",
+		"@rollup/plugin-node-resolve": "^15.0.2",
 		"@types/ramda": "^0.28.23",
 		"chai": "^4.3.7",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.1.0",
 		"istanbul-badges-readme": "^1.8.2",
 		"mocha": "^10.2.0",
-		"rollup": "^3.20.2"
+		"rollup": "^3.20.6"
 	},
 	"exports": {
 		".": {
@@ -104,5 +104,5 @@
 		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "0.6.1"
+	"version": "0.7.0"
 }

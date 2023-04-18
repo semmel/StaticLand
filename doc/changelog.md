@@ -1,5 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
+0.7.0
+---
+- detect `Maybe` and `Either` instances no longer when both instances have the *same* `Maybe` or `Either` *prototype class*, but when they have the *same [well-known symbol][wks]* `"@@type"`. This will permit an app to use `Maybe`s and `Either`s from different module versions of `@visisoft/staticland`. `"@@type"` is also used by *monet* and *sanctuary*. 
+- overloaded `instanceof` for `Maybe` and `Either` to operate just on `other['@@type']`. Choosing this approach instead of comparing everywhere `['@@type']`s, preserves the ability to use Ramda's `R.is` utility function. 
+
 0.6.1
 ---
 - removed `dist/cjs/cancelable/cancelable-pre-node-v18` because it never worked
@@ -179,3 +184,5 @@ Changelog v{{ config.meta.version }}
 -----
 - Added Either type
 - Added transformations fo Either and Maybe to Promise
+
+[wks]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol#well-known_symbols
