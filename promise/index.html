@@ -409,6 +409,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#maprejf" class="md-nav__link">
+    mapRej(f)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -705,6 +712,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#maprejf" class="md-nav__link">
+    mapRej(f)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -816,6 +830,8 @@ Creates a Promise which never settles.</p>
 <h3 id="coalesceonfailure-onsuccess-p"><code>coalesce(onFailure, onSuccess, p)</code></h3>
 <p><code>:: (e -&gt; b) -&gt; (a -&gt; b) -&gt; Promise e a -&gt; Promise e b</code>
 It's essentially <code>Promise.then</code> and named coalesce in crocks Async.</p>
+<h3 id="maprejf"><code>mapRej(f)</code></h3>
+<p><code>:: (e -&gt; c) -&gt; Promise e b -&gt; Promise c b</code></p>
 <h2 id="side-effects">Side-Effects</h2>
 <h3 id="bi_taponfailure-onsuccess-p"><code>bi_tap(onFailure, onSuccess, p)</code></h3>
 <p><code>:: (* -&gt; *) -&gt; (a -&gt; *) -&gt; Promise a -&gt; Promise a</code> </p>

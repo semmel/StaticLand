@@ -369,6 +369,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#headlist" class="md-nav__link">
+    head(list)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lastlist" class="md-nav__link">
+    last(list)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nthindex-list" class="md-nav__link">
+    nth(index, list)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -587,6 +608,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#headlist" class="md-nav__link">
+    head(list)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lastlist" class="md-nav__link">
+    last(list)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nthindex-list" class="md-nav__link">
+    nth(index, list)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -676,6 +718,18 @@
 <h2 id="searching">Searching</h2>
 <h3 id="findpredicate-list"><code>find(predicate, list)</code></h3>
 <p><code>:: (a → Boolean) → [a] → Maybe a</code></p>
+<h3 id="headlist"><code>head(list)</code></h3>
+<p><code>:: [a] → Maybe a</code></p>
+<p><code>:: String → Maybe Character</code></p>
+<h3 id="lastlist"><code>last(list)</code></h3>
+<p><code>:: [a] → Maybe a</code></p>
+<p><code>:: String → Maybe Character</code></p>
+<h3 id="nthindex-list"><code>nth(index, list)</code></h3>
+<p><code>:: Number → [a] → Maybe a</code></p>
+<p><code>:: Number → String → Maybe Character</code></p>
+<p>Like in Ramda, 
+- negative indices count from the back
+- an index of <code>0</code> means the first item, of <code>1</code> the second and so forth…</p>
 <h2 id="transformation">Transformation</h2>
 <h3 id="mapa2b"><code>map(a2b)</code></h3>
 <p><code>:: (a -&gt; b) -&gt; [a] -&gt; [b]</code></p>
