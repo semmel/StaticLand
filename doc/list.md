@@ -11,6 +11,25 @@ Searching
 ### `find(predicate, list)`
 `:: (a → Boolean) → [a] → Maybe a`
 
+### `head(list)`
+`:: [a] → Maybe a`
+
+`:: String → Maybe Character`
+
+### `last(list)`
+`:: [a] → Maybe a`
+
+`:: String → Maybe Character`
+
+### `nth(index, list)`
+`:: Number → [a] → Maybe a`
+
+`:: Number → String → Maybe Character`
+
+Like in Ramda, 
+- negative indices count from the back
+- an index of `0` means the first item, of `1` the second and so forth…
+
 Transformation
 -------------
 ### `map(a2b)`

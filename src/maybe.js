@@ -22,28 +22,28 @@ import {just, of, nothing} from './maybe/creation.js';
 const
 	noop = () => undefined,
 	// Creation //
-	
+
 	// fromNilable :: (a|undefined|null) -> Maybe a
 	fromNilable = ifElse(isNil, nothing, of),
-	
+
 	// fromContentHolding :: a -> Maybe a
 	fromContentHolding = ifElse(isEmpty, nothing, of),
-	
+
 	// :: (a -> Boolean) -> a -> Maybe a
 	fromPredicate = curry((predicate, x) =>
 		predicate(x) ? of(x) : nothing()
 	),
-	
+
 	// Inspection //
-	
+
 	/**
 	 * @deprecated Use FL compliant utility function e.g. R.equals
 	 */
 	// equals :: Maybe a -> Maybe b -> Boolean
 	equals = equalsR,
-	
+
 	// Transformation //
-	
+
 	//join = mx => isJust(mx) ? mx.flat() : singleNothing, // alternative: mx.flat()
 	// :: Maybe a -> Maybe a
 	// :: Maybe Maybe a -> Maybe a
@@ -53,22 +53,22 @@ const
 	 * @deprecated Use FL compliant utility function e.g. R.reduce
 	 */
 	reduce = reduce_l,
-	
+
 	// Side effects //
-	
+
 	/**
-	 * Note that probably `tap = tapR(maybe(() => undefined))`
+	 * Note that probably `tap = fn => mx => tapR(maybe(() => undefined, fn))`
 	 */
 	// tap :: (a -> *) -> Maybe a -> Maybe a
 	tap = curry((fn, mx) => {
 		maybe(noop, fn, mx);
 		return mx;
 	}),
-	
+
 	biTap = curry((onNothing, onJust, mb) => tapR(maybe(onNothing, onJust), mb)),
-	
+
 	// Adjuncts //
-	
+
 	/**
 	 * @template N
 	 * @param {function(...): N} fn
@@ -80,7 +80,7 @@ const
 	lift = fn =>
 		nAry(
 			fn.length,
-			
+
 			unapply(ifElse(
 				any(isNothing),
 				nothing,
@@ -89,9 +89,9 @@ const
 				apply(liftR(fn))  // here the same as the line above
 			))
 		),
-	
+
 	// Developer //
-	
+
 	typeString = maybe(
 		always('Nothing'),
 		value => `Just(${pathOr(typeof value, ['constructor', 'name'], value)})`

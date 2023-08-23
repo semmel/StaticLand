@@ -6,8 +6,19 @@ type Applicative<T> = Cancelable<T>|Promise<T>|Either<T>|Maybe<T>;
 export function find<A>(predicate:(a: A) => boolean, list: Array<A>): Maybe<A>;
 export function find<A>(predicate:(a: A) => boolean): (list: Array<A>) => Maybe<A>;
 
+export function head<A>(list: Array<A>): Maybe<A>;
+export function head(list: string): Maybe<string>;
+
+export function last<A>(list: Array<A>): Maybe<A>;
+export function last(list: string): Maybe<string>;
+
 export function map<A, B>(a2b: (a: A) => B, ma: [A]): [B];
 export function map<A, B>(a2b: (a: A) => B): (ma: [A]) => [B];
+
+export function nth<A>(index: number, list: Array<A>): Maybe<A>;
+export function nth(index: number, list: string): Maybe<string>;
+export function nth<A>(index: number): (list: Array<A>) => Maybe<A>;
+export function nth(index: number): (list: string) => Maybe<string>;
 
 export function sequence<A, B, C>(
   ofF: (a: A) => Applicative<A>,

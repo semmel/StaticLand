@@ -1,5 +1,9 @@
 Changelog v{{ config.meta.version }}
 =========
+1.0.0
+---
+- adds `nth`, `last` and `head` to `/list`
+
 0.7.0
 ---
 - detect `Maybe` and `Either` instances no longer when both instances have the *same* `Maybe` or `Either` *prototype class*, but when they have the *same [well-known symbol][wks]* `"@@type"`. This will permit an app to use `Maybe`s and `Either`s from different module versions of `@visisoft/staticland`. `"@@type"` is also used by *monet* and *sanctuary*. 

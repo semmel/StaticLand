@@ -1,4 +1,4 @@
-FantasyLand
+FantasyLand (`/fantasyland`)
 ===========
 
 Trivial set of wrapper functions `f` which 

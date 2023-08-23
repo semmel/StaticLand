@@ -37,6 +37,9 @@ Transformation
 `:: (e -> b) -> (a -> b) -> Promise e a -> Promise e b`
 It's essentially `Promise.then` and named coalesce in crocks Async.
 
+### `mapRej(f)`
+`:: (e -> c) -> Promise e b -> Promise c b`
+
 Side-Effects
 -----------
 

@@ -44,6 +44,9 @@ export function liftA2<S, T, U>(fn: BinaryCurriedFn<S, T, U>): (ps: Promise<S>) 
 export function map<T, U>(fn: (x?: T) => U, p: Promise<T>): Promise<U>;
 export function map<T, U>(fn: (x?: T) => U): (p: Promise<T>) => Promise<U>;
 
+export function mapRej<T>(fn: (e: any) => any, p: Promise<T>): Promise<T>;
+export function mapRej<T>(fn: (e: any) => any): (p: Promise<T>) => Promise<T>;
+
 export function of<T>(x: T): Promise<T>;
 
 /**
