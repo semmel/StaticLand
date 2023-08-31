@@ -373,6 +373,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fromnodecallbackwitharityarity-sourcefn" class="md-nav__link">
+    fromNodeCallbackWithArity(arity, sourceFn)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createdeferred" class="md-nav__link">
     createDeferred()
   </a>
@@ -811,6 +818,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fromnodecallbackwitharityarity-sourcefn" class="md-nav__link">
+    fromNodeCallbackWithArity(arity, sourceFn)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createdeferred" class="md-nav__link">
     createDeferred()
   </a>
@@ -1045,6 +1059,12 @@ const
    packageContents = readFile('./package.json', { encoding: 'utf8' });
 </code></pre>
 
+<h3 id="fromnodecallbackwitharityarity-sourcefn"><code>fromNodeCallbackWithArity(arity, sourceFn)</code></h3>
+<p><code>:: Number → ((*..., NodeCallback a) → ()) → *... → Cancelable a</code></p>
+<p><code>NodeCallback = (error, a) → ()</code></p>
+<p>Creates an auto-curried function of arity <code>arity</code> from a source function that accepts a Node-style callback <code>callback(error, data)</code> as last parameter. The returned function can be invoked with the leading parameters of the Node-style source function, and returns a Cancelable.</p>
+<p>The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the callback is finally invoked.</p>
+<p>The arity argument is provided to support functions with trailing default arguments. It must be a single argument less than the maximum number of arguments to the source function.</p>
 <h3 id="createdeferred"><code>createDeferred()</code></h3>
 <p><code>DeferredCancelable e a = {cancelable: Cancelable e a, resolve: a → (), reject: e → (), cancel: () → ()}</code></p>
 <p><code>:: () → DeferredCancelable e a</code></p>
