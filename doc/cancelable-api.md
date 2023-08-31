@@ -76,6 +76,17 @@ const
    packageContents = readFile('./package.json', { encoding: 'utf8' });
 ```
 
+### `fromNodeCallbackWithArity(arity, sourceFn)`
+`:: Number → ((*..., NodeCallback a) → ()) → *... → Cancelable a`
+
+`   NodeCallback = (error, a) → ()`
+
+Creates an auto-curried function of arity `arity` from a source function that accepts a Node-style callback `callback(error, data)` as last parameter. The returned function can be invoked with the leading parameters of the Node-style source function, and returns a Cancelable.
+
+The computation cannot be cancelled. Cancelling the resulting Cancelable will simply prevent the continuation callbacks from getting called once the callback is finally invoked.
+
+The arity argument is provided to support functions with trailing default arguments. It must be a single argument less than the maximum number of arguments to the source function.
+
 ### `createDeferred()`
 `DeferredCancelable e a = {cancelable: Cancelable e a, resolve: a → (), reject: e → (), cancel: () → ()}`
 
@@ -180,7 +191,7 @@ Maps failure via `onFailure` and success via `onSuccess` to new success value.
 ### `map(f, cancelable)`
 `:: (Cancelable x) c ⇒ (a → b) → c a → c b`
 
-### `biMap(f, cancelable)`
+### `biMap(fnLeft, fn, cancelable)`
 `:: Cancelable c ⇒ (x → y) → (a → b) → c x a → c y b`
 
 ### ~~`pluck(key)`~~ 

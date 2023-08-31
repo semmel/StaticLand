@@ -1,5 +1,14 @@
 Changelog v{{ config.meta.version }}
 =========
+
+1.2
+---
+- adds `cancelable/fromNodeCallbackWithArity`
+
+1.1
+---
+- adds `either/bimap`
+
 1.0.0
 ---
 - adds `nth`, `last` and `head` to `/list`

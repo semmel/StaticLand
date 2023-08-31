@@ -35,6 +35,9 @@ Inspection
 Transformation
 -------------
 
+### `bimap(fnLeft, fnRight, ma)`
+`:: (c -> d) -> (a -> b) -> Either c a -> (Either c b) | (Either d a)`
+
 ### `chain(fn, ma)`
 `:: Either m ⇒ (a → m e b) → m c a → m e b`
 
@@ -45,8 +48,10 @@ Useful for converting a right to a left.
 
 Useful for converting a left to a right.
 
-### `map(fn, ma)`
+### ~~`map(fn, ma)`~~
 `:: (a -> b) -> Either c a -> Either c b`
+
+*Deprecated:* Use `fantasyland/map`
 
 ### `sequence(of_f, map_f, EitherOfF)`
 `:: Applicative f => ((a → f a), ((a → b) → f a → f b) → Either c (f a) → f (Either c a)`

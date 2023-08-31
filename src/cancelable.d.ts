@@ -7,6 +7,8 @@ export type DeferredCancelable<A> = {
   reject: (e: any) => void
 }
 
+export type NodeCallback<A> = (error: Error, result: A) => void;
+
 export function addFantasyLandInterface<A>(ca: Cancelable<A>): Cancelable<A>;
 export function createDeferred<A>(): DeferredCancelable<A>;
 export function of<A>(a: A): Cancelable<A>;
@@ -27,6 +29,9 @@ export function fetchResponseIsoModule(spec: WindowOrWorkerGlobalScope): (params
 export function cancelify<A>(f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
 
 export function cancelifyWithArityAbortable<A>(arity: number, f: (...args: any[]) => Promise<A>): (...args: any[]) => Cancelable<A>;
+
+// :: Number → ((*..., NodeCallback a) → ()) → *... → Cancelable a
+export function fromNodeCallbackWithArity<A>(arity: number, f: (args: [...args: any[], callback: NodeCallback<A>]) => void): (...args: any[]) => Cancelable<A>;
 
 // Transformations
 

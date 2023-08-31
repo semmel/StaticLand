@@ -13,6 +13,10 @@ class Either {
 		return this.map(fn);
 	}
 
+	["fantasy-land/bimap"](fn) {
+		return this.bimap(fn);
+	}
+
 	["fantasy-land/chain"](fn) {
 		return this.chain(fn);
 	}
@@ -83,6 +87,11 @@ class Left extends Either {
 		return this;
 	}
 
+	// ------ Bifunctor
+	bimap(fnLeft, fnRight) {
+		return new Left(fnLeft(this.$value));
+	}
+
 	// ----- Applicative (Either a)
 	ap(ffn) {
 		return this;
@@ -141,6 +150,11 @@ class Right extends Either {
 	// ----- Functor (Either a)
 	map(fn) {
 		return Either.of(fn(this.$value));
+	}
+
+	// ------ Bifunctor
+	bimap(fnLeft, fnRight) {
+		return this.map(fnRight);
 	}
 
 	// ----- Applicative (Either a)
