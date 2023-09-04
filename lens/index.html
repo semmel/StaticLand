@@ -755,7 +755,8 @@
                   </a>
                 
                 
-                <h1 id="lens">Lens</h1>
+                <h1 id="lens"><del>Lens</del></h1>
+<p><em>Deprecated, use Ramda lenses</em></p>
 <p>A Lens is a function which focuses on a particular aspect, property, index, ... of a data structure. Their purpose is to make changes in a data structure in a non-mutating functional way. </p>
 <p>Lenses compose with themselves, traversal functions (<code>Type.traverse(of_f)</code>), mapping functions (<code>Type.map</code>) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. </p>
 <p>Lenses are put into action by a set of helper functions (<code>view</code>, <code>over</code>, <code>set</code>) which take the lens and source data as arguments and return the result data.</p>
@@ -828,8 +829,14 @@ changeAspect(reverse)(data); // { bar: Promise.resolve(&quot;RAB&quot;) }
 <p><code>:: Lens sa -&gt; (a -&gt; a) -&gt; sa -&gt; sa</code></p>
 <h3 id="setoverlens"><code>set(overLens)</code></h3>
 <p><code>:: Lens sa -&gt; a -&gt; sa -&gt; sa</code></p>
-<h3 id="sequencelens-subject"><code>sequence(lens, subject)</code></h3>
+<h3 id="sequencelens-subject"><del><code>sequence(lens, subject)</code></del></h3>
 <p><code>:: ComposableLens sa -&gt; saf -&gt; fsa</code></p>
+<p><em>Use Ramda lens</em></p>
+<pre><code class="javascript">const lensedSequence = lens =&gt; lens(R.identity);
+lensedSequence(R.lensIndex(1))([&quot;foo&quot;, just(&quot;bar&quot;)])
+// -&gt; Just [&quot;foo&quot;, &quot;bar&quot;]
+</code></pre>
+
 <p>Turn an array with a <code>Maybe</code> element at second place into a <code>Maybe</code> of an array.</p>
 <pre><code class="javascript">const focusL = indexLens(1),
    subjectA = [&quot;foo&quot;, just(&quot;bar&quot;)],
