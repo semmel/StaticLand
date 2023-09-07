@@ -103,5 +103,5 @@
 		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "1.2.0"
+	"version": "1.2.1"
 }

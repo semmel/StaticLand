@@ -9,13 +9,18 @@ const
 					resolveInner = res,
 					rejectInner = rej;
 
-				callbackComputation(...args, (error, result) => {
-					if (error) {
-						rejectInner(error);
-					} else {
-						resolveInner(result);
-					}
-				});
+				setTimeout(		// guard against synchronous callback calls
+					() => {
+						callbackComputation(...args, (error, result) => {
+							if (error) {
+								rejectInner(error);
+							} else {
+								resolveInner(result);
+							}
+						});
+					},
+					0
+				);
 
 				return () => {
 					resolveInner = () => undefined;

@@ -13,7 +13,9 @@ const
 	dT = 50,
 	sampleSourceFn = (param, callback) => { setTimeout(() => { callback(null, param); }, dT); },
 	sampleErrorSourceFn = (error, callback) => { setTimeout(() => { callback(error, null); }, dT); },
-	sampleBinarySourceFn = (x, y, callback) => { setTimeout(() => { callback(null, x + y); }, dT); };
+	sampleBinarySourceFn = (x, y, callback) => { setTimeout(() => { callback(null, x + y); }, dT); },
+	sampleSyncSourceFn = (param, callback) => { callback(null, param); },
+	sampleSyncErrorSourceFn = (error, callback) => { callback(error, null); };
 
 describe("cancelable/fromNodeCallback", function () {
 	this.slow(200);
@@ -77,5 +79,25 @@ describe("cancelable/fromNodeCallback", function () {
 			cancelable: fromNodeCallbackWithArity(1, sampleSourceFn)("qux"),
 			isSynchronous: true
 		})
+	);
+
+	it("works with sync results", () => {
+		const
+			ca = fromNodeCallbackWithArity(1, sampleSyncSourceFn)("baz");
+
+		return new Promise(ca)
+		.then(x => {
+			assert.strictEqual(x, "baz");
+		});
+	});
+
+	it("works with sync failures", () =>
+		new Promise(fromNodeCallbackWithArity(1, sampleSyncErrorSourceFn)("quz"))
+		.then(
+			x => { assert.fail(`Should not succeed with "${x}"`); },
+			e => {
+				assert.strictEqual(e, "quz");
+			}
+		)
 	);
 });

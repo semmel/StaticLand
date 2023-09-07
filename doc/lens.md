@@ -1,5 +1,7 @@
-Lens
+~~Lens~~
 ====
+*Deprecated, use Ramda lenses*
+
 A Lens is a function which focuses on a particular aspect, property, index, ... of a data structure. Their purpose is to make changes in a data structure in a non-mutating functional way. 
 
 Lenses compose with themselves, traversal functions (`Type.traverse(of_f)`), mapping functions (`Type.map`) and isomorphism functions. All these items piped together drill deep down into a data structure. Thereby a particular aspect deep in this complex data structure can be modeled by such a composed lens function. 
@@ -101,8 +103,16 @@ Employ Lenses
 ### `set(overLens)`
 `:: Lens sa -> a -> sa -> sa`
 
-### `sequence(lens, subject)`
+### ~~`sequence(lens, subject)`~~
 `:: ComposableLens sa -> saf -> fsa`
+
+*Use Ramda lens*
+
+```javascript
+const lensedSequence = lens => lens(R.identity);
+lensedSequence(R.lensIndex(1))(["foo", just("bar")])
+// -> Just ["foo", "bar"]
+```
 
 Turn an array with a `Maybe` element at second place into a `Maybe` of an array.
 ```javascript
