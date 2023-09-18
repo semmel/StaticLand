@@ -317,8 +317,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#custom-cancelable-fantasyfy" class="md-nav__link">
-    Custom Cancelable fantasyfy
+  <a href="#custom-cancelable-addfantasylandinterfacecomputationfunction" class="md-nav__link">
+    Custom Cancelable addFantasyLandInterface(computationFunction)
   </a>
   
 </li>
@@ -762,8 +762,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#custom-cancelable-fantasyfy" class="md-nav__link">
-    Custom Cancelable fantasyfy
+  <a href="#custom-cancelable-addfantasylandinterfacecomputationfunction" class="md-nav__link">
+    Custom Cancelable addFantasyLandInterface(computationFunction)
   </a>
   
 </li>
@@ -1011,7 +1011,8 @@
 <h3 id="fantasyland">FantasyLand</h3>
 <p>provides <a href="https://github.com/fantasyland/fantasy-land/tree/v4.0.1#monad">FantasyLand 4.0 Monad</a> interface.</p>
 <h2 id="generator-functions">Generator Functions</h2>
-<h3 id="custom-cancelable-fantasyfy">Custom Cancelable <code>fantasyfy</code></h3>
+<h3 id="custom-cancelable-addfantasylandinterfacecomputationfunction">Custom Cancelable <code>addFantasyLandInterface(computationFunction)</code></h3>
+<p><code>:: CancelableComputation a → Cancelable a</code></p>
 <p>Every <em>function</em> taking two callbacks as arguments;</p>
 <ul>
 <li>a success callback, and</li>
@@ -1029,7 +1030,7 @@ let cancelableWork = (res, rej) =&gt; {
 addFantasyLandInterface(cancelableWork);
 </code></pre>
 
-<p>In order to provide <em>FantasyLand</em> methods such a function needs to be wrapped with <code>fantasyfy</code>.</p>
+<p>In order to provide <em>FantasyLand</em> methods such a function needs to be wrapped with <code>addFantasyLandInterface</code>.</p>
 <h3 id="ofvalue"><code>of(value)</code></h3>
 <p><code>:: a -&gt; Cancelable () a</code></p>
 <h3 id="rejecte"><code>reject(e)</code></h3>
