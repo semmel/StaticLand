@@ -1,10 +1,9 @@
 import { curryN } from "ramda";
-import addFantasyLandInterface from "./addFantasyLandInterface.js";
 
 const
-	fromNodeCallbackWithArity = (arity, callbackComputation) =>
-		curryN(arity, (...args) => {
-			const cancelable = (res, rej) => {
+	fromNodeCallbackWithArityFactory = fantasyfy => (arity, callbackComputation) =>
+		curryN(arity, (...args) => fantasyfy(
+			(res, rej) => {
 				let
 					resolveInner = res,
 					rejectInner = rej;
@@ -26,11 +25,7 @@ const
 					resolveInner = () => undefined;
 					rejectInner = () => undefined;
 				};
-			};
+			}
+		));
 
-			addFantasyLandInterface(cancelable);
-
-			return cancelable;
-	});
-
-export default fromNodeCallbackWithArity;
+export default fromNodeCallbackWithArityFactory;

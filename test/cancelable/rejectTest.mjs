@@ -1,5 +1,5 @@
 import chai from 'chai';
-import reject from '../../src/cancelable/reject.js';
+import {reject} from '../../src/cancelable.js';
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
 import { assertCorrectInterface } from "../helpers/types.mjs";
 
@@ -14,11 +14,11 @@ describe("cancelable reject", function () {
 			e => assert.strictEqual(e, "foo")
 		)
 	);
-	
+
 	it("will not invoke the callbacks when synchronously canceled", () =>
 		assertCancellationDiscontinues({assert, cancelable: reject("foo"), isSynchronous: true})
 	);
-	
+
 	it("is a FL monad", () => {
 		assertCorrectInterface("monad")(reject("foo"));
 	});

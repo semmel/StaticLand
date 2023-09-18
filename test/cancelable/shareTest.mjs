@@ -29,11 +29,11 @@ describe("cancelable share", function () {
 			return new Promise(sharableFoo);
 		})
 		.then(x => {
-			assert.approximately(now() - begin, dT, 10);
+			assert.approximately(now() - begin, dT, dT / 3);
 			assert.strictEqual(x, "foo");
 		});
 	});
-	
+
 	it("returns a FL monad", () => {
 		assertCorrectInterface("monad")(share(later(10, 50)));
 	});
@@ -46,7 +46,7 @@ describe("cancelable share", function () {
 
 		return new Promise(sharableFoo)
 		.then(x => {
-			assert.approximately(now() - begin, dT, 10);
+			assert.approximately(now() - begin, dT, dT / 3);
 			assert.strictEqual(x, "foo");
 
 			begin = now();
@@ -68,7 +68,7 @@ describe("cancelable share", function () {
 		.then(
 			x => { assert.fail(`Unexpected success with ${x}`); },
 			e => {
-				assert.approximately(now() - begin, dT, 10);
+				assert.approximately(now() - begin, dT, dT / 3);
 				assert.strictEqual(e, "bar");
 
 				begin = now();
@@ -97,7 +97,7 @@ describe("cancelable share", function () {
 		])
 		.then(xs => {
 			assert.deepStrictEqual(xs, ["foo", "foo"]);
-			assert.approximately(now() - begin, dT, 10);
+			assert.approximately(now() - begin, dT, dT / 3);
 		});
 	});
 

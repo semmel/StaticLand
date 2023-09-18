@@ -6,42 +6,41 @@
  */
 
 import Emittery from "emittery";
-import addFantasyLandInterface from "./addFantasyLandInterface.js";
 
 const
 	noop = () => undefined,
-	
+
 	/** @description Make a lazy Cancelable eager */
-	createDeferred = () => {
+	createDeferredFactory = fantasyfy => () => {
 		// one time mutables
 		let
 			/** @type {"pending" | "rejected" | "resolved" | "cancelled"} */
 			state = "pending",
 			outcome;
-			
+
 		const
 			emitter = new Emittery(),
-			
+
 			resolve = value => {
 				state = "resolved";
 				outcome = value;
 				// in case anybody already listens, tell them…
 				emitter.emit("settle", {outcome: value, isSuccess: true});
 			},
-			
+
 			reject = error => {
 				state = "rejected";
 				outcome = error;
 				// in case anybody already listens, tell them…
 				emitter.emit("settle", {outcome: error, isSuccess: false});
 			},
-			
+
 			cancel = () => {
 				state = "cancelled";
 				// in case anybody listens, forget them all…
 				emitter.clearListeners(["settle"]);
 			},
-			
+
 			cancelable = (propagateResolve, propagateReject) => {
 				switch (state) {
 					case "pending":
@@ -51,7 +50,7 @@ const
 									(isSuccess ? propagateResolve : propagateReject)(theOutcome);
 									unSubscribe();
 								});
-						
+
 						return unSubscribe;
 					case "cancelled":
 						return noop;
@@ -66,15 +65,13 @@ const
 						return noop;
 				}
 			};
-		
-		addFantasyLandInterface(cancelable);
-		
+
 		return {
-			cancelable,
+			cancelable: fantasyfy(cancelable),
 			resolve,
 			reject,
 			cancel
 		};
 	};
 
-export default createDeferred;
+export default createDeferredFactory;

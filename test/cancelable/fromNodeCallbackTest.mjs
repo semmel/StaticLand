@@ -2,7 +2,7 @@ import { call, equals, identity, o } from 'ramda';
 import chai from 'chai';
 import { assertCorrectInterface } from "../helpers/types.mjs";
 import { createRequire } from 'node:module';
-import fromNodeCallbackWithArity from "../../src/cancelable/fromNodeCallback.js";
+import { fromNodeCallbackWithArity } from "../../src/cancelable.js";
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
 
 const

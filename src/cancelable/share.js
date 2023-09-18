@@ -1,5 +1,4 @@
 import Emittery from "emittery";
-import addFantasyLandInterface from "./addFantasyLandInterface.js";
 
 const
 	share = cc => (function() {
@@ -51,31 +50,26 @@ const
 			};
 		}()));
 
-		const
-			cancelable = (resolve, reject) => {
-				if (isFinallyResolved) {
-					setTimeout(resolve, 0, finalOutcome);
-					return doNothing;
-				}
+		return (resolve, reject) => {
+			if (isFinallyResolved) {
+				setTimeout(resolve, 0, finalOutcome);
+				return doNothing;
+			}
 
-				if (isFinallyRejected) {
-					setTimeout(reject, 0, finalOutcome);
-					return doNothing;
-				}
+			if (isFinallyRejected) {
+				setTimeout(reject, 0, finalOutcome);
+				return doNothing;
+			}
 
-				const
-					unConsume =
-						emitter.on("settle", ({isSuccess, outcome}) => {
-							(isSuccess ? resolve : reject)(outcome);
-							unConsume();
-						});
+			const
+				unConsume =
+					emitter.on("settle", ({isSuccess, outcome}) => {
+						(isSuccess ? resolve : reject)(outcome);
+						unConsume();
+					});
 
-				return unConsume;
-			};
-
-		addFantasyLandInterface(cancelable);
-
-		return cancelable;
+			return unConsume;
+		};
 	}());
 
 export default share;

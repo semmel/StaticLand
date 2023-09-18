@@ -10,17 +10,16 @@
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
 	"devDependencies": {
 		"@most/core": "^1.6.1",
-		"@most/scheduler": "^1.3.0",
 		"@most/types": "^1.1.0",
 		"@rollup/plugin-commonjs": "^24.1.0",
-		"@rollup/plugin-node-resolve": "^15.0.2",
+		"@rollup/plugin-node-resolve": "^15.2.1",
 		"@types/ramda": "^0.28.23",
-		"chai": "^4.3.7",
+		"chai": "^4.3.8",
 		"es-module-shims": "^0.4.6",
 		"hirestime": "^6.1.0",
-		"istanbul-badges-readme": "^1.8.2",
+		"istanbul-badges-readme": "^1.8.5",
 		"mocha": "^10.2.0",
-		"rollup": "^3.20.6"
+		"rollup": "^3.29.2"
 	},
 	"exports": {
 		".": {
@@ -82,6 +81,7 @@
 	"module": "./index.js",
 	"name": "@visisoft/staticland",
 	"peerDependencies": {
+		"@most/scheduler": "1.3.0 - 2",
 		"baconjs": "^3.0.17"
 	},
 	"repository": {
@@ -103,5 +103,5 @@
 		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "1.2.1"
+	"version": "2.0.0-alpha.1"
 }

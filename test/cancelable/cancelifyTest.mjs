@@ -1,6 +1,6 @@
 import { pipe, identity, o, reverse } from 'ramda';
 import chai from 'chai';
-import cancelify from "../../src/cancelable/cancelify.js";
+import { cancelify } from "../../src/cancelable.js";
 import { cancelableToPromise } from "../../src/transformations.js";
 import { coalesce as coalesce_p, tap as tap_p } from '../../src/promise.js';
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
@@ -21,15 +21,15 @@ const
 
 describe("cancelable/cancelify", function () {
 	this.slow(200);
-	
+
 	const
 		createLateCancelable = cancelify(createLatePromise),
 		createLateRejectedCancelable = cancelify(createLateRejectedPromise);
-	
+
 	it("propagates the resolved value of the promise", () => {
 		const
 			beginTS = now();
-		
+
 		return pipe(
 			() => createLateCancelable("foo"),
 			cancelableToPromise,
@@ -39,11 +39,11 @@ describe("cancelable/cancelify", function () {
 			})
 		)();
 	});
-	
+
 	it("propagates the rejected value of a binary promise generator", () => {
 		const
 			beginTS = now();
-		
+
 		return pipe(
 			() => createLateRejectedCancelable(13, 10),
 			cancelableToPromise,
@@ -56,7 +56,7 @@ describe("cancelable/cancelify", function () {
 			)
 		)();
 	});
-	
+
 	it ("asynchronous cancelling discontinues pending succeeding promise", () =>
 		assertCancellationDiscontinues({
 			assert,
@@ -64,7 +64,7 @@ describe("cancelable/cancelify", function () {
 			delay: 20
 		})
 	);
-	
+
 	it ("synchronous cancelling discontinues a settled promise", () => Promise.all([
 		assertCancellationDiscontinues({
 			assert,
@@ -77,7 +77,7 @@ describe("cancelable/cancelify", function () {
 			isSynchronous: true
 		})
 	]));
-	
+
 	it ("asynchronous cancelling discontinues pending failing promise", () =>
 		assertCancellationDiscontinues({
 			assert,
@@ -85,7 +85,7 @@ describe("cancelable/cancelify", function () {
 			delay: 20
 		})
 	);
-	
+
 	it("returns a FL monad", () => {
 		assertCorrectInterface("monad")(createLateCancelable("foo"));
 	});

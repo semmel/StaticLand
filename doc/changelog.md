@@ -1,6 +1,10 @@
 Changelog v{{ config.meta.version }}
 =========
 
+2.0.0-alpha.1
+---
+- refactor `cancelable` to avoid circular source file dependencies
+
 1.2
 ---
 - adds `cancelable/fromNodeCallbackWithArity`

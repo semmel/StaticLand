@@ -1,13 +1,12 @@
-import addFantasyLandInterface from "../cancelable/addFantasyLandInterface.js";
 import { curryN } from "ramda";
 import _promiseToCancelable from "./internal/_promiseToCancelable.js";
 
 const
-	cancelifyWithArityAbortable = (arity, fn) => curryN(arity, (...args) => {
-		const cancelable = (resolve, reject) => {
+	cancelifyWithArityAbortableFactory = fantasyfy => (arity, fn) => curryN(arity, (...args) => fantasyfy(
+		(resolve, reject) => {
 			const
 				controller = new AbortController(),
-				
+
 				promise = fn.apply(
 					undefined,
 					[
@@ -18,18 +17,14 @@ const
 						}
 					]
 				),
-			
+
 				cancelPromiseContinuation = _promiseToCancelable(promise)(resolve, reject);
-			
+
 			return () => {
 				cancelPromiseContinuation();
 				controller.abort();
 			};
-		};
-		
-		addFantasyLandInterface(cancelable);
-		
-		return cancelable;
-	});
+		}
+	));
 
-export default cancelifyWithArityAbortable;
+export default cancelifyWithArityAbortableFactory;

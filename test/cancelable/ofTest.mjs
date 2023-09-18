@@ -1,5 +1,5 @@
 import chai from 'chai';
-import of from '../../src/cancelable/of.js';
+import {of} from '../../src/cancelable.js';
 import assertCancellationDiscontinues from "./helpers/assertCancellationDiscontinues.mjs";
 import { assertCorrectInterface } from "../helpers/types.mjs";
 
@@ -11,11 +11,11 @@ describe("cancelable of", function () {
 		new Promise(of("foo"))
 		.then(x => assert.strictEqual(x, "foo"))
 	);
-	
+
 	it("will not invoke the callbacks when synchronously canceled", () =>
 		assertCancellationDiscontinues({assert, cancelable: of("foo"), isSynchronous: true})
 	);
-	
+
 	it("is a FL monad", () => {
 		assertCorrectInterface("monad")(of("foo"));
 	});

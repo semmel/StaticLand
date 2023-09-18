@@ -1,10 +1,9 @@
-import pkg from '@most/scheduler'; // tree-shaking goes takes a dump
-import addFantasyLandInterface from "../cancelable/addFantasyLandInterface.js";
+import { newDefaultScheduler } from '@most/scheduler';
+import { addFantasyLandInterface as fantasyfy } from "../cancelable.js";
 
 const
-	{ newDefaultScheduler } = pkg,
-	mostStreamToCancelable = observable => {
-		const cancelable = (res, rej) => {
+	mostStreamToCancelable = observable => fantasyfy(
+		(res, rej) => {
 			let last;
 			const disposer = observable.run(
 				{
@@ -20,15 +19,11 @@ const
 				},
 				newDefaultScheduler()
 			);
-			
+
 			return () => {
 				disposer.dispose();
 			};
-		};
-		
-		addFantasyLandInterface(cancelable);
-	
-		return cancelable;
-	};
+		}
+	);
 
 export default mostStreamToCancelable;

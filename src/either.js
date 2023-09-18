@@ -5,7 +5,7 @@
  * Copyright (c) 2020 Visisoft OHG. All rights reserved.
  */
 
-import { always, curry, either as thisOrThat, o, tryCatch } from 'ramda';
+import { always, curry, either as thisOrThat, o, tap, tryCatch } from 'ramda';
 import { Either, Left, Right } from "./either/mostly-adequate.js";
 
 /** @typedef {import('./either/mostly-adequate.js').Right | import('./either/mostly-adequate.js').Left} Either */
@@ -61,6 +61,8 @@ const
 		isLeft(ma) ? leftFn(ma.$value) : rightFn(ma.$value)
 	),
 
+	bi_tap = curry((onLeft, onRight, ma) => tap(either(onLeft, onRight))(ma)),
+
 	// Combination //
 
 	/**
@@ -75,7 +77,7 @@ const
 
 export {
 	Either, Left, Right,
-	alt, bimap, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of, right
+	alt, bimap, bi_tap, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of, right
 };
 
 // TODO: mark as deprecated

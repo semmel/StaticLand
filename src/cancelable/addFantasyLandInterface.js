@@ -5,11 +5,12 @@ import never from "./never.js";
 import of from "./of.js";
 
 const
+	/** @deprecated */
 	addFantasyLandInterface = cac => {
 		cac['fantasy-land/map'] = fn => map(fn, cac);
 		cac['fantasy-land/ap'] = mfn => ap(mfn, cac);
 		cac['fantasy-land/chain'] = fn => chain(fn, cac);
-		
+
 		/*
 		Reassigning the .constructor property apparently does not do much harm.
 		see  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor

@@ -13,7 +13,9 @@ provides [FantasyLand 4.0 Monad][FL-4-Monad] interface.
 Generator Functions
 -------------------
 
-### Custom Cancelable `fantasyfy`
+### Custom Cancelable `addFantasyLandInterface(computationFunction)`
+`:: CancelableComputation a → Cancelable a`
+
 Every *function* taking two callbacks as arguments;
 
 - a success callback, and
@@ -33,7 +35,7 @@ let cancelableWork = (res, rej) => {
 addFantasyLandInterface(cancelableWork);
 ```
 
-In order to provide *FantasyLand* methods such a function needs to be wrapped with `fantasyfy`.
+In order to provide *FantasyLand* methods such a function needs to be wrapped with `addFantasyLandInterface`.
 
 ### `of(value)`
 `:: a -> Cancelable () a`
