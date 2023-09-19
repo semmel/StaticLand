@@ -1,7 +1,6 @@
 import {compose} from 'ramda';
 import {just, maybe, nothing} from "../maybe.js";
-import map_c from '../cancelable/map.js';
-import of_c from '../cancelable/of.js';
+import {map as map_c, of as of_c} from '../cancelable.js';
 
 // A specialisation of the Maybe sequence:
 // sequence(of_c, map_c)

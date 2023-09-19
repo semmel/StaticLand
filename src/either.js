@@ -7,6 +7,7 @@
 
 import { always, curry, either as thisOrThat, o, tap, tryCatch } from 'ramda';
 import { Either, Left, Right } from "./either/mostly-adequate.js";
+import sequence from './either/sequence.js';
 
 /** @typedef {import('./either/mostly-adequate.js').Right | import('./either/mostly-adequate.js').Left} Either */
 
@@ -72,14 +73,13 @@ const
 	// :: Either b a -> Either b a -> Either b a
 	alt = curry((ma, mb) =>
 		either(always(mb), of, ma)
-	);
+	),
+
+	/** @deprecated */
+	traverse = curry((of_f, map_f, effect_to_f, ma) => sequence(of_f, map_f, map(effect_to_f, ma)));
 
 
 export {
 	Either, Left, Right,
-	alt, bimap, bi_tap, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of, right
+	alt, bimap, bi_tap, chain, chainLeft, either, fromAssertedValue, fromThrowable, isEither, isLeft, isRight, join, left, map, of, right, sequence, traverse
 };
-
-// TODO: mark as deprecated
-export {default as sequence} from './either/sequence.js';
-export {default as traverse} from './either/traverse.js';

@@ -1,5 +1,5 @@
 import { curryN } from "ramda";
-import _promiseToCancelable from "./internal/_promiseToCancelable.js";
+import __promiseToCancelable from "./internal/_promiseToCancelable.js";
 
 const
 	cancelifyWithArityAbortableFactory = fantasyfy => (arity, fn) => curryN(arity, (...args) => fantasyfy(
@@ -18,7 +18,7 @@ const
 					]
 				),
 
-				cancelPromiseContinuation = _promiseToCancelable(promise)(resolve, reject);
+				cancelPromiseContinuation = __promiseToCancelable(promise)(resolve, reject);
 
 			return () => {
 				cancelPromiseContinuation();

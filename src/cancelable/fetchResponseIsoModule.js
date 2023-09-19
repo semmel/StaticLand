@@ -2,7 +2,7 @@
  * Iso version for the browser or Node.js
  */
 
-import promiseToCancelable from "../transformations/promiseToCancelable.js";
+import __promiseToCancelable from "./internal/_promiseToCancelable.js";
 
 const
 
@@ -17,7 +17,7 @@ const
 			abortController = new AbortController(),
 
 			cancelPromiseContinuation =
-				promiseToCancelable(
+				__promiseToCancelable(
 					fetch(
 						url.toString(),
 						{...init, signal: abortController.signal}

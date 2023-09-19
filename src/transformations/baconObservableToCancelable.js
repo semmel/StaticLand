@@ -1,5 +1,5 @@
 import * as Bacon from 'baconjs';
-import addFantasyLandInterface from "../cancelable/addFantasyLandInterface.js";
+import { addFantasyLandInterface as fantasyfy } from "../cancelable.js";
 
 const
 	baconObservableToCancelable = observable => {
@@ -24,9 +24,7 @@ const
 				return Bacon.noMore;
 			});
 
-		addFantasyLandInterface(cancelable);
-
-		return cancelable;
+		return fantasyfy(cancelable);
 	};
 
 export default baconObservableToCancelable;

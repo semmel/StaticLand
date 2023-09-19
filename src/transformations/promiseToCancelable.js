@@ -1,13 +1,8 @@
 // :: Promise e a -> Cancelable e a
-import addFantasyLandInterface from "../cancelable/addFantasyLandInterface.js";
-import _promiseToCancelable from "../cancelable/internal/_promiseToCancelable.js";
+import { addFantasyLandInterface as fantasyfy } from "../cancelable.js";
+import __promiseToCancelable from "../cancelable/internal/_promiseToCancelable.js";
+import { o } from "ramda";
 
-const promiseToCancelable = promise => {
-	const cancelable = _promiseToCancelable(promise);
-	
-	addFantasyLandInterface(cancelable);
-	
-	return cancelable;
-};
+const promiseToCancelable = o(fantasyfy, __promiseToCancelable);
 
 export default promiseToCancelable;

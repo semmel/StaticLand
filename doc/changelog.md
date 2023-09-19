@@ -1,7 +1,7 @@
 Changelog v{{ config.meta.version }}
 =========
 
-2.0.0-alpha.1
+2.0.0-alpha.2
 ---
 - refactor `cancelable` to avoid circular source file dependencies
 
