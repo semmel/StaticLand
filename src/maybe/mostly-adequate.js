@@ -1,4 +1,4 @@
-import { equals, identity } from "ramda";
+import { equals, identity, isNil } from "ramda";
 import map from '../fantasyland/map.js';
 
 const
@@ -23,7 +23,7 @@ class Maybe {
 	}
 
 	static [Symbol.hasInstance](instance) {
-		return instance['@@type'] === TYPE_IDENTIFIER;
+		return !isNil(instance) && instance['@@type'] === TYPE_IDENTIFIER;
   }
 
 	["fantasy-land/map"](fn) {

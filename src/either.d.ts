@@ -38,7 +38,7 @@ export function either<A, B>(onLeft: () => B, onRight: (a: A) => B): (m: Either<
 export function either<A, B>(onLeft: (c: any) => B, onRight: (a: A) => B): (m: Either<A>) => B;
 export function either<B>(onLeft: (c: any) => B): <A>(onRight: (a: A) => B) => (m: Either<A>) => B;
 
-export function isEither(me: Either<any>): boolean;
+export function isEither(me: any): boolean;
 export function isRight(me: Either<any>): boolean;
 export function isLeft(me: Either<any>): boolean;
 
