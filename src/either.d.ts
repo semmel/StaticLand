@@ -24,6 +24,7 @@ export function map<T, U>(fn: (x: T) => U, mx: Either<T>): Either<U>;
 export function map<T, U>(fn: (x: T) => U) : (mx: Either<T>) => Either<U>;
 
 export function bimap<T, U>(fnLeft: (e: any) => any, fn: (x: T) => U): (mx: Either<T>) => Either<U>;
+export function bi_tap<T>(fnLeft: (e: any) => void, fn: (x: T) => void): (mx: Either<T>) => Either<T>;
 
 /** @deprecated Use FL compliant utility function e.g. R.chain */
 export function chain<T, U>(factory: (x: T) => Either<U>, p: Either<T>) : Either<U>;
