@@ -371,6 +371,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inspection-side-effects" class="md-nav__link">
+    Inspection (Side Effects)
+  </a>
+  
+    <nav class="md-nav" aria-label="Inspection (Side Effects)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bitaponnothing-onjust" class="md-nav__link">
+    biTap(onNothing, onJust)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taponjust" class="md-nav__link">
+    tap(onJust)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transformation" class="md-nav__link">
     Transformation
   </a>
@@ -461,13 +488,6 @@
           <li class="md-nav__item">
   <a href="#argument-type-checking" class="md-nav__link">
     Argument type checking
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value-limitations" class="md-nav__link">
-    Value limitations
   </a>
   
 </li>
@@ -722,6 +742,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inspection-side-effects" class="md-nav__link">
+    Inspection (Side Effects)
+  </a>
+  
+    <nav class="md-nav" aria-label="Inspection (Side Effects)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bitaponnothing-onjust" class="md-nav__link">
+    biTap(onNothing, onJust)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taponjust" class="md-nav__link">
+    tap(onJust)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transformation" class="md-nav__link">
     Transformation
   </a>
@@ -816,13 +863,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#value-limitations" class="md-nav__link">
-    Value limitations
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -877,6 +917,11 @@ getOrElse(&quot;foo&quot;, just(&quot;bar&quot;)); // -&gt; &quot;bar&quot;
 <p>Composition of <code>getOrElse</code> and <code>map</code>.
 Transforms the value if it exists with the provided function.
 Otherwise, returns the default value.</p>
+<h2 id="inspection-side-effects">Inspection (Side Effects)</h2>
+<h3 id="bitaponnothing-onjust"><code>biTap(onNothing, onJust)</code></h3>
+<p><code>:: (() → ()) → (a → ()) → Maybe a → Maybe a</code></p>
+<h3 id="taponjust"><code>tap(onJust)</code></h3>
+<p><code>:: (a → ()) → Maybe a → Maybe a</code></p>
 <h2 id="transformation">Transformation</h2>
 <h3 id="pluckkey"><del><code>pluck(key)</code></del></h3>
 <p><code>:: Maybe m =&gt; k -&gt; m {k: v} -&gt; m v</code></p>
@@ -957,15 +1002,6 @@ applyToPromiseOfMaybe(delayEffect, nothing());  // -&gt; Promise Nothing
 <h2 id="caveats">Caveats</h2>
 <h3 id="argument-type-checking">Argument type checking</h3>
 <p>This library functions do not guard the user from supplying arguments of a wrong type. In particular, passing some other type as the maybe subject or passing a function to <code>chain</code> which returns a some other type, will cause undefined behaviour later.</p>
-<h3 id="value-limitations">Value limitations</h3>
-<p>Choosing empty and single-element arrays as implementation of the Maybe type causes these ambiguities:
-- A just and any single element array,
-- a nothing and any empty array
-cannot be distinguished.</p>
-<p>This directly affects the inspection functions <code>isJust</code>, <code>isNothing</code> and <code>equals</code>.  E.g. <code>equals(of(x), [x])</code> is <code>true</code> as well as <code>equals(nothing(), [])</code> is also <code>true</code>.</p>
-<p>Also <code>join()</code> will treat a just containing an empty array as a just containing nothing which is collapsed to a nothing.</p>
-<p>The library does <em>not</em> guard against these cases by inspecting value types at runtime. However, if the source code keeps track of the data type, e.g. <code>join()</code> should never been called with data of the wrong type (e.g. with a just of an array). Thus, such silent errors of <code>join</code> would never occur in practise.</p>
-<p>The other way around, recursively <em>flattening an Array containing Maybes</em> will destroy all Maybe elements. This can only be prevented by using Array.flat with the accurate deepness.</p>
                 
               
               
