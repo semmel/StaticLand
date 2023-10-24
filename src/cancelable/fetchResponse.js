@@ -1,40 +1,26 @@
-/***
- * Browser version
- */
-
 import __promiseToCancelable from "./internal/_promiseToCancelable.js";
 
 const
-	IS_ABORT_CONTROLLER_SUPPORTED = typeof AbortController === 'function',
-
 	/**
-	 * @deprecated
-	 * use fetchResponseIsoModule
-	 * @param {Object} options
-	 * @param {String|URL} options.url
-	 * @param {Object} [options.init]
-	 * @return {CancelableComputation}
+	 * @type {(fantasyfy: (fn: any) => any) => (spec: {url: String|URL, init: {[key: string]: any}}) => import('@visisoft/staticland/cancelable').Cancelable<Response>}
 	 */
 	// fetchResponse :: {url: (String|URL), init: {}} -> CancelableComputation Error Response
-	fetchResponse = ({url, init = {}}) => (resolve, reject) => {
+	fetchResponse = fantasyfy => ({url, init = {}}) => fantasyfy((resolve, reject) => {
 		const
-			abortController = IS_ABORT_CONTROLLER_SUPPORTED ? new AbortController() : undefined,
+			abortController = new AbortController(),
 
 			cancelPromiseContinuation =
 				__promiseToCancelable(
 					fetch(
 						url.toString(),
-						{...init, signal: abortController ? abortController.signal: undefined}
+						{...init, signal: abortController.signal}
 					)
 				)(resolve, reject);
 
 		return () => {
 			cancelPromiseContinuation();
-
-			if (abortController) {
-				abortController.abort();
-			}
+			abortController.abort();
 		};
-	};
+	});
 
 export default fetchResponse;

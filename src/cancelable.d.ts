@@ -21,7 +21,6 @@ export function later<A>(dt: number): (a: A) => Cancelable<A>;
 export function laterReject(dt: number, error: any): Cancelable<any>;
 export function laterReject(dt: number): (error: any) => Cancelable<any>;
 
-/** @deprecated */
 export function fetchResponse({url, spec}: {url: URL|string, spec: RequestInit|{[key: string]: any}}): Cancelable<Response>;
 
 export function fetchResponseIsoModule(spec: WindowOrWorkerGlobalScope): (params: {url: URL|string, init: RequestInit|{[key: string]: any}}) => Cancelable<Response>;

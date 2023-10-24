@@ -32,6 +32,12 @@ Inspection
 ### `isEither(m)`
 `:: Either c a -> Boolean`
 
+Side Effects
+------
+
+### `bi_tap(onLeft, onRight)`
+`:: (c → ()) → (a → ()) → Either c a → Either c a`
+
 Transformation
 -------------
 

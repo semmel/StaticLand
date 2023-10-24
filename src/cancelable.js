@@ -12,12 +12,11 @@ import __createDeferredFactory from "./cancelable/deferred.js";
 import __cancelifyFactory from './cancelable/cancelify.js';
 import __cancelifyWithArityAbortableFactory from './cancelable/cancelifyAbortable.js';
 import __fetchResponseIsoModuleFactory from './cancelable/fetchResponseIsoModule.js';
+import __fetchResponseFactory from './cancelable/fetchResponse.js';
 import __fromNodeCallbackWithArityFactory from './cancelable/fromNodeCallback.js';
 import __bi_tap from './cancelable/biTap.js';
 import __bi_chain from './cancelable/biChain.js';
 import __share from './cancelable/share.js';
-
-export {default as fetchResponse} from './cancelable/fetchResponse.js';
 
 const
 	/**
@@ -67,6 +66,8 @@ const
 	fromNodeCallbackWithArity = __fromNodeCallbackWithArityFactory(__fantasyfy),
 
 	fetchResponseIsoModule = __fetchResponseIsoModuleFactory(__fantasyfy),
+
+	fetchResponse = __fetchResponseFactory(__fantasyfy),
 
 	//// Transformation ////
 
@@ -138,6 +139,7 @@ export {
 	coalesce,
 	createDeferred,
 	fetchResponseIsoModule,
+	fetchResponse,
 	fromNodeCallbackWithArity,
 	later,
 	laterReject,

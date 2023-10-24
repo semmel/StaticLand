@@ -1,5 +1,8 @@
 Changelog v{{ config.meta.version }}
 =========
+2.0.0-alpha.3
+----
+- un-deprecated `cancelable/fetchResponse`
 
 2.0.0-alpha.2
 ---
