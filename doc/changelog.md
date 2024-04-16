@@ -1,12 +1,14 @@
-Changelog v{{ config.meta.version }}
+Changelog
 =========
-3.0.0
+2.0.0
 ---
 *breaking*
+
 - update to Ramda `v0.29.1`
 - `cancelable/deferred` now uses the [Microtask queue][microtask] (i.e. `queueMicrotask`) instead of the Macrotask queue (i.e. `setTimeout`)
 
 *features*
+
 - removed `emittery` dependency 
 
 2.0.0-alpha.3
