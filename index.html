@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visisoftstaticland-v200-alpha3" class="md-skip">
+        <a href="#visisoftstaticland" class="md-skip">
           Skip to content
         </a>
       
@@ -753,12 +753,13 @@
                   </a>
                 
                 
-                <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" /></p>
-<h1 id="visisoftstaticland-v200-alpha3"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a> v2.0.0-alpha.3</h1>
+                <p><a href="https://www.npmjs.com/package/@visisoft/staticland"><img alt="NPM Version" src="https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square" /></a> <img alt="Statements" src="https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square" />
+<a href="http://reactivex.io"><img alt="Reactive Programming" src="https://img.shields.io/badge/code%20style-reactive%2C%20functional-blue?color=b7178c" /></a></p>
+<h1 id="visisoftstaticland"><a href="https://semmel.github.io/StaticLand/">@visisoft/staticland</a></h1>
 <p>Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.</p>
 <p>Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (ADT) (<code>Either</code>, <code>Maybe</code>, <code>Promise</code>, <code>CancelableComputation</code>) provided as sets <em>free static functions</em>.</p>
 <h2 id="motivation">Motivation</h2>
-<p>For the motivation I'd like to refer to <a href="https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land">James Sinclair's post on StaticLand</a>.</p>
+<p>Article series on FP by <a href="https://jrsinclair.com/web-development/">James Sinclair</a> and <a href="http://www.tomharding.me/fantasy-land">Tom Harding</a>.</p>
 <h2 id="data-types">Data Types</h2>
 <p>Each set of these <em>free static functions</em> expect a particular data-holding type. <code>@visisoft/staticland</code> is very un-opinionated about the data type. E.g. the operations on non-cancelable computations simply expect a <code>Promise</code> as data type. This makes crossing the boundary into and out of <code>@visisoft/staticland</code> especially easy. </p>
 <p>Each <em>data type</em> represents a particular <em>computational feature</em> or <em>aspect of programming</em>. For instance an optional value is a <code>Maybe</code>, and a <code>CancelableComputation</code> represents just that. <code>@visisoft/staticland</code> does not "provide" data types e.g. as classes for these <em>computational features</em>. It is not productive to find the <em>best implementation</em> of a data type. The function sets of <code>@visisoft/staticland</code> choose to operate on just the simplest JavaScript objects – <code>Array</code>, <code>Function</code> or (as already mentioned) <code>Promise</code>. In Functional Programming (FP) <em>factory</em> and <em>consumption functions</em> are provided to interface with external code.</p>
@@ -784,7 +785,7 @@
 <li>Often libraries already provide free static functions like <code>map</code> and <code>chain</code> tailored to their data type. These integrate nicely with the StaticLand concept.</li>
 <li>The FantasyLand specification has several versions, allowing for a possible mismatch between FP toolkit and the data type library.</li>
 </ul>
-<p>In the search to overcome these drawbacks the concept of <em>StaticLand</em> was discovered. Both concepts are compared in an <a href="https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land">article by James Sinclair</a>.</p>
+<p>In the search to overcome these drawbacks the concept of <em>StaticLand</em> was discovered. Both concepts are compared in an <a href="https://jrsinclair.com/web-development/">article by James Sinclair</a>.</p>
 <h2 id="homepage-and-documentation"><a href="https://semmel.github.io/StaticLand/">Homepage and Documentation</a></h2>
 <h2 id="hello-visisoftstaticland">Hello @visisoft/staticland</h2>
 <h3 id="installation">Installation</h3>
