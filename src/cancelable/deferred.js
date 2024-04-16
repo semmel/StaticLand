@@ -5,7 +5,8 @@
  * Copyright (c) 2022 Visisoft OHG. All rights reserved.
  */
 
-import Emittery from "emittery";
+import createEmitter from './internal/emitter.js';
+import { thunkify } from "ramda";
 
 const
 	noop = () => undefined,
@@ -19,51 +20,57 @@ const
 			outcome;
 
 		const
-			emitter = new Emittery(),
+			emitter = createEmitter({onLastSinkRemoved: noop, onFirstSinkAdded: noop}),
 
 			resolve = value => {
 				state = "resolved";
 				outcome = value;
 				// in case anybody already listens, tell them…
-				emitter.emit("settle", {outcome: value, isSuccess: true});
+				emitter.emitOnce({outcome: value, isSuccess: true});
 			},
 
 			reject = error => {
 				state = "rejected";
 				outcome = error;
 				// in case anybody already listens, tell them…
-				emitter.emit("settle", {outcome: error, isSuccess: false});
+				emitter.emitOnce({outcome: error, isSuccess: false});
 			},
 
 			cancel = () => {
 				state = "cancelled";
 				// in case anybody listens, forget them all…
-				emitter.clearListeners(["settle"]);
+				emitter.removeAllSinks();
 			},
 
 			cancelable = (propagateResolve, propagateReject) => {
+				const
+					resolveAsap = thunkify(propagateResolve)(outcome),
+					rejectAsap = thunkify(propagateReject)(outcome)
 				switch (state) {
 					case "pending":
 						const
-							unSubscribe =
-								emitter.on("settle", ({ isSuccess, outcome: theOutcome }) => {
-									(isSuccess ? propagateResolve : propagateReject)(theOutcome);
-									unSubscribe();
-								});
+							sink = {resolve: propagateResolve, reject: propagateReject},
+							unsubscribe = () => {
+								emitter.removeSink(sink);
+							};
 
-						return unSubscribe;
+						emitter.addSink(sink);
+
+						return unsubscribe;
 					case "cancelled":
-						return noop;
+						break;
 					case "rejected":
-						setTimeout(propagateReject, 0, outcome);
-						return noop;
+						queueMicrotask(rejectAsap);
+						break;
 					case "resolved":
-						setTimeout(propagateResolve, 0, outcome);
-						return noop;
+						queueMicrotask(resolveAsap);
+						break;
 					default:
-						setTimeout(propagateReject, 0, new Error(`Unexpected cancelable deferred state: "${state}"`));
-						return noop;
+						queueMicrotask(() => {
+							propagateReject(new Error(`Unexpected cancelable deferred state: "${state}"`));
+						});
 				}
+				return noop;
 			};
 
 		return {

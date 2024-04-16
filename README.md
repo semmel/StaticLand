@@ -1,6 +1,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square)](https://www.npmjs.com/package/@visisoft/staticland) ![Statements](https://img.shields.io/badge/statements-91.2%25-brightgreen.svg?style=flat-square)
+[![Reactive Programming](https://img.shields.io/badge/code%20style-reactive%2C%20functional-blue?color=b7178c)](http://reactivex.io)
 
-[@visisoft/staticland](https://semmel.github.io/StaticLand/) v{{ config.meta.version }}
+[@visisoft/staticland](https://semmel.github.io/StaticLand/)
 ====================
 Support programming in functional pipelines by exposing a familiar set of operations on asynchronous, optional and faulty data.
 
@@ -8,7 +9,7 @@ Operations (Transforming, Lensing, Combination, etc.) on Algebraic Data Types (A
 
 Motivation
 -----
-For the motivation I'd like to refer to [James Sinclair's post on StaticLand][sinclair-static-land].
+Article series on FP by [James Sinclair][sinclair-static-land] and [Tom Harding][tom-harding-series].
 
 Data Types
 --------
@@ -144,5 +145,6 @@ A [closure] is the combination of a function and the lexical environment within 
 [wikipedia-fcompose]: https://en.wikipedia.org/wiki/Function_composition_(computer_science)
 [ramda-fantasy]: https://github.com/ramda/ramda-fantasy
 [crocks]: https://crocks.dev/docs/crocks/
-[sinclair-static-land]: https://jrsinclair.com/articles/2020/whats-more-fantastic-than-fantasy-land-static-land
+[sinclair-static-land]: https://jrsinclair.com/web-development/
 [adispring-comment]: https://github.com/ramda/ramda/issues/3264#issuecomment-1101877126
+[tom-harding-series]: http://www.tomharding.me/fantasy-land

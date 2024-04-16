@@ -1,9 +1,9 @@
-import Emittery from "emittery";
+import createEmitter from './internal/emitter.js';
+import { thunkify } from "ramda";
 
 const
 	share = cc => (function() {
 		const
-			emitter = new Emittery(),
 			doNothing = () => undefined;
 
 		// mutable state
@@ -11,62 +11,52 @@ const
 			cancelRunningComputation = doNothing(),
 			isFinallyResolved = false,
 			isFinallyRejected = false,
-			previousListenerCount = 0,
 			finalOutcome;
 
-		emitter.on(Emittery.listenerRemoved, (function() {
-			return function onListenerRemoved() {
-				//console.log(`listenerRemoved: count=${emitter.listenerCount("settle")}, previousCount=${previousListenerCount}`);
-				if ((emitter.listenerCount("settle") === 0) && (previousListenerCount > 0)
-				&& !isFinallyResolved && !isFinallyRejected) {
+		const
+			onLastSinkRemoved = () => {
+				if (!isFinallyResolved && !isFinallyRejected) {
 					// abort the running computation if the number of consumers drops to zero
 					cancelRunningComputation();
 				}
+			},
 
-				previousListenerCount = emitter.listenerCount("settle");
-			};
-		}()));
+			// run once for all when the number of consumers exceeds zero
+			onFirstSinkAdded = () => {
+				cancelRunningComputation = cc(
+					value => {
+						finalOutcome = value;
+						isFinallyResolved = true;
+						emitter.emitOnce({outcome: value, isSuccess: true});
+					},
+					error => {
+						finalOutcome = error;
+						isFinallyRejected = true;
+						emitter.emitOnce({outcome: error, isSuccess: false});
+					}
+				);
+			},
 
-		emitter.on(Emittery.listenerAdded, (function() {
-			return function onListenerAdded() {
-				//console.log(`listenerAdded: count=${emitter.listenerCount("settle")}, previousCount=${previousListenerCount}`);
-				if ((emitter.listenerCount("settle") > 0) && (previousListenerCount === 0)) {
-					// run once for all when the number of consumers exceeds zero
-					cancelRunningComputation = cc(
-						value => {
-							finalOutcome = value;
-							isFinallyResolved = true;
-							emitter.emit("settle", {outcome: value, isSuccess: true});
-						},
-						error => {
-							finalOutcome = error;
-							isFinallyRejected = true;
-							emitter.emit("settle", {outcome: error, isSuccess: false});
-						}
-					);
-				}
-
-				previousListenerCount = emitter.listenerCount("settle");
-			};
-		}()));
+			emitter = createEmitter({onFirstSinkAdded, onLastSinkRemoved});
 
 		return (resolve, reject) => {
 			if (isFinallyResolved) {
-				setTimeout(resolve, 0, finalOutcome);
+				const resolveAsap = thunkify(resolve)(finalOutcome);
+				queueMicrotask(resolveAsap);
 				return doNothing;
 			}
 
 			if (isFinallyRejected) {
-				setTimeout(reject, 0, finalOutcome);
+				const rejectAsap = thunkify(reject)(finalOutcome);
+				queueMicrotask(rejectAsap);
 				return doNothing;
 			}
 
 			const
-				unConsume =
-					emitter.on("settle", ({isSuccess, outcome}) => {
-						(isSuccess ? resolve : reject)(outcome);
-						unConsume();
-					});
+				sink = { resolve, reject },
+				unConsume = () => { emitter.removeSink(sink); };
+
+			emitter.addSink(sink);
 
 			return unConsume;
 		};

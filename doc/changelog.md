@@ -1,5 +1,14 @@
 Changelog v{{ config.meta.version }}
 =========
+3.0.0
+---
+*breaking*
+- update to Ramda `v0.29.1`
+- `cancelable/deferred` now uses the [Microtask queue][microtask] (i.e. `queueMicrotask`) instead of the Macrotask queue (i.e. `setTimeout`)
+
+*features*
+- removed `emittery` dependency 
+
 2.0.0-alpha.3
 ----
 - un-deprecated `cancelable/fetchResponse`
@@ -206,3 +215,4 @@ Changelog v{{ config.meta.version }}
 - Added transformations fo Either and Maybe to Promise
 
 [wks]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol#well-known_symbols
+[microtask]: https://javascript.info/event-loop#macrotasks-and-microtasks

@@ -22,5 +22,4 @@ npm-debug.log*
 
 #generated files
 /test/helpers/hirestime.mjs
-/src-external/emittery.d.ts
-/src-external/emittery.js
+coverage/
