@@ -8,7 +8,7 @@ const
 					resolveInner = res,
 					rejectInner = rej;
 
-				setTimeout(		// guard against synchronous callback calls
+				queueMicrotask(		// guard against synchronous callback calls
 					() => {
 						callbackComputation(...args, (error, result) => {
 							if (error) {
@@ -17,8 +17,7 @@ const
 								resolveInner(result);
 							}
 						});
-					},
-					0
+					}
 				);
 
 				return () => {

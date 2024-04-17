@@ -1,5 +1,11 @@
 Changelog
 =========
+2.1.0
+---
+
+### Cancelables
+`fromNodeCallback`, `of`, `reject` also moved from using the Macrotask queue (`setTimeout`) to the Microtask queue
+
 2.0.0
 ---
 *breaking*
