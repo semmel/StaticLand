@@ -79,8 +79,10 @@ class Maybe {
 			}
 
 			// else continue with a Next
-			maybeStep.cata(identity, nextA => { step = nextA; });
-			//step = maybeStep.$value; // alternative
+			// we can do this too. It however must call teh continuation immediately in the same call stack run
+			//maybeStep.cata(identity, nextA => { step = nextA; });
+
+			step = maybeStep.$value; // alternative
 		}
 		while(!step.isDone);
 
