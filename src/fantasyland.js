@@ -6,3 +6,5 @@ export { default as pluck } from './fantasyland/pluck.js';
 export { default as sequence } from './fantasyland/sequence.js';
 export { default as traverse } from './fantasyland/traverse.js';
 
+// TODO chainRec pure dispatcher function w/o Array impl
+// see https://github.com/ramda/ramda/pull/1908
