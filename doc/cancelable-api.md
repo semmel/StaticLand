@@ -196,6 +196,7 @@ Maps failure via `onFailure` and success via `onSuccess` to new success value.
 ### `biMap(fnLeft, fn, cancelable)`
 `:: Cancelable c ⇒ (x → y) → (a → b) → c x a → c y b`
 
+
 ### ~~`pluck(key)`~~ 
 `:: Cancelable c ⇒ k → c {k: v} → c v`
 
@@ -204,6 +205,7 @@ Maps failure via `onFailure` and success via `onSuccess` to new success value.
 Simply `k => map(R.prop(k))` for mapping to a key value.
 
 *Deprecated* use `pluck` from Ramda or `fantasyland/pluck`.
+
 
 ### `chain(f, cancelable)`
 `:: (a → Cancelable b) → Cancelable a → Cancelable b`
@@ -227,14 +229,25 @@ Combinations
 
 *Parallel* running version: It runs both Cancelable arguments in parallel.
 
-Note that *if it was* implemented simply `ap(mf, ma) = chain(f => map(f, ma), mf)` will *not* run the Cancelable Computations in *parallel*.
+Note that the textbook version `ap(mf, ma) = chain(f => map(f, ma), mf)` — in contrast — does run the Cancelable Computations in *parallel*.
 
 ### `liftA2(f, ccA , ccB)`
 `:: (a → b → c) → Cancelable a → Cancelable b → Cancelable c`
 
-Equivalent to `(f, pa, pb) => Promise.all([pa, pb]).then(([a, b]) => f(a, b))`. `f` must be curried.
+`liftA2(f)` returns a function which takes two Cancelables as arguments and returns a Cancelable as result.
 
-Note that when implemented by *sequentially* running *ap*, `liftA2(f, ma, mb) = ap(map(f, ma), mb)` will *not* run the Cancelable Computations in *parallel*.
+`f` must be curried or auto-curried.
+
+#### Similarity with `Promise.all`
+
+With `pair = a => b => [a, b]`, `liftA2(pair)` is the equivalent to `(a, b) => Promise.all([a, b])`.
+Both Cancelables run in parallel.
+
+The equivalent to `Promise.all :: [Promise a] -> Promise [a]` though is `sequence(Cancelable) :: [Cancelable a] -> Cancelable [a]`.
+
+#### General note on `lift` from Ramda
+
+When using `lift` from Ramda instead of `liftA2`, `liftA3`, …, the resulting "lifted" function is *auto-curried* with the right arity only if `f` is also auto-curried. Otherwise, the "lifted" function is *not curried* despite reporting the arity of 1. 
 
 ### `liftA3(f, ccA , ccB, ccC)`
 `:: (a → b → c → d) → Cancelable a → Cancelable b → Cancelable c → Cancelable d`

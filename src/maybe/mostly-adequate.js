@@ -1,5 +1,6 @@
 import { equals, identity, isNil } from "ramda";
 import map from '../fantasyland/map.js';
+import { Next, Done } from "../internal/_iteration.js";
 
 const
 	TYPE_IDENTIFIER = "@visisoft/staticland/Maybe";
@@ -59,6 +60,36 @@ class Maybe {
 	get [Symbol.toStringTag]() {
       return "Maybe";
   }
+
+  // https://web.archive.org/web/20230924043628/http://www.tomharding.me/2017/05/30/fantas-eel-and-specification-14/
+	// :: ((a -> Maybe Step a b, b -> Maybe Step a b, a) -> Maybe Step a b, a) -> Maybe b
+   static chainRec(fStep, x) {
+		// :: Step a
+		let step = Next(x);
+
+		do {
+			const
+				// Maybe Step a
+				maybeStep = fStep(Next, Done, step.value);
+
+			//console.log(maybeStep, maybeStep.value);
+
+			if (maybeStep.isNothing) {
+				return maybeStep;    // if Nothing end with Nothing
+			}
+
+			// else continue with a Next
+			maybeStep.cata(identity, nextA => { step = nextA; });
+			//step = maybeStep.$value; // alternative
+		}
+		while(!step.isDone);
+
+		return Maybe.of(step.value);
+	}
+
+	static ['fantasy-land/chainRec'](fStep, x) {
+		return Maybe.chainRec(fStep, x);
+	}
 }
 
 class Nothing extends Maybe {
