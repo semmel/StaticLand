@@ -493,6 +493,26 @@
     liftA2(f, ccA , ccB)
   </a>
   
+    <nav class="md-nav" aria-label="liftA2(f, ccA , ccB)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#similarity-with-promiseall" class="md-nav__link">
+    Similarity with Promise.all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#general-note-on-lift-from-ramda" class="md-nav__link">
+    General note on lift from Ramda
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -938,6 +958,26 @@
     liftA2(f, ccA , ccB)
   </a>
   
+    <nav class="md-nav" aria-label="liftA2(f, ccA , ccB)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#similarity-with-promiseall" class="md-nav__link">
+    Similarity with Promise.all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#general-note-on-lift-from-ramda" class="md-nav__link">
+    General note on lift from Ramda
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1177,11 +1217,17 @@ new Promise(numberOfCDNJSLibraries)       // running
 <h3 id="apcancelablefunc-cancelable"><code>ap(cancelableFunc, cancelable)</code></h3>
 <p><code>:: Cancelable (a → b) → Cancelable a → Cancelable b</code></p>
 <p><em>Parallel</em> running version: It runs both Cancelable arguments in parallel.</p>
-<p>Note that <em>if it was</em> implemented simply <code>ap(mf, ma) = chain(f =&gt; map(f, ma), mf)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<p>Note that the textbook version <code>ap(mf, ma) = chain(f =&gt; map(f, ma), mf)</code> — in contrast — does run the Cancelable Computations in <em>parallel</em>.</p>
 <h3 id="lifta2f-cca-ccb"><code>liftA2(f, ccA , ccB)</code></h3>
 <p><code>:: (a → b → c) → Cancelable a → Cancelable b → Cancelable c</code></p>
-<p>Equivalent to <code>(f, pa, pb) =&gt; Promise.all([pa, pb]).then(([a, b]) =&gt; f(a, b))</code>. <code>f</code> must be curried.</p>
-<p>Note that when implemented by <em>sequentially</em> running <em>ap</em>, <code>liftA2(f, ma, mb) = ap(map(f, ma), mb)</code> will <em>not</em> run the Cancelable Computations in <em>parallel</em>.</p>
+<p><code>liftA2(f)</code> returns a function which takes two Cancelables as arguments and returns a Cancelable as result.</p>
+<p><code>f</code> must be curried or auto-curried.</p>
+<h4 id="similarity-with-promiseall">Similarity with <code>Promise.all</code></h4>
+<p>With <code>pair = a =&gt; b =&gt; [a, b]</code>, <code>liftA2(pair)</code> is the equivalent to <code>(a, b) =&gt; Promise.all([a, b])</code>.
+Both Cancelables run in parallel.</p>
+<p>The equivalent to <code>Promise.all :: [Promise a] -&gt; Promise [a]</code> though is <code>sequence(Cancelable) :: [Cancelable a] -&gt; Cancelable [a]</code>.</p>
+<h4 id="general-note-on-lift-from-ramda">General note on <code>lift</code> from Ramda</h4>
+<p>When using <code>lift</code> from Ramda instead of <code>liftA2</code>, <code>liftA3</code>, …, the resulting "lifted" function is <em>auto-curried</em> with the right arity only if <code>f</code> is also auto-curried. Otherwise, the "lifted" function is <em>not curried</em> despite reporting the arity of 1. </p>
 <h3 id="lifta3f-cca-ccb-ccc"><code>liftA3(f, ccA , ccB, ccC)</code></h3>
 <p><code>:: (a → b → c → d) → Cancelable a → Cancelable b → Cancelable c → Cancelable d</code></p>
 <h3 id="lifta4f-cca-ccb-ccc-ccd"><code>liftA4(f, ccA , ccB, ccC, ccD)</code></h3>
