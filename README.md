@@ -1,4 +1,4 @@
-[![NPM Version](https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square)](https://www.npmjs.com/package/@visisoft/staticland) ![Statements](https://img.shields.io/badge/statements-85.39%25-yellow.svg?style=flat-square)
+[![NPM Version](https://img.shields.io/npm/v/@visisoft/staticland.svg?style=flat-square)](https://www.npmjs.com/package/@visisoft/staticland) ![Statements](https://img.shields.io/badge/statements-85.57%25-yellow.svg?style=flat-square)
 [![Reactive Programming](https://img.shields.io/badge/code%20style-reactive%2C%20functional-blue?color=b7178c)](http://reactivex.io)
 
 [@visisoft/staticland](https://semmel.github.io/StaticLand/)

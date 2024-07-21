@@ -1,5 +1,11 @@
 Changelog
 =========
+2.1.4
+---
+- test: fix lowered async delay which was too long for the GitHub CI
+- test: removed unused manual browser test page
+- chore: test with coverage only when publishing docs
+- chore: update to latest Ramda dependency
 
 2.1.0
 ---
