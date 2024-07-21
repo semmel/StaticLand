@@ -4,7 +4,7 @@
 		"url": "https://github.com/semmel/StaticLand/issues"
 	},
 	"dependencies": {
-		"ramda": "^0.29.1"
+		"ramda": "^0.30.1"
 	},
 	"description": "StaticLand functions for Algebraic Data Types based on native JavaScript types",
 	"devDependencies": {
@@ -12,11 +12,11 @@
 		"@most/types": "^1.1.0",
 		"@rollup/plugin-commonjs": "^24.1.0",
 		"@rollup/plugin-node-resolve": "^15.2.1",
-		"@types/ramda": "^0.29.12",
+		"@types/ramda": "^0.30.1",
 		"chai": "^4.3.8",
 		"hirestime": "^6.1.0",
 		"istanbul-badges-readme": "^1.8.5",
-		"mocha": "^10.2.0",
+		"mocha": "^10.7.0",
 		"msw": "^2.0.0",
 		"rollup": "^3.29.2"
 	},
@@ -93,7 +93,8 @@
 		"build:badges": "istanbul-badges-readme --style=\"flat-square\"",
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"postpack": "npm run remove_ts_defs_from_root",
-		"prepack": "npm run test:coverage && npm run build:cjs && npm run copy_ts_defs_into_root && mkdocs gh-deploy",
+		"prepack": "npm run test:coverage && npm run build:cjs && npm run copy_ts_defs_into_root",
+		"publish:docs": "mkdocs gh-deploy",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
 		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
 		"setup:test": "npm run setup:chai",
@@ -102,5 +103,5 @@
 		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"
 	},
 	"type": "module",
-	"version": "2.1.0"
+	"version": "2.1.1"
 }
