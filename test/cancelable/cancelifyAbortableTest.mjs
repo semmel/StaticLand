@@ -28,7 +28,7 @@ describe("cancelable/cancelifyAbortable", function () {
 			Promise.race([
 				new Promise((res, rej) => {
 					const cancel = cancelableExec(`${listCommand} package.json`, {})(res, rej);
-					setTimeout(cancel, 5);
+					setImmediate(cancel);
 				})
 				.finally(() => { assert.fail("cancelable should not continue"); }),
 
