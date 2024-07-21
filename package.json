@@ -94,10 +94,8 @@
 		"copy_ts_defs_into_root": "cp ./src/*.d.ts .",
 		"postpack": "npm run remove_ts_defs_from_root",
 		"prepack": "npm run test:coverage && npm run build:cjs && npm run copy_ts_defs_into_root",
-		"publish:docs": "mkdocs gh-deploy",
+		"publish:docs": "npm run build:docs && mkdocs gh-deploy",
 		"remove_ts_defs_from_root": "rm -v ./*.d.ts",
-		"setup:chai": "rollup --input node_modules/chai/chai.js --file test/helpers/chai.mjs -c scripts/rollup.cjs-dependencies.config.js",
-		"setup:test": "npm run setup:chai",
 		"test": "mocha",
 		"test:coverage": "c8 mocha",
 		"test:individual": "npx mocha --no-config test/readmeExampleTest.mjs"
