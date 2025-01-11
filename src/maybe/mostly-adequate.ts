@@ -100,7 +100,7 @@ class MaybeType implements ApplicativeType<MaybeType>{
 	}
 }
 
-class Nothing implements Maybe<void> {
+class Nothing implements Maybe<never> {
 
 	static [Symbol.hasInstance](instance) {
 		return instance instanceof Nothing && instance.isNothing;
@@ -124,16 +124,16 @@ class Nothing implements Maybe<void> {
 		return other instanceof Nothing;
 	}
 
-	cata<B>(nothingFn: () => B, unused: (a: any) => any) {
+	cata<B>(nothingFn: () => B, unused: (a: never) => any) {
 		return nothingFn();
 	}
 
 	// ----- Functor Maybe
-	map(fn: (a: any) => any) {
+	map(fn: (a: never) => any) {
 		return this;
 	}
 
-	['fantasy-land/map'](fn: (a: any) => any) {
+	['fantasy-land/map'](fn: (a: never) => any) {
 		return this.map(fn);
 	}
 
